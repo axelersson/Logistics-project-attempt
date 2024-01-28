@@ -21,11 +21,26 @@ builder.Services.AddCors(options =>
     });
 });
 
-// Initialize Firebase
+/* // Initialize Firebase
 FirebaseApp.Create(new AppOptions()
 {
     Credential = GoogleCredential.FromFile("C:/Users/axele/OneDrive/Dokument/GitHub/Logistics-project-attempt/server/env/testingdotnetandfirebase-firebase-adminsdk-gck0a-56846fdb9d.json")
 });
+ */
+
+try
+{
+    FirebaseApp.Create(new AppOptions()
+    {
+        Credential = GoogleCredential.FromFile("C:/Users/axele/OneDrive/Dokument/GitHub/Logistics-project-attempt/server/env/testingdotnetandfirebase-firebase-adminsdk-gck0a-56846fdb9d.json")
+    });
+    Console.WriteLine("Firebase initialized successfully.");
+}
+catch (Exception ex)
+{
+    Console.WriteLine($"Error initializing Firebase: {ex.Message}");
+}
+
 
 
 builder.Services.AddEndpointsApiExplorer();
@@ -40,12 +55,22 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
+    app.UseHttpsRedirection();
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
 app.UseHttpsRedirection();
 app.UseCors("AllowAngularDevOrigin");
+
+// In Configure method for ASP.NET Core 3.1
+app.UseRouting();
+
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllers();  // Map attribute-routed controllers
+});
+
 
 var summaries = new[]
 {

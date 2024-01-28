@@ -44,6 +44,10 @@
               "target": "Package",
               "version": "[2.4.0, )"
             },
+            "FirebaseDatabase.net": {
+              "target": "Package",
+              "version": "[4.2.0, )"
+            },
             "Microsoft.AspNetCore.OpenApi": {
               "target": "Package",
               "version": "[8.0.1, )"

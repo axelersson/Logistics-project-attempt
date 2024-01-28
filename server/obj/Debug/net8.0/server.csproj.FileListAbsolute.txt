@@ -42,3 +42,7 @@ C:\Users\axele\OneDrive\Dokument\GitHub\Logistics-project-attempt\server\obj\Deb
 C:\Users\axele\OneDrive\Dokument\GitHub\Logistics-project-attempt\server\obj\Debug\net8.0\server.genruntimeconfig.cache
 C:\Users\axele\OneDrive\Dokument\GitHub\Logistics-project-attempt\server\obj\Debug\net8.0\ref\server.dll
 C:\Users\axele\OneDrive\Dokument\GitHub\Logistics-project-attempt\server\bin\Debug\net8.0\env\testingdotnetandfirebase-firebase-adminsdk-gck0a-56846fdb9d.json
+C:\Users\axele\OneDrive\Dokument\GitHub\Logistics-project-attempt\server\bin\Debug\net8.0\Firebase.dll
+C:\Users\axele\OneDrive\Dokument\GitHub\Logistics-project-attempt\server\bin\Debug\net8.0\LiteDB.dll
+C:\Users\axele\OneDrive\Dokument\GitHub\Logistics-project-attempt\server\bin\Debug\net8.0\System.Reactive.dll
+C:\Users\axele\OneDrive\Dokument\GitHub\Logistics-project-attempt\server\bin\Debug\net8.0\System.Runtime.InteropServices.WindowsRuntime.dll
