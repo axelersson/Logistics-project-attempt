@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\axele\\OneDrive\\Dokument\\GitHub\\testingdotNETAndFirebase\\testingdotnetandfirebase\\testingdotnetandfirebase.csproj": {}
+    "C:\\Users\\axele\\OneDrive\\Dokument\\GitHub\\Logistics-project-attempt\\testingdotnetandfirebase\\testingdotnetandfirebase.csproj": {}
   },
   "projects": {
-    "C:\\Users\\axele\\OneDrive\\Dokument\\GitHub\\testingdotNETAndFirebase\\testingdotnetandfirebase\\testingdotnetandfirebase.csproj": {
+    "C:\\Users\\axele\\OneDrive\\Dokument\\GitHub\\Logistics-project-attempt\\testingdotnetandfirebase\\testingdotnetandfirebase.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\axele\\OneDrive\\Dokument\\GitHub\\testingdotNETAndFirebase\\testingdotnetandfirebase\\testingdotnetandfirebase.csproj",
+        "projectUniqueName": "C:\\Users\\axele\\OneDrive\\Dokument\\GitHub\\Logistics-project-attempt\\testingdotnetandfirebase\\testingdotnetandfirebase.csproj",
         "projectName": "testingdotnetandfirebase",
-        "projectPath": "C:\\Users\\axele\\OneDrive\\Dokument\\GitHub\\testingdotNETAndFirebase\\testingdotnetandfirebase\\testingdotnetandfirebase.csproj",
+        "projectPath": "C:\\Users\\axele\\OneDrive\\Dokument\\GitHub\\Logistics-project-attempt\\testingdotnetandfirebase\\testingdotnetandfirebase.csproj",
         "packagesPath": "C:\\Users\\axele\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\axele\\OneDrive\\Dokument\\GitHub\\testingdotNETAndFirebase\\testingdotnetandfirebase\\obj\\",
+        "outputPath": "C:\\Users\\axele\\OneDrive\\Dokument\\GitHub\\Logistics-project-attempt\\testingdotnetandfirebase\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\axele\\AppData\\Roaming\\NuGet\\NuGet.Config",

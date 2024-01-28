@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("testingdotnetandfirebase")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0259eacf2ac22af5142e2bb9934fc1ec43e5b59e")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8ec9efbd8037f59311756dd62680489878906cf4")]
 [assembly: System.Reflection.AssemblyProductAttribute("testingdotnetandfirebase")]
 [assembly: System.Reflection.AssemblyTitleAttribute("testingdotnetandfirebase")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

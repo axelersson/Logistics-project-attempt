@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "szkF30ADwfH6dJPA358+zI5KHhv6mpisoxSwDCSwchUjV8H2vcMTzTDvU1m1iqDOxlHYtJ0Xavcr0dX/8t+hSQ==",
+  "dgSpecHash": "o89Re7VoGXDTk5AC3jrenln/yEqCHEEnbgA+3cW2RsmQGAt67u6Pz1sLSfo7SZ1GOog0V/9Ob828wehpAhRvjA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\axele\\OneDrive\\Dokument\\GitHub\\testingdotNETAndFirebase\\testingdotnetandfirebase\\testingdotnetandfirebase.csproj",
+  "projectFilePath": "C:\\Users\\axele\\OneDrive\\Dokument\\GitHub\\Logistics-project-attempt\\testingdotnetandfirebase\\testingdotnetandfirebase.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\axele\\.nuget\\packages\\microsoft.aspnetcore.openapi\\8.0.1\\microsoft.aspnetcore.openapi.8.0.1.nupkg.sha512",
     "C:\\Users\\axele\\.nuget\\packages\\microsoft.extensions.apidescription.server\\6.0.5\\microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",
