@@ -21,12 +21,6 @@ builder.Services.AddCors(options =>
     });
 });
 
-/* // Initialize Firebase
-FirebaseApp.Create(new AppOptions()
-{
-    Credential = GoogleCredential.FromFile("C:/Users/axele/Documents/Github/Logistics-project-attempt/server/env/testingdotnetandfirebase-firebase-adminsdk-gck0a-6a509efb40.json"testingdotnetandfirebase-firebase-adminsdk-gck0a-6a509efb40.json")
-});
- */
 
 try
 {
@@ -65,11 +59,6 @@ app.UseCors("AllowAngularDevOrigin");
 
 // In Configure method for ASP.NET Core 3.1
 app.UseRouting();
-
-app.UseEndpoints(endpoints =>
-{
-    endpoints.MapControllers();  // Map attribute-routed controllers
-});
 
 
 var summaries = new[]

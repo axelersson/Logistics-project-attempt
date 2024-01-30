@@ -94,3 +94,4 @@ C:\Users\axele\Documents\Github\Logistics-project-attempt\server\obj\Debug\net8.
 C:\Users\axele\Documents\Github\Logistics-project-attempt\server\obj\Debug\net8.0\server.pdb
 C:\Users\axele\Documents\Github\Logistics-project-attempt\server\obj\Debug\net8.0\server.genruntimeconfig.cache
 C:\Users\axele\Documents\Github\Logistics-project-attempt\server\obj\Debug\net8.0\ref\server.dll
+C:\Users\axele\OneDrive\Dokument\GitHub\Logistics-project-attempt\server\bin\Debug\net8.0\env\testingdotnetandfirebase-firebase-adminsdk-gck0a-6a509efb40.json
