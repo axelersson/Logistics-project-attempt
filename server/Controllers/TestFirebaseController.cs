@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 [ApiController]
 [Route("[controller]")]
+
 public class TestFirebaseController : ControllerBase
 {
     private readonly FirebaseClient _firebaseClient;

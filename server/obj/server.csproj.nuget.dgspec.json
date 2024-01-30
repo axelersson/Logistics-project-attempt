@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\axele\\OneDrive\\Dokument\\GitHub\\Logistics-project-attempt\\server\\server.csproj": {}
+    "C:\\Users\\axele\\Documents\\Github\\Logistics-project-attempt\\server\\server.csproj": {}
   },
   "projects": {
-    "C:\\Users\\axele\\OneDrive\\Dokument\\GitHub\\Logistics-project-attempt\\server\\server.csproj": {
+    "C:\\Users\\axele\\Documents\\Github\\Logistics-project-attempt\\server\\server.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\axele\\OneDrive\\Dokument\\GitHub\\Logistics-project-attempt\\server\\server.csproj",
+        "projectUniqueName": "C:\\Users\\axele\\Documents\\Github\\Logistics-project-attempt\\server\\server.csproj",
         "projectName": "server",
-        "projectPath": "C:\\Users\\axele\\OneDrive\\Dokument\\GitHub\\Logistics-project-attempt\\server\\server.csproj",
+        "projectPath": "C:\\Users\\axele\\Documents\\Github\\Logistics-project-attempt\\server\\server.csproj",
         "packagesPath": "C:\\Users\\axele\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\axele\\OneDrive\\Dokument\\GitHub\\Logistics-project-attempt\\server\\obj\\",
+        "outputPath": "C:\\Users\\axele\\Documents\\Github\\Logistics-project-attempt\\server\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\axele\\AppData\\Roaming\\NuGet\\NuGet.Config",
