@@ -4008,19 +4008,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\axele\\.nuget\\packages\\": {}
+    "C:\\Users\\Linus\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\axele\\OneDrive\\Dokument\\GitHub\\Logistics-project-attempt\\server\\server.csproj",
+      "projectUniqueName": "F:\\Linus\\Arbete\\GIK2PG\\Project\\Logistics-project-attempt\\server\\server.csproj",
       "projectName": "server",
-      "projectPath": "C:\\Users\\axele\\OneDrive\\Dokument\\GitHub\\Logistics-project-attempt\\server\\server.csproj",
-      "packagesPath": "C:\\Users\\axele\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\axele\\OneDrive\\Dokument\\GitHub\\Logistics-project-attempt\\server\\obj\\",
+      "projectPath": "F:\\Linus\\Arbete\\GIK2PG\\Project\\Logistics-project-attempt\\server\\server.csproj",
+      "packagesPath": "C:\\Users\\Linus\\.nuget\\packages\\",
+      "outputPath": "F:\\Linus\\Arbete\\GIK2PG\\Project\\Logistics-project-attempt\\server\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "C:\\Users\\axele\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Linus\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [

@@ -29,7 +29,7 @@ try
     // Skapa en Firebase-app med angivna inställningar
     FirebaseApp.Create(new AppOptions()
     {
-        Credential = GoogleCredential.FromFile("C:/Users/axele/OneDrive/Dokument/GitHub/Logistics-project-attempt/server/env/testingdotnetandfirebase-firebase-adminsdk-gck0a-56846fdb9d.json")
+        Credential = GoogleCredential.FromFile("F:/Linus/Arbete/GIK2PG/Project/Logistics-project-attempt/server/env/linus-thing-firebase-adminsdk-v0ftt-066a98d462.json")
     });
     Console.WriteLine("Firebase initialized successfully.");
 }

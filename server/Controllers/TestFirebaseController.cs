@@ -13,7 +13,7 @@ public class TestFirebaseController : ControllerBase
 
     public TestFirebaseController()
     {
-        _firebaseClient = new FirebaseClient("https://testingdotnetandfirebase-default-rtdb.europe-west1.firebasedatabase.app/");
+        _firebaseClient = new FirebaseClient("https://linus-thing-default-rtdb.europe-west1.firebasedatabase.app/");
     }
 
     [HttpGet("test")]
