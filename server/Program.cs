@@ -5,25 +5,28 @@ using Microsoft.Extensions.Hosting;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+// Lägg till tjänster i containern.
+// Läs mer om att konfigurera Swagger/OpenAPI på https://aka.ms/aspnetcore/swashbuckle
 
-// Add services to the container.
 builder.Services.AddControllers();
 
 builder.Services.AddCors(options =>
 {
+    // Definiera en CORS-policy med namnet "AllowAngularDevOrigin".
+    // Detta tillåter begäranden från specificerade Angular-utvecklingsportar.
     options.AddPolicy("AllowAngularDevOrigin", policyBuilder =>
     {
-        policyBuilder.WithOrigins("http://localhost:4200", "http://localhost:4201") // Ports for Angular apps
+        // Tillåt begäranden från Angular-utvecklingsservrar på portarna 4200 och 4201.
+        // Tillåt alla HTTP-metoder och alla headers från dessa källor.
+        policyBuilder.WithOrigins("http://localhost:4200", "http://localhost:4201") 
                      .AllowAnyMethod()
                      .AllowAnyHeader();
     });
 });
 
-
 try
 {
+    // Skapa en Firebase-app med angivna inställningar
     FirebaseApp.Create(new AppOptions()
     {
         Credential = GoogleCredential.FromFile("C:/Users/axele/OneDrive/Dokument/GitHub/Logistics-project-attempt/server/env/testingdotnetandfirebase-firebase-adminsdk-gck0a-56846fdb9d.json")
@@ -32,21 +35,20 @@ try
 }
 catch (Exception ex)
 {
+    // Skriv ut felmeddelande om initialisering av Firebase misslyckas
     Console.WriteLine($"Error initializing Firebase: {ex.Message}");
 }
 
-
-
+// Lägg till API Explorer och Swagger Generator
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-// Add other necessary services like controllers
-//builder.Services.AddControllers(); need this?
-
+// Lägg till andra nödvändiga tjänster som kontroller
+// builder.Services.AddControllers(); Behövs detta?
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// Konfigurera HTTP-begäran pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseHttpsRedirection();
@@ -55,35 +57,13 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+// Aktivera CORS för begäranden som matchar "AllowAngularDevOrigin"-policyn.
+// Detta tillåter din webbapplikation att kommunicera med frontend i Angular
+// även om de körs på olika servrar eller portar under utveckling.
 app.UseCors("AllowAngularDevOrigin");
 
-// In Configure method for ASP.NET Core 3.1
+// I Configure-metoden för ASP.NET Core 3.1
 app.UseRouting();
 
-
-var summaries = new[]
-{
-    "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
-
-app.MapGet("/weatherforecast", () =>
-{
-    var forecast =  Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
-        (
-            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
-})
-.WithName("GetWeatherForecast")
-.WithOpenApi();
-
 app.Run();
-
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}
