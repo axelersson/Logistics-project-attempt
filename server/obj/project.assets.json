@@ -1626,19 +1626,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\axele\\.nuget\\packages\\": {}
+    "C:\\Users\\admin\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\axele\\OneDrive\\Dokument\\GitHub\\Logistics-project-attempt\\server\\server.csproj",
+      "projectUniqueName": "D:\\DotNetProject\\Xlent\\Logistics-project-attempt\\server\\server.csproj",
       "projectName": "server",
-      "projectPath": "C:\\Users\\axele\\OneDrive\\Dokument\\GitHub\\Logistics-project-attempt\\server\\server.csproj",
-      "packagesPath": "C:\\Users\\axele\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\axele\\OneDrive\\Dokument\\GitHub\\Logistics-project-attempt\\server\\obj\\",
+      "projectPath": "D:\\DotNetProject\\Xlent\\Logistics-project-attempt\\server\\server.csproj",
+      "packagesPath": "C:\\Users\\admin\\.nuget\\packages\\",
+      "outputPath": "D:\\DotNetProject\\Xlent\\Logistics-project-attempt\\server\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\axele\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [

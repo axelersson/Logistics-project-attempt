@@ -26,7 +26,7 @@ try
 {
     FirebaseApp.Create(new AppOptions()
     {
-        Credential = GoogleCredential.FromFile("C:/Users/axele/OneDrive/Dokument/GitHub/Logistics-project-attempt/server/env/testingdotnetandfirebase-firebase-adminsdk-gck0a-56846fdb9d.json")
+        Credential = GoogleCredential.FromFile("D:\\DotNetProject\\Xlent\\Logistics-project-attempt\\server\\bin\\Debug\\net8.0\\env\\testforfirebaseanddotnet-firebase-adminsdk-36t2f-8cc1ac185e.json")
     });
     Console.WriteLine("Firebase initialized successfully.");
 }

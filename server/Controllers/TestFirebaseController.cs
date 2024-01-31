@@ -13,7 +13,7 @@ public class TestFirebaseController : ControllerBase
 
     public TestFirebaseController()
     {
-        _firebaseClient = new FirebaseClient("https://testingdotnetandfirebase-default-rtdb.europe-west1.firebasedatabase.app/");
+        _firebaseClient = new FirebaseClient("https://testforfirebaseanddotnet-default-rtdb.europe-west1.firebasedatabase.app/");
     }
 
     [HttpGet("test")]
@@ -23,7 +23,7 @@ public class TestFirebaseController : ControllerBase
         {
             var result = await _firebaseClient
                 .Child("test")
-                .PostAsync(new { message = "Hello, Firebase!" });
+                .PostAsync(new { message = "Hello, Firebase! This is Achan" });
 
             return Ok(new { Success = true, Result = result });
         }
