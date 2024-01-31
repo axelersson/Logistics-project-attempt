@@ -4,5 +4,8 @@
     "@angular/fire": "^17.0.1",
     "@angular/router": "^17.1.1",
     "firebase": "^10.7.2"
+  },
+  "devDependencies": {
+    "prettier": "^3.2.4"
   }
 }
