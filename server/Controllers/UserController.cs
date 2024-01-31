@@ -2,11 +2,17 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq; // For JObject
+
+
 
 [ApiController]
 [Route("[controller]")]
 public class UserController : ControllerBase
 {
+
+    
     private readonly FirebaseService _firebaseService;
     private readonly ILogger<UserController> _logger;
 
@@ -19,13 +25,58 @@ public class UserController : ControllerBase
         _firebaseService = firebaseService;
         _logger = logger;
     }
+     // Corrected the placement of DeserializeUsers method
+    private List<User> DeserializeUsers(string usersData)
+{
+    var usersList = new List<User>();
+    var usersJObject = JObject.Parse(usersData);
 
-    [HttpGet]
-    public ActionResult<IEnumerable<User>> GetAll()
+    foreach (var userProperty in usersJObject.Properties())
     {
-        _logger.LogInformation("GetAll endpoint called");
-        return Ok(users); // Return the list of users
+        var userId = userProperty.Name;
+        var userEntries = userProperty.Value;
+
+        foreach (var entry in userEntries.Children<JProperty>())
+        {
+            var userEntry = entry.Value;
+            var user = userEntry.ToObject<User>();
+
+            if (user != null)
+            {
+                // Ensure UserID is set correctly (it might be different from Firebase's random key)
+                user.UserId = userId;
+                usersList.Add(user);
+            }
+        }
     }
+
+    return usersList;
+}
+
+
+
+
+[HttpGet]
+public async Task<ActionResult<IEnumerable<User>>> GetAll()
+{
+    _logger.LogInformation("GetAll endpoint called");
+
+    // Fetch the users from Firebase
+    var response = await _firebaseService.GetDataAsync("users");
+
+    if (!response.IsSuccessStatusCode)
+    {
+        return StatusCode((int)response.StatusCode, await response.Content.ReadAsStringAsync());
+    }
+
+    var usersData = await response.Content.ReadAsStringAsync();
+    _logger.LogInformation(usersData);
+    // Deserialize the data from Firebase into User objects
+    // Assuming _firebaseService.GetDataAsync returns the JSON structure directly from Firebase
+    var users = DeserializeUsers(usersData);
+
+    return Ok(users);
+}
 
     [HttpGet("{id}")]
     public ActionResult<User> GetById(string id)
