@@ -34,18 +34,17 @@ public class UserController : ControllerBase
     foreach (var userProperty in usersJObject.Properties())
     {
         var userId = userProperty.Name;
-        var userEntries = userProperty.Value;
 
         foreach (var entry in userEntries.Children<JProperty>())
         {
             var userEntry = entry.Value;
             var user = userEntry.ToObject<User>();
 
-            if (user != null)
-            {
-                // Ensure UserID is set correctly (it might be different from Firebase's random key)
-                user.UserId = userId;
-                usersList.Add(user);
+        if (user != null)
+        {
+            // Ensure UserID is set correctly (it might be different from Firebase's random key)
+            user.UserId = userId;
+            usersList.Add(user);
             }
         }
     }
