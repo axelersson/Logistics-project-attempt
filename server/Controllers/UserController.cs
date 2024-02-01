@@ -117,10 +117,12 @@ public async Task<ActionResult<User>> GetById(string id)
 
 
     [HttpPost] // POST USER
-    public async Task<IActionResult> AddUser([FromBody] User newUser)
-    {
-        _logger.LogInformation("AddUser endpoint called");
+public async Task<IActionResult> AddUser([FromBody] User newUser)
+{
+    _logger.LogInformation("AddUser endpoint called");
 
+    try
+    {
         // Fetch the users from Firebase to check for duplicates
         var getAllResponse = await _firebaseService.GetDataAsync("users");
         if (!getAllResponse.IsSuccessStatusCode)
@@ -134,24 +136,30 @@ public async Task<ActionResult<User>> GetById(string id)
         var existingUser = allUsers.Find(u => u.Username == newUser.Username);
         if (existingUser != null)
         {
-            return BadRequest("User already exists.");
+            return Conflict("User already exists.");
         }
 
-    // Hash the password using BCrypt
-    newUser.PasswordHash = BCrypt.Net.BCrypt.HashPassword(newUser.PasswordHash);
+        // Hash the password using BCrypt
+        newUser.PasswordHash = BCrypt.Net.BCrypt.HashPassword(newUser.PasswordHash);
 
-    // Path where the user data will be stored. You can customize the path as per your requirement.
-    string path = $"users/{newUser.UserId}";
+        // Path where the user data will be stored. You can customize the path as per your requirement.
+        string path = $"users/{newUser.UserId}";
 
-    // Sending POST request to Firebase
-    var response = await _firebaseService.PostDataAsync(path, newUser);
+        // Sending POST request to Firebase
+        var response = await _firebaseService.PostDataAsync(path, newUser);
 
-    if (response.IsSuccessStatusCode)
-    {
-        return Ok(new { message = "User added successfully", userId = newUser.UserId });
+        if (response.IsSuccessStatusCode)
+        {
+            return Ok(new { message = "User added successfully", userId = newUser.UserId });
+        }
+
+        return StatusCode((int)response.StatusCode, await response.Content.ReadAsStringAsync());
     }
-
-    return StatusCode((int)response.StatusCode, await response.Content.ReadAsStringAsync());
+    catch (Exception ex)
+    {
+        _logger.LogError($"Error adding user: {ex.Message}");
+        return StatusCode(500, "Internal server error");
+    }
 }
 
 

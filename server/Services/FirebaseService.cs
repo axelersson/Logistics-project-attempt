@@ -12,7 +12,7 @@ public class FirebaseService
     public FirebaseService(HttpClient httpClient, ILogger<UserController> logger)
     {
         _httpClient = httpClient;
-        _baseAddress = "https://testingdotnetandfirebase-default-rtdb.europe-west1.firebasedatabase.app/"; // Your Firebase project URL
+        _baseAddress = "https://db-log-c57ea-default-rtdb.firebaseio.com/"; // Your Firebase project URL
         _logger = logger;
     }
 
