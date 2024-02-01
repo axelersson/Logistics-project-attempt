@@ -26,27 +26,32 @@ public class UserController : ControllerBase
         _logger = logger;
     }
      // Corrected the placement of DeserializeUsers method
-    private List<User> DeserializeUsers(string usersData)
+private List<User> DeserializeUsers(string usersData)
 {
     var usersList = new List<User>();
     var usersJObject = JObject.Parse(usersData);
 
+    // Iterate over each user by UUID
     foreach (var userProperty in usersJObject.Properties())
     {
         var userId = userProperty.Name;
-        var userEntries = userProperty.Value;
+        var userEntry = userProperty.Value;
 
-        foreach (var entry in userEntries.Children<JProperty>())
+        // If the user data is further nested, we access the nested object, otherwise we work with the current one
+        if (userEntry.Children<JProperty>().Any(child => child.Name.StartsWith("-Np")))
         {
-            var userEntry = entry.Value;
-            var user = userEntry.ToObject<User>();
+            userEntry = userEntry.Children<JProperty>().First().Value; // Assuming there's only one nested object
+        }
 
-            if (user != null)
-            {
-                // Ensure UserID is set correctly (it might be different from Firebase's random key)
-                user.UserId = userId;
-                usersList.Add(user);
-            }
+        var user = userEntry.ToObject<User>(new JsonSerializer
+        {
+            MissingMemberHandling = MissingMemberHandling.Ignore
+        });
+
+        if (user != null)
+        {
+            user.UserId = userId; // Ensure UserID is set correctly
+            usersList.Add(user);
         }
     }
 
@@ -56,7 +61,7 @@ public class UserController : ControllerBase
 
 
 
-[HttpGet] // GET ALL USERS *************************** FIX TO NOT INCLUDE PASSWORDS
+[HttpGet] // GET ALL USERS
 public async Task<ActionResult<IEnumerable<User>>> GetAll()
 {
     _logger.LogInformation("GetAll endpoint called");
@@ -71,12 +76,17 @@ public async Task<ActionResult<IEnumerable<User>>> GetAll()
 
     var usersData = await response.Content.ReadAsStringAsync();
     _logger.LogInformation(usersData);
+
     // Deserialize the data from Firebase into User objects
-    // Assuming _firebaseService.GetDataAsync returns the JSON structure directly from Firebase
     var users = DeserializeUsers(usersData);
 
-    return Ok(users);
+    // Return the users with all details including PasswordHash
+    return Ok(usersData);
 }
+
+
+
+
 [HttpGet("{id}")] // GET BY ID ***************************************************************** THIS RETURNS PASSWORDS
 public async Task<ActionResult<User>> GetById(string id)
 {
