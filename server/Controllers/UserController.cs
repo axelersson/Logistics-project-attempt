@@ -26,7 +26,7 @@ public class UserController : ControllerBase
         _logger = logger;
     }
      // Corrected the placement of DeserializeUsers method
-    private List<User> DeserializeUsers(string usersData)
+private List<User> DeserializeUsers(string usersData)
 {
     var usersList = new List<User>();
     var usersJObject = JObject.Parse(usersData);
@@ -34,25 +34,29 @@ public class UserController : ControllerBase
     foreach (var userProperty in usersJObject.Properties())
     {
         var userId = userProperty.Name;
-        var userEntries = userProperty.Value;
 
-        foreach (var entry in userEntries.Children<JProperty>())
+        // Skip the 'PasswordHash' field if it exists
+        if (userId == "PasswordHash")
         {
-            var userEntry = entry.Value;
-            var user = userEntry.ToObject<User>();
+            continue;
+        }
 
-            if (user != null)
-            {
-                // Ensure UserID is set correctly (it might be different from Firebase's random key)
-                user.UserId = userId;
-                usersList.Add(user);
-            }
+        var userEntry = userProperty.Value;
+        var user = userEntry.ToObject<User>(new JsonSerializer
+        {
+            MissingMemberHandling = MissingMemberHandling.Ignore // Ignore missing fields in JSON
+        });
+
+        if (user != null)
+        {
+            // Ensure UserID is set correctly (it might be different from Firebase's random key)
+            user.UserId = userId;
+            usersList.Add(user);
         }
     }
 
     return usersList;
 }
-
 
 
 
