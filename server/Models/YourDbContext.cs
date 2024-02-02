@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace LogisticsApp.Data // Change to your actual namespace
 {
-    public class YourDbContext : DbContext
+    public class LogisticsDBContext : DbContext
     {
-        public YourDbContext(DbContextOptions<YourDbContext> options) : base(options)
+        public LogisticsDBContext(DbContextOptions<LogisticsDBContext> options) : base(options)
         {
         }
 
