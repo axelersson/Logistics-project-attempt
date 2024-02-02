@@ -1,11 +1,12 @@
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 
-namespace YourDbContext // Change to your actual namespace
+
+namespace Applicationdb // Change to your actual namespace
 {
-    public class YourDbContext : DbContext
+    public class Applicationdb : DbContext
     {
-        public YourDbContext(DbContextOptions<YourDbContext> options) : base(options)
+        public Applicationdb(DbContextOptions<Applicationdb> options) : base(options)
         {
         }
 
