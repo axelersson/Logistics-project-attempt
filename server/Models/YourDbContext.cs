@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 
-namespace YourDbContext // Change to your actual namespace
+namespace LogisticsApp.Data // Change to your actual namespace
 {
     public class YourDbContext : DbContext
     {

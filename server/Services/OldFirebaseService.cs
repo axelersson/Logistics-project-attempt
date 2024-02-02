@@ -8,8 +8,8 @@ public class FirebaseService
 {
     private readonly HttpClient _httpClient;
     private readonly string _baseAddress;
-    private readonly ILogger<UserController> _logger;
-    public FirebaseService(HttpClient httpClient, ILogger<UserController> logger)
+    private readonly ILogger<OldUserController> _logger;
+    public FirebaseService(HttpClient httpClient, ILogger<OldUserController> logger)
     {
         _httpClient = httpClient;
         _baseAddress = "https://testingdotnetandfirebase-default-rtdb.europe-west1.firebasedatabase.app/"; // Your Firebase project URL
