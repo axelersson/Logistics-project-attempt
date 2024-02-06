@@ -14,16 +14,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have the 'testingdotnetandfirebase-Web' title`, () => {
+  it(`should have the 'project-to-copy-from' title`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('testingdotnetandfirebase-Web');
+    expect(app.title).toEqual('project-to-copy-from');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, testingdotnetandfirebase-Web');
+    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, project-to-copy-from');
   });
 });
