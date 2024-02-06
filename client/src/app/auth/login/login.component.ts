@@ -19,16 +19,21 @@ export class LoginComponent {
 
   onLogin() {
     if (this.loginForm.valid) {
-      this.authService.login(this.loginForm.value).subscribe(
-        (response) => {
-          console.log(response);
-          // Handle successful login here
-        },
-        (error) => {
-          console.error(error);
-          // Handle login error here
-        },
-      );
+      this.authService
+        .login({
+          username: this.loginForm.value.username!,
+          password: this.loginForm.value.password!,
+        })
+        .subscribe(
+          (response) => {
+            console.log(response);
+            // Handle successful login here
+          },
+          (error) => {
+            console.error(error);
+            // Handle login error here
+          },
+        );
     }
   }
 }
