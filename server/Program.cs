@@ -48,7 +48,7 @@ else
         var message = exception?.Message ?? "An unknown error occurred";
         
         var result = JsonConvert.SerializeObject(new { error = message });
-        context.Response.ContentType = "application/json";
+        context.Response.ContentType = "application/xml";
         await context.Response.WriteAsync(result);
     }));
 }
