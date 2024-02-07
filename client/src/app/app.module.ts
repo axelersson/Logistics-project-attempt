@@ -4,14 +4,15 @@ import { FormsModule } from '@angular/forms'; // Import FormsModule if you use T
 import { AppRoutingModule } from './app-routing.module'; // Import the AppRoutingModule
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
-import { HomeComponent } from './home/home.component'; // Import HomeComponent
+import { NavigationComponent } from './navigation/navigation.component'; // Adjust path as necessary
+import { DashboardComponent } from './dashboard/dashboard.component';
 
 @NgModule({
   declarations: [
     AppComponent, // Declare it here
     LoginComponent, // Declare other components here
-    HomeComponent,
-    // ... any other components
+    NavigationComponent, // ... any other components
+    DashboardComponent,
   ],
   imports: [BrowserModule, FormsModule, AppRoutingModule],
   providers: [],

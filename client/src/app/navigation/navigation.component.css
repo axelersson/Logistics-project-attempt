@@ -1,0 +1,38 @@
+.navbar {
+  background-color: transparent; /* set the background color of the navbar */
+}
+
+.navbar-brand {
+  font-size: 24px; /* increase font size */
+  text-align: center; /* center align */
+  display: block; /* ensure it takes up full width */
+}
+
+.navbar-nav {
+  display: flex;
+  justify-content: space-evenly;
+  list-style-type: none;
+  padding: 0;
+  background-color: transparent; /* set background color of navbar container */
+}
+
+.navbar-nav .nav-item {
+  font-family: Arial, sans-serif;
+  font-size: 18px; /* increase font size */
+  border: 1px solid transparent; /* add borders */
+}
+
+.navbar-nav .nav-link {
+  text-decoration: none;
+  color: inherit;
+  padding: 10px 15px;
+  transition: background-color 0.3s ease;
+}
+
+.navbar-nav .nav-link:hover {
+  background-color: #f0f0f0; /* change background color on hover */
+}
+
+.container-fluid:hover {
+  background-color: #f0f0f0; /* change container color on hover */
+}
