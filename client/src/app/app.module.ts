@@ -6,6 +6,8 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { NavigationComponent } from './navigation/navigation.component'; // Adjust path as necessary
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -14,7 +16,13 @@ import { DashboardComponent } from './dashboard/dashboard.component';
     NavigationComponent, // ... any other components
     DashboardComponent,
   ],
-  imports: [BrowserModule, FormsModule, AppRoutingModule],
+  imports: [
+    BrowserModule,
+    FormsModule,
+    AppRoutingModule,
+    ReactiveFormsModule,
+    FontAwesomeModule,
+  ],
   providers: [],
   bootstrap: [AppComponent], // Bootstrap AppComponent
 })

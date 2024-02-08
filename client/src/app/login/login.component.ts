@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
+import { Client } from '../services/api';
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-login',
@@ -6,12 +9,42 @@ import { Component } from '@angular/core';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent {
-  username: string = '';
-  password: string = '';
+  loginForm = new FormGroup({
+    username: new FormControl(''),
+    password: new FormControl(''),
+  });
 
-  onSubmit() {
-    // Implement login logic here
-    // You can access the entered username and password as this.username and this.password
-    // Send a request to your authentication service or backend API for authentication.
+  faEye = faEye;
+  faEyeSlash = faEyeSlash;
+  hidePassword = true;
+
+  constructor(private client: Client) {}
+
+  togglePasswordVisibility(): void {
+    this.hidePassword = !this.hidePassword;
+  }
+
+  onLogin(): void {
+    // Get form values
+    const { username, password } = this.loginForm.value;
+
+    // Ensure username and password are strings and not null or undefined
+    const finalUsername = username ?? '';
+    const finalPassword = password ?? '';
+
+    // Call the API service to log in the user
+    this.client
+      .login({
+        username: finalUsername,
+        password: finalPassword,
+      })
+      .then(() => {
+        // Handle successful login
+        console.log('Login successful');
+      })
+      .catch((error) => {
+        // Handle error
+        console.error('Login failed:', error);
+      });
   }
 }

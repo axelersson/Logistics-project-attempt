@@ -1,0 +1,51 @@
+.login-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+  box-sizing: border-box;
+  width: 40%;
+  margin: 30vh auto 0 auto; /* 30% of the viewport height as top margin */
+  max-width: 500px;
+  min-width: 300px;
+}
+
+.input-group {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px; /* Adds bottom margin to each input group */
+}
+
+/* No need to adjust the bottom margin for the last input group as previously set */
+.input-group:last-child {
+  margin-bottom: 0; /* Ensures there is no extra bottom margin on the last input before the button */
+}
+
+input {
+  font-size: 18px;
+  padding: 15px;
+  padding-right: 50px; /* Adjusted to accommodate the icon */
+  width: 100%; /* Ensure input takes full width of its container */
+  box-sizing: border-box; /* Ensures padding does not affect the final size */
+}
+
+.password-icon {
+  position: absolute;
+  right: 10px;
+  top: calc(50% - (15px / 2)); /* Center vertically in the input field */
+  cursor: pointer;
+  color: #707070; /* Optional: Sets icon color for better visibility */
+}
+
+.login-button {
+  background-color: #4caf50;
+  border: none;
+  border-radius: 999px;
+  padding: 20px 40px;
+  font-size: 18px;
+  color: white;
+  cursor: pointer;
+  display: block;
+  margin: 40px auto 0; /* Keeps the existing top margin for the button */
+}

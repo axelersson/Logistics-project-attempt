@@ -4,6 +4,7 @@ using System.Text.Json.Serialization;
 using Microsoft.EntityFrameworkCore;
 using LogisticsApp.Data; // Ensure this is the correct namespace for your DbContext
 using Microsoft.Extensions.Logging;
+using System.Security.Claims;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,6 +28,8 @@ builder.Services.AddControllers().AddJsonOptions(options =>
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddOpenApiDocument();
+builder.Services.AddAuthorization();
+builder.Services.AddAuthentication("Bearer").AddJwtBearer();
 
 builder.Services.AddDbContext<LogisticsDBContext>(options =>
     options.UseMySql(builder.Configuration.GetConnectionString("DefaultConnection"),
@@ -59,7 +62,11 @@ app.UseCors("AllowAngularDevOrigin");
 
 app.UseRouting();
 
+app.UseAuthentication();
+
 app.UseAuthorization();
+
+
 
 app.MapControllers();
 

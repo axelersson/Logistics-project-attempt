@@ -1,14 +1,24 @@
 <div class="login-container">
-  <h2>Login</h2>
-  <form (ngSubmit)="onSubmit()">
-    <div class="form-group">
-      <label for="username">Username:</label>
-      <input type="text" id="username" name="username" />
+  <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+    <div class="input-group">
+      <input
+        type="text"
+        formControlName="username"
+        placeholder="Enter username"
+      />
     </div>
-    <div class="form-group">
-      <label for="password">Password:</label>
-      <input type="password" id="password" name="password" />
+    <div class="input-group">
+      <input
+        [type]="hidePassword ? 'password' : 'text'"
+        formControlName="password"
+        placeholder="Password"
+      />
+      <fa-icon
+        [icon]="hidePassword ? faEye : faEyeSlash"
+        class="password-icon"
+        (click)="togglePasswordVisibility()"
+      ></fa-icon>
     </div>
-    <button type="submit">Login</button>
+    <button type="submit" class="login-button">Log in</button>
   </form>
 </div>
