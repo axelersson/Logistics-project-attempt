@@ -86,16 +86,16 @@ public class UsersController : ControllerBase
     }
 
     [HttpPost("login")]
-    public IActionResult Login([FromBody] User userToLogin)
+    public IActionResult Login([FromBody] LoginRequest loginRequest)
     {
-    var user = _context.Users.FirstOrDefault(u => u.Username == userToLogin.Username);
+    var user = _context.Users.FirstOrDefault(u => u.Username == loginRequest.Username);
     if (user == null)
     {
         return Unauthorized();
     }
 
     // Verify the password using BCrypt
-    if (BCrypt.Net.BCrypt.Verify(userToLogin.PasswordHash, user.PasswordHash))
+    if (BCrypt.Net.BCrypt.Verify(loginRequest.Password, user.PasswordHash))
     {
         return Ok(user);
     }
@@ -103,5 +103,5 @@ public class UsersController : ControllerBase
     {
         return Unauthorized();
     }
-    }
+}
 }

@@ -8,6 +8,8 @@ import { NavigationComponent } from './navigation/navigation.component'; // Adju
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { Client } from './services/api';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -22,8 +24,9 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     AppRoutingModule,
     ReactiveFormsModule,
     FontAwesomeModule,
+    HttpClientModule,
   ],
-  providers: [],
+  providers: [Client],
   bootstrap: [AppComponent], // Bootstrap AppComponent
 })
 export class AppModule {}

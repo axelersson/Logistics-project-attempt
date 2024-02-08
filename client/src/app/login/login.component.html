@@ -19,6 +19,7 @@
         (click)="togglePasswordVisibility()"
       ></fa-icon>
     </div>
+    <div *ngIf="loginError" class="login-error">{{ loginError }}</div>
     <button type="submit" class="login-button">Log in</button>
   </form>
 </div>
