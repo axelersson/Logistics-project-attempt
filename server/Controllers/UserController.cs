@@ -1,10 +1,16 @@
 using Microsoft.AspNetCore.Mvc;
-using LogisticsApp.Data; // Ensure this namespace contains YourDbContext
-using Microsoft.Extensions.Logging; // Import for logging;
-using BCrypt.Net; // Import for bcrypt hashing
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Security.Claims;
+using System.Text;
+using System.Threading.Tasks;
+using Microsoft.IdentityModel.Tokens;
+using System.Security.Cryptography;
+using LogisticsApp.Data;
+
 
 [ApiController]
 [Route("[controller]")]
@@ -85,23 +91,52 @@ public class UsersController : ControllerBase
         return NoContent();
     }
 
-    [HttpPost("login")]
-    public IActionResult Login([FromBody] LoginRequest loginRequest)
+     [HttpPost("login")]
+    public async Task<IActionResult> Login([FromBody] LoginRequest loginRequest)
     {
-    var user = _context.Users.FirstOrDefault(u => u.Username == loginRequest.Username);
+    var user = await _context.Users.FirstOrDefaultAsync(u => u.Username == loginRequest.Username);
     if (user == null)
     {
         return Unauthorized();
     }
 
     // Verify the password using BCrypt
-    if (BCrypt.Net.BCrypt.Verify(loginRequest.Password, user.PasswordHash))
-    {
-        return Ok(user);
-    }
-    else
+    if (!BCrypt.Net.BCrypt.Verify(loginRequest.Password, user.PasswordHash))
     {
         return Unauthorized();
     }
+
+    // Authentication successful, generate JWT token
+    var token = GenerateJwtToken(user);
+
+    // Return the token using the LoginResponse model
+    var response = new LoginResponse
+    {
+        Token = token
+    };
+    return Ok(response);
+    }
+    private string GenerateJwtToken(User user)
+    {
+        var tokenHandler = new JwtSecurityTokenHandler();
+        var key = Encoding.ASCII.GetBytes("testingthissecretkeydforthedotnetproject"); // Change this to a secure secret key
+
+        // Calculate token expiration to be 10 hours from now
+    var tokenExpiration = DateTime.UtcNow.AddHours(10);
+
+    var tokenDescriptor = new SecurityTokenDescriptor
+    {
+        Subject = new ClaimsIdentity(new[]
+        {
+        new Claim(ClaimTypes.NameIdentifier, user.UserId),
+        new Claim(ClaimTypes.Role, user.Role.ToString()) // Assuming user.Role is enum UserRole
+        }),
+        Expires = tokenExpiration, // Token expiration set to 10 hours from now
+        SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+    };
+
+        var token = tokenHandler.CreateToken(tokenDescriptor);
+        return tokenHandler.WriteToken(token);
+    }
 }
-}
+

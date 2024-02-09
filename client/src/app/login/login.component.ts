@@ -1,10 +1,9 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
-import { Client, LoginRequest } from '../services/api';
-import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
-import { catchError, map } from 'rxjs/operators';
-import { of } from 'rxjs';
+import { Client, LoginRequest } from '../services/api'; // Make sure this is an @Injectable service
 import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'; // Import FontAwesome icons
 
 @Component({
   selector: 'app-login',
@@ -17,21 +16,17 @@ export class LoginComponent {
     password: new FormControl(''),
   });
 
+  // Define the missing properties referenced in the template
+  hidePassword: boolean = true;
   faEye = faEye;
   faEyeSlash = faEyeSlash;
-  hidePassword = true;
+  loginError: string | null = null;
 
   constructor(
-    private client: Client,
+    private client: Client, // Ensure this is an @Injectable service
     private router: Router,
+    private authService: AuthService,
   ) {}
-
-  togglePasswordVisibility(): void {
-    this.hidePassword = !this.hidePassword;
-  }
-
-  // Add a property for storing the login error message
-  loginError: string = '';
 
   onLogin(): void {
     const username = this.loginForm.value.username ?? '';
@@ -39,21 +34,34 @@ export class LoginComponent {
 
     const loginRequest = new LoginRequest({ username, password });
 
+    // Make sure that the login method returns a Promise and the response has a token property
     this.client
       .login(loginRequest)
-      .pipe(
-        map(() => {
-          // On successful login, redirect to /dashboard
+      .then((response: any) => {
+        // Replace 'any' with the actual response type
+        const token = response.token;
+
+        if (token) {
+          const decodedToken = this.authService.decodeJwtToken(token);
+          this.authService.setToken(token);
+          if (decodedToken?.role) {
+            this.authService.setUserRole(decodedToken.role);
+          }
           this.router.navigate(['/dashboard']);
-        }),
-        catchError((error) => {
-          // On login failure, set loginError message
-          this.loginError = 'Login failed. Please try again.';
-          // Optionally, log the error or handle it as needed
-          console.error('Login failed:', error);
-          return of(null); // Ensures the stream continues
-        }),
-      )
-      .subscribe();
+        } else {
+          this.loginError = 'No token received. Please try again.';
+        }
+      })
+      .catch((error: any) => {
+        // Replace 'any' with the actual error type
+        console.error('Login error:', error);
+        this.loginError =
+          'Login failed. Please check your credentials and try again.';
+      });
+  }
+
+  // Method to toggle password visibility
+  togglePasswordVisibility(): void {
+    this.hidePassword = !this.hidePassword;
   }
 }
