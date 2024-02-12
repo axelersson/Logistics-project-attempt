@@ -25,7 +25,7 @@ import {
   HttpResponseBase,
 } from '@angular/common/http';
 
-export const API_BASE_URL = new InjectionToken<string>('API_BASE_URL');
+export const HEJ = new InjectionToken<string>('HEJ');
 
 @Injectable()
 export class Client {
@@ -36,10 +36,10 @@ export class Client {
 
   constructor(
     @Inject(HttpClient) http: HttpClient,
-    @Optional() @Inject(API_BASE_URL) baseUrl?: string,
+    @Optional() @Inject(HEJ) baseUrl?: string,
   ) {
     this.http = http;
-    this.baseUrl = baseUrl ?? '';
+    this.baseUrl = baseUrl ?? 'http://localhost:5000';
   }
 
   /**
@@ -3230,10 +3230,7 @@ export interface IUser {
   passwordHash?: string | undefined;
 }
 
-export enum UserRole {
-  Admin = 'Admin',
-  User = 'User',
-}
+export type UserRole = 'Admin' | 'User';
 
 export class ApiException extends Error {
   override message: string;

@@ -35,29 +35,21 @@ export class LoginComponent {
     const loginRequest = new LoginRequest({ username, password });
 
     // Make sure that the login method returns a Promise and the response has a token property
-    this.client
-      .login(loginRequest)
-      .then((response: any) => {
-        // Replace 'any' with the actual response type
-        const token = response.token;
+    this.client.login(loginRequest).subscribe((response: any) => {
+      // Replace 'any' with the actual response type
+      const token = response.token;
 
-        if (token) {
-          const decodedToken = this.authService.decodeJwtToken(token);
-          this.authService.setToken(token);
-          if (decodedToken?.role) {
-            this.authService.setUserRole(decodedToken.role);
-          }
-          this.router.navigate(['/dashboard']);
-        } else {
-          this.loginError = 'No token received. Please try again.';
+      if (token) {
+        const decodedToken = this.authService.decodeJwtToken(token);
+        this.authService.setToken(token);
+        if (decodedToken?.role) {
+          this.authService.setUserRole(decodedToken.role);
         }
-      })
-      .catch((error: any) => {
-        // Replace 'any' with the actual error type
-        console.error('Login error:', error);
-        this.loginError =
-          'Login failed. Please check your credentials and try again.';
-      });
+        this.router.navigate(['/dashboard']);
+      } else {
+        this.loginError = 'No token received. Please try again.';
+      }
+    });
   }
 
   // Method to toggle password visibility
