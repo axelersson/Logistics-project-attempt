@@ -18,32 +18,25 @@ namespace LogisticsApp.Data // Change to your actual namespace
         public DbSet<Area> Areas { get; set; }
         public DbSet<Location> Locations { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<OrderRollOfSteel> OrderRollsOfSteel { get; set; } // Added DbSet for OrderRollOfSteel
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // Configure one-to-many relationship between Truck and Area
-            modelBuilder.Entity<Truck>()
-                .HasOne<Area>(t => t.CurrentArea)
-                .WithMany(a => a.Trucks)
-                .HasForeignKey(t => t.CurrentAreaId);
+            // Existing relationship configurations...
 
-            // Configure many-to-many relationship between RollOfSteel and Order
+            // Configure many-to-many relationship between RollOfSteel and Order via OrderRollOfSteel
             modelBuilder.Entity<OrderRollOfSteel>()
-                .HasKey(or => new { or.OrderId, or.RollOfSteelId });
+                .HasKey(or => new { or.OrderId, or.RollOfSteelId }); // Composite key
+
             modelBuilder.Entity<OrderRollOfSteel>()
                 .HasOne(or => or.Order)
-                .WithMany(o => o.OrderRollsOfSteel)
+                .WithMany(o => o.OrderRollsOfSteel) // Assuming you add this ICollection to the Order model
                 .HasForeignKey(or => or.OrderId);
+
             modelBuilder.Entity<OrderRollOfSteel>()
                 .HasOne(or => or.RollOfSteel)
-                .WithMany(r => r.OrderRollsOfSteel)
+                .WithMany(r => r.OrderRollsOfSteel) // Assuming you add this ICollection to the RollOfSteel model
                 .HasForeignKey(or => or.RollOfSteelId);
-
-            // Configure one-to-many relationship between Area and Location
-            modelBuilder.Entity<Location>()
-                .HasOne<Area>(l => l.Area)
-                .WithMany(a => a.Locations)
-                .HasForeignKey(l => l.AreaId);
 
             // ... other relationship configurations
         }

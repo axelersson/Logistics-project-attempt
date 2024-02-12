@@ -2637,7 +2637,7 @@ export class Client {
    * @param body (optional)
    * @return Success
    */
-  login(body: LoginRequest | undefined): Observable<void> {
+  login(body: LoginRequest | undefined): Observable<any> {
     let url_ = this.baseUrl + '/Users/login';
     url_ = url_.replace(/[?&]$/, '');
 
@@ -2646,7 +2646,7 @@ export class Client {
     let options_: any = {
       body: content_,
       observe: 'response',
-      responseType: 'blob',
+      responseType: 'json', // Changed from 'blob' to 'json'
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
       }),
@@ -2656,18 +2656,27 @@ export class Client {
       .request('post', url_, options_)
       .pipe(
         _observableMergeMap((response_: any) => {
-          return this.processLogin(response_);
+          if (response_.status === 200) {
+            // Directly return the response body which should be the JSON object with the token
+            return _observableOf(response_.body);
+          } else {
+            // Handle non-200 status codes if needed
+            return _observableThrow(response_);
+          }
         }),
       )
       .pipe(
         _observableCatch((response_: any) => {
+          // Handle errors
           if (response_ instanceof HttpResponseBase) {
             try {
-              return this.processLogin(response_ as any);
+              return _observableThrow(response_);
             } catch (e) {
-              return _observableThrow(e) as any as Observable<void>;
+              return _observableThrow(e);
             }
-          } else return _observableThrow(response_) as any as Observable<void>;
+          } else {
+            return _observableThrow(response_);
+          }
         }),
       );
   }
