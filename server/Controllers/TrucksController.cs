@@ -9,6 +9,8 @@ using Microsoft.Extensions.Logging; // Import for logging
 
 [ApiController]
 [Route("api/[controller]")]
+
+
 public class TrucksController : ControllerBase
 {
     private readonly LogisticsDBContext _context; // Replace with your actual DbContext

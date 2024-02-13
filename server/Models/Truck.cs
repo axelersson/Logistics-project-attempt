@@ -4,4 +4,7 @@ public class Truck
     public string CurrentAreaId { get; set; } = string.Empty;
     public string Status { get; set; } = string.Empty; // Default to empty if status is mandatory, or make it nullable
     public Area? CurrentArea { get; set; }
+
+    public List<User> Users { get;} = new List<User>();
+    public List<Order> Orders { get; } = new List<Order>();
 }
