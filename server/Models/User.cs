@@ -14,6 +14,8 @@ public class User
 
     public string Username { get; set; } = string.Empty;
     public string PasswordHash { get; set; } = string.Empty;
+
+    public List<Truck> Trucks { get;} = new List<Truck>();
 }
 
 public enum Role

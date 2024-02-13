@@ -24,28 +24,38 @@ namespace LogisticsApp.Data // Change to your actual namespace
             // Configure one-to-many relationship between Truck and Area
             modelBuilder.Entity<Truck>()
                 .HasOne<Area>(t => t.CurrentArea)
-                .WithMany(a => a.Trucks)
+                .WithMany()
                 .HasForeignKey(t => t.CurrentAreaId);
 
+            // Configure many-to-many relationship between Truck and User
+            modelBuilder.Entity<Truck>()
+                .HasMany(t => t.Users)
+                .WithMany(u => u.Trucks)
+                .UsingEntity("TruckUser");
+
             // Configure many-to-many relationship between RollOfSteel and Order
-            modelBuilder.Entity<OrderRollOfSteel>()
-                .HasKey(or => new { or.OrderId, or.RollOfSteelId });
-            modelBuilder.Entity<OrderRollOfSteel>()
-                .HasOne(or => or.Order)
-                .WithMany(o => o.OrderRollsOfSteel)
-                .HasForeignKey(or => or.OrderId);
-            modelBuilder.Entity<OrderRollOfSteel>()
-                .HasOne(or => or.RollOfSteel)
-                .WithMany(r => r.OrderRollsOfSteel)
-                .HasForeignKey(or => or.RollOfSteelId);
+            modelBuilder.Entity<Order>()
+                .HasMany(or => or.RollsOfSteel)
+                .WithMany(r => r.Orders)
+                .UsingEntity("OrderRollsOfSteel");
 
             // Configure one-to-many relationship between Area and Location
             modelBuilder.Entity<Location>()
                 .HasOne<Area>(l => l.Area)
-                .WithMany(a => a.Locations)
+                .WithMany()
                 .HasForeignKey(l => l.AreaId);
 
-            // ... other relationship configurations
+            //Configure many-to-many relationship between Truck and Order
+            modelBuilder.Entity<Truck>()
+                .HasMany(t => t.Orders)
+                .WithMany(o => o.Trucks)
+                .UsingEntity("TruckOrder");
+
+            // Configure one-to-many relationship between Location and RollOfSteel
+            modelBuilder.Entity<RollOfSteel>()
+                .HasOne<Location>(r => r.CurrentLocation)
+                .WithMany()
+                .HasForeignKey(r => r.CurrentLocationId);
         }
     }
 }

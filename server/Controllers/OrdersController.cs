@@ -7,6 +7,10 @@ using System.Threading.Tasks;
 using LogisticsApp.Data; // Import your DbContext namespace
 using Microsoft.Extensions.Logging; // Import for logging
 
+// TODO: Need to add rolls of steel to the order 
+// and add them to the OrderRollsOfSteel table
+// when making an order
+
 [ApiController]
 [Route("api/[controller]")]
 public class OrdersController : ControllerBase
@@ -48,6 +52,7 @@ public class OrdersController : ControllerBase
             return BadRequest();
         }
 
+        order.CreatedAt = DateTime.Now;
         _context.Orders.Add(order);
         await _context.SaveChangesAsync();
 

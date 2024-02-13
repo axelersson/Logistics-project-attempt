@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
@@ -18,10 +19,6 @@ namespace server.Migrations
                 columns: table => new
                 {
                     AreaId = table.Column<string>(type: "varchar(255)", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Name = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    LocationIds = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4")
                 },
                 constraints: table =>
@@ -36,11 +33,7 @@ namespace server.Migrations
                 {
                     MachineId = table.Column<string>(type: "varchar(255)", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Type = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    LocationId = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Status = table.Column<string>(type: "longtext", nullable: false)
+                    AreaID = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4")
                 },
                 constraints: table =>
@@ -55,39 +48,17 @@ namespace server.Migrations
                 {
                     OrderId = table.Column<string>(type: "varchar(255)", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    Type = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
                     Status = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    AssociatedRollsIds = table.Column<string>(type: "longtext", nullable: false)
+                    SourceId = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    SourceMachineId = table.Column<string>(type: "longtext", nullable: false)
+                    DestinationId = table.Column<string>(type: "longtext", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    DestinationMachineId = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4")
+                    CreatedAt = table.Column<DateTime>(type: "datetime(6)", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Orders", x => x.OrderId);
-                })
-                .Annotation("MySql:CharSet", "utf8mb4");
-
-            migrationBuilder.CreateTable(
-                name: "RollsOfSteel",
-                columns: table => new
-                {
-                    RollOfSteelId = table.Column<string>(type: "varchar(255)", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Status = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    CurrentLocationId = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    DestinationLocationId = table.Column<string>(type: "longtext", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4")
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_RollsOfSteel", x => x.RollOfSteelId);
                 })
                 .Annotation("MySql:CharSet", "utf8mb4");
 
@@ -116,9 +87,7 @@ namespace server.Migrations
                     LocationId = table.Column<string>(type: "varchar(255)", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     AreaId = table.Column<string>(type: "varchar(255)", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    Capacity = table.Column<int>(type: "int", nullable: false),
-                    CurrentOccupancy = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4")
                 },
                 constraints: table =>
                 {
@@ -141,11 +110,18 @@ namespace server.Migrations
                     CurrentAreaId = table.Column<string>(type: "varchar(255)", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
                     Status = table.Column<string>(type: "longtext", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    AreaId = table.Column<string>(type: "varchar(255)", nullable: true)
                         .Annotation("MySql:CharSet", "utf8mb4")
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Trucks", x => x.TruckId);
+                    table.ForeignKey(
+                        name: "FK_Trucks_Areas_AreaId",
+                        column: x => x.AreaId,
+                        principalTable: "Areas",
+                        principalColumn: "AreaId");
                     table.ForeignKey(
                         name: "FK_Trucks_Areas_CurrentAreaId",
                         column: x => x.CurrentAreaId,
@@ -156,35 +132,101 @@ namespace server.Migrations
                 .Annotation("MySql:CharSet", "utf8mb4");
 
             migrationBuilder.CreateTable(
-                name: "OrderRollOfSteel",
+                name: "RollsOfSteel",
                 columns: table => new
                 {
-                    OrderId = table.Column<string>(type: "varchar(255)", nullable: false)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
                     RollOfSteelId = table.Column<string>(type: "varchar(255)", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4"),
-                    OrderRollOfSteelOrderId = table.Column<string>(type: "varchar(255)", nullable: true)
-                        .Annotation("MySql:CharSet", "utf8mb4"),
-                    OrderRollOfSteelRollOfSteelId = table.Column<string>(type: "varchar(255)", nullable: true)
+                    CurrentLocationId = table.Column<string>(type: "varchar(255)", nullable: false)
                         .Annotation("MySql:CharSet", "utf8mb4")
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_OrderRollOfSteel", x => new { x.OrderId, x.RollOfSteelId });
+                    table.PrimaryKey("PK_RollsOfSteel", x => x.RollOfSteelId);
                     table.ForeignKey(
-                        name: "FK_OrderRollOfSteel_OrderRollOfSteel_OrderRollOfSteelOrderId_Or~",
-                        columns: x => new { x.OrderRollOfSteelOrderId, x.OrderRollOfSteelRollOfSteelId },
-                        principalTable: "OrderRollOfSteel",
-                        principalColumns: new[] { "OrderId", "RollOfSteelId" });
+                        name: "FK_RollsOfSteel_Locations_CurrentLocationId",
+                        column: x => x.CurrentLocationId,
+                        principalTable: "Locations",
+                        principalColumn: "LocationId",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "TruckOrder",
+                columns: table => new
+                {
+                    OrdersOrderId = table.Column<string>(type: "varchar(255)", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    TrucksTruckId = table.Column<string>(type: "varchar(255)", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TruckOrder", x => new { x.OrdersOrderId, x.TrucksTruckId });
                     table.ForeignKey(
-                        name: "FK_OrderRollOfSteel_Orders_OrderId",
-                        column: x => x.OrderId,
+                        name: "FK_TruckOrder_Orders_OrdersOrderId",
+                        column: x => x.OrdersOrderId,
                         principalTable: "Orders",
                         principalColumn: "OrderId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_OrderRollOfSteel_RollsOfSteel_RollOfSteelId",
-                        column: x => x.RollOfSteelId,
+                        name: "FK_TruckOrder_Trucks_TrucksTruckId",
+                        column: x => x.TrucksTruckId,
+                        principalTable: "Trucks",
+                        principalColumn: "TruckId",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "TruckUser",
+                columns: table => new
+                {
+                    TrucksTruckId = table.Column<string>(type: "varchar(255)", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    UsersUserId = table.Column<string>(type: "varchar(255)", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TruckUser", x => new { x.TrucksTruckId, x.UsersUserId });
+                    table.ForeignKey(
+                        name: "FK_TruckUser_Trucks_TrucksTruckId",
+                        column: x => x.TrucksTruckId,
+                        principalTable: "Trucks",
+                        principalColumn: "TruckId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_TruckUser_Users_UsersUserId",
+                        column: x => x.UsersUserId,
+                        principalTable: "Users",
+                        principalColumn: "UserId",
+                        onDelete: ReferentialAction.Cascade);
+                })
+                .Annotation("MySql:CharSet", "utf8mb4");
+
+            migrationBuilder.CreateTable(
+                name: "OrderRollsOfSteel",
+                columns: table => new
+                {
+                    OrdersOrderId = table.Column<string>(type: "varchar(255)", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4"),
+                    RollsOfSteelRollOfSteelId = table.Column<string>(type: "varchar(255)", nullable: false)
+                        .Annotation("MySql:CharSet", "utf8mb4")
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_OrderRollsOfSteel", x => new { x.OrdersOrderId, x.RollsOfSteelRollOfSteelId });
+                    table.ForeignKey(
+                        name: "FK_OrderRollsOfSteel_Orders_OrdersOrderId",
+                        column: x => x.OrdersOrderId,
+                        principalTable: "Orders",
+                        principalColumn: "OrderId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_OrderRollsOfSteel_RollsOfSteel_RollsOfSteelRollOfSteelId",
+                        column: x => x.RollsOfSteelRollOfSteelId,
                         principalTable: "RollsOfSteel",
                         principalColumn: "RollOfSteelId",
                         onDelete: ReferentialAction.Cascade);
@@ -197,14 +239,29 @@ namespace server.Migrations
                 column: "AreaId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_OrderRollOfSteel_OrderRollOfSteelOrderId_OrderRollOfSteelRol~",
-                table: "OrderRollOfSteel",
-                columns: new[] { "OrderRollOfSteelOrderId", "OrderRollOfSteelRollOfSteelId" });
+                name: "IX_OrderRollsOfSteel_RollsOfSteelRollOfSteelId",
+                table: "OrderRollsOfSteel",
+                column: "RollsOfSteelRollOfSteelId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_OrderRollOfSteel_RollOfSteelId",
-                table: "OrderRollOfSteel",
-                column: "RollOfSteelId");
+                name: "IX_RollsOfSteel_CurrentLocationId",
+                table: "RollsOfSteel",
+                column: "CurrentLocationId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TruckOrder_TrucksTruckId",
+                table: "TruckOrder",
+                column: "TrucksTruckId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TruckUser_UsersUserId",
+                table: "TruckUser",
+                column: "UsersUserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Trucks_AreaId",
+                table: "Trucks",
+                column: "AreaId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Trucks_CurrentAreaId",
@@ -216,13 +273,22 @@ namespace server.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Locations");
-
-            migrationBuilder.DropTable(
                 name: "Machines");
 
             migrationBuilder.DropTable(
-                name: "OrderRollOfSteel");
+                name: "OrderRollsOfSteel");
+
+            migrationBuilder.DropTable(
+                name: "TruckOrder");
+
+            migrationBuilder.DropTable(
+                name: "TruckUser");
+
+            migrationBuilder.DropTable(
+                name: "RollsOfSteel");
+
+            migrationBuilder.DropTable(
+                name: "Orders");
 
             migrationBuilder.DropTable(
                 name: "Trucks");
@@ -231,10 +297,7 @@ namespace server.Migrations
                 name: "Users");
 
             migrationBuilder.DropTable(
-                name: "Orders");
-
-            migrationBuilder.DropTable(
-                name: "RollsOfSteel");
+                name: "Locations");
 
             migrationBuilder.DropTable(
                 name: "Areas");

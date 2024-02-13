@@ -40,6 +40,7 @@ public class LocationsController : ControllerBase
         return Ok(location);
     }
 
+    // POST UNDEFINED AREA
     [HttpPost]
     public async Task<IActionResult> CreateLocation([FromBody] Location location)
     {
@@ -52,6 +53,44 @@ public class LocationsController : ControllerBase
         await _context.SaveChangesAsync();
 
         return CreatedAtAction(nameof(GetLocationById), new { locationId = location.LocationId }, location);
+    }
+
+    // POST TO SPECIFIC AREA
+    [HttpPost("Area/{areaId}")]
+    public async Task<IActionResult> AddLocationsToArea(string areaId, [FromBody] List<Location> locations)
+    {
+        if (locations == null || locations.Count == 0)
+        {
+            return BadRequest("No locations provided.");
+        }
+
+        // Find the area by its ID
+        var area = await _context.Areas.FirstOrDefaultAsync(a => a.AreaId == areaId);
+        if (area == null)
+        {
+            return NotFound("Area not found.");
+        }
+
+        // Add each location to the area
+        foreach (var location in locations)
+        {
+            // Ensure the location is not already associated with an area
+            if (!string.IsNullOrEmpty(location.AreaId))
+            {
+                return BadRequest("Locations should not already be associated with an area.");
+            }
+
+            // Set the area ID for the location
+            //location.AreaId = areaId;
+            location.Area = area;
+            _context.Locations.Add(location);
+        }
+
+        // Save changes to the database
+        
+        await _context.SaveChangesAsync();
+
+        return Ok("Locations added to the area successfully.");
     }
 
     [HttpPut("{locationId}")]
