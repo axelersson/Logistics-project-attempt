@@ -14,6 +14,7 @@ import { TryHomepageComponent } from './try-homepage/try-homepage.component';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatButtonModule } from '@angular/material/button';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatToolbarModule } from '@angular/material/toolbar';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MatSlideToggleModule,
     MatButtonModule,
     FlexLayoutModule,
+    MatToolbarModule,
   ],
   providers: [Client],
   bootstrap: [AppComponent], // Bootstrap AppComponent

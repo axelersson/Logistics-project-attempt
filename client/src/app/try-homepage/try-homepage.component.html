@@ -13,5 +13,5 @@
     <button mat-button color="accent" fxFlex="50%">TRUCK</button>
  </div>
 <div fxLayout="row" fxLayoutAlign="space-between center">
-    <button mat-button fxFlex="100%">USER</button>
+    <button mat-button [disabled]="!isAdmin" fxFlex="100%">USER</button>
 </div>

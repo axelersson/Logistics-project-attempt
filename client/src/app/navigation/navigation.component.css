@@ -1,11 +1,11 @@
-.navbar {
+/* .navbar {
   background-color: transparent;
   padding: 0;
 }
 
 .title-container {
-  background-color: #f8f9fa; /* Slight gray */
-  height: 10vh; /* 10% of viewport height */
+  background-color: #f8f9fa; 
+  height: 10vh; 
   display: flex;
   align-items: center;
   justify-content: center;
@@ -17,7 +17,7 @@
 
 .navbar-brand {
   font-size: 24px;
-  color: #000; /* Ensure the color is set explicitly if needed */
+  color: #000; 
 }
 
 .navbar-nav {
@@ -27,11 +27,11 @@
   padding: 0;
   margin: 0;
   width: 100%;
-  background-color: #f8f9fa; /* Slight gray for nav items */
+  background-color: #f8f9fa; 
 }
 
 .nav-item {
-  height: 10vh; /* 10% of viewport height */
+  height: 10vh; 
   display: flex;
   align-items: center;
   justify-content: center;
@@ -39,7 +39,7 @@
 
 .nav-link {
   text-decoration: none;
-  color: #000; /* Set text color */
+  color: #000; 
   padding: 10px 15px;
   transition: background-color 0.3s ease;
   display: flex;
@@ -47,9 +47,21 @@
 }
 
 .nav-link i {
-  margin-right: 8px; /* Space between icon and text */
+  margin-right: 8px; 
 }
 
 .nav-link:hover {
-  background-color: #e2e2e2; /* Lighter gray on hover */
+  background-color: #e2e2e2; 
+} */
+
+mat-toolbar {
+  display: flex;
+  justify-content: space-between;
+}
+mat-toolbar a.mat-button {
+  margin-right: 3rem;
+}
+
+.spacer {
+  flex: 8;
 }
