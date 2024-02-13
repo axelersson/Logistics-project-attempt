@@ -13,7 +13,7 @@ using LogisticsApp.Data;
 
 
 [ApiController]
-[Route("[controller]")]
+[Route("api/[controller]")]
 public class UsersController : ControllerBase
 {
     private readonly LogisticsDBContext _context; // Replace with the actual name of your DbContext
@@ -138,5 +138,15 @@ public class UsersController : ControllerBase
         var token = tokenHandler.CreateToken(tokenDescriptor);
         return tokenHandler.WriteToken(token);
     }
+    // GET: /users/getAllUsernames
+        [HttpGet("getAllUsernames")]
+        public async Task<IActionResult> GetAllUsernames()
+        {
+            var usernames = await _context.Users
+                .Select(u => u.Username)
+                .ToListAsync();
+
+            return Ok(usernames);
+        }
 }
 

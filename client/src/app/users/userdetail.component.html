@@ -1,0 +1,33 @@
+<div class="user-detail-container">
+    <h2>Edit User</h2>
+    <mat-form-field appearance="fill">
+      <mat-label>Select a Username</mat-label>
+      <mat-select [(value)]="selectedUsername" (selectionChange)="onUsernameSelect()">
+        <mat-option *ngFor="let username of usernames" [value]="username">
+          {{ username }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <button mat-raised-button color="primary" (click)="selectUser()">Select User</button>
+    
+    <mat-form-field appearance="fill">
+      <mat-label>Password</mat-label>
+      <input matInput [(ngModel)]="selectedUserPassword">
+    </mat-form-field>
+    
+    <mat-form-field appearance="fill">
+      <mat-label>Role</mat-label>
+      <mat-select [(value)]="selectedUserRole">
+        <mat-option *ngFor="let role of roles" [value]="role">
+          {{ role }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  
+    <div class="action-buttons">
+      <button mat-button color="warn" (click)="deleteUser()">Delete</button>
+      <button mat-button color="primary" (click)="editUser()">Edit</button>
+      <button mat-button color="accent" (click)="createUser()">Create</button>
+    </div>
+  </div>
+  
