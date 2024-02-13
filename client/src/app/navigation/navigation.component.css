@@ -54,14 +54,39 @@
   background-color: #e2e2e2; 
 } */
 
-mat-toolbar {
-  display: flex;
-  justify-content: space-between;
+/* mat-toolbar {
+  font-size: large;
+  height: 6rem;
+  padding-right: 5rem;
 }
-mat-toolbar a.mat-button {
-  margin-right: 3rem;
+mat-toolbar .mdc-button__label {
+  padding-right: 8rem;
 }
 
 .spacer {
   flex: 8;
+} */
+
+mat-button {
+  width: 3rem; /* Adjust the width as needed */
+  text-align: center; /* Center the text within the button */
+  padding: 4rem; /* Add padding for better visibility and clickability */
+  border-radius: 10px;
+}
+.navbar {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: rgba(144, 238, 144, 0.52); /* Adjust as needed */
+  padding: 1rem;
+  border-radius: .7rem;
+  font-weight: bold; 
+}
+
+.mat-button:hover {
+  background-color: #5c6bc0; /* Adjust as needed */
+}
+
+.mat-button:active {
+  background-color: #3949ab; /* Adjust as needed */
 }

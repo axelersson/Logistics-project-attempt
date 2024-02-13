@@ -1,1 +1,11 @@
-<p>home works!</p>
+<div fxLayout="row" fxLayoutAlign="space-between center">
+    <button mat-button color="primary" fxFlex="50%">AREA</button>
+    <button mat-button color="accent" fxFlex="50%">LOCATION</button>
+</div>
+<div fxLayout="row" fxLayoutAlign="space-between center">
+    <button mat-button color="primary" fxFlex="50%">ORDER</button>
+    <button mat-button color="accent" fxFlex="50%">TRUCK</button>
+ </div>
+<div fxLayout="row" fxLayoutAlign="space-between center">
+    <button mat-button [disabled]="!isAdmin" fxFlex="100%">USER</button>
+</div>
