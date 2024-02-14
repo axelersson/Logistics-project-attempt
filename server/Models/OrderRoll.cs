@@ -11,6 +11,8 @@ public class OrderRoll
 
     [JsonIgnore]
     public Order? Order { get; set; }
+
+    [JsonIgnore]
     public RollOfSteel? RollOfSteel { get; set; }
 }
 

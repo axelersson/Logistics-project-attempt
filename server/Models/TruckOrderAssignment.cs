@@ -1,4 +1,6 @@
 ﻿
+using System.Text.Json.Serialization;
+
 public class TruckOrderAssignment
 {
     public int TruckOrderAssignmentId{ get; set; }
@@ -7,7 +9,9 @@ public class TruckOrderAssignment
     public string OrderId { get; set; } = string.Empty;
     
     // Navigation Properties
+    [JsonIgnore]
     public Truck? Truck { get; set; }
+    [JsonIgnore]
     public Order? Order { get; set; }
 
     public DateTime? AssignmentAt { get; set; }

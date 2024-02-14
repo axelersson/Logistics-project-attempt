@@ -23,7 +23,9 @@ public class RollsOfSteelController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> GetRollsOfSteel()
     {
-        var rollsOfSteel = await _context.RollsOfSteel.ToListAsync();
+        var rollsOfSteel = await _context.RollsOfSteel
+        .Include(o => o.OrderRolls)
+        .ToListAsync();
         return Ok(rollsOfSteel);
     }
 
