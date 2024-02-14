@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Security.Principal;
 
 namespace LogisticsApp.Data // Change to your actual namespace
 {
@@ -12,50 +13,100 @@ namespace LogisticsApp.Data // Change to your actual namespace
 
         // DbSet properties for your entities
         public DbSet<RollOfSteel> RollsOfSteel { get; set; }
-        public DbSet<Machine> Machines { get; set; }
         public DbSet<Truck> Trucks { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<Area> Areas { get; set; }
         public DbSet<Location> Locations { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<TruckUser> TruckUsers { get; set; }
+        public DbSet<OrderRoll> OrderRolls { get; set; }
+        public DbSet<TruckOrderAssignment> TruckOrderAssignments { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // Configure one-to-many relationship between Truck and Area
+            // One Area, Many Trucks
             modelBuilder.Entity<Truck>()
                 .HasOne<Area>(t => t.CurrentArea)
-                .WithMany()
+                .WithMany(a => a.Trucks)
                 .HasForeignKey(t => t.CurrentAreaId);
-
-            // Configure many-to-many relationship between Truck and User
-            modelBuilder.Entity<Truck>()
-                .HasMany(t => t.Users)
-                .WithMany(u => u.Trucks)
-                .UsingEntity("TruckUser");
-
-            // Configure many-to-many relationship between RollOfSteel and Order
-            modelBuilder.Entity<Order>()
-                .HasMany(or => or.RollsOfSteel)
-                .WithMany(r => r.Orders)
-                .UsingEntity("OrderRollsOfSteel");
-
-            // Configure one-to-many relationship between Area and Location
+            
+            // One Area, Many Locations
             modelBuilder.Entity<Location>()
-                .HasOne<Area>(l => l.Area)
-                .WithMany()
+                .HasOne(l => l.Area)
+                .WithMany(a => a.Locations)
                 .HasForeignKey(l => l.AreaId);
 
-            //Configure many-to-many relationship between Truck and Order
-            modelBuilder.Entity<Truck>()
-                .HasMany(t => t.Orders)
-                .WithMany(o => o.Trucks)
-                .UsingEntity("TruckOrder");
-
-            // Configure one-to-many relationship between Location and RollOfSteel
+            // One Location, Many RollsOfSteel
             modelBuilder.Entity<RollOfSteel>()
                 .HasOne<Location>(r => r.CurrentLocation)
-                .WithMany()
+                .WithMany(l => l.RollsOfSteel)
                 .HasForeignKey(r => r.CurrentLocationId);
+            
+            // One Location, Many Orders
+            //From
+            modelBuilder.Entity<Order>()
+                .HasOne<Location>(o => o.SourceLocation)
+                .WithMany(l => l.Orders)
+                .HasForeignKey(o => o.SourceId);
+            // To
+            modelBuilder.Entity<Order>()
+                .HasOne<Location>(o => o.DestinationLocation)
+                .WithMany(l => l.Orders)
+                .HasForeignKey(o => o.DestinationId);
+
+            // One User, Many Orders
+            modelBuilder.Entity<Order>()
+                .HasOne<User>(o => o.User)
+                .WithMany(u => u.Orders)
+                .HasForeignKey(o => o.UserID);
+                
+            // INTERMEDIATE TABLES
+            // Configure TruckUser
+            modelBuilder.Entity<TruckUser>()
+                .HasIndex(tu => tu.RowId) // Create unique index on RowId
+                .IsUnique();
+
+            modelBuilder.Entity<TruckUser>()
+                .HasOne<Truck>(tu => tu.Truck)
+                .WithMany(t => t.TruckUsers)
+                .HasForeignKey(tu => tu.TruckId);
+
+            modelBuilder.Entity<TruckUser>()
+                .HasOne<User>(tu => tu.User)
+                .WithMany(u => u.TruckUsers)
+                .HasForeignKey(tu => tu.UserId);
+
+            // Configure OrderRoll
+            modelBuilder.Entity<OrderRoll>()
+                .HasIndex(or => or.RowId) // Create unique index on RowId
+                .IsUnique();
+
+            modelBuilder.Entity<OrderRoll>()
+                .HasOne(or => or.RollOfSteel)
+                .WithMany(r => r.OrderRolls)
+                .HasForeignKey(or => or.RollOfSteelId);
+
+            modelBuilder.Entity<OrderRoll>()
+                .HasOne(or => or.Order)
+                .WithMany(o => o.OrderRolls)
+                .HasForeignKey(or => or.OrderId);
+
+            // Configure TruckOrderAssignment
+
+            modelBuilder.Entity<TruckOrderAssignment>()
+                .HasIndex(toa => toa.RowId) // Create unique index on RowId
+                .IsUnique();
+
+            modelBuilder.Entity<TruckOrderAssignment>()
+                .HasOne(toa => toa.Truck)
+                .WithMany(t => t.TruckOrderAssignments)
+                .HasForeignKey(toa => toa.TruckId);
+
+            modelBuilder.Entity<TruckOrderAssignment>()
+                .HasOne(toa => toa.Order)
+                .WithMany(o => o.TruckOrderAssignments)
+                .HasForeignKey(toa => toa.OrderId);
+
         }
     }
 }
