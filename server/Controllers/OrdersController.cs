@@ -12,7 +12,7 @@ using Microsoft.Extensions.Logging; // Import for logging
 // when making an order
 
 [ApiController]
-[Route("api/[controller]")]
+[Route("/[controller]")]
 public class OrdersController : ControllerBase
 {
     private readonly LogisticsDBContext _context; // Replace with your actual DbContext

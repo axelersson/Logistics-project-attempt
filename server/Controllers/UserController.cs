@@ -13,7 +13,7 @@ using LogisticsApp.Data;
 
 
 [ApiController]
-[Route("api/[controller]")]
+[Route("/[controller]")]
 public class UsersController : ControllerBase
 {
     private readonly LogisticsDBContext _context; // Replace with the actual name of your DbContext
