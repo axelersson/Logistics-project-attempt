@@ -5,5 +5,5 @@ public class Order
     public string Status { get; set; } = string.Empty; // Default to empty if status is mandatory, or make it nullable
     public Location? SourceLocation { get; set; }
     public Location? DestinationLocation { get; set; }
-
+    public object OrderRollsOfSteel { get; internal set; }
 }

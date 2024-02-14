@@ -31,7 +31,7 @@
 </nav> -->
 <nav class="navbar">
   <a mat-button routerLink="/homepage" fxFlex="25%" routerLinkActive="active">HOMEPAGE</a>
-  <a mat-button routerLink="../" fxFlex="25%" routerLinkActive="active">GO BACK</a>
+  <a mat-button (click)="goBack()" fxFlex="25%" routerLinkActive="active">GO BACK</a>
   <a mat-button routerLink="/orderdetail" fxFlex="25%" routerLinkActive="active">ORDER</a>
-  <a mat-button routerLink="/logout" fxFlex="25%" routerLinkActive="active">LOG OUT</a>
+  <button mat-button (click)="logout()" fxFlex="25%" routerLinkActive="active" >LOG OUT</button>
 </nav>

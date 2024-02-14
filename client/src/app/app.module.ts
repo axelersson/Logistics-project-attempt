@@ -10,12 +10,18 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { Client } from './services/api';
 import { HttpClientModule } from '@angular/common/http';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { MatButtonModule } from '@angular/material/button';
+import { MatButtonModule, MatIconButton } from '@angular/material/button';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { HomeComponent } from './home/home.component';
 import { OrderdetailComponent } from './orderdetail/orderdetail.component';
 import { LogoutComponent } from './logout/logout.component';
+import { AreaComponent } from './area/area.component';
+import { AreaCrudpageComponent } from './area/area-crudpage/area-crudpage.component';
+import {MatIconModule} from '@angular/material/icon';
+import { DummyDataService } from './dummy-data.service';
+
+
 
 @NgModule({
   declarations: [
@@ -25,6 +31,8 @@ import { LogoutComponent } from './logout/logout.component';
     HomeComponent,
     OrderdetailComponent,
     LogoutComponent,
+    AreaComponent,
+    AreaCrudpageComponent,
   ],
   imports: [
     BrowserModule,
@@ -37,8 +45,11 @@ import { LogoutComponent } from './logout/logout.component';
     MatButtonModule,
     FlexLayoutModule,
     MatToolbarModule,
+    MatIconButton,
+    MatButtonModule,
+    MatIconModule,
   ],
-  providers: [Client],
+  providers: [Client, DummyDataService],
   bootstrap: [AppComponent], // Bootstrap AppComponent
 })
 export class AppModule {}

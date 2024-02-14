@@ -32,7 +32,7 @@ namespace LogisticsApp.Data // Change to your actual namespace
                 .HasKey(or => new { or.OrderId, or.RollOfSteelId });
             modelBuilder.Entity<OrderRollOfSteel>()
                 .HasOne(or => or.Order)
-                .WithMany(o => o.OrderRollsOfSteel)
+                .WithMany()
                 .HasForeignKey(or => or.OrderId);
             modelBuilder.Entity<OrderRollOfSteel>()
                 .HasOne(or => or.RollOfSteel)
