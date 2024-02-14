@@ -14,5 +14,6 @@ public class Location
     // Navigation Properties
       public Area? Area { get; set; }
       public List<RollOfSteel> RollsOfSteel { get; set; } = new List<RollOfSteel>();
-      public List<Order> Orders { get; set; } = new List<Order>();
+      public List<Order> DestinationOrders { get; set; } = new List<Order>();
+     public List<Order> SourceOrders { get; set; } = new List<Order>();
 }

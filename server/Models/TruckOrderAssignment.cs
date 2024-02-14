@@ -1,7 +1,7 @@
 ﻿
 public class TruckOrderAssignment
 {
-    public string RowId { get; set; } = Guid.NewGuid().ToString();
+    public int TruckOrderAssignmentId{ get; set; }
     public string TruckId { get; set; } = string.Empty;
     public Truck? Truck { get; set; }
 

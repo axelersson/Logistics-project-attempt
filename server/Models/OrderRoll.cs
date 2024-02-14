@@ -1,6 +1,6 @@
 public class OrderRoll
 {
-    public int RowId { get; set; }
+    public int OrderRollId { get; set; }
     public string? OrderId { get; set; }
     public string? RollOfSteelId { get; set; }
     public enum OrderRollStatus
@@ -13,5 +13,5 @@ public class OrderRoll
     // Navigaion properties
 
     public Order? Order { get; set; }
-     public RollOfSteel? RollOfSteel { get; set; }
+    public RollOfSteel? RollOfSteel { get; set; }
 }

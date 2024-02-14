@@ -1,7 +1,7 @@
 ﻿
 public class TruckUser
 {
-    public int RowId { get; set; }
+    public int TruckUserId { get; set; }
 
     public string? TruckId { get; set; }
     public Truck? Truck { get; set; }

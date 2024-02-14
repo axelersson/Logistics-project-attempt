@@ -46,12 +46,12 @@ namespace LogisticsApp.Data // Change to your actual namespace
             //From
             modelBuilder.Entity<Order>()
                 .HasOne<Location>(o => o.SourceLocation)
-                .WithMany(l => l.Orders)
+                .WithMany(l => l.SourceOrders)
                 .HasForeignKey(o => o.SourceId);
             // To
             modelBuilder.Entity<Order>()
                 .HasOne<Location>(o => o.DestinationLocation)
-                .WithMany(l => l.Orders)
+                .WithMany(l => l.DestinationOrders)
                 .HasForeignKey(o => o.DestinationId);
 
             // One User, Many Orders
@@ -59,12 +59,9 @@ namespace LogisticsApp.Data // Change to your actual namespace
                 .HasOne<User>(o => o.User)
                 .WithMany(u => u.Orders)
                 .HasForeignKey(o => o.UserID);
-                
+
             // INTERMEDIATE TABLES
             // Configure TruckUser
-            modelBuilder.Entity<TruckUser>()
-                .HasIndex(tu => tu.RowId) // Create unique index on RowId
-                .IsUnique();
 
             modelBuilder.Entity<TruckUser>()
                 .HasOne<Truck>(tu => tu.Truck)
@@ -77,9 +74,6 @@ namespace LogisticsApp.Data // Change to your actual namespace
                 .HasForeignKey(tu => tu.UserId);
 
             // Configure OrderRoll
-            modelBuilder.Entity<OrderRoll>()
-                .HasIndex(or => or.RowId) // Create unique index on RowId
-                .IsUnique();
 
             modelBuilder.Entity<OrderRoll>()
                 .HasOne(or => or.RollOfSteel)
@@ -92,10 +86,6 @@ namespace LogisticsApp.Data // Change to your actual namespace
                 .HasForeignKey(or => or.OrderId);
 
             // Configure TruckOrderAssignment
-
-            modelBuilder.Entity<TruckOrderAssignment>()
-                .HasIndex(toa => toa.RowId) // Create unique index on RowId
-                .IsUnique();
 
             modelBuilder.Entity<TruckOrderAssignment>()
                 .HasOne(toa => toa.Truck)
