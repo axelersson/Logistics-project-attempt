@@ -11,7 +11,7 @@ using Microsoft.Extensions.Logging; // Import for logging
 [Route("api/[controller]")]
 public class MachinesController : ControllerBase
 {
-    private readonly LogisticsDBContext _context; // Replace with your actual DbContext
+    private readonly LogisticsDBContext _context; 
     private readonly ILogger<MachinesController> _logger;
 
     public MachinesController(LogisticsDBContext context, ILogger<MachinesController> logger)
@@ -21,13 +21,16 @@ public class MachinesController : ControllerBase
     }
 
     [HttpGet]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(MachinesGetAllResponse))]
     public async Task<IActionResult> GetMachines()
     {
         var machines = await _context.Machines.ToListAsync();
-        return Ok(machines);
-    }
+        return Ok(new MachinesGetAllResponse { Machines = machines });
+    }   
 
     [HttpGet("{machineId}")]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Machine))]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetMachineById(string machineId)
     {
         var machine = await _context.Machines.FirstOrDefaultAsync(m => m.MachineId == machineId);
@@ -41,6 +44,8 @@ public class MachinesController : ControllerBase
     }
 
     [HttpPost]
+    [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(Machine))]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> CreateMachine([FromBody] Machine machine)
     {
         if (machine == null)
@@ -55,6 +60,9 @@ public class MachinesController : ControllerBase
     }
 
     [HttpPut("{machineId}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> UpdateMachine(string machineId, [FromBody] Machine updatedMachine)
     {
         if (machineId != updatedMachine.MachineId)
@@ -84,6 +92,8 @@ public class MachinesController : ControllerBase
     }
 
     [HttpDelete("{machineId}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> DeleteMachine(string machineId)
     {
         var machine = await _context.Machines.FindAsync(machineId);

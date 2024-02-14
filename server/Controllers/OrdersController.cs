@@ -7,15 +7,11 @@ using System.Threading.Tasks;
 using LogisticsApp.Data; // Import your DbContext namespace
 using Microsoft.Extensions.Logging; // Import for logging
 
-// TODO: Need to add rolls of steel to the order 
-// and add them to the OrderRollsOfSteel table
-// when making an order
-
 [ApiController]
 [Route("api/[controller]")]
 public class OrdersController : ControllerBase
 {
-    private readonly LogisticsDBContext _context; // Replace with your actual DbContext
+    private readonly LogisticsDBContext _context; 
     private readonly ILogger<OrdersController> _logger;
 
     public OrdersController(LogisticsDBContext context, ILogger<OrdersController> logger)
@@ -25,13 +21,16 @@ public class OrdersController : ControllerBase
     }
 
     [HttpGet]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(OrdersGetAllResponse))]
     public async Task<IActionResult> GetOrders()
     {
         var orders = await _context.Orders.ToListAsync();
-        return Ok(orders);
+        return Ok(new OrdersGetAllResponse { Orders = orders });
     }
 
     [HttpGet("{orderId}")]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Order))]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetOrderById(string orderId)
     {
         var order = await _context.Orders.FirstOrDefaultAsync(o => o.OrderId == orderId);
@@ -45,6 +44,8 @@ public class OrdersController : ControllerBase
     }
 
     [HttpPost]
+    [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(Order))]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> CreateOrder([FromBody] Order order)
     {
         if (order == null)
@@ -60,6 +61,9 @@ public class OrdersController : ControllerBase
     }
 
     [HttpPut("{orderId}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> UpdateOrder(string orderId, [FromBody] Order updatedOrder)
     {
         if (orderId != updatedOrder.OrderId)
@@ -89,6 +93,8 @@ public class OrdersController : ControllerBase
     }
 
     [HttpDelete("{orderId}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> DeleteOrder(string orderId)
     {
         var order = await _context.Orders.FindAsync(orderId);

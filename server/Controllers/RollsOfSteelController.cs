@@ -11,7 +11,7 @@ using Microsoft.Extensions.Logging; // Import for logging
 [Route("api/[controller]")]
 public class RollsOfSteelController : ControllerBase
 {
-    private readonly LogisticsDBContext _context; // Replace with your actual DbContext
+    private readonly LogisticsDBContext _context; 
     private readonly ILogger<RollsOfSteelController> _logger;
 
     public RollsOfSteelController(LogisticsDBContext context, ILogger<RollsOfSteelController> logger)
@@ -21,13 +21,16 @@ public class RollsOfSteelController : ControllerBase
     }
 
     [HttpGet]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(RollsOfSteelGetAllResponse))]
     public async Task<IActionResult> GetRollsOfSteel()
     {
         var rollsOfSteel = await _context.RollsOfSteel.ToListAsync();
-        return Ok(rollsOfSteel);
+        return Ok(new RollsOfSteelGetAllResponse { RollsOfSteel = rollsOfSteel });
     }
 
     [HttpGet("{rollOfSteelId}")]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(RollOfSteel))]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetRollOfSteelById(string rollOfSteelId)
     {
         var rollOfSteel = await _context.RollsOfSteel.FirstOrDefaultAsync(r => r.RollOfSteelId == rollOfSteelId);
@@ -41,6 +44,8 @@ public class RollsOfSteelController : ControllerBase
     }
 
     [HttpPost]
+    [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(RollOfSteel))]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> CreateRollOfSteel([FromBody] RollOfSteel rollOfSteel)
     {
         if (rollOfSteel == null)
@@ -55,6 +60,9 @@ public class RollsOfSteelController : ControllerBase
     }
 
     [HttpPut("{rollOfSteelId}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> UpdateRollOfSteel(string rollOfSteelId, [FromBody] RollOfSteel updatedRollOfSteel)
     {
         if (rollOfSteelId != updatedRollOfSteel.RollOfSteelId)
@@ -84,6 +92,8 @@ public class RollsOfSteelController : ControllerBase
     }
 
     [HttpDelete("{rollOfSteelId}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> DeleteRollOfSteel(string rollOfSteelId)
     {
         var rollOfSteel = await _context.RollsOfSteel.FindAsync(rollOfSteelId);
