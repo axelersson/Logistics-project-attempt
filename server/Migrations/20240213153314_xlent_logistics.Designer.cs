@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace server.Migrations
 {
     [DbContext(typeof(LogisticsDBContext))]
-    [Migration("20240213040116_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20240213153314_xlent_logistics")]
+    partial class xlent_logistics
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

@@ -10,6 +10,9 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { Client } from './services/api';
 import { HttpClientModule } from '@angular/common/http';
+import { LocationListComponent } from './location-list/location-list.component';
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [
@@ -17,6 +20,7 @@ import { HttpClientModule } from '@angular/common/http';
     LoginComponent, // Declare other components here
     NavigationComponent, // ... any other components
     DashboardComponent,
+    LocationListComponent
   ],
   imports: [
     BrowserModule,
@@ -25,6 +29,8 @@ import { HttpClientModule } from '@angular/common/http';
     ReactiveFormsModule,
     FontAwesomeModule,
     HttpClientModule,
+    MatButtonModule,
+    MatCardModule
   ],
   providers: [Client],
   bootstrap: [AppComponent], // Bootstrap AppComponent

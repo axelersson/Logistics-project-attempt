@@ -37,7 +37,7 @@ builder.Services.AddOpenApiDocument();
 builder.Services.AddAuthorization();
 //builder.Services.AddAuthentication("Bearer").AddJwtBearer();
 
-builder.Services.AddAuthentication(options =>
+builder.Services.AddAuthentication(options =>//TOKEN MANAGE
 {
     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
     options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
