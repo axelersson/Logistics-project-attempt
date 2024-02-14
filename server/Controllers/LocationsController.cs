@@ -66,8 +66,8 @@ public class LocationsController : ControllerBase
             }
 
             // Set the area ID for the location
-            //location.AreaId = areaId;
             location.Area = area;
+            location.LocationType = LocationType.Storage;
             _context.Locations.Add(location);
         }
 

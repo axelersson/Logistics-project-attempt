@@ -38,6 +38,9 @@ namespace server.Migrations
                         .IsRequired()
                         .HasColumnType("varchar(255)");
 
+                    b.Property<int>("LocationType")
+                        .HasColumnType("int");
+
                     b.HasKey("LocationId");
 
                     b.HasIndex("AreaId");
@@ -57,9 +60,8 @@ namespace server.Migrations
                         .IsRequired()
                         .HasColumnType("varchar(255)");
 
-                    b.Property<string>("SourceId")
-                        .IsRequired()
-                        .HasColumnType("varchar(255)");
+                    b.Property<int>("OrderStatus")
+                        .HasColumnType("int");
 
                     b.Property<string>("UserID")
                         .IsRequired()
@@ -68,8 +70,6 @@ namespace server.Migrations
                     b.HasKey("OrderId");
 
                     b.HasIndex("DestinationId");
-
-                    b.HasIndex("SourceId");
 
                     b.HasIndex("UserID");
 
@@ -84,6 +84,9 @@ namespace server.Migrations
 
                     b.Property<string>("OrderId")
                         .HasColumnType("varchar(255)");
+
+                    b.Property<int>("OrderRollStatus")
+                        .HasColumnType("int");
 
                     b.Property<string>("RollOfSteelId")
                         .HasColumnType("varchar(255)");
@@ -105,6 +108,9 @@ namespace server.Migrations
                     b.Property<string>("CurrentLocationId")
                         .IsRequired()
                         .HasColumnType("varchar(255)");
+
+                    b.Property<int>("RollStatus")
+                        .HasColumnType("int");
 
                     b.HasKey("RollOfSteelId");
 
@@ -228,12 +234,6 @@ namespace server.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Location", "SourceLocation")
-                        .WithMany("SourceOrders")
-                        .HasForeignKey("SourceId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("User", "User")
                         .WithMany("Orders")
                         .HasForeignKey("UserID")
@@ -241,8 +241,6 @@ namespace server.Migrations
                         .IsRequired();
 
                     b.Navigation("DestinationLocation");
-
-                    b.Navigation("SourceLocation");
 
                     b.Navigation("User");
                 });
@@ -330,8 +328,6 @@ namespace server.Migrations
                     b.Navigation("DestinationOrders");
 
                     b.Navigation("RollsOfSteel");
-
-                    b.Navigation("SourceOrders");
                 });
 
             modelBuilder.Entity("Order", b =>

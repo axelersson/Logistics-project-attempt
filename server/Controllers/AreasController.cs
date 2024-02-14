@@ -23,7 +23,9 @@ public class AreasController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> GetAreas()
     {
-        var areas = await _context.Areas.ToListAsync();
+        var areas = await _context.Areas
+            .Include(a => a.Locations)
+            .ToListAsync();
         return Ok(areas);
     }
 

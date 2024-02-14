@@ -43,12 +43,6 @@ namespace LogisticsApp.Data // Change to your actual namespace
                 .HasForeignKey(r => r.CurrentLocationId);
             
             // One Location, Many Orders
-            //From
-            modelBuilder.Entity<Order>()
-                .HasOne<Location>(o => o.SourceLocation)
-                .WithMany(l => l.SourceOrders)
-                .HasForeignKey(o => o.SourceId);
-            // To
             modelBuilder.Entity<Order>()
                 .HasOne<Location>(o => o.DestinationLocation)
                 .WithMany(l => l.DestinationOrders)
@@ -75,6 +69,9 @@ namespace LogisticsApp.Data // Change to your actual namespace
 
             // Configure OrderRoll
 
+            modelBuilder.Entity<OrderRoll>()
+                .HasKey(or => or.OrderRollId);
+                
             modelBuilder.Entity<OrderRoll>()
                 .HasOne(or => or.RollOfSteel)
                 .WithMany(r => r.OrderRolls)
