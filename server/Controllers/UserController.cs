@@ -132,26 +132,28 @@ public class UsersController : ControllerBase
 
     private string GenerateJwtToken(User user)
     {
-        var tokenHandler = new JwtSecurityTokenHandler();
-        var key = Encoding.ASCII.GetBytes("thesecurestofkeysofchowevershouldbeintheenvdfolder"); // JWT Token key
+    var tokenHandler = new JwtSecurityTokenHandler();
+    var key = Encoding.ASCII.GetBytes("thesecurestofkeysofchowevershouldbeintheenvdfolder"); // JWT Token key
 
-        var tokenDescriptor = new SecurityTokenDescriptor
+    var tokenDescriptor = new SecurityTokenDescriptor
+    {
+        Subject = new ClaimsIdentity(new[]
         {
-            Subject = new ClaimsIdentity(new[]
-            {
-                new Claim(ClaimTypes.NameIdentifier, user.UserId),
-                // Add other claims as needed
-            }),
-            Expires = DateTime.UtcNow.AddHours(10), // Set token expiration, currently 10 hours
-            SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
-        };
+            new Claim(ClaimTypes.NameIdentifier, user.UserId),
+            new Claim(ClaimTypes.Role, user.Role.ToString()), // Convert enum to string
+            // Add other claims as needed
+        }),
+        Expires = DateTime.UtcNow.AddHours(10), // Set token expiration
+        SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+    };
 
-        var token = tokenHandler.CreateToken(tokenDescriptor);
-        return tokenHandler.WriteToken(token);
+    var token = tokenHandler.CreateToken(tokenDescriptor);
+    return tokenHandler.WriteToken(token);
     }
-/* 
+
+ 
     [HttpGet("getAllUsernames")]
-    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<string>))]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(UsersGetAllUsernamesResponse))]
     public async Task<IActionResult> GetAllUsernames()
     {
         var usernames = await _context.Users
@@ -159,5 +161,5 @@ public class UsersController : ControllerBase
             .ToListAsync();
 
         return Ok(usernames);
-    } */
+    } 
 }

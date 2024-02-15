@@ -3261,6 +3261,90 @@ export class Client {
     }
     return _observableOf<LoginResponse>(null as any);
   }
+
+  /**
+   * @return Success
+   */
+  getAllUsernames(): Observable<UsersGetAllUsernamesResponse> {
+    let url_ = this.baseUrl + '/Users/getAllUsernames';
+    url_ = url_.replace(/[?&]$/, '');
+
+    let options_: any = {
+      observe: 'response',
+      responseType: 'blob',
+      headers: new HttpHeaders({
+        Accept: 'text/plain',
+      }),
+    };
+
+    return this.http
+      .request('get', url_, options_)
+      .pipe(
+        _observableMergeMap((response_: any) => {
+          return this.processGetAllUsernames(response_);
+        }),
+      )
+      .pipe(
+        _observableCatch((response_: any) => {
+          if (response_ instanceof HttpResponseBase) {
+            try {
+              return this.processGetAllUsernames(response_ as any);
+            } catch (e) {
+              return _observableThrow(
+                e,
+              ) as any as Observable<UsersGetAllUsernamesResponse>;
+            }
+          } else
+            return _observableThrow(
+              response_,
+            ) as any as Observable<UsersGetAllUsernamesResponse>;
+        }),
+      );
+  }
+
+  protected processGetAllUsernames(
+    response: HttpResponseBase,
+  ): Observable<UsersGetAllUsernamesResponse> {
+    const status = response.status;
+    const responseBlob =
+      response instanceof HttpResponse
+        ? response.body
+        : (response as any).error instanceof Blob
+          ? (response as any).error
+          : undefined;
+
+    let _headers: any = {};
+    if (response.headers) {
+      for (let key of response.headers.keys()) {
+        _headers[key] = response.headers.get(key);
+      }
+    }
+    if (status === 200) {
+      return blobToText(responseBlob).pipe(
+        _observableMergeMap((_responseText) => {
+          let result200: any = null;
+          let resultData200 =
+            _responseText === ''
+              ? null
+              : JSON.parse(_responseText, this.jsonParseReviver);
+          result200 = UsersGetAllUsernamesResponse.fromJS(resultData200);
+          return _observableOf(result200);
+        }),
+      );
+    } else if (status !== 200 && status !== 204) {
+      return blobToText(responseBlob).pipe(
+        _observableMergeMap((_responseText) => {
+          return throwException(
+            'An unexpected server error occurred.',
+            status,
+            _responseText,
+            _headers,
+          );
+        }),
+      );
+    }
+    return _observableOf<UsersGetAllUsernamesResponse>(null as any);
+  }
 }
 
 export class Area implements IArea {
@@ -4264,6 +4348,50 @@ export class UsersGetAllResponse implements IUsersGetAllResponse {
 
 export interface IUsersGetAllResponse {
   users?: User[] | undefined;
+}
+
+export class UsersGetAllUsernamesResponse
+  implements IUsersGetAllUsernamesResponse
+{
+  usernames?: string[] | undefined;
+
+  constructor(data?: IUsersGetAllUsernamesResponse) {
+    if (data) {
+      for (var property in data) {
+        if (data.hasOwnProperty(property))
+          (<any>this)[property] = (<any>data)[property];
+      }
+    }
+  }
+
+  init(_data?: any) {
+    if (_data) {
+      if (Array.isArray(_data['usernames'])) {
+        this.usernames = [] as any;
+        for (let item of _data['usernames']) this.usernames!.push(item);
+      }
+    }
+  }
+
+  static fromJS(data: any): UsersGetAllUsernamesResponse {
+    data = typeof data === 'object' ? data : {};
+    let result = new UsersGetAllUsernamesResponse();
+    result.init(data);
+    return result;
+  }
+
+  toJSON(data?: any) {
+    data = typeof data === 'object' ? data : {};
+    if (Array.isArray(this.usernames)) {
+      data['usernames'] = [];
+      for (let item of this.usernames) data['usernames'].push(item);
+    }
+    return data;
+  }
+}
+
+export interface IUsersGetAllUsernamesResponse {
+  usernames?: string[] | undefined;
 }
 
 export class ApiException extends Error {
