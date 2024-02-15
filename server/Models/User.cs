@@ -22,4 +22,7 @@ public class User
         Admin,
         User
     }
+    // Navigation Properties
+    public List<TruckUser> TruckUsers { get; set; } = new List<TruckUser>();
+    public List<Order> Orders { get; set; } = new List<Order>();
 }
