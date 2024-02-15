@@ -13,7 +13,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent }, // Default route
   { path: 'homepage', component: HomeComponent},
   { path: 'orderdetail', component: OrderdetailComponent},
-  { path: 'logout', component: LogoutComponent}
+  { path: 'logout', component: LogoutComponent},
   { path: 'locationlist', component: LocationListComponent },
   //{ path: 'feature', loadChildren: () => import('./feature/feature.module').then(m => m.FeatureModule), canActivate: [AuthGuard] }, Add canActivate: [AuthGuard] to all other routes except 'home'
 ];
