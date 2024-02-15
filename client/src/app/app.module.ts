@@ -18,7 +18,6 @@ import { OrderdetailComponent } from './orderdetail/orderdetail.component';
 import { LogoutComponent } from './logout/logout.component';
 import { LocationListComponent } from './location-list/location-list.component';
 import { MatCardModule } from '@angular/material/card';
-import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [
