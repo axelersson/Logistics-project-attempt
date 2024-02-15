@@ -8,3 +8,7 @@ server/obj/
 
 # Binary files
 server/bin/
+
+# Migration files
+server/Migrations/
+

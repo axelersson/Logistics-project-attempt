@@ -8,7 +8,7 @@ using LogisticsApp.Data; // Import your DbContext namespace
 using Microsoft.Extensions.Logging; // Import for logging
 
 [ApiController]
-[Route("api/[controller]")]
+[Route("/[controller]")]
 public class AreasController : ControllerBase
 {
     private readonly LogisticsDBContext _context; // Replace with your actual DbContext
@@ -23,14 +23,18 @@ public class AreasController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> GetAreas()
     {
-        var areas = await _context.Areas.ToListAsync();
+        var areas = await _context.Areas
+            .Include(a => a.Locations)
+            .ToListAsync();
         return Ok(areas);
     }
 
     [HttpGet("{areaId}")]
     public async Task<IActionResult> GetAreaById(string areaId)
     {
-        var area = await _context.Areas.FirstOrDefaultAsync(a => a.AreaId == areaId);
+        var area = await _context.Areas
+            .Include(a => a.Locations)
+            .FirstOrDefaultAsync(a => a.AreaId == areaId);
 
         if (area == null)
         {

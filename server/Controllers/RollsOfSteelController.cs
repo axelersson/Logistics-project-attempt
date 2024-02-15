@@ -8,7 +8,7 @@ using LogisticsApp.Data; // Import your DbContext namespace
 using Microsoft.Extensions.Logging; // Import for logging
 
 [ApiController]
-[Route("api/[controller]")]
+[Route("/[controller]")]
 public class RollsOfSteelController : ControllerBase
 {
     private readonly LogisticsDBContext _context; // Replace with your actual DbContext
@@ -23,7 +23,9 @@ public class RollsOfSteelController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> GetRollsOfSteel()
     {
-        var rollsOfSteel = await _context.RollsOfSteel.ToListAsync();
+        var rollsOfSteel = await _context.RollsOfSteel
+        .Include(o => o.OrderRolls)
+        .ToListAsync();
         return Ok(rollsOfSteel);
     }
 

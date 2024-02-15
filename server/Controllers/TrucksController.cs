@@ -8,7 +8,7 @@ using LogisticsApp.Data; // Import your DbContext namespace
 using Microsoft.Extensions.Logging; // Import for logging
 
 [ApiController]
-[Route("api/[controller]")]
+[Route("/[controller]")]
 
 
 public class TrucksController : ControllerBase

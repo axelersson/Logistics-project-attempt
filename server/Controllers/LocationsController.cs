@@ -8,7 +8,7 @@ using LogisticsApp.Data; // Import your DbContext namespace
 using Microsoft.Extensions.Logging; // Import for logging
 
 [ApiController]
-[Route("api/[controller]")]
+[Route("/[controller]")]
 public class LocationsController : ControllerBase
 {
     private readonly LogisticsDBContext _context; // Replace with your actual DbContext
@@ -40,21 +40,6 @@ public class LocationsController : ControllerBase
         return Ok(location);
     }
 
-    // POST UNDEFINED AREA
-    [HttpPost]
-    public async Task<IActionResult> CreateLocation([FromBody] Location location)
-    {
-        if (location == null)
-        {
-            return BadRequest();
-        }
-
-        _context.Locations.Add(location);
-        await _context.SaveChangesAsync();
-
-        return CreatedAtAction(nameof(GetLocationById), new { locationId = location.LocationId }, location);
-    }
-
     // POST TO SPECIFIC AREA
     [HttpPost("Area/{areaId}")]
     public async Task<IActionResult> AddLocationsToArea(string areaId, [FromBody] List<Location> locations)
@@ -81,8 +66,8 @@ public class LocationsController : ControllerBase
             }
 
             // Set the area ID for the location
-            //location.AreaId = areaId;
             location.Area = area;
+            location.LocationType = LocationType.Storage;
             _context.Locations.Add(location);
         }
 
