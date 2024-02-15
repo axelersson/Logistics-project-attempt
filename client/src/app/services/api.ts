@@ -1140,502 +1140,8 @@ export class Client {
   /**
    * @return Success
    */
-  machinesGET(): Observable<MachinesGetAllResponse> {
-    let url_ = this.baseUrl + '/api/Machines';
-    url_ = url_.replace(/[?&]$/, '');
-
-    let options_: any = {
-      observe: 'response',
-      responseType: 'blob',
-      headers: new HttpHeaders({
-        Accept: 'text/plain',
-      }),
-    };
-
-    return this.http
-      .request('get', url_, options_)
-      .pipe(
-        _observableMergeMap((response_: any) => {
-          return this.processMachinesGET(response_);
-        }),
-      )
-      .pipe(
-        _observableCatch((response_: any) => {
-          if (response_ instanceof HttpResponseBase) {
-            try {
-              return this.processMachinesGET(response_ as any);
-            } catch (e) {
-              return _observableThrow(
-                e,
-              ) as any as Observable<MachinesGetAllResponse>;
-            }
-          } else
-            return _observableThrow(
-              response_,
-            ) as any as Observable<MachinesGetAllResponse>;
-        }),
-      );
-  }
-
-  protected processMachinesGET(
-    response: HttpResponseBase,
-  ): Observable<MachinesGetAllResponse> {
-    const status = response.status;
-    const responseBlob =
-      response instanceof HttpResponse
-        ? response.body
-        : (response as any).error instanceof Blob
-          ? (response as any).error
-          : undefined;
-
-    let _headers: any = {};
-    if (response.headers) {
-      for (let key of response.headers.keys()) {
-        _headers[key] = response.headers.get(key);
-      }
-    }
-    if (status === 200) {
-      return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
-          let result200: any = null;
-          let resultData200 =
-            _responseText === ''
-              ? null
-              : JSON.parse(_responseText, this.jsonParseReviver);
-          result200 = MachinesGetAllResponse.fromJS(resultData200);
-          return _observableOf(result200);
-        }),
-      );
-    } else if (status !== 200 && status !== 204) {
-      return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
-          return throwException(
-            'An unexpected server error occurred.',
-            status,
-            _responseText,
-            _headers,
-          );
-        }),
-      );
-    }
-    return _observableOf<MachinesGetAllResponse>(null as any);
-  }
-
-  /**
-   * @param body (optional)
-   * @return Created
-   */
-  machinesPOST(body: Machine | undefined): Observable<Machine> {
-    let url_ = this.baseUrl + '/api/Machines';
-    url_ = url_.replace(/[?&]$/, '');
-
-    const content_ = JSON.stringify(body);
-
-    let options_: any = {
-      body: content_,
-      observe: 'response',
-      responseType: 'blob',
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        Accept: 'text/plain',
-      }),
-    };
-
-    return this.http
-      .request('post', url_, options_)
-      .pipe(
-        _observableMergeMap((response_: any) => {
-          return this.processMachinesPOST(response_);
-        }),
-      )
-      .pipe(
-        _observableCatch((response_: any) => {
-          if (response_ instanceof HttpResponseBase) {
-            try {
-              return this.processMachinesPOST(response_ as any);
-            } catch (e) {
-              return _observableThrow(e) as any as Observable<Machine>;
-            }
-          } else
-            return _observableThrow(response_) as any as Observable<Machine>;
-        }),
-      );
-  }
-
-  protected processMachinesPOST(
-    response: HttpResponseBase,
-  ): Observable<Machine> {
-    const status = response.status;
-    const responseBlob =
-      response instanceof HttpResponse
-        ? response.body
-        : (response as any).error instanceof Blob
-          ? (response as any).error
-          : undefined;
-
-    let _headers: any = {};
-    if (response.headers) {
-      for (let key of response.headers.keys()) {
-        _headers[key] = response.headers.get(key);
-      }
-    }
-    if (status === 201) {
-      return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
-          let result201: any = null;
-          let resultData201 =
-            _responseText === ''
-              ? null
-              : JSON.parse(_responseText, this.jsonParseReviver);
-          result201 = Machine.fromJS(resultData201);
-          return _observableOf(result201);
-        }),
-      );
-    } else if (status === 400) {
-      return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
-          let result400: any = null;
-          let resultData400 =
-            _responseText === ''
-              ? null
-              : JSON.parse(_responseText, this.jsonParseReviver);
-          result400 = ProblemDetails.fromJS(resultData400);
-          return throwException(
-            'Bad Request',
-            status,
-            _responseText,
-            _headers,
-            result400,
-          );
-        }),
-      );
-    } else if (status !== 200 && status !== 204) {
-      return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
-          return throwException(
-            'An unexpected server error occurred.',
-            status,
-            _responseText,
-            _headers,
-          );
-        }),
-      );
-    }
-    return _observableOf<Machine>(null as any);
-  }
-
-  /**
-   * @return Success
-   */
-  machinesGET2(machineId: string): Observable<Machine> {
-    let url_ = this.baseUrl + '/api/Machines/{machineId}';
-    if (machineId === undefined || machineId === null)
-      throw new Error("The parameter 'machineId' must be defined.");
-    url_ = url_.replace('{machineId}', encodeURIComponent('' + machineId));
-    url_ = url_.replace(/[?&]$/, '');
-
-    let options_: any = {
-      observe: 'response',
-      responseType: 'blob',
-      headers: new HttpHeaders({
-        Accept: 'text/plain',
-      }),
-    };
-
-    return this.http
-      .request('get', url_, options_)
-      .pipe(
-        _observableMergeMap((response_: any) => {
-          return this.processMachinesGET2(response_);
-        }),
-      )
-      .pipe(
-        _observableCatch((response_: any) => {
-          if (response_ instanceof HttpResponseBase) {
-            try {
-              return this.processMachinesGET2(response_ as any);
-            } catch (e) {
-              return _observableThrow(e) as any as Observable<Machine>;
-            }
-          } else
-            return _observableThrow(response_) as any as Observable<Machine>;
-        }),
-      );
-  }
-
-  protected processMachinesGET2(
-    response: HttpResponseBase,
-  ): Observable<Machine> {
-    const status = response.status;
-    const responseBlob =
-      response instanceof HttpResponse
-        ? response.body
-        : (response as any).error instanceof Blob
-          ? (response as any).error
-          : undefined;
-
-    let _headers: any = {};
-    if (response.headers) {
-      for (let key of response.headers.keys()) {
-        _headers[key] = response.headers.get(key);
-      }
-    }
-    if (status === 200) {
-      return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
-          let result200: any = null;
-          let resultData200 =
-            _responseText === ''
-              ? null
-              : JSON.parse(_responseText, this.jsonParseReviver);
-          result200 = Machine.fromJS(resultData200);
-          return _observableOf(result200);
-        }),
-      );
-    } else if (status === 404) {
-      return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
-          let result404: any = null;
-          let resultData404 =
-            _responseText === ''
-              ? null
-              : JSON.parse(_responseText, this.jsonParseReviver);
-          result404 = ProblemDetails.fromJS(resultData404);
-          return throwException(
-            'Not Found',
-            status,
-            _responseText,
-            _headers,
-            result404,
-          );
-        }),
-      );
-    } else if (status !== 200 && status !== 204) {
-      return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
-          return throwException(
-            'An unexpected server error occurred.',
-            status,
-            _responseText,
-            _headers,
-          );
-        }),
-      );
-    }
-    return _observableOf<Machine>(null as any);
-  }
-
-  /**
-   * @param body (optional)
-   * @return No Content
-   */
-  machinesPUT(machineId: string, body: Machine | undefined): Observable<void> {
-    let url_ = this.baseUrl + '/api/Machines/{machineId}';
-    if (machineId === undefined || machineId === null)
-      throw new Error("The parameter 'machineId' must be defined.");
-    url_ = url_.replace('{machineId}', encodeURIComponent('' + machineId));
-    url_ = url_.replace(/[?&]$/, '');
-
-    const content_ = JSON.stringify(body);
-
-    let options_: any = {
-      body: content_,
-      observe: 'response',
-      responseType: 'blob',
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-      }),
-    };
-
-    return this.http
-      .request('put', url_, options_)
-      .pipe(
-        _observableMergeMap((response_: any) => {
-          return this.processMachinesPUT(response_);
-        }),
-      )
-      .pipe(
-        _observableCatch((response_: any) => {
-          if (response_ instanceof HttpResponseBase) {
-            try {
-              return this.processMachinesPUT(response_ as any);
-            } catch (e) {
-              return _observableThrow(e) as any as Observable<void>;
-            }
-          } else return _observableThrow(response_) as any as Observable<void>;
-        }),
-      );
-  }
-
-  protected processMachinesPUT(response: HttpResponseBase): Observable<void> {
-    const status = response.status;
-    const responseBlob =
-      response instanceof HttpResponse
-        ? response.body
-        : (response as any).error instanceof Blob
-          ? (response as any).error
-          : undefined;
-
-    let _headers: any = {};
-    if (response.headers) {
-      for (let key of response.headers.keys()) {
-        _headers[key] = response.headers.get(key);
-      }
-    }
-    if (status === 204) {
-      return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
-          return _observableOf<void>(null as any);
-        }),
-      );
-    } else if (status === 400) {
-      return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
-          let result400: any = null;
-          let resultData400 =
-            _responseText === ''
-              ? null
-              : JSON.parse(_responseText, this.jsonParseReviver);
-          result400 = ProblemDetails.fromJS(resultData400);
-          return throwException(
-            'Bad Request',
-            status,
-            _responseText,
-            _headers,
-            result400,
-          );
-        }),
-      );
-    } else if (status === 404) {
-      return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
-          let result404: any = null;
-          let resultData404 =
-            _responseText === ''
-              ? null
-              : JSON.parse(_responseText, this.jsonParseReviver);
-          result404 = ProblemDetails.fromJS(resultData404);
-          return throwException(
-            'Not Found',
-            status,
-            _responseText,
-            _headers,
-            result404,
-          );
-        }),
-      );
-    } else if (status !== 200 && status !== 204) {
-      return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
-          return throwException(
-            'An unexpected server error occurred.',
-            status,
-            _responseText,
-            _headers,
-          );
-        }),
-      );
-    }
-    return _observableOf<void>(null as any);
-  }
-
-  /**
-   * @return No Content
-   */
-  machinesDELETE(machineId: string): Observable<void> {
-    let url_ = this.baseUrl + '/api/Machines/{machineId}';
-    if (machineId === undefined || machineId === null)
-      throw new Error("The parameter 'machineId' must be defined.");
-    url_ = url_.replace('{machineId}', encodeURIComponent('' + machineId));
-    url_ = url_.replace(/[?&]$/, '');
-
-    let options_: any = {
-      observe: 'response',
-      responseType: 'blob',
-      headers: new HttpHeaders({}),
-    };
-
-    return this.http
-      .request('delete', url_, options_)
-      .pipe(
-        _observableMergeMap((response_: any) => {
-          return this.processMachinesDELETE(response_);
-        }),
-      )
-      .pipe(
-        _observableCatch((response_: any) => {
-          if (response_ instanceof HttpResponseBase) {
-            try {
-              return this.processMachinesDELETE(response_ as any);
-            } catch (e) {
-              return _observableThrow(e) as any as Observable<void>;
-            }
-          } else return _observableThrow(response_) as any as Observable<void>;
-        }),
-      );
-  }
-
-  protected processMachinesDELETE(
-    response: HttpResponseBase,
-  ): Observable<void> {
-    const status = response.status;
-    const responseBlob =
-      response instanceof HttpResponse
-        ? response.body
-        : (response as any).error instanceof Blob
-          ? (response as any).error
-          : undefined;
-
-    let _headers: any = {};
-    if (response.headers) {
-      for (let key of response.headers.keys()) {
-        _headers[key] = response.headers.get(key);
-      }
-    }
-    if (status === 204) {
-      return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
-          return _observableOf<void>(null as any);
-        }),
-      );
-    } else if (status === 404) {
-      return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
-          let result404: any = null;
-          let resultData404 =
-            _responseText === ''
-              ? null
-              : JSON.parse(_responseText, this.jsonParseReviver);
-          result404 = ProblemDetails.fromJS(resultData404);
-          return throwException(
-            'Not Found',
-            status,
-            _responseText,
-            _headers,
-            result404,
-          );
-        }),
-      );
-    } else if (status !== 200 && status !== 204) {
-      return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
-          return throwException(
-            'An unexpected server error occurred.',
-            status,
-            _responseText,
-            _headers,
-          );
-        }),
-      );
-    }
-    return _observableOf<void>(null as any);
-  }
-
-  /**
-   * @return Success
-   */
   ordersGET(): Observable<OrdersGetAllResponse> {
-    let url_ = this.baseUrl + '/api/Orders';
+    let url_ = this.baseUrl + '/Orders';
     url_ = url_.replace(/[?&]$/, '');
 
     let options_: any = {
@@ -1716,110 +1222,10 @@ export class Client {
   }
 
   /**
-   * @param body (optional)
-   * @return Created
-   */
-  ordersPOST(body: Order | undefined): Observable<Order> {
-    let url_ = this.baseUrl + '/api/Orders';
-    url_ = url_.replace(/[?&]$/, '');
-
-    const content_ = JSON.stringify(body);
-
-    let options_: any = {
-      body: content_,
-      observe: 'response',
-      responseType: 'blob',
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        Accept: 'text/plain',
-      }),
-    };
-
-    return this.http
-      .request('post', url_, options_)
-      .pipe(
-        _observableMergeMap((response_: any) => {
-          return this.processOrdersPOST(response_);
-        }),
-      )
-      .pipe(
-        _observableCatch((response_: any) => {
-          if (response_ instanceof HttpResponseBase) {
-            try {
-              return this.processOrdersPOST(response_ as any);
-            } catch (e) {
-              return _observableThrow(e) as any as Observable<Order>;
-            }
-          } else return _observableThrow(response_) as any as Observable<Order>;
-        }),
-      );
-  }
-
-  protected processOrdersPOST(response: HttpResponseBase): Observable<Order> {
-    const status = response.status;
-    const responseBlob =
-      response instanceof HttpResponse
-        ? response.body
-        : (response as any).error instanceof Blob
-          ? (response as any).error
-          : undefined;
-
-    let _headers: any = {};
-    if (response.headers) {
-      for (let key of response.headers.keys()) {
-        _headers[key] = response.headers.get(key);
-      }
-    }
-    if (status === 201) {
-      return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
-          let result201: any = null;
-          let resultData201 =
-            _responseText === ''
-              ? null
-              : JSON.parse(_responseText, this.jsonParseReviver);
-          result201 = Order.fromJS(resultData201);
-          return _observableOf(result201);
-        }),
-      );
-    } else if (status === 400) {
-      return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
-          let result400: any = null;
-          let resultData400 =
-            _responseText === ''
-              ? null
-              : JSON.parse(_responseText, this.jsonParseReviver);
-          result400 = ProblemDetails.fromJS(resultData400);
-          return throwException(
-            'Bad Request',
-            status,
-            _responseText,
-            _headers,
-            result400,
-          );
-        }),
-      );
-    } else if (status !== 200 && status !== 204) {
-      return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
-          return throwException(
-            'An unexpected server error occurred.',
-            status,
-            _responseText,
-            _headers,
-          );
-        }),
-      );
-    }
-    return _observableOf<Order>(null as any);
-  }
-
-  /**
    * @return Success
    */
   ordersGET2(orderId: string): Observable<Order> {
-    let url_ = this.baseUrl + '/api/Orders/{orderId}';
+    let url_ = this.baseUrl + '/Orders/{orderId}';
     if (orderId === undefined || orderId === null)
       throw new Error("The parameter 'orderId' must be defined.");
     url_ = url_.replace('{orderId}', encodeURIComponent('' + orderId));
@@ -1918,7 +1324,7 @@ export class Client {
    * @return No Content
    */
   ordersPUT(orderId: string, body: Order | undefined): Observable<void> {
-    let url_ = this.baseUrl + '/api/Orders/{orderId}';
+    let url_ = this.baseUrl + '/Orders/{orderId}';
     if (orderId === undefined || orderId === null)
       throw new Error("The parameter 'orderId' must be defined.");
     url_ = url_.replace('{orderId}', encodeURIComponent('' + orderId));
@@ -2031,7 +1437,7 @@ export class Client {
    * @return No Content
    */
   ordersDELETE(orderId: string): Observable<void> {
-    let url_ = this.baseUrl + '/api/Orders/{orderId}';
+    let url_ = this.baseUrl + '/Orders/{orderId}';
     if (orderId === undefined || orderId === null)
       throw new Error("The parameter 'orderId' must be defined.");
     url_ = url_.replace('{orderId}', encodeURIComponent('' + orderId));
@@ -2100,6 +1506,163 @@ export class Client {
             _headers,
             result404,
           );
+        }),
+      );
+    } else if (status !== 200 && status !== 204) {
+      return blobToText(responseBlob).pipe(
+        _observableMergeMap((_responseText) => {
+          return throwException(
+            'An unexpected server error occurred.',
+            status,
+            _responseText,
+            _headers,
+          );
+        }),
+      );
+    }
+    return _observableOf<void>(null as any);
+  }
+
+  /**
+   * @return Success
+   */
+  rolls(orderId: string): Observable<void> {
+    let url_ = this.baseUrl + '/Orders/{orderId}/rolls';
+    if (orderId === undefined || orderId === null)
+      throw new Error("The parameter 'orderId' must be defined.");
+    url_ = url_.replace('{orderId}', encodeURIComponent('' + orderId));
+    url_ = url_.replace(/[?&]$/, '');
+
+    let options_: any = {
+      observe: 'response',
+      responseType: 'blob',
+      headers: new HttpHeaders({}),
+    };
+
+    return this.http
+      .request('get', url_, options_)
+      .pipe(
+        _observableMergeMap((response_: any) => {
+          return this.processRolls(response_);
+        }),
+      )
+      .pipe(
+        _observableCatch((response_: any) => {
+          if (response_ instanceof HttpResponseBase) {
+            try {
+              return this.processRolls(response_ as any);
+            } catch (e) {
+              return _observableThrow(e) as any as Observable<void>;
+            }
+          } else return _observableThrow(response_) as any as Observable<void>;
+        }),
+      );
+  }
+
+  protected processRolls(response: HttpResponseBase): Observable<void> {
+    const status = response.status;
+    const responseBlob =
+      response instanceof HttpResponse
+        ? response.body
+        : (response as any).error instanceof Blob
+          ? (response as any).error
+          : undefined;
+
+    let _headers: any = {};
+    if (response.headers) {
+      for (let key of response.headers.keys()) {
+        _headers[key] = response.headers.get(key);
+      }
+    }
+    if (status === 200) {
+      return blobToText(responseBlob).pipe(
+        _observableMergeMap((_responseText) => {
+          return _observableOf<void>(null as any);
+        }),
+      );
+    } else if (status !== 200 && status !== 204) {
+      return blobToText(responseBlob).pipe(
+        _observableMergeMap((_responseText) => {
+          return throwException(
+            'An unexpected server error occurred.',
+            status,
+            _responseText,
+            _headers,
+          );
+        }),
+      );
+    }
+    return _observableOf<void>(null as any);
+  }
+
+  /**
+   * @param body (optional)
+   * @return Success
+   */
+  location(
+    locationId: string,
+    userId: string,
+    body: RollOfSteel[] | undefined,
+  ): Observable<void> {
+    let url_ = this.baseUrl + '/Orders/user/{userId}/location/{locationId}';
+    if (locationId === undefined || locationId === null)
+      throw new Error("The parameter 'locationId' must be defined.");
+    url_ = url_.replace('{locationId}', encodeURIComponent('' + locationId));
+    if (userId === undefined || userId === null)
+      throw new Error("The parameter 'userId' must be defined.");
+    url_ = url_.replace('{userId}', encodeURIComponent('' + userId));
+    url_ = url_.replace(/[?&]$/, '');
+
+    const content_ = JSON.stringify(body);
+
+    let options_: any = {
+      body: content_,
+      observe: 'response',
+      responseType: 'blob',
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+    };
+
+    return this.http
+      .request('post', url_, options_)
+      .pipe(
+        _observableMergeMap((response_: any) => {
+          return this.processLocation(response_);
+        }),
+      )
+      .pipe(
+        _observableCatch((response_: any) => {
+          if (response_ instanceof HttpResponseBase) {
+            try {
+              return this.processLocation(response_ as any);
+            } catch (e) {
+              return _observableThrow(e) as any as Observable<void>;
+            }
+          } else return _observableThrow(response_) as any as Observable<void>;
+        }),
+      );
+  }
+
+  protected processLocation(response: HttpResponseBase): Observable<void> {
+    const status = response.status;
+    const responseBlob =
+      response instanceof HttpResponse
+        ? response.body
+        : (response as any).error instanceof Blob
+          ? (response as any).error
+          : undefined;
+
+    let _headers: any = {};
+    if (response.headers) {
+      for (let key of response.headers.keys()) {
+        _headers[key] = response.headers.get(key);
+      }
+    }
+    if (status === 200) {
+      return blobToText(responseBlob).pipe(
+        _observableMergeMap((_responseText) => {
+          return _observableOf<void>(null as any);
         }),
       );
     } else if (status !== 200 && status !== 204) {
@@ -3120,7 +2683,7 @@ export class Client {
    * @return Success
    */
   usersPOST(body: User | undefined): Observable<void> {
-    let url_ = this.baseUrl + '/api/Users';
+    let url_ = this.baseUrl + '/Users';
     url_ = url_.replace(/[?&]$/, '');
 
     const content_ = JSON.stringify(body);
@@ -3212,7 +2775,7 @@ export class Client {
    * @return Success
    */
   usersGET(): Observable<UsersGetAllResponse> {
-    let url_ = this.baseUrl + '/api/Users';
+    let url_ = this.baseUrl + '/Users';
     url_ = url_.replace(/[?&]$/, '');
 
     let options_: any = {
@@ -3296,7 +2859,7 @@ export class Client {
    * @return Success
    */
   usersGET2(userId: string): Observable<User> {
-    let url_ = this.baseUrl + '/api/Users/{userId}';
+    let url_ = this.baseUrl + '/Users/{userId}';
     if (userId === undefined || userId === null)
       throw new Error("The parameter 'userId' must be defined.");
     url_ = url_.replace('{userId}', encodeURIComponent('' + userId));
@@ -3395,7 +2958,7 @@ export class Client {
    * @return Success
    */
   usersPUT(userId: string, body: User | undefined): Observable<void> {
-    let url_ = this.baseUrl + '/api/Users/{userId}';
+    let url_ = this.baseUrl + '/Users/{userId}';
     if (userId === undefined || userId === null)
       throw new Error("The parameter 'userId' must be defined.");
     url_ = url_.replace('{userId}', encodeURIComponent('' + userId));
@@ -3508,7 +3071,7 @@ export class Client {
    * @return No Content
    */
   usersDELETE(userId: string): Observable<void> {
-    let url_ = this.baseUrl + '/api/Users/{userId}';
+    let url_ = this.baseUrl + '/Users/{userId}';
     if (userId === undefined || userId === null)
       throw new Error("The parameter 'userId' must be defined.");
     url_ = url_.replace('{userId}', encodeURIComponent('' + userId));
@@ -3599,7 +3162,7 @@ export class Client {
    * @return Success
    */
   login(body: LoginRequest | undefined): Observable<LoginResponse> {
-    let url_ = this.baseUrl + '/api/Users/login';
+    let url_ = this.baseUrl + '/Users/login';
     url_ = url_.replace(/[?&]$/, '');
 
     const content_ = JSON.stringify(body);
@@ -3702,7 +3265,8 @@ export class Client {
 
 export class Area implements IArea {
   areaId?: string | undefined;
-  readonly trucks?: Truck[] | undefined;
+  locations?: Location[] | undefined;
+  trucks?: Truck[] | undefined;
 
   constructor(data?: IArea) {
     if (data) {
@@ -3716,10 +3280,14 @@ export class Area implements IArea {
   init(_data?: any) {
     if (_data) {
       this.areaId = _data['areaId'];
+      if (Array.isArray(_data['locations'])) {
+        this.locations = [] as any;
+        for (let item of _data['locations'])
+          this.locations!.push(Location.fromJS(item));
+      }
       if (Array.isArray(_data['trucks'])) {
-        (<any>this).trucks = [] as any;
-        for (let item of _data['trucks'])
-          (<any>this).trucks!.push(Truck.fromJS(item));
+        this.trucks = [] as any;
+        for (let item of _data['trucks']) this.trucks!.push(Truck.fromJS(item));
       }
     }
   }
@@ -3734,6 +3302,10 @@ export class Area implements IArea {
   toJSON(data?: any) {
     data = typeof data === 'object' ? data : {};
     data['areaId'] = this.areaId;
+    if (Array.isArray(this.locations)) {
+      data['locations'] = [];
+      for (let item of this.locations) data['locations'].push(item.toJSON());
+    }
     if (Array.isArray(this.trucks)) {
       data['trucks'] = [];
       for (let item of this.trucks) data['trucks'].push(item.toJSON());
@@ -3744,6 +3316,7 @@ export class Area implements IArea {
 
 export interface IArea {
   areaId?: string | undefined;
+  locations?: Location[] | undefined;
   trucks?: Truck[] | undefined;
 }
 
@@ -3792,7 +3365,9 @@ export interface IAreasResponse {
 export class Location implements ILocation {
   locationId?: string | undefined;
   areaId?: string | undefined;
-  area?: Area;
+  locationType?: LocationType;
+  rollsOfSteel?: RollOfSteel[] | undefined;
+  destinationOrders?: Order[] | undefined;
 
   constructor(data?: ILocation) {
     if (data) {
@@ -3807,7 +3382,17 @@ export class Location implements ILocation {
     if (_data) {
       this.locationId = _data['locationId'];
       this.areaId = _data['areaId'];
-      this.area = _data['area'] ? Area.fromJS(_data['area']) : <any>undefined;
+      this.locationType = _data['locationType'];
+      if (Array.isArray(_data['rollsOfSteel'])) {
+        this.rollsOfSteel = [] as any;
+        for (let item of _data['rollsOfSteel'])
+          this.rollsOfSteel!.push(RollOfSteel.fromJS(item));
+      }
+      if (Array.isArray(_data['destinationOrders'])) {
+        this.destinationOrders = [] as any;
+        for (let item of _data['destinationOrders'])
+          this.destinationOrders!.push(Order.fromJS(item));
+      }
     }
   }
 
@@ -3822,7 +3407,17 @@ export class Location implements ILocation {
     data = typeof data === 'object' ? data : {};
     data['locationId'] = this.locationId;
     data['areaId'] = this.areaId;
-    data['area'] = this.area ? this.area.toJSON() : <any>undefined;
+    data['locationType'] = this.locationType;
+    if (Array.isArray(this.rollsOfSteel)) {
+      data['rollsOfSteel'] = [];
+      for (let item of this.rollsOfSteel)
+        data['rollsOfSteel'].push(item.toJSON());
+    }
+    if (Array.isArray(this.destinationOrders)) {
+      data['destinationOrders'] = [];
+      for (let item of this.destinationOrders)
+        data['destinationOrders'].push(item.toJSON());
+    }
     return data;
   }
 }
@@ -3830,7 +3425,14 @@ export class Location implements ILocation {
 export interface ILocation {
   locationId?: string | undefined;
   areaId?: string | undefined;
-  area?: Area;
+  locationType?: LocationType;
+  rollsOfSteel?: RollOfSteel[] | undefined;
+  destinationOrders?: Order[] | undefined;
+}
+
+export enum LocationType {
+  Storage = 'Storage',
+  Machine = 'Machine',
 }
 
 export class LocationsGetAllResponse implements ILocationsGetAllResponse {
@@ -3952,97 +3554,14 @@ export interface ILoginResponse {
   token?: string | undefined;
 }
 
-export class Machine implements IMachine {
-  machineId?: string | undefined;
-  areaID?: string | undefined;
-
-  constructor(data?: IMachine) {
-    if (data) {
-      for (var property in data) {
-        if (data.hasOwnProperty(property))
-          (<any>this)[property] = (<any>data)[property];
-      }
-    }
-  }
-
-  init(_data?: any) {
-    if (_data) {
-      this.machineId = _data['machineId'];
-      this.areaID = _data['areaID'];
-    }
-  }
-
-  static fromJS(data: any): Machine {
-    data = typeof data === 'object' ? data : {};
-    let result = new Machine();
-    result.init(data);
-    return result;
-  }
-
-  toJSON(data?: any) {
-    data = typeof data === 'object' ? data : {};
-    data['machineId'] = this.machineId;
-    data['areaID'] = this.areaID;
-    return data;
-  }
-}
-
-export interface IMachine {
-  machineId?: string | undefined;
-  areaID?: string | undefined;
-}
-
-export class MachinesGetAllResponse implements IMachinesGetAllResponse {
-  machines?: Machine[] | undefined;
-
-  constructor(data?: IMachinesGetAllResponse) {
-    if (data) {
-      for (var property in data) {
-        if (data.hasOwnProperty(property))
-          (<any>this)[property] = (<any>data)[property];
-      }
-    }
-  }
-
-  init(_data?: any) {
-    if (_data) {
-      if (Array.isArray(_data['machines'])) {
-        this.machines = [] as any;
-        for (let item of _data['machines'])
-          this.machines!.push(Machine.fromJS(item));
-      }
-    }
-  }
-
-  static fromJS(data: any): MachinesGetAllResponse {
-    data = typeof data === 'object' ? data : {};
-    let result = new MachinesGetAllResponse();
-    result.init(data);
-    return result;
-  }
-
-  toJSON(data?: any) {
-    data = typeof data === 'object' ? data : {};
-    if (Array.isArray(this.machines)) {
-      data['machines'] = [];
-      for (let item of this.machines) data['machines'].push(item.toJSON());
-    }
-    return data;
-  }
-}
-
-export interface IMachinesGetAllResponse {
-  machines?: Machine[] | undefined;
-}
-
 export class Order implements IOrder {
   orderId?: string | undefined;
-  status?: string | undefined;
-  sourceId?: string | undefined;
+  userID?: string | undefined;
+  orderStatus?: OrderStatus;
   destinationId?: string | undefined;
-  readonly rollsOfSteel?: RollOfSteel[] | undefined;
-  readonly trucks?: Truck[] | undefined;
   createdAt?: Date;
+  orderRolls?: OrderRoll[] | undefined;
+  truckOrderAssignments?: TruckOrderAssignment[] | undefined;
 
   constructor(data?: IOrder) {
     if (data) {
@@ -4056,22 +3575,22 @@ export class Order implements IOrder {
   init(_data?: any) {
     if (_data) {
       this.orderId = _data['orderId'];
-      this.status = _data['status'];
-      this.sourceId = _data['sourceId'];
+      this.userID = _data['userID'];
+      this.orderStatus = _data['orderStatus'];
       this.destinationId = _data['destinationId'];
-      if (Array.isArray(_data['rollsOfSteel'])) {
-        (<any>this).rollsOfSteel = [] as any;
-        for (let item of _data['rollsOfSteel'])
-          (<any>this).rollsOfSteel!.push(RollOfSteel.fromJS(item));
-      }
-      if (Array.isArray(_data['trucks'])) {
-        (<any>this).trucks = [] as any;
-        for (let item of _data['trucks'])
-          (<any>this).trucks!.push(Truck.fromJS(item));
-      }
       this.createdAt = _data['createdAt']
         ? new Date(_data['createdAt'].toString())
         : <any>undefined;
+      if (Array.isArray(_data['orderRolls'])) {
+        this.orderRolls = [] as any;
+        for (let item of _data['orderRolls'])
+          this.orderRolls!.push(OrderRoll.fromJS(item));
+      }
+      if (Array.isArray(_data['truckOrderAssignments'])) {
+        this.truckOrderAssignments = [] as any;
+        for (let item of _data['truckOrderAssignments'])
+          this.truckOrderAssignments!.push(TruckOrderAssignment.fromJS(item));
+      }
     }
   }
 
@@ -4085,33 +3604,94 @@ export class Order implements IOrder {
   toJSON(data?: any) {
     data = typeof data === 'object' ? data : {};
     data['orderId'] = this.orderId;
-    data['status'] = this.status;
-    data['sourceId'] = this.sourceId;
+    data['userID'] = this.userID;
+    data['orderStatus'] = this.orderStatus;
     data['destinationId'] = this.destinationId;
-    if (Array.isArray(this.rollsOfSteel)) {
-      data['rollsOfSteel'] = [];
-      for (let item of this.rollsOfSteel)
-        data['rollsOfSteel'].push(item.toJSON());
-    }
-    if (Array.isArray(this.trucks)) {
-      data['trucks'] = [];
-      for (let item of this.trucks) data['trucks'].push(item.toJSON());
-    }
     data['createdAt'] = this.createdAt
       ? this.createdAt.toISOString()
       : <any>undefined;
+    if (Array.isArray(this.orderRolls)) {
+      data['orderRolls'] = [];
+      for (let item of this.orderRolls) data['orderRolls'].push(item.toJSON());
+    }
+    if (Array.isArray(this.truckOrderAssignments)) {
+      data['truckOrderAssignments'] = [];
+      for (let item of this.truckOrderAssignments)
+        data['truckOrderAssignments'].push(item.toJSON());
+    }
     return data;
   }
 }
 
 export interface IOrder {
   orderId?: string | undefined;
-  status?: string | undefined;
-  sourceId?: string | undefined;
+  userID?: string | undefined;
+  orderStatus?: OrderStatus;
   destinationId?: string | undefined;
-  rollsOfSteel?: RollOfSteel[] | undefined;
-  trucks?: Truck[] | undefined;
   createdAt?: Date;
+  orderRolls?: OrderRoll[] | undefined;
+  truckOrderAssignments?: TruckOrderAssignment[] | undefined;
+}
+
+export class OrderRoll implements IOrderRoll {
+  orderRollId?: number;
+  orderId?: string | undefined;
+  rollOfSteelId?: string | undefined;
+  orderRollStatus?: OrderRollStatus;
+
+  constructor(data?: IOrderRoll) {
+    if (data) {
+      for (var property in data) {
+        if (data.hasOwnProperty(property))
+          (<any>this)[property] = (<any>data)[property];
+      }
+    }
+  }
+
+  init(_data?: any) {
+    if (_data) {
+      this.orderRollId = _data['orderRollId'];
+      this.orderId = _data['orderId'];
+      this.rollOfSteelId = _data['rollOfSteelId'];
+      this.orderRollStatus = _data['orderRollStatus'];
+    }
+  }
+
+  static fromJS(data: any): OrderRoll {
+    data = typeof data === 'object' ? data : {};
+    let result = new OrderRoll();
+    result.init(data);
+    return result;
+  }
+
+  toJSON(data?: any) {
+    data = typeof data === 'object' ? data : {};
+    data['orderRollId'] = this.orderRollId;
+    data['orderId'] = this.orderId;
+    data['rollOfSteelId'] = this.rollOfSteelId;
+    data['orderRollStatus'] = this.orderRollStatus;
+    return data;
+  }
+}
+
+export interface IOrderRoll {
+  orderRollId?: number;
+  orderId?: string | undefined;
+  rollOfSteelId?: string | undefined;
+  orderRollStatus?: OrderRollStatus;
+}
+
+export enum OrderRollStatus {
+  Pending = 'Pending',
+  Delivered = 'Delivered',
+  Cancelled = 'Cancelled',
+}
+
+export enum OrderStatus {
+  Pending = 'Pending',
+  PartiallyDelivered = 'PartiallyDelivered',
+  Delivered = 'Delivered',
+  Cancelled = 'Cancelled',
 }
 
 export class OrdersGetAllResponse implements IOrdersGetAllResponse {
@@ -4221,8 +3801,9 @@ export interface IProblemDetails {
 export class RollOfSteel implements IRollOfSteel {
   rollOfSteelId?: string | undefined;
   currentLocationId?: string | undefined;
+  rollStatus?: RollStatus;
   currentLocation?: Location;
-  readonly orders?: Order[] | undefined;
+  orderRolls?: OrderRoll[] | undefined;
 
   constructor(data?: IRollOfSteel) {
     if (data) {
@@ -4237,13 +3818,14 @@ export class RollOfSteel implements IRollOfSteel {
     if (_data) {
       this.rollOfSteelId = _data['rollOfSteelId'];
       this.currentLocationId = _data['currentLocationId'];
+      this.rollStatus = _data['rollStatus'];
       this.currentLocation = _data['currentLocation']
         ? Location.fromJS(_data['currentLocation'])
         : <any>undefined;
-      if (Array.isArray(_data['orders'])) {
-        (<any>this).orders = [] as any;
-        for (let item of _data['orders'])
-          (<any>this).orders!.push(Order.fromJS(item));
+      if (Array.isArray(_data['orderRolls'])) {
+        this.orderRolls = [] as any;
+        for (let item of _data['orderRolls'])
+          this.orderRolls!.push(OrderRoll.fromJS(item));
       }
     }
   }
@@ -4259,12 +3841,13 @@ export class RollOfSteel implements IRollOfSteel {
     data = typeof data === 'object' ? data : {};
     data['rollOfSteelId'] = this.rollOfSteelId;
     data['currentLocationId'] = this.currentLocationId;
+    data['rollStatus'] = this.rollStatus;
     data['currentLocation'] = this.currentLocation
       ? this.currentLocation.toJSON()
       : <any>undefined;
-    if (Array.isArray(this.orders)) {
-      data['orders'] = [];
-      for (let item of this.orders) data['orders'].push(item.toJSON());
+    if (Array.isArray(this.orderRolls)) {
+      data['orderRolls'] = [];
+      for (let item of this.orderRolls) data['orderRolls'].push(item.toJSON());
     }
     return data;
   }
@@ -4273,8 +3856,14 @@ export class RollOfSteel implements IRollOfSteel {
 export interface IRollOfSteel {
   rollOfSteelId?: string | undefined;
   currentLocationId?: string | undefined;
+  rollStatus?: RollStatus;
   currentLocation?: Location;
-  orders?: Order[] | undefined;
+  orderRolls?: OrderRoll[] | undefined;
+}
+
+export enum RollStatus {
+  Processed = 'Processed',
+  Raw = 'Raw',
 }
 
 export class RollsOfSteelGetAllResponse implements IRollsOfSteelGetAllResponse {
@@ -4324,10 +3913,8 @@ export interface IRollsOfSteelGetAllResponse {
 export class Truck implements ITruck {
   truckId?: string | undefined;
   currentAreaId?: string | undefined;
-  status?: string | undefined;
-  currentArea?: Area;
-  readonly users?: User[] | undefined;
-  readonly orders?: Order[] | undefined;
+  truckUsers?: TruckUser[] | undefined;
+  truckOrderAssignments?: TruckOrderAssignment[] | undefined;
 
   constructor(data?: ITruck) {
     if (data) {
@@ -4342,19 +3929,15 @@ export class Truck implements ITruck {
     if (_data) {
       this.truckId = _data['truckId'];
       this.currentAreaId = _data['currentAreaId'];
-      this.status = _data['status'];
-      this.currentArea = _data['currentArea']
-        ? Area.fromJS(_data['currentArea'])
-        : <any>undefined;
-      if (Array.isArray(_data['users'])) {
-        (<any>this).users = [] as any;
-        for (let item of _data['users'])
-          (<any>this).users!.push(User.fromJS(item));
+      if (Array.isArray(_data['truckUsers'])) {
+        this.truckUsers = [] as any;
+        for (let item of _data['truckUsers'])
+          this.truckUsers!.push(TruckUser.fromJS(item));
       }
-      if (Array.isArray(_data['orders'])) {
-        (<any>this).orders = [] as any;
-        for (let item of _data['orders'])
-          (<any>this).orders!.push(Order.fromJS(item));
+      if (Array.isArray(_data['truckOrderAssignments'])) {
+        this.truckOrderAssignments = [] as any;
+        for (let item of _data['truckOrderAssignments'])
+          this.truckOrderAssignments!.push(TruckOrderAssignment.fromJS(item));
       }
     }
   }
@@ -4370,17 +3953,14 @@ export class Truck implements ITruck {
     data = typeof data === 'object' ? data : {};
     data['truckId'] = this.truckId;
     data['currentAreaId'] = this.currentAreaId;
-    data['status'] = this.status;
-    data['currentArea'] = this.currentArea
-      ? this.currentArea.toJSON()
-      : <any>undefined;
-    if (Array.isArray(this.users)) {
-      data['users'] = [];
-      for (let item of this.users) data['users'].push(item.toJSON());
+    if (Array.isArray(this.truckUsers)) {
+      data['truckUsers'] = [];
+      for (let item of this.truckUsers) data['truckUsers'].push(item.toJSON());
     }
-    if (Array.isArray(this.orders)) {
-      data['orders'] = [];
-      for (let item of this.orders) data['orders'].push(item.toJSON());
+    if (Array.isArray(this.truckOrderAssignments)) {
+      data['truckOrderAssignments'] = [];
+      for (let item of this.truckOrderAssignments)
+        data['truckOrderAssignments'].push(item.toJSON());
     }
     return data;
   }
@@ -4389,10 +3969,132 @@ export class Truck implements ITruck {
 export interface ITruck {
   truckId?: string | undefined;
   currentAreaId?: string | undefined;
-  status?: string | undefined;
-  currentArea?: Area;
-  users?: User[] | undefined;
-  orders?: Order[] | undefined;
+  truckUsers?: TruckUser[] | undefined;
+  truckOrderAssignments?: TruckOrderAssignment[] | undefined;
+}
+
+export class TruckOrderAssignment implements ITruckOrderAssignment {
+  truckOrderAssignmentId?: number;
+  truckId?: string | undefined;
+  orderId?: string | undefined;
+  assignmentAt?: Date | undefined;
+  unassignmentAt?: Date | undefined;
+
+  constructor(data?: ITruckOrderAssignment) {
+    if (data) {
+      for (var property in data) {
+        if (data.hasOwnProperty(property))
+          (<any>this)[property] = (<any>data)[property];
+      }
+    }
+  }
+
+  init(_data?: any) {
+    if (_data) {
+      this.truckOrderAssignmentId = _data['truckOrderAssignmentId'];
+      this.truckId = _data['truckId'];
+      this.orderId = _data['orderId'];
+      this.assignmentAt = _data['assignmentAt']
+        ? new Date(_data['assignmentAt'].toString())
+        : <any>undefined;
+      this.unassignmentAt = _data['unassignmentAt']
+        ? new Date(_data['unassignmentAt'].toString())
+        : <any>undefined;
+    }
+  }
+
+  static fromJS(data: any): TruckOrderAssignment {
+    data = typeof data === 'object' ? data : {};
+    let result = new TruckOrderAssignment();
+    result.init(data);
+    return result;
+  }
+
+  toJSON(data?: any) {
+    data = typeof data === 'object' ? data : {};
+    data['truckOrderAssignmentId'] = this.truckOrderAssignmentId;
+    data['truckId'] = this.truckId;
+    data['orderId'] = this.orderId;
+    data['assignmentAt'] = this.assignmentAt
+      ? this.assignmentAt.toISOString()
+      : <any>undefined;
+    data['unassignmentAt'] = this.unassignmentAt
+      ? this.unassignmentAt.toISOString()
+      : <any>undefined;
+    return data;
+  }
+}
+
+export interface ITruckOrderAssignment {
+  truckOrderAssignmentId?: number;
+  truckId?: string | undefined;
+  orderId?: string | undefined;
+  assignmentAt?: Date | undefined;
+  unassignmentAt?: Date | undefined;
+}
+
+export class TruckUser implements ITruckUser {
+  truckUserId?: number;
+  truckId?: string | undefined;
+  userId?: string | undefined;
+  isAssigned?: boolean;
+  dateAssigned?: Date | undefined;
+  dateUnassigned?: Date | undefined;
+
+  constructor(data?: ITruckUser) {
+    if (data) {
+      for (var property in data) {
+        if (data.hasOwnProperty(property))
+          (<any>this)[property] = (<any>data)[property];
+      }
+    }
+  }
+
+  init(_data?: any) {
+    if (_data) {
+      this.truckUserId = _data['truckUserId'];
+      this.truckId = _data['truckId'];
+      this.userId = _data['userId'];
+      this.isAssigned = _data['isAssigned'];
+      this.dateAssigned = _data['dateAssigned']
+        ? new Date(_data['dateAssigned'].toString())
+        : <any>undefined;
+      this.dateUnassigned = _data['dateUnassigned']
+        ? new Date(_data['dateUnassigned'].toString())
+        : <any>undefined;
+    }
+  }
+
+  static fromJS(data: any): TruckUser {
+    data = typeof data === 'object' ? data : {};
+    let result = new TruckUser();
+    result.init(data);
+    return result;
+  }
+
+  toJSON(data?: any) {
+    data = typeof data === 'object' ? data : {};
+    data['truckUserId'] = this.truckUserId;
+    data['truckId'] = this.truckId;
+    data['userId'] = this.userId;
+    data['isAssigned'] = this.isAssigned;
+    data['dateAssigned'] = this.dateAssigned
+      ? this.dateAssigned.toISOString()
+      : <any>undefined;
+    data['dateUnassigned'] = this.dateUnassigned
+      ? this.dateUnassigned.toISOString()
+      : <any>undefined;
+    return data;
+  }
+}
+
+export interface ITruckUser {
+  truckUserId?: number;
+  truckId?: string | undefined;
+  userId?: string | undefined;
+  isAssigned?: boolean;
+  dateAssigned?: Date | undefined;
+  dateUnassigned?: Date | undefined;
 }
 
 export class TrucksGetAllResponse implements ITrucksGetAllResponse {
@@ -4443,6 +4145,8 @@ export class User implements IUser {
   username?: string | undefined;
   passwordHash?: string | undefined;
   readonly trucks?: Truck[] | undefined;
+  truckUsers?: TruckUser[] | undefined;
+  orders?: Order[] | undefined;
 
   constructor(data?: IUser) {
     if (data) {
@@ -4464,6 +4168,15 @@ export class User implements IUser {
         for (let item of _data['trucks'])
           (<any>this).trucks!.push(Truck.fromJS(item));
       }
+      if (Array.isArray(_data['truckUsers'])) {
+        this.truckUsers = [] as any;
+        for (let item of _data['truckUsers'])
+          this.truckUsers!.push(TruckUser.fromJS(item));
+      }
+      if (Array.isArray(_data['orders'])) {
+        this.orders = [] as any;
+        for (let item of _data['orders']) this.orders!.push(Order.fromJS(item));
+      }
     }
   }
 
@@ -4484,6 +4197,14 @@ export class User implements IUser {
       data['trucks'] = [];
       for (let item of this.trucks) data['trucks'].push(item.toJSON());
     }
+    if (Array.isArray(this.truckUsers)) {
+      data['truckUsers'] = [];
+      for (let item of this.truckUsers) data['truckUsers'].push(item.toJSON());
+    }
+    if (Array.isArray(this.orders)) {
+      data['orders'] = [];
+      for (let item of this.orders) data['orders'].push(item.toJSON());
+    }
     return data;
   }
 }
@@ -4494,6 +4215,8 @@ export interface IUser {
   username?: string | undefined;
   passwordHash?: string | undefined;
   trucks?: Truck[] | undefined;
+  truckUsers?: TruckUser[] | undefined;
+  orders?: Order[] | undefined;
 }
 
 export enum UserRole {
