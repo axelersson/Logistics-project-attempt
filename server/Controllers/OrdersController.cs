@@ -37,6 +37,7 @@ public class OrdersController : ControllerBase
     {
         var order = await _context.Orders
         .Include(o => o.OrderRolls)
+            .ThenInclude(or => or.RollOfSteel)
         .FirstOrDefaultAsync(o => o.OrderId == orderId);
 
         if (order == null)
@@ -46,6 +47,32 @@ public class OrdersController : ControllerBase
 
         return Ok(order);
     }
+
+    // Get all rolls of steel associated with an order
+    [HttpGet("{orderId}/rolls")]
+    public async Task<IActionResult> GetOrderRolls(string orderId)
+    {
+    var order = await _context.Orders
+        .Select(o => new { OrderId = o.OrderId, DestinationId = o.DestinationId }) // Only select the fields we need
+        .FirstOrDefaultAsync(o => o.OrderId == orderId);
+
+    if (order == null)
+    {
+        return NotFound();
+    }
+
+    var orderRolls = await _context.OrderRolls
+        .Where(or => or.OrderId == orderId)
+        .ToListAsync();
+
+    var rollOfSteelIds = orderRolls.Select(or => or.RollOfSteelId).ToList();
+
+    var rollsOfSteel = await _context.RollsOfSteel
+        .Where(roll => rollOfSteelIds.Contains(roll.RollOfSteelId))
+        .ToListAsync();
+
+    return Ok(new { Order = order, RollsOfSteel = rollsOfSteel });
+}
 
     [HttpPost("user/{userId}/location/{locationId}")]
     public async Task<IActionResult> CreateOrder(string locationId, string userId, [FromBody] List<RollOfSteel> rolls)

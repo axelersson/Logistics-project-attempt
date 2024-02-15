@@ -32,7 +32,9 @@ public class AreasController : ControllerBase
     [HttpGet("{areaId}")]
     public async Task<IActionResult> GetAreaById(string areaId)
     {
-        var area = await _context.Areas.FirstOrDefaultAsync(a => a.AreaId == areaId);
+        var area = await _context.Areas
+            .Include(a => a.Locations)
+            .FirstOrDefaultAsync(a => a.AreaId == areaId);
 
         if (area == null)
         {
