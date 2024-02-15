@@ -149,7 +149,7 @@ public class UsersController : ControllerBase
         var token = tokenHandler.CreateToken(tokenDescriptor);
         return tokenHandler.WriteToken(token);
     }
-
+/* 
     [HttpGet("getAllUsernames")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<string>))]
     public async Task<IActionResult> GetAllUsernames()
@@ -159,5 +159,5 @@ public class UsersController : ControllerBase
             .ToListAsync();
 
         return Ok(usernames);
-    }
+    } */
 }
