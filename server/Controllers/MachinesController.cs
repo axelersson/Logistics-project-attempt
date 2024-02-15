@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Mvc;
+/* using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -114,3 +114,4 @@ public class MachinesController : ControllerBase
         return _context.Machines.Any(m => m.MachineId == machineId);
     }
 }
+ */
