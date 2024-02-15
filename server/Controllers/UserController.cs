@@ -8,16 +8,14 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.IdentityModel.Tokens;
-using System.Security.Cryptography;
 using LogisticsApp.Data;
-
 
 [ApiController]
 [Route("/[controller]")]
 public class UsersController : ControllerBase
 {
-    private readonly LogisticsDBContext _context; // Replace with the actual name of your DbContext
-    private readonly ILogger<UsersController> _logger; // Logger instance
+    private readonly LogisticsDBContext _context;
+    private readonly ILogger<UsersController> _logger;
 
     public UsersController(LogisticsDBContext context, ILogger<UsersController> logger)
     {
@@ -26,11 +24,13 @@ public class UsersController : ControllerBase
     }
 
     [HttpPost]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public IActionResult CreateUser([FromBody] User user)
     {
         _logger.LogInformation("POST request received to create user: {Username}", user.Username);
 
-        // Hash the user's password using BCrypt
+        // Hash the user's password
         string hashedPassword = BCrypt.Net.BCrypt.HashPassword(user.PasswordHash);
         user.PasswordHash = hashedPassword;
 
@@ -41,13 +41,18 @@ public class UsersController : ControllerBase
     }
 
     [HttpGet]
-    public IActionResult GetAllUsers()
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(UsersGetAllResponse))]
+    public async Task<IActionResult> GetUsers()
     {
-        var users = _context.Users.ToList();
-        return Ok(users);
+        var users = await _context.Users.ToListAsync();
+        return Ok(new UsersGetAllResponse { Users = users });
     }
 
+
+
     [HttpGet("{userId}")]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(User))]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public IActionResult GetUserById(string userId)
     {
         var user = _context.Users.FirstOrDefault(u => u.UserId == userId);
@@ -59,6 +64,9 @@ public class UsersController : ControllerBase
     }
 
     [HttpPut("{userId}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public IActionResult UpdateUser(string userId, [FromBody] User updatedUser)
     {
         var user = _context.Users.FirstOrDefault(u => u.UserId == userId);
@@ -67,9 +75,10 @@ public class UsersController : ControllerBase
             return NotFound();
         }
 
-        // Update user properties here
+        // Update user properties
         user.Username = updatedUser.Username;
-        user.PasswordHash = updatedUser.PasswordHash;
+        // Re-hashing the password if it's updated. 
+        user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(updatedUser.PasswordHash);
 
         _context.SaveChanges();
 
@@ -77,6 +86,8 @@ public class UsersController : ControllerBase
     }
 
     [HttpDelete("{userId}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public IActionResult DeleteUser(string userId)
     {
         var user = _context.Users.FirstOrDefault(u => u.UserId == userId);
@@ -91,62 +102,62 @@ public class UsersController : ControllerBase
         return NoContent();
     }
 
-     [HttpPost("login")]
+    [HttpPost("login")]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(LoginResponse))]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public async Task<IActionResult> Login([FromBody] LoginRequest loginRequest)
     {
-    var user = await _context.Users.FirstOrDefaultAsync(u => u.Username == loginRequest.Username);
-    if (user == null)
-    {
-        return Unauthorized();
+        var user = await _context.Users.FirstOrDefaultAsync(u => u.Username == loginRequest.Username);
+        if (user == null)
+        {
+            return Unauthorized();
+        }
+
+        // Verify the password
+        if (!BCrypt.Net.BCrypt.Verify(loginRequest.Password, user.PasswordHash))
+        {
+            return Unauthorized();
+        }
+
+        // Authentication successful, generate JWT token
+        var token = GenerateJwtToken(user);
+
+        // Return the token
+        var response = new LoginResponse
+        {
+            Token = token
+        };
+        return Ok(response);
     }
 
-    // Verify the password using BCrypt
-    if (!BCrypt.Net.BCrypt.Verify(loginRequest.Password, user.PasswordHash))
-    {
-        return Unauthorized();
-    }
-
-    // Authentication successful, generate JWT token
-    var token = GenerateJwtToken(user);
-
-    // Return the token using the LoginResponse model
-    var response = new LoginResponse
-    {
-        Token = token
-    };
-    return Ok(response);
-    }
     private string GenerateJwtToken(User user)
     {
         var tokenHandler = new JwtSecurityTokenHandler();
-        var key = Encoding.ASCII.GetBytes("testingthissecretkeydforthedotnetproject"); // Change this to a secure secret key
+        var key = Encoding.ASCII.GetBytes("thesecurestofkeysofchowevershouldbeintheenvdfolder"); // JWT Token key
 
-        // Calculate token expiration to be 10 hours from now
-    var tokenExpiration = DateTime.UtcNow.AddHours(10);
-
-    var tokenDescriptor = new SecurityTokenDescriptor
-    {
-        Subject = new ClaimsIdentity(new[]
+        var tokenDescriptor = new SecurityTokenDescriptor
         {
-        new Claim(ClaimTypes.NameIdentifier, user.UserId),
-        new Claim(ClaimTypes.Role, user.Role.ToString()) // Assuming user.Role is enum UserRole
-        }),
-        Expires = tokenExpiration, // Token expiration set to 10 hours from now
-        SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
-    };
+            Subject = new ClaimsIdentity(new[]
+            {
+                new Claim(ClaimTypes.NameIdentifier, user.UserId),
+                // Add other claims as needed
+            }),
+            Expires = DateTime.UtcNow.AddHours(10), // Set token expiration, currently 10 hours
+            SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+        };
 
         var token = tokenHandler.CreateToken(tokenDescriptor);
         return tokenHandler.WriteToken(token);
     }
-    // GET: /users/getAllUsernames
-        [HttpGet("getAllUsernames")]
-        public async Task<IActionResult> GetAllUsernames()
-        {
-            var usernames = await _context.Users
-                .Select(u => u.Username)
-                .ToListAsync();
+/* 
+    [HttpGet("getAllUsernames")]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(List<string>))]
+    public async Task<IActionResult> GetAllUsernames()
+    {
+        var usernames = await _context.Users
+            .Select(u => u.Username)
+            .ToListAsync();
 
-            return Ok(usernames);
-        }
+        return Ok(usernames);
+    } */
 }
-
