@@ -159,6 +159,7 @@ public class UsersController : ControllerBase
         var usernames = await _context.Users
             .Select(u => u.Username)
             .ToListAsync();
+            Console.WriteLine(usernames[0]);
 
         return Ok(usernames);
     } 

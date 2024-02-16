@@ -1,0 +1,65 @@
+.user-detail-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+
+  .mat-mdc-form-field{
+    width: 80%; /* Updated to be twice as wide */
+    max-width: 1000px; /* Adjust accordingly */
+    margin-bottom: 20px;
+  }
+  
+  .mat-form-field {
+    width: 80%; /* Updated to be twice as wide */
+    max-width: 1000px; /* Adjust accordingly */
+    margin-bottom: 20px;
+  }
+  
+  button.select-user-button {
+    width: 20%; /* Updated to be twice as big */
+    height: 100px; /* Updated to be twice as big */
+    font-size: 20px; /* Updated for visibility */
+    margin-bottom: 40px;
+  }
+  
+  .action-buttons button.action-button {
+    width: 30%;
+    height: 50px;
+    font-size: 16px;
+    color: white; /* Set text color to white */
+  }
+  
+  .delete-button {
+    background-color: #f44336; /* Red */
+  }
+  
+  .edit-button {
+    background-color: #2196f3; /* Blue */
+  }
+  
+  .create-button {
+    background-color: #4caf50; /* Green */
+  }
+  
+  h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+  }
+  
+  .mat-form-field {
+    font-size: 18px;
+  }
+  
+  .mat-label {
+    font-size: 18px;
+  }
+  
+  .mat-option {
+    font-size: 16px;
+  }
+  
+  .action-buttons{
+    width: 60%;
+  }

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { UserService } from '../services/userService';
 
 @Component({
   selector: 'app-userdetail',
@@ -7,15 +8,21 @@ import { Component } from '@angular/core';
 })
 export class UserdetailComponent {
   // Properties bound to the form fields
-  selectedUsername: string;
-  selectedUserPassword: string;
-  selectedUserRole: string;
+  selectedUsername: string = '';
+  selectedUserPassword: string = '';
+  selectedUserRole: string = '';
+
 
   // Sample data for usernames and roles - replace with actual data source
   usernames: string[] = ['User1', 'User2', 'User3'];
-  roles: string[] = ['Admin', 'Editor', 'Viewer'];
+  roles: string[] = ['Admin', 'User'];
 
-  constructor() {}
+  constructor(private userService: UserService) {}
+
+  ngOnInit() {
+    this.userService.logAllUsernames();
+  }
+
 
   // Method called when a username is selected from the dropdown
   onUsernameSelect(): void {
