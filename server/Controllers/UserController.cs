@@ -156,11 +156,15 @@ public class UsersController : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(UsersGetAllUsernamesResponse))]
     public async Task<IActionResult> GetAllUsernames()
     {
-        var usernames = await _context.Users
+        var usernamesList = await _context.Users
             .Select(u => u.Username)
             .ToListAsync();
-            Console.WriteLine(usernames[0]);
 
-        return Ok(usernames);
-    } 
+        var response = new UsersGetAllUsernamesResponse
+        {
+            Usernames = usernamesList
+        };
+
+        return Ok(response);
+    }
 }
