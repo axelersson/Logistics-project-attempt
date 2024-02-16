@@ -3999,6 +3999,7 @@ export class Truck implements ITruck {
   currentAreaId?: string | undefined;
   truckUsers?: TruckUser[] | undefined;
   truckOrderAssignments?: TruckOrderAssignment[] | undefined;
+status: any;
 
   constructor(data?: ITruck) {
     if (data) {

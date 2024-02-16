@@ -1,0 +1,11 @@
+<!-- choose-truck.component.html -->
+<div class="list-container">
+    <ul class="truck-list">
+      <li *ngFor="let truck of trucks" [routerLink]="['/trucks', truck.truckId]">
+        <p>Truck ID: {{ truck.truckId }}</p>
+        <p>Current Area ID: {{ truck.currentAreaId }}</p>
+        
+      </li>
+    </ul>
+  </div>
+  

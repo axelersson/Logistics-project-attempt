@@ -128,9 +128,14 @@ namespace server.Migrations
                         .IsRequired()
                         .HasColumnType("varchar(255)");
 
+                    b.Property<string>("UserId")
+                        .HasColumnType("varchar(255)");
+
                     b.HasKey("TruckId");
 
                     b.HasIndex("CurrentAreaId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Trucks");
                 });
@@ -279,6 +284,10 @@ namespace server.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("User", null)
+                        .WithMany("Trucks")
+                        .HasForeignKey("UserId");
+
                     b.Navigation("CurrentArea");
                 });
 
@@ -354,6 +363,8 @@ namespace server.Migrations
                     b.Navigation("Orders");
 
                     b.Navigation("TruckUsers");
+
+                    b.Navigation("Trucks");
                 });
 #pragma warning restore 612, 618
         }

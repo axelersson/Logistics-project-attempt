@@ -18,6 +18,8 @@ import { OrderdetailComponent } from './orderdetail/orderdetail.component';
 import { LogoutComponent } from './logout/logout.component';
 import { LocationListComponent } from './location-list/location-list.component';
 import { MatCardModule } from '@angular/material/card';
+import { ChooseTruckComponent } from './choose-truck/choose-truck.component';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,8 @@ import { MatCardModule } from '@angular/material/card';
     HomeComponent,
     OrderdetailComponent,
     LogoutComponent,
-    LocationListComponent
+    LocationListComponent,
+    ChooseTruckComponent
   ],
   imports: [
     BrowserModule,
@@ -43,7 +46,7 @@ import { MatCardModule } from '@angular/material/card';
     MatButtonModule,
     MatCardModule
   ],
-  providers: [Client],
+  providers: [Client, provideAnimationsAsync()],
   bootstrap: [AppComponent], // Bootstrap AppComponent
 })
 export class AppModule {}
