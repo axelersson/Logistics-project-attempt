@@ -6,5 +6,6 @@ import { Component } from '@angular/core';
   styleUrl: './area-crudpage.component.css'
 })
 export class AreaCrudpageComponent {
+areas: any;
 
 }

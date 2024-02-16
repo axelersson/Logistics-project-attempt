@@ -9,6 +9,7 @@ import { LogoutComponent } from './logout/logout.component';
 import { Area } from './services/api';
 import { AreaComponent } from './area/area.component';
 import { AreaCrudpageComponent } from './area/area-crudpage/area-crudpage.component';
+import { CreateareaComponent } from './area/createarea/createarea.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' }, // default route
@@ -17,7 +18,8 @@ const routes: Routes = [
   { path: 'orderdetail', component: OrderdetailComponent},
   { path: 'logout', component: LogoutComponent},
   { path: 'arealist', component: AreaComponent},
-  { path: 'usercrud', component: AreaCrudpageComponent}
+  { path: 'usercrud', component: AreaCrudpageComponent},
+  {path: 'createarea', component: CreateareaComponent}
   //{ path: 'feature', loadChildren: () => import('./feature/feature.module').then(m => m.FeatureModule), canActivate: [AuthGuard] }, Add canActivate: [AuthGuard] to all other routes except 'home'
 ];
 

@@ -1,0 +1,15 @@
+.top_component {
+    background-color: rgba(121, 200, 226, 0.5);
+}
+p {
+    text-align: center;
+    font-size: large;
+    font-weight: 500;
+}
+mat-form-field {
+    margin: 10px;
+    padding: 1.5rem;
+    background-color: rgba(0, 255, 0, 0.5);
+    
+  }
+

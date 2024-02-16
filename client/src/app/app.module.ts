@@ -20,7 +20,10 @@ import { AreaComponent } from './area/area.component';
 import { AreaCrudpageComponent } from './area/area-crudpage/area-crudpage.component';
 import {MatIconModule} from '@angular/material/icon';
 import { DummyDataService } from './dummy-data.service';
-
+import { CreateareaComponent } from './area/createarea/createarea.component';
+// import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field';
+// import { MatSelectModule } from '@angular/material/select';
 
 
 @NgModule({
@@ -33,6 +36,7 @@ import { DummyDataService } from './dummy-data.service';
     LogoutComponent,
     AreaComponent,
     AreaCrudpageComponent,
+    CreateareaComponent,
   ],
   imports: [
     BrowserModule,
@@ -48,6 +52,10 @@ import { DummyDataService } from './dummy-data.service';
     MatIconButton,
     MatButtonModule,
     MatIconModule,
+    // MatInputModule, 
+    MatFormFieldModule,
+    // MatSelectModule,
+
   ],
   providers: [Client, DummyDataService],
   bootstrap: [AppComponent], // Bootstrap AppComponent
