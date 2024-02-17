@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../services/userService';
+import { UserIdAndRoleResponseFromUsernameRequest } from '../services/api'; // Adjust path as necessary
+import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component'; // Adjust the path as necessary
 
 @Component({
   selector: 'app-userdetail',
@@ -11,37 +13,67 @@ export class UserdetailComponent implements OnInit {
   selectedUserPassword: string = '';
   selectedUserRole: string = '';
 
-  usernames: string[] = []; // Will be populated from the API
-  roles: string[] = ['Admin', 'User']; // Assuming these are static
+  usernames: string[] = [];
+  roles: string[] = ['Admin', 'User'];
+  userDetails: UserIdAndRoleResponseFromUsernameRequest | null = null;
+  isUserDetailsFetched: boolean = false;
 
-  constructor(private userService: UserService) {}
+  constructor(
+    private userService: UserService,
+    public dialog: MatDialog,
+  ) {}
 
   ngOnInit() {
     this.userService.usernames$.subscribe((usernames) => {
-      this.usernames = usernames; // Assign the fetched usernames
+      this.usernames = usernames;
     });
-    this.userService.fetchAllUsernames(); // Fetch usernames from the API
+    this.userService.fetchAllUsernames();
   }
 
   onUsernameSelect(): void {
+    this.isUserDetailsFetched = false; // Reset the flag
     console.log(`Selected username: ${this.selectedUsername}`);
+    // Disable UI elements here if needed
   }
 
   selectUser(): void {
+    if (this.selectedUsername) {
+      this.userService.fetchUserDetailsByUsername(this.selectedUsername);
+      // Assuming fetchUserDetailsByUsername updates selectedUserDetails$ Observable
+      this.userService.selectedUserDetails$.subscribe(
+        (details: UserIdAndRoleResponseFromUsernameRequest | null) => {
+          if (details) {
+            this.userDetails = details;
+            this.selectedUserRole = details.role || ''; // Provide a default if undefined
+            console.log(this.userDetails);
+            this.isUserDetailsFetched = true;
+          }
+        },
+      );
+    }
     console.log(`User ${this.selectedUsername} selected`);
   }
 
-  deleteUser(): void {
-    console.log(`Deleting user ${this.selectedUsername}`);
+  deleteUser() {
+    console.log('hej');
   }
-
-  editUser(): void {
-    console.log(
-      `Editing user ${this.selectedUsername} with role ${this.selectedUserRole}`,
-    );
+  createUser() {
+    console.log('hej');
   }
+  editUser() {
+    console.log('hej');
+  }
+  confirmDelete(): void {
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, {
+      width: '250px',
+      data: { message: 'Are you sure you want to delete this user?' },
+    });
 
-  createUser(): void {
-    console.log(`Creating user with username: ${this.selectedUsername}`);
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        console.log('Yes clicked');
+        // Implement your delete logic here
+      }
+    });
   }
 }

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Client } from './api'; // Adjust the import path as necessary
+import { UserIdAndRoleResponseFromUsernameRequest } from '../services/api'; // Adjust path as necessary
 
 @Injectable({
   providedIn: 'root',
@@ -8,6 +9,10 @@ import { Client } from './api'; // Adjust the import path as necessary
 export class UserService {
   private usernamesSource = new BehaviorSubject<string[]>([]);
   public usernames$ = this.usernamesSource.asObservable(); // Expose the usernames as an Observable
+  // Add a new BehaviorSubject for the selected user details
+  private selectedUserDetailsSource =
+    new BehaviorSubject<UserIdAndRoleResponseFromUsernameRequest | null>(null);
+  public selectedUserDetails$ = this.selectedUserDetailsSource.asObservable();
 
   constructor(private client: Client) {}
 
@@ -34,8 +39,17 @@ export class UserService {
     });
   }
 
-  // Optional: Method to get current value of usernames synchronously
-  getCurrentUsernames(): string[] {
-    return this.usernamesSource.getValue();
+  // Method to fetch user details by username
+  fetchUserDetailsByUsername(username: string) {
+    this.client.byUsername(username).subscribe({
+      next: (response: any) => {
+        console.log(response);
+        this.selectedUserDetailsSource.next(response);
+      },
+      error: (error) => {
+        console.error('Error fetching user details:', error);
+        this.selectedUserDetailsSource.next(null); // Reset or handle as needed
+      },
+    });
   }
 }

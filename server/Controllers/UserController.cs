@@ -63,6 +63,24 @@ public class UsersController : ControllerBase
         return Ok(user);
     }
 
+    [HttpGet("ByUsername/{username}")]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(UserIdAndRoleResponseFromUsernameRequest))]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public IActionResult GetUserByUsername(string username)
+    {
+        var user = _context.Users.FirstOrDefault(u => u.Username == username);
+        if (user == null)
+        {
+            return NotFound();
+        }
+
+        // Pass the username along with UserId and Role to the response model
+        var response = new UserIdAndRoleResponseFromUsernameRequest(user.UserId, user.Username, user.Role);
+        return Ok(response);
+    }
+
+
+
     [HttpPut("{userId}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]

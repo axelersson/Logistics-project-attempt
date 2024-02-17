@@ -6,51 +6,83 @@
       [(value)]="selectedUsername"
       (selectionChange)="onUsernameSelect()"
     >
-      <mat-option *ngFor="let username of usernames" [value]="username">
-        {{ username }}
-      </mat-option>
+      <mat-option *ngFor="let username of usernames" [value]="username">{{
+        username
+      }}</mat-option>
     </mat-select>
   </mat-form-field>
+
   <button
     mat-raised-button
     color="primary"
     class="select-user-button"
     (click)="selectUser()"
+    [disabled]="!selectedUsername"
   >
     Select User
   </button>
 
-  <mat-form-field appearance="fill">
+  <mat-form-field appearance="fill" *ngIf="isUserDetailsFetched">
     <mat-label>Password</mat-label>
-    <input matInput [(ngModel)]="selectedUserPassword" />
+    <input
+      matInput
+      [(ngModel)]="selectedUserPassword"
+      placeholder="Enter new password"
+      [disabled]="!isUserDetailsFetched"
+    />
   </mat-form-field>
 
-  <mat-form-field appearance="fill">
+  <mat-form-field appearance="fill" *ngIf="isUserDetailsFetched">
+    <mat-label>Confirm Password</mat-label>
+    <input
+      matInput
+      [(ngModel)]="confirmedPassword"
+      placeholder="Confirm password"
+      [disabled]="!isUserDetailsFetched"
+      (keyup)="checkPasswords()"
+    />
+    <mat-hint *ngIf="!passwordsMatch">Passwords do not match!</mat-hint>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill" *ngIf="isUserDetailsFetched">
     <mat-label>Role</mat-label>
-    <mat-select [(value)]="selectedUserRole">
-      <mat-option *ngFor="let role of roles" [value]="role">
-        {{ role }}
-      </mat-option>
+    <mat-select [(value)]="selectedUserRole" [disabled]="!isUserDetailsFetched">
+      <mat-option *ngFor="let role of roles" [value]="role">{{
+        role
+      }}</mat-option>
     </mat-select>
+    <mat-hint>Current role: {{ userDetails?.role }}</mat-hint>
   </mat-form-field>
 
-  <div class="action-buttons">
+  <div class="action-buttons" *ngIf="isUserDetailsFetched">
+    <button
+      mat-button
+      class="action-button edit-button"
+      (click)="editUser()"
+      [disabled]="
+        !isUserDetailsFetched || !selectedUserPassword || !passwordsMatch
+      "
+    >
+      Update User
+    </button>
+    <div style="height: 25vh"></div>
+    <!-- Space for delete button -->
     <button
       mat-button
       class="action-button delete-button"
-      (click)="deleteUser()"
+      (click)="confirmDelete()"
+      [disabled]="!isUserDetailsFetched"
     >
       Delete
     </button>
-    <button mat-button class="action-button edit-button" (click)="editUser()">
-      Edit
-    </button>
-    <button
-      mat-button
-      class="action-button create-button"
-      (click)="createUser()"
-    >
-      Create
-    </button>
   </div>
 </div>
+
+<button
+  mat-fab
+  class="create-button"
+  (click)="createUser()"
+  style="position: absolute; top: 20px; right: 20px"
+>
+  Create New User
+</button>
