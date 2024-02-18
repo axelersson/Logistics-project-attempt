@@ -18,6 +18,7 @@ import { OrderdetailComponent } from './orderdetail/orderdetail.component';
 import { LogoutComponent } from './logout/logout.component';
 import { LocationListComponent } from './location-list/location-list.component';
 import { MatCardModule } from '@angular/material/card';
+import { TruckListComponent } from './choose-truck/choose-truck.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { MatCardModule } from '@angular/material/card';
     HomeComponent,
     OrderdetailComponent,
     LogoutComponent,
-    LocationListComponent
+    LocationListComponent, 
+    TruckListComponent
   ],
   imports: [
     BrowserModule,
