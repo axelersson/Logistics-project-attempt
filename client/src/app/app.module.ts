@@ -15,7 +15,7 @@ import { OrderdetailComponent } from './orderdetail/orderdetail.component';
 import { LogoutComponent } from './logout/logout.component';
 import { LocationListComponent } from './location-list/location-list.component';
 import { MatCardModule } from '@angular/material/card';
-import { UserdetailComponent } from './users/userdetail.component';
+import { UserdetailComponent } from './users/userdetail/userdetail.component';
 // Import Angular Material modules
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -25,6 +25,8 @@ import { Client } from './services/api';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
+import { UsercreateComponent } from './users/usercreate/usercreate.component';
+
 
 @NgModule({
   declarations: [
@@ -36,6 +38,7 @@ import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.componen
     LogoutComponent,
     LocationListComponent,
     UserdetailComponent,
+    UsercreateComponent
   ],
   imports: [
     BrowserModule,
@@ -54,6 +57,7 @@ import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.componen
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
+    MatDialogModule
   ],
   providers: [Client], // Provide your services here
   bootstrap: [AppComponent], // Bootstrap the AppComponent

@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from '../services/userService';
-import { UserIdAndRoleResponseFromUsernameRequest } from '../services/api'; // Adjust path as necessary
-import { ConfirmDialogComponent } from '../confirm-dialog/confirm-dialog.component'; // Adjust the path as necessary
+import { UserService } from '../../services/userService';
+import { UserIdAndRoleResponseFromUsernameRequest } from '../../services/api';
+import { ConfirmDialogComponent } from '../../confirm-dialog/confirm-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-userdetail',
@@ -12,31 +14,37 @@ export class UserdetailComponent implements OnInit {
   selectedUsername: string = '';
   selectedUserPassword: string = '';
   selectedUserRole: string = '';
+  confirmedPassword: string = '';
+  originalUserRole: string = '';
+  passwordsMatch: boolean = true;
+  userDetailsFetched: boolean = false;
 
   usernames: string[] = [];
   roles: string[] = ['Admin', 'User'];
   userDetails: UserIdAndRoleResponseFromUsernameRequest | null = null;
-  isUserDetailsFetched: boolean = false;
 
   constructor(
     private userService: UserService,
     public dialog: MatDialog,
+    private router: Router
   ) {}
 
   ngOnInit() {
-    this.userService.usernames$.subscribe((usernames) => {
-      this.usernames = usernames;
-    });
+    this.userService.usernames$.subscribe(usernames => this.usernames = usernames);
     this.userService.fetchAllUsernames();
   }
 
+  checkPasswords(): void {
+    this.passwordsMatch = this.selectedUserPassword === this.confirmedPassword;
+  }
+
   onUsernameSelect(): void {
-    this.isUserDetailsFetched = false; // Reset the flag
-    console.log(`Selected username: ${this.selectedUsername}`);
-    // Disable UI elements here if needed
+    this.userDetailsFetched = false;
+    this.originalUserRole = ''; // Reset originalUserRole on new selection
   }
 
   selectUser(): void {
+    this.originalUserRole = this.userDetails?.role || '';
     if (this.selectedUsername) {
       this.userService.fetchUserDetailsByUsername(this.selectedUsername);
       // Assuming fetchUserDetailsByUsername updates selectedUserDetails$ Observable
@@ -46,7 +54,7 @@ export class UserdetailComponent implements OnInit {
             this.userDetails = details;
             this.selectedUserRole = details.role || ''; // Provide a default if undefined
             console.log(this.userDetails);
-            this.isUserDetailsFetched = true;
+            this.userDetailsFetched = true;
           }
         },
       );
@@ -55,24 +63,27 @@ export class UserdetailComponent implements OnInit {
   }
 
   deleteUser() {
-    console.log('hej');
+    console.log('Delete user functionality here');
   }
+
   createUser() {
-    console.log('hej');
+    this.router.navigate(['/usercreate']);
   }
+
   editUser() {
-    console.log('hej');
+    console.log('Edit user functionality here');
   }
+
   confirmDelete(): void {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, {
       width: '250px',
       data: { message: 'Are you sure you want to delete this user?' },
     });
 
-    dialogRef.afterClosed().subscribe((result) => {
+    dialogRef.afterClosed().subscribe((result: boolean) => {
       if (result) {
-        console.log('Yes clicked');
-        // Implement your delete logic here
+        console.log('User deletion confirmed');
+        // Implement deletion logic here
       }
     });
   }
