@@ -1,0 +1,107 @@
+.user-detail-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+.header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 80%;
+  margin-bottom: 20px;
+}
+.create-user-button, .delete-button {
+  width: 30%; /* Adjusted to match each other */
+  height: 50px;
+  font-size: 16px;
+  color: white; /* Text color */
+}
+
+.create-user-button {
+  width: 30%; /* Adjusted to 30% of the container */
+  background-color: #4caf50; /* Green */
+  color: white; /* Text color */
+  /* Ensure it's a rectangle */
+  height: 50px;
+  font-size: 16px;
+}
+
+.action-button.edit-button {
+  background-color: #bdbdbd; /* Greyed out by default */
+}
+
+.action-button.edit-button.button-enabled {
+  background-color: #2196f3; /* Blue when enabled */
+}
+
+  .mat-mdc-form-field{
+    width: 80%; /* Updated to be twice as wide */
+    max-width: 1000px; /* Adjust accordingly */
+    margin-bottom: 20px;
+  }
+  
+  .mat-form-field {
+    width: 80%; /* Updated to be twice as wide */
+    max-width: 1000px; /* Adjust accordingly */
+    margin-bottom: 20px;
+  }
+  
+  button.select-user-button {
+    width: 20%; /* Updated to be twice as big */
+    height: 100px; /* Updated to be twice as big */
+    font-size: 20px; /* Updated for visibility */
+    margin-bottom: 40px;
+  }
+  
+  .action-buttons button.action-button {
+    width: 100%;
+    height: 50px;
+    font-size: 16px;
+    color: white; /* Set text color to white */
+  }
+  
+  .delete-button {
+    background-color: #bdbdbd; /* Grey out by default */
+  }
+  .button-enabled-delete {
+    background-color: #f44336; /* Red when enabled */
+  }
+  .edit-user-title {
+    margin-top: 20px; /* Added margin for visual separation */
+    font-size: 24px;
+  }
+  
+  
+/* Update the edit button styles */
+.edit-button {
+  background-color: #bdbdbd; /* Grey out by default */
+}
+.button-enabled {
+  background-color: #2196f3; /* Blue when enabled */
+}
+  
+  .create-button {
+    background-color: #4caf50; /* Green */
+  }
+  
+  h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+  }
+  
+  .mat-form-field {
+    font-size: 18px;
+  }
+  
+  .mat-label {
+    font-size: 18px;
+  }
+  
+  .mat-option {
+    font-size: 16px;
+  }
+  
+  .action-buttons{
+    width: 60%;
+  }

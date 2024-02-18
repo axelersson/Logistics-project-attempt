@@ -8,16 +8,21 @@ import { OrderdetailComponent } from './orderdetail/orderdetail.component';
 import { LogoutComponent } from './logout/logout.component';
 import { LocationListComponent } from './location-list/location-list.component';
 import { TruckListComponent } from './choose-truck/choose-truck.component';
+import { UserdetailComponent } from './users/userdetail/userdetail.component';
+import { UsercreateComponent } from './users/usercreate/usercreate.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' }, // default route
   { path: 'login', component: LoginComponent }, // Default route
-  { path: 'homepage', component: HomeComponent},
-  { path: 'orderdetail', component: OrderdetailComponent},
-  { path: 'logout', component: LogoutComponent},
+  { path: 'homepage', component: HomeComponent },
+  { path: 'orderdetail', component: OrderdetailComponent },
+  { path: 'logout', component: LogoutComponent },
   { path: 'locationlist', component: LocationListComponent },
-  { path: 'choosetruck', component: TruckListComponent}
+  { path: 'choosetruck', component: TruckListComponent },
   //{ path: 'feature', loadChildren: () => import('./feature/feature.module').then(m => m.FeatureModule), canActivate: [AuthGuard] }, Add canActivate: [AuthGuard] to all other routes except 'home'
+  //{ path: 'feature', loadChildren: () => import('./feature/feature.module').then(m => m.FeatureModule), canActivate: [AuthGuard] }, Add canActivate: [AuthGuard] to all other routes except 'home',
+  { path: 'userdetail', component: UserdetailComponent },
+  { path: 'usercreate', component: UsercreateComponent },
 ];
 
 @NgModule({

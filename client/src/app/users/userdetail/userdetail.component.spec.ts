@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { Client, LoginRequest } from '../services/api';
+import { Client, LoginRequest } from '../../services/api';
 import { UserdetailComponent } from './userdetail.component';
 
 describe('UserdetailComponent', () => {

@@ -3345,6 +3345,114 @@ export class Client {
     }
     return _observableOf<UsersGetAllUsernamesResponse>(null as any);
   }
+
+  /**
+   * @return Success
+   */
+  byUsername(
+    username: string,
+  ): Observable<UserIdAndRoleResponseFromUsernameRequest> {
+    let url_ = this.baseUrl + '/Users/ByUsername/{username}';
+    if (username === undefined || username === null)
+      throw new Error("The parameter 'username' must be defined.");
+    url_ = url_.replace('{username}', encodeURIComponent('' + username));
+    url_ = url_.replace(/[?&]$/, '');
+
+    let options_: any = {
+      observe: 'response',
+      responseType: 'blob',
+      headers: new HttpHeaders({
+        Accept: 'text/plain',
+      }),
+    };
+
+    return this.http
+      .request('get', url_, options_)
+      .pipe(
+        _observableMergeMap((response_: any) => {
+          return this.processByUsername(response_);
+        }),
+      )
+      .pipe(
+        _observableCatch((response_: any) => {
+          if (response_ instanceof HttpResponseBase) {
+            try {
+              return this.processByUsername(response_ as any);
+            } catch (e) {
+              return _observableThrow(
+                e,
+              ) as any as Observable<UserIdAndRoleResponseFromUsernameRequest>;
+            }
+          } else
+            return _observableThrow(
+              response_,
+            ) as any as Observable<UserIdAndRoleResponseFromUsernameRequest>;
+        }),
+      );
+  }
+
+  protected processByUsername(
+    response: HttpResponseBase,
+  ): Observable<UserIdAndRoleResponseFromUsernameRequest> {
+    const status = response.status;
+    const responseBlob =
+      response instanceof HttpResponse
+        ? response.body
+        : (response as any).error instanceof Blob
+          ? (response as any).error
+          : undefined;
+
+    let _headers: any = {};
+    if (response.headers) {
+      for (let key of response.headers.keys()) {
+        _headers[key] = response.headers.get(key);
+      }
+    }
+    if (status === 200) {
+      return blobToText(responseBlob).pipe(
+        _observableMergeMap((_responseText) => {
+          let result200: any = null;
+          let resultData200 =
+            _responseText === ''
+              ? null
+              : JSON.parse(_responseText, this.jsonParseReviver);
+          result200 =
+            UserIdAndRoleResponseFromUsernameRequest.fromJS(resultData200);
+          return _observableOf(result200);
+        }),
+      );
+    } else if (status === 404) {
+      return blobToText(responseBlob).pipe(
+        _observableMergeMap((_responseText) => {
+          let result404: any = null;
+          let resultData404 =
+            _responseText === ''
+              ? null
+              : JSON.parse(_responseText, this.jsonParseReviver);
+          result404 = ProblemDetails.fromJS(resultData404);
+          return throwException(
+            'Not Found',
+            status,
+            _responseText,
+            _headers,
+            result404,
+          );
+        }),
+      );
+    } else if (status !== 200 && status !== 204) {
+      return blobToText(responseBlob).pipe(
+        _observableMergeMap((_responseText) => {
+          return throwException(
+            'An unexpected server error occurred.',
+            status,
+            _responseText,
+            _headers,
+          );
+        }),
+      );
+    }
+    return _observableOf<UserIdAndRoleResponseFromUsernameRequest>(null as any);
+  }
 }
 
 export class Area implements IArea {
@@ -4301,6 +4409,52 @@ export interface IUser {
   trucks?: Truck[] | undefined;
   truckUsers?: TruckUser[] | undefined;
   orders?: Order[] | undefined;
+}
+
+export class UserIdAndRoleResponseFromUsernameRequest
+  implements IUserIdAndRoleResponseFromUsernameRequest
+{
+  userId?: string | undefined;
+  role?: UserRole;
+  username?: string | undefined;
+
+  constructor(data?: IUserIdAndRoleResponseFromUsernameRequest) {
+    if (data) {
+      for (var property in data) {
+        if (data.hasOwnProperty(property))
+          (<any>this)[property] = (<any>data)[property];
+      }
+    }
+  }
+
+  init(_data?: any) {
+    if (_data) {
+      this.userId = _data['userId'];
+      this.role = _data['role'];
+      this.username = _data['username'];
+    }
+  }
+
+  static fromJS(data: any): UserIdAndRoleResponseFromUsernameRequest {
+    data = typeof data === 'object' ? data : {};
+    let result = new UserIdAndRoleResponseFromUsernameRequest();
+    result.init(data);
+    return result;
+  }
+
+  toJSON(data?: any) {
+    data = typeof data === 'object' ? data : {};
+    data['userId'] = this.userId;
+    data['role'] = this.role;
+    data['username'] = this.username;
+    return data;
+  }
+}
+
+export interface IUserIdAndRoleResponseFromUsernameRequest {
+  userId?: string | undefined;
+  role?: UserRole;
+  username?: string | undefined;
 }
 
 export enum UserRole {
