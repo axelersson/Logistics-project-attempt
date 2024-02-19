@@ -1,0 +1,23 @@
+<div fxLayout="row" fxLayoutAlign="space-between center">
+    
+    <mat-form-field appearance="outline" fxFlex="100%">
+        <input matInput placeholder="Enter Area ID" fxFlex="100%">
+    </mat-form-field>
+</div>
+<!-- <div fxLayout="row" fxLayoutAlign="space-between center">
+    <mat-form-field appearance="outline" fxFlex="100%">
+        <mat-label>Select Area</mat-label>
+        <mat-select placeholder="Choose an area">
+            <mat-option *ngFor="let area of areas" [value]="area.id">{{ area.name }}</mat-option>
+        </mat-select>
+    </mat-form-field>
+</div> -->
+    <div fxLayout="row" fxLayoutAlign="space-between center">
+        <button mat-button routerLink="/createarea" color="primary" fxFlex="50%" routerLinkActive="active">Create Area</button>
+        <button mat-button routerLink="/update-area" color="accent" fxFlex="50%" routerLinkActive="active">Update Area</button>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="space-between center">
+        <button mat-button routerLink="/delete-area" color="primary" fxFlex="50%" routerLinkActive="active">Delete Area</button>
+        <button mat-button routerLink="/view-area" color="accent" fxFlex="50%" routerLinkActive="active">View Area</button>
+    </div>
+   

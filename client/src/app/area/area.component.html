@@ -1,0 +1,11 @@
+
+    <button mat-icon-button class="round-button" routerLink="/usercrud" routerLinkActive="active">
+      <mat-icon>☞</mat-icon>
+    </button>
+<div class="list-container">
+    <ul class="area-list">
+      <li *ngFor="let area of areas">
+        <mat-icon>room</mat-icon> {{ area.name }} (ID: {{ area.areaId }})
+      </li>
+    </ul>
+</div>

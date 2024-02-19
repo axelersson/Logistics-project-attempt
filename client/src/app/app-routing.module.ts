@@ -10,15 +10,22 @@ import { LocationListComponent } from './location-list/location-list.component';
 import { TruckListComponent } from './choose-truck/choose-truck.component';
 import { UserdetailComponent } from './users/userdetail/userdetail.component';
 import { UsercreateComponent } from './users/usercreate/usercreate.component';
+import { Area } from './services/api';
+import { AreaComponent } from './area/area.component';
+import { AreaCrudpageComponent } from './area/area-crudpage/area-crudpage.component';
+import { CreateareaComponent } from './area/createarea/createarea.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' }, // default route
   { path: 'login', component: LoginComponent }, // Default route
-  { path: 'homepage', component: HomeComponent },
-  { path: 'orderdetail', component: OrderdetailComponent },
   { path: 'logout', component: LogoutComponent },
   { path: 'locationlist', component: LocationListComponent },
   { path: 'choosetruck', component: TruckListComponent },
+  { path: 'homepage', component: HomeComponent},
+  { path: 'orderdetail', component: OrderdetailComponent},
+  { path: 'arealist', component: AreaComponent},
+  { path: 'usercrud', component: AreaCrudpageComponent},
+  {path: 'createarea', component: CreateareaComponent},
   //{ path: 'feature', loadChildren: () => import('./feature/feature.module').then(m => m.FeatureModule), canActivate: [AuthGuard] }, Add canActivate: [AuthGuard] to all other routes except 'home'
   //{ path: 'feature', loadChildren: () => import('./feature/feature.module').then(m => m.FeatureModule), canActivate: [AuthGuard] }, Add canActivate: [AuthGuard] to all other routes except 'home',
   { path: 'userdetail', component: UserdetailComponent },

@@ -1,18 +1,22 @@
-import { Component, OnInit } from '@angular/core';
-// Optionally import services if you need to determine the admin status dynamically
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { NavigationComponent } from './navigation.component';  // Make sure to import your NavigationComponent
 
-@Component({
-  selector: 'app-navigation',
-  templateUrl: './navigation.component.html',
-  styleUrls: ['./navigation.component.css'],
-})
-export class NavigationComponent implements OnInit {
-  isAdmin: boolean = false; // Ensure this line is present
+describe('NavigationComponent', () => {
+  let component: NavigationComponent;
+  let fixture: ComponentFixture<NavigationComponent>;
 
-  constructor() {}
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      declarations: [NavigationComponent],  // Add NavigationComponent to declarations
+    })
+    .compileComponents();
 
-  ngOnInit(): void {
-    // Logic to determine if the user is an admin
-    this.isAdmin = true; // Or dynamically set based on user role
-  }
-}
+    fixture = TestBed.createComponent(NavigationComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});

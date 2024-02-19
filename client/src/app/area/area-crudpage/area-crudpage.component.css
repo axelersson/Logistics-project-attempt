@@ -1,0 +1,11 @@
+button {
+    font-size: 24px;
+    margin: 10px;
+    padding: 8rem;
+    background-color: rgba(0, 255, 0, 0.5);
+  }
+mat-form-field {
+    margin: 10px;
+    padding: 1.5rem;
+    background-color: rgba(121, 200, 226, 0.5);
+  }

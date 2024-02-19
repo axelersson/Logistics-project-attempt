@@ -8,6 +8,7 @@ import { NavigationComponent } from './navigation/navigation.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { HttpClientModule } from '@angular/common/http';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatButtonModule, MatIconButton } from '@angular/material/button';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { HomeComponent } from './home/home.component';
@@ -24,9 +25,16 @@ import { MatSelectModule } from '@angular/material/select';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; // Import BrowserAnimationsModule
 import { Client } from './services/api';
 import { MatDialogModule } from '@angular/material/dialog';
-import { MatButtonModule } from '@angular/material/button';
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 import { UsercreateComponent } from './users/usercreate/usercreate.component';
+import { AreaComponent } from './area/area.component';
+import { AreaCrudpageComponent } from './area/area-crudpage/area-crudpage.component';
+import {MatIconModule} from '@angular/material/icon';
+import { DummyDataService } from './dummy-data.service';
+import { CreateareaComponent } from './area/createarea/createarea.component';
+// import { MatInputModule } from '@angular/material/input';
+// import { MatSelectModule } from '@angular/material/select';
+
 
 @NgModule({
   declarations: [
@@ -41,6 +49,9 @@ import { UsercreateComponent } from './users/usercreate/usercreate.component';
     LocationListComponent,
     UserdetailComponent,
     UsercreateComponent,
+    AreaComponent,
+    AreaCrudpageComponent,
+    CreateareaComponent,
   ],
   imports: [
     BrowserModule,
@@ -55,13 +66,15 @@ import { UsercreateComponent } from './users/usercreate/usercreate.component';
     FlexLayoutModule,
     MatToolbarModule,
     MatCardModule,
+    MatIconButton,
     // Include the Angular Material modules
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
     MatDialogModule,
+    MatIconModule,
   ],
-  providers: [Client], // Provide your services here
+  providers: [Client, DummyDataService], // Provide your services here
   bootstrap: [AppComponent], // Bootstrap the AppComponent
 })
 export class AppModule {}
