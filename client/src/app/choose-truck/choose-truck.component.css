@@ -35,7 +35,32 @@
   max-width: calc(25% - 10px); /* Adjust for gap */
   box-sizing: border-box;
   text-align: center;
+  border: 2px solid #000000; /* Adds a border around each box */
+  border-radius: 8px; /* Optional: Adds rounded corners for a smoother look */
 }
+
+/* General styling for larger buttons */
+.large-button {
+  font-size: 18px; /* Larger font size */
+  padding: 12px 24px; /* Larger padding */
+  margin: 5px; /* Space between buttons */
+  min-width: 120px; /* Minimum width to ensure buttons are wider */
+}
+
+.cancel-button {
+  font-size: 18px; /* Larger font size for consistency */
+  padding: 12px 24px; /* Larger padding for easier touch */
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 1000; /* Ensure the button is above other elements */
+}
+
+/* Adjust the container to prevent overlap with the absolute positioned cancel button */
+.list-container {
+  padding-top: 30px; /* Adjust as necessary */
+}
+
 
 @media (max-width: 768px) {
   .truck-list li {

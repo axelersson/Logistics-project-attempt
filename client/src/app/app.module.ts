@@ -32,6 +32,7 @@ import { AreaCrudpageComponent } from './area/area-crudpage/area-crudpage.compon
 import {MatIconModule} from '@angular/material/icon';
 import { DummyDataService } from './dummy-data.service';
 import { CreateareaComponent } from './area/createarea/createarea.component';
+import { ViewTruckComponent } from './view-truck/view-truck.component';
 // import { MatInputModule } from '@angular/material/input';
 // import { MatSelectModule } from '@angular/material/select';
 
@@ -52,6 +53,7 @@ import { CreateareaComponent } from './area/createarea/createarea.component';
     AreaComponent,
     AreaCrudpageComponent,
     CreateareaComponent,
+    ViewTruckComponent
   ],
   imports: [
     BrowserModule,

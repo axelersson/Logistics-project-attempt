@@ -15,7 +15,7 @@ export class DummyDataService {
       const dummyArea: Area = {
         areaId: `Area${i}`,
         name: `Area ${i}`,
-        locationIds: [`Location${i}_1`, `Location${i}_2`],
+        //locationIds: [`Location${i}_1`, `Location${i}_2`],
         trucks: [],
         locations: [],
         init: function (_data?: any): void {
