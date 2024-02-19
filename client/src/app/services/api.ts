@@ -3453,6 +3453,242 @@ export class Client {
     }
     return _observableOf<UsersGetAllUsernamesResponse>(null as any);
   }
+
+  /**
+   * @param body (optional)
+   * @return Success
+   */
+  updaterole(
+    userId: string,
+    body: UpdateUserRoleModel | undefined,
+  ): Observable<void> {
+    let url_ = this.baseUrl + '/updaterole/{userId}';
+    if (userId === undefined || userId === null)
+      throw new Error("The parameter 'userId' must be defined.");
+    url_ = url_.replace('{userId}', encodeURIComponent('' + userId));
+    url_ = url_.replace(/[?&]$/, '');
+
+    const content_ = JSON.stringify(body);
+
+    let options_: any = {
+      body: content_,
+      observe: 'response',
+      responseType: 'blob',
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+    };
+
+    return this.http
+      .request('put', url_, options_)
+      .pipe(
+        _observableMergeMap((response_: any) => {
+          return this.processUpdaterole(response_);
+        }),
+      )
+      .pipe(
+        _observableCatch((response_: any) => {
+          if (response_ instanceof HttpResponseBase) {
+            try {
+              return this.processUpdaterole(response_ as any);
+            } catch (e) {
+              return _observableThrow(e) as any as Observable<void>;
+            }
+          } else return _observableThrow(response_) as any as Observable<void>;
+        }),
+      );
+  }
+
+  protected processUpdaterole(response: HttpResponseBase): Observable<void> {
+    const status = response.status;
+    const responseBlob =
+      response instanceof HttpResponse
+        ? response.body
+        : (response as any).error instanceof Blob
+          ? (response as any).error
+          : undefined;
+
+    let _headers: any = {};
+    if (response.headers) {
+      for (let key of response.headers.keys()) {
+        _headers[key] = response.headers.get(key);
+      }
+    }
+    if (status === 200) {
+      return blobToText(responseBlob).pipe(
+        _observableMergeMap((_responseText) => {
+          return _observableOf<void>(null as any);
+        }),
+      );
+    } else if (status === 404) {
+      return blobToText(responseBlob).pipe(
+        _observableMergeMap((_responseText) => {
+          let result404: any = null;
+          let resultData404 =
+            _responseText === ''
+              ? null
+              : JSON.parse(_responseText, this.jsonParseReviver);
+          result404 = ProblemDetails.fromJS(resultData404);
+          return throwException(
+            'Not Found',
+            status,
+            _responseText,
+            _headers,
+            result404,
+          );
+        }),
+      );
+    } else if (status === 400) {
+      return blobToText(responseBlob).pipe(
+        _observableMergeMap((_responseText) => {
+          let result400: any = null;
+          let resultData400 =
+            _responseText === ''
+              ? null
+              : JSON.parse(_responseText, this.jsonParseReviver);
+          result400 = ProblemDetails.fromJS(resultData400);
+          return throwException(
+            'Bad Request',
+            status,
+            _responseText,
+            _headers,
+            result400,
+          );
+        }),
+      );
+    } else if (status !== 200 && status !== 204) {
+      return blobToText(responseBlob).pipe(
+        _observableMergeMap((_responseText) => {
+          return throwException(
+            'An unexpected server error occurred.',
+            status,
+            _responseText,
+            _headers,
+          );
+        }),
+      );
+    }
+    return _observableOf<void>(null as any);
+  }
+
+  /**
+   * @param body (optional)
+   * @return Success
+   */
+  updatepasswordandrole(
+    userId: string,
+    body: UpdateUserPasswordAndRoleModel | undefined,
+  ): Observable<void> {
+    let url_ = this.baseUrl + '/Users/updatepasswordandrole/{userId}';
+    if (userId === undefined || userId === null)
+      throw new Error("The parameter 'userId' must be defined.");
+    url_ = url_.replace('{userId}', encodeURIComponent('' + userId));
+    url_ = url_.replace(/[?&]$/, '');
+
+    const content_ = JSON.stringify(body);
+
+    let options_: any = {
+      body: content_,
+      observe: 'response',
+      responseType: 'blob',
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      }),
+    };
+
+    return this.http
+      .request('put', url_, options_)
+      .pipe(
+        _observableMergeMap((response_: any) => {
+          return this.processUpdatepasswordandrole(response_);
+        }),
+      )
+      .pipe(
+        _observableCatch((response_: any) => {
+          if (response_ instanceof HttpResponseBase) {
+            try {
+              return this.processUpdatepasswordandrole(response_ as any);
+            } catch (e) {
+              return _observableThrow(e) as any as Observable<void>;
+            }
+          } else return _observableThrow(response_) as any as Observable<void>;
+        }),
+      );
+  }
+
+  protected processUpdatepasswordandrole(
+    response: HttpResponseBase,
+  ): Observable<void> {
+    const status = response.status;
+    const responseBlob =
+      response instanceof HttpResponse
+        ? response.body
+        : (response as any).error instanceof Blob
+          ? (response as any).error
+          : undefined;
+
+    let _headers: any = {};
+    if (response.headers) {
+      for (let key of response.headers.keys()) {
+        _headers[key] = response.headers.get(key);
+      }
+    }
+    if (status === 200) {
+      return blobToText(responseBlob).pipe(
+        _observableMergeMap((_responseText) => {
+          return _observableOf<void>(null as any);
+        }),
+      );
+    } else if (status === 404) {
+      return blobToText(responseBlob).pipe(
+        _observableMergeMap((_responseText) => {
+          let result404: any = null;
+          let resultData404 =
+            _responseText === ''
+              ? null
+              : JSON.parse(_responseText, this.jsonParseReviver);
+          result404 = ProblemDetails.fromJS(resultData404);
+          return throwException(
+            'Not Found',
+            status,
+            _responseText,
+            _headers,
+            result404,
+          );
+        }),
+      );
+    } else if (status === 400) {
+      return blobToText(responseBlob).pipe(
+        _observableMergeMap((_responseText) => {
+          let result400: any = null;
+          let resultData400 =
+            _responseText === ''
+              ? null
+              : JSON.parse(_responseText, this.jsonParseReviver);
+          result400 = ProblemDetails.fromJS(resultData400);
+          return throwException(
+            'Bad Request',
+            status,
+            _responseText,
+            _headers,
+            result400,
+          );
+        }),
+      );
+    } else if (status !== 200 && status !== 204) {
+      return blobToText(responseBlob).pipe(
+        _observableMergeMap((_responseText) => {
+          return throwException(
+            'An unexpected server error occurred.',
+            status,
+            _responseText,
+            _headers,
+          );
+        }),
+      );
+    }
+    return _observableOf<void>(null as any);
+  }
 }
 
 export class Area implements IArea {
@@ -4333,6 +4569,92 @@ export class TrucksGetAllResponse implements ITrucksGetAllResponse {
 
 export interface ITrucksGetAllResponse {
   trucks?: Truck[] | undefined;
+}
+
+export class UpdateUserPasswordAndRoleModel
+  implements IUpdateUserPasswordAndRoleModel
+{
+  userId?: string | undefined;
+  role?: UserRole;
+  newPassword?: string | undefined;
+
+  constructor(data?: IUpdateUserPasswordAndRoleModel) {
+    if (data) {
+      for (var property in data) {
+        if (data.hasOwnProperty(property))
+          (<any>this)[property] = (<any>data)[property];
+      }
+    }
+  }
+
+  init(_data?: any) {
+    if (_data) {
+      this.userId = _data['userId'];
+      this.role = _data['role'];
+      this.newPassword = _data['newPassword'];
+    }
+  }
+
+  static fromJS(data: any): UpdateUserPasswordAndRoleModel {
+    data = typeof data === 'object' ? data : {};
+    let result = new UpdateUserPasswordAndRoleModel();
+    result.init(data);
+    return result;
+  }
+
+  toJSON(data?: any) {
+    data = typeof data === 'object' ? data : {};
+    data['userId'] = this.userId;
+    data['role'] = this.role;
+    data['newPassword'] = this.newPassword;
+    return data;
+  }
+}
+
+export interface IUpdateUserPasswordAndRoleModel {
+  userId?: string | undefined;
+  role?: UserRole;
+  newPassword?: string | undefined;
+}
+
+export class UpdateUserRoleModel implements IUpdateUserRoleModel {
+  userId?: string | undefined;
+  role?: UserRole;
+
+  constructor(data?: IUpdateUserRoleModel) {
+    if (data) {
+      for (var property in data) {
+        if (data.hasOwnProperty(property))
+          (<any>this)[property] = (<any>data)[property];
+      }
+    }
+  }
+
+  init(_data?: any) {
+    if (_data) {
+      this.userId = _data['userId'];
+      this.role = _data['role'];
+    }
+  }
+
+  static fromJS(data: any): UpdateUserRoleModel {
+    data = typeof data === 'object' ? data : {};
+    let result = new UpdateUserRoleModel();
+    result.init(data);
+    return result;
+  }
+
+  toJSON(data?: any) {
+    data = typeof data === 'object' ? data : {};
+    data['userId'] = this.userId;
+    data['role'] = this.role;
+    return data;
+  }
+}
+
+export interface IUpdateUserRoleModel {
+  userId?: string | undefined;
+  role?: UserRole;
 }
 
 export class User implements IUser {

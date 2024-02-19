@@ -1,11 +1,51 @@
 <div fxLayout="row" fxLayoutAlign="space-between center">
-    <button mat-button routerLink="/arealist" color="primary" fxFlex="50%" routerLinkActive="active">AREA</button>
-    <button mat-button routerLink="/locationlist" color="accent" fxFlex="50%" routerLinkActive="active">LOCATION</button>
+  <button
+    mat-button
+    routerLink="/arealist"
+    color="primary"
+    fxFlex="50%"
+    routerLinkActive="active"
+  >
+    AREA
+  </button>
+  <button
+    mat-button
+    routerLink="/locationlist"
+    color="accent"
+    fxFlex="50%"
+    routerLinkActive="active"
+  >
+    LOCATION
+  </button>
 </div>
 <div fxLayout="row" fxLayoutAlign="space-between center">
-    <button mat-button routerLink="/orderlist"color="primary" fxFlex="50%" routerLinkActive="active">ORDER</button>
-    <button mat-button routerLink="/trucklist" color="accent" fxFlex="50%" routerLinkActive="active"routerLinkActive="active">TRUCK</button>
- </div>
-<div class="user-button"fxLayout="row" fxLayoutAlign="space-between center">
-    <button mat-button [disabled]="!isAdmin" routerLink="/user-crud" fxFlex="100%" routerLinkActive="active">USER</button>
+  <button
+    mat-button
+    routerLink="/orderlist"
+    color="primary"
+    fxFlex="50%"
+    routerLinkActive="active"
+  >
+    ORDER
+  </button>
+  <button
+    mat-button
+    routerLink="/trucklist"
+    color="accent"
+    fxFlex="50%"
+    routerLinkActive="active"
+    routerLinkActive="active"
+  >
+    TRUCK
+  </button>
+</div>
+<div class="user-button" fxLayout="row" fxLayoutAlign="space-between center">
+  <button
+    mat-button
+    routerLink="/userdetail"
+    fxFlex="100%"
+    routerLinkActive="active"
+  >
+    USER
+  </button>
 </div>

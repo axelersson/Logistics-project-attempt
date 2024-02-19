@@ -23,7 +23,16 @@ namespace LogisticsApp.Data // Change to your actual namespace
         public DbSet<TruckOrderAssignment> TruckOrderAssignments { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
+        {   
+            // Ensure Area Name is unique
+            modelBuilder.Entity<Area>()
+                .HasIndex(a => a.Name)
+                .IsUnique();
+
+            // Ensure User Username is unique
+            modelBuilder.Entity<User>()
+                .HasIndex(u => u.Username)
+                .IsUnique();
             // One Area, Many Trucks
             modelBuilder.Entity<Truck>()
                 .HasOne<Area>(t => t.CurrentArea)

@@ -1,6 +1,12 @@
 <div class="user-detail-container">
   <div class="header-row">
-    <button mat-button class="action-button delete-button" (click)="confirmDelete()" [disabled]="!userDetailsFetched" [ngClass]="{'button-enabled-delete': userDetailsFetched}">
+    <button
+      mat-button
+      class="action-button delete-button"
+      (click)="confirmDelete()"
+      [disabled]="!userDetailsFetched"
+      [ngClass]="{ 'button-enabled-delete': userDetailsFetched }"
+    >
       Delete Selected User
     </button>
     <button mat-button class="create-user-button" (click)="createUser()">
@@ -10,37 +16,77 @@
   <h2 class="edit-user-title">Edit User</h2>
   <mat-form-field appearance="fill">
     <mat-label>Select a Username</mat-label>
-    <mat-select [(value)]="selectedUsername" (selectionChange)="onUsernameSelect()">
-      <mat-option *ngFor="let username of usernames" [value]="username">{{ username }}</mat-option>
+    <mat-select
+      [(value)]="selectedUsername"
+      (selectionChange)="onUsernameSelect()"
+    >
+      <mat-option *ngFor="let username of usernames" [value]="username">{{
+        username
+      }}</mat-option>
     </mat-select>
   </mat-form-field>
 
-  <button mat-raised-button color="primary" class="select-user-button" (click)="selectUser()" [disabled]="!selectedUsername">
+  <button
+    mat-raised-button
+    color="primary"
+    class="select-user-button"
+    (click)="selectUser()"
+    [disabled]="!selectedUsername"
+  >
     Select User
   </button>
-
+  <!-- Password Field with Toggle -->
   <mat-form-field appearance="fill" *ngIf="userDetailsFetched">
     <mat-label>Password</mat-label>
-    <input matInput [(ngModel)]="selectedUserPassword" placeholder="Enter new password" [disabled]="!userDetailsFetched"/>
+    <input
+      matInput
+      [type]="showPassword ? 'text' : 'password'"
+      [(ngModel)]="selectedUserPassword"
+      placeholder="Enter new password"
+      [disabled]="!userDetailsFetched"
+    />
+    <button mat-icon-button matSuffix (click)="toggleShowPassword()">
+      <fa-icon [icon]="showPassword ? faEyeSlash : faEye"></fa-icon>
+    </button>
   </mat-form-field>
 
+  <!-- Confirm Password Field with Toggle -->
   <mat-form-field appearance="fill" *ngIf="userDetailsFetched">
     <mat-label>Confirm Password</mat-label>
-    <input matInput [(ngModel)]="confirmedPassword" placeholder="Confirm password" [disabled]="!userDetailsFetched" (keyup)="checkPasswords()"/>
+    <input
+      matInput
+      [type]="showConfirmPassword ? 'text' : 'password'"
+      [(ngModel)]="confirmedPassword"
+      placeholder="Confirm password"
+      [disabled]="!userDetailsFetched"
+      (keyup)="checkPasswords()"
+    />
+    <button mat-icon-button matSuffix (click)="toggleShowConfirmPassword()">
+      <fa-icon [icon]="showConfirmPassword ? faEyeSlash : faEye"></fa-icon>
+    </button>
     <mat-hint *ngIf="!passwordsMatch">Passwords do not match!</mat-hint>
+    <mat-hint *ngIf="passwordError">{{ passwordError }}</mat-hint>
   </mat-form-field>
+  <!-- Success Message Display -->
+  <div *ngIf="updateSuccessMessage" class="update-success-message">
+    {{ updateSuccessMessage }}
+  </div>
 
   <mat-form-field appearance="fill" *ngIf="userDetailsFetched">
     <mat-label>Role</mat-label>
     <mat-select [(value)]="selectedUserRole" [disabled]="!userDetailsFetched">
-      <mat-option *ngFor="let role of roles" [value]="role">{{ role }}</mat-option>
+      <mat-option *ngFor="let role of roles" [value]="role">{{
+        role
+      }}</mat-option>
     </mat-select>
     <mat-hint>Current role: {{ userDetails?.role }}</mat-hint>
   </mat-form-field>
 
   <div class="action-buttons" *ngIf="userDetailsFetched">
-    <button mat-button class="action-button edit-button" (click)="editUser()" [disabled]="!(selectedUserRole !== originalUserRole || (selectedUserPassword && confirmedPassword && passwordsMatch))" [ngClass]="{'button-enabled': (selectedUserRole !== originalUserRole || (selectedUserPassword && confirmedPassword && passwordsMatch))}">
-      Update User
-    </button>
+    <div class="action-buttons" *ngIf="userDetailsFetched">
+      <button mat-button class="action-button edit-button" (click)="editUser()">
+        Update User
+      </button>
+    </div>
   </div>
 </div>
