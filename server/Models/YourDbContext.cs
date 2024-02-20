@@ -24,7 +24,7 @@ namespace LogisticsApp.Data // Change to your actual namespace
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {   
-
+            //#################################################################################### COMMENT OUT START FOR NO DATABASE OBJECT SEEDING
 
                 // Area
             var area1Id = "A1-" + Guid.NewGuid().ToString();
@@ -95,6 +95,8 @@ namespace LogisticsApp.Data // Change to your actual namespace
                 // Add more TruckOrderAssignment entries here as needed
             );
 
+
+//################################################################################################################ COMMENT OUT END FOR NO DATABASE OBJECT SEEDING
             // Ensure Area Name is unique
             modelBuilder.Entity<Area>()
                 .HasIndex(a => a.Name)
