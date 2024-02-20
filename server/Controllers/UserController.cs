@@ -23,22 +23,46 @@ public class UsersController : ControllerBase
         _logger = logger;
     }
 
-    [HttpPost]
+    /* [HttpPost]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public IActionResult CreateUser([FromBody] User user)
+    public IActionResult CreateUser([FromBody] UserCreateModel user)
     {
         _logger.LogInformation("POST request received to create user: {Username}", user.Username);
 
         // Hash the user's password
-        string hashedPassword = BCrypt.Net.BCrypt.HashPassword(user.PasswordHash);
-        user.PasswordHash = hashedPassword;
+        string hashedPassword = BCrypt.Net.BCrypt.HashPassword(user.Password);
+        user.Password = hashedPassword;
 
         _context.Users.Add(user);
         _context.SaveChanges();
 
         return Ok(user);
+    } */
+    [HttpPost]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public IActionResult CreateUser([FromBody] UserCreateModel user)
+    {
+        _logger.LogInformation("POST request received to create user: {Username}", user.Username);
+
+        // Hash the user's password
+        string hashedPassword = BCrypt.Net.BCrypt.HashPassword(user.Password);
+
+        // Create a new User object from the UserCreateModel
+        var newUser = new User
+        {
+            Username = user.Username,
+            PasswordHash = hashedPassword,
+            Role = user.Role
+        };
+
+        _context.Users.Add(newUser);
+        _context.SaveChanges();
+
+        return Ok(newUser);
     }
+
 
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(UsersGetAllResponse))]

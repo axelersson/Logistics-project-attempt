@@ -24,21 +24,20 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; // Import BrowserAnimationsModule
 import { Client } from './services/api';
-import { MatDialogModule } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 import { UsercreateComponent } from './users/usercreate/usercreate.component';
 import { AreaComponent } from './area/area.component';
 import { AreaCrudpageComponent } from './area/area-crudpage/area-crudpage.component';
-import {MatIconModule} from '@angular/material/icon';
+import { MatIconModule } from '@angular/material/icon';
 import { DummyDataService } from './dummy-data.service';
 import { CreateareaComponent } from './area/createarea/createarea.component';
 import { ViewTruckComponent } from './view-truck/view-truck.component';
 import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
 import { AreaDetailsComponent } from './area/area-detail/area-detail.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 // import { MatInputModule } from '@angular/material/input';
 // import { MatSelectModule } from '@angular/material/select';
-
 
 @NgModule({
   declarations: [

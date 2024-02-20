@@ -72,14 +72,13 @@
     {{ updateSuccessMessage }}
   </div>
 
-  <mat-form-field appearance="fill" *ngIf="userDetailsFetched">
+  <mat-form-field appearance="fill" class="role-select">
     <mat-label>Role</mat-label>
     <mat-select [(value)]="selectedUserRole" [disabled]="!userDetailsFetched">
       <mat-option *ngFor="let role of roles" [value]="role">{{
         role
       }}</mat-option>
     </mat-select>
-    <mat-hint>Current role: {{ userDetails?.role }}</mat-hint>
   </mat-form-field>
 
   <div class="action-buttons" *ngIf="userDetailsFetched">

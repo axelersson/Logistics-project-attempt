@@ -2682,7 +2682,7 @@ export class Client {
    * @param body (optional)
    * @return Success
    */
-  usersPOST(body: User | undefined): Observable<void> {
+  usersPOST(body: UserCreateModel | undefined): Observable<void> {
     let url_ = this.baseUrl + '/Users';
     url_ = url_.replace(/[?&]$/, '');
 
@@ -3269,195 +3269,6 @@ export class Client {
    * @param body (optional)
    * @return Success
    */
-  login(body: LoginRequest | undefined): Observable<LoginResponse> {
-    let url_ = this.baseUrl + '/Users/login';
-    url_ = url_.replace(/[?&]$/, '');
-
-    const content_ = JSON.stringify(body);
-
-    let options_: any = {
-      body: content_,
-      observe: 'response',
-      responseType: 'blob',
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        Accept: 'text/plain',
-      }),
-    };
-
-    return this.http
-      .request('post', url_, options_)
-      .pipe(
-        _observableMergeMap((response_: any) => {
-          return this.processLogin(response_);
-        }),
-      )
-      .pipe(
-        _observableCatch((response_: any) => {
-          if (response_ instanceof HttpResponseBase) {
-            try {
-              return this.processLogin(response_ as any);
-            } catch (e) {
-              return _observableThrow(e) as any as Observable<LoginResponse>;
-            }
-          } else
-            return _observableThrow(
-              response_,
-            ) as any as Observable<LoginResponse>;
-        }),
-      );
-  }
-
-  protected processLogin(
-    response: HttpResponseBase,
-  ): Observable<LoginResponse> {
-    const status = response.status;
-    const responseBlob =
-      response instanceof HttpResponse
-        ? response.body
-        : (response as any).error instanceof Blob
-          ? (response as any).error
-          : undefined;
-
-    let _headers: any = {};
-    if (response.headers) {
-      for (let key of response.headers.keys()) {
-        _headers[key] = response.headers.get(key);
-      }
-    }
-    if (status === 200) {
-      return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
-          let result200: any = null;
-          let resultData200 =
-            _responseText === ''
-              ? null
-              : JSON.parse(_responseText, this.jsonParseReviver);
-          result200 = LoginResponse.fromJS(resultData200);
-          return _observableOf(result200);
-        }),
-      );
-    } else if (status === 401) {
-      return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
-          let result401: any = null;
-          let resultData401 =
-            _responseText === ''
-              ? null
-              : JSON.parse(_responseText, this.jsonParseReviver);
-          result401 = ProblemDetails.fromJS(resultData401);
-          return throwException(
-            'Unauthorized',
-            status,
-            _responseText,
-            _headers,
-            result401,
-          );
-        }),
-      );
-    } else if (status !== 200 && status !== 204) {
-      return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
-          return throwException(
-            'An unexpected server error occurred.',
-            status,
-            _responseText,
-            _headers,
-          );
-        }),
-      );
-    }
-    return _observableOf<LoginResponse>(null as any);
-  }
-
-  /**
-   * @return Success
-   */
-  getAllUsernames(): Observable<UsersGetAllUsernamesResponse> {
-    let url_ = this.baseUrl + '/Users/getAllUsernames';
-    url_ = url_.replace(/[?&]$/, '');
-
-    let options_: any = {
-      observe: 'response',
-      responseType: 'blob',
-      headers: new HttpHeaders({
-        Accept: 'text/plain',
-      }),
-    };
-
-    return this.http
-      .request('get', url_, options_)
-      .pipe(
-        _observableMergeMap((response_: any) => {
-          return this.processGetAllUsernames(response_);
-        }),
-      )
-      .pipe(
-        _observableCatch((response_: any) => {
-          if (response_ instanceof HttpResponseBase) {
-            try {
-              return this.processGetAllUsernames(response_ as any);
-            } catch (e) {
-              return _observableThrow(
-                e,
-              ) as any as Observable<UsersGetAllUsernamesResponse>;
-            }
-          } else
-            return _observableThrow(
-              response_,
-            ) as any as Observable<UsersGetAllUsernamesResponse>;
-        }),
-      );
-  }
-
-  protected processGetAllUsernames(
-    response: HttpResponseBase,
-  ): Observable<UsersGetAllUsernamesResponse> {
-    const status = response.status;
-    const responseBlob =
-      response instanceof HttpResponse
-        ? response.body
-        : (response as any).error instanceof Blob
-          ? (response as any).error
-          : undefined;
-
-    let _headers: any = {};
-    if (response.headers) {
-      for (let key of response.headers.keys()) {
-        _headers[key] = response.headers.get(key);
-      }
-    }
-    if (status === 200) {
-      return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
-          let result200: any = null;
-          let resultData200 =
-            _responseText === ''
-              ? null
-              : JSON.parse(_responseText, this.jsonParseReviver);
-          result200 = UsersGetAllUsernamesResponse.fromJS(resultData200);
-          return _observableOf(result200);
-        }),
-      );
-    } else if (status !== 200 && status !== 204) {
-      return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
-          return throwException(
-            'An unexpected server error occurred.',
-            status,
-            _responseText,
-            _headers,
-          );
-        }),
-      );
-    }
-    return _observableOf<UsersGetAllUsernamesResponse>(null as any);
-  }
-
-  /**
-   * @param body (optional)
-   * @return Success
-   */
   updaterole(
     userId: string,
     body: UpdateUserRoleModel | undefined,
@@ -3688,6 +3499,195 @@ export class Client {
       );
     }
     return _observableOf<void>(null as any);
+  }
+
+  /**
+   * @param body (optional)
+   * @return Success
+   */
+  login(body: LoginRequest | undefined): Observable<LoginResponse> {
+    let url_ = this.baseUrl + '/Users/login';
+    url_ = url_.replace(/[?&]$/, '');
+
+    const content_ = JSON.stringify(body);
+
+    let options_: any = {
+      body: content_,
+      observe: 'response',
+      responseType: 'blob',
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Accept: 'text/plain',
+      }),
+    };
+
+    return this.http
+      .request('post', url_, options_)
+      .pipe(
+        _observableMergeMap((response_: any) => {
+          return this.processLogin(response_);
+        }),
+      )
+      .pipe(
+        _observableCatch((response_: any) => {
+          if (response_ instanceof HttpResponseBase) {
+            try {
+              return this.processLogin(response_ as any);
+            } catch (e) {
+              return _observableThrow(e) as any as Observable<LoginResponse>;
+            }
+          } else
+            return _observableThrow(
+              response_,
+            ) as any as Observable<LoginResponse>;
+        }),
+      );
+  }
+
+  protected processLogin(
+    response: HttpResponseBase,
+  ): Observable<LoginResponse> {
+    const status = response.status;
+    const responseBlob =
+      response instanceof HttpResponse
+        ? response.body
+        : (response as any).error instanceof Blob
+          ? (response as any).error
+          : undefined;
+
+    let _headers: any = {};
+    if (response.headers) {
+      for (let key of response.headers.keys()) {
+        _headers[key] = response.headers.get(key);
+      }
+    }
+    if (status === 200) {
+      return blobToText(responseBlob).pipe(
+        _observableMergeMap((_responseText) => {
+          let result200: any = null;
+          let resultData200 =
+            _responseText === ''
+              ? null
+              : JSON.parse(_responseText, this.jsonParseReviver);
+          result200 = LoginResponse.fromJS(resultData200);
+          return _observableOf(result200);
+        }),
+      );
+    } else if (status === 401) {
+      return blobToText(responseBlob).pipe(
+        _observableMergeMap((_responseText) => {
+          let result401: any = null;
+          let resultData401 =
+            _responseText === ''
+              ? null
+              : JSON.parse(_responseText, this.jsonParseReviver);
+          result401 = ProblemDetails.fromJS(resultData401);
+          return throwException(
+            'Unauthorized',
+            status,
+            _responseText,
+            _headers,
+            result401,
+          );
+        }),
+      );
+    } else if (status !== 200 && status !== 204) {
+      return blobToText(responseBlob).pipe(
+        _observableMergeMap((_responseText) => {
+          return throwException(
+            'An unexpected server error occurred.',
+            status,
+            _responseText,
+            _headers,
+          );
+        }),
+      );
+    }
+    return _observableOf<LoginResponse>(null as any);
+  }
+
+  /**
+   * @return Success
+   */
+  getAllUsernames(): Observable<UsersGetAllUsernamesResponse> {
+    let url_ = this.baseUrl + '/Users/getAllUsernames';
+    url_ = url_.replace(/[?&]$/, '');
+
+    let options_: any = {
+      observe: 'response',
+      responseType: 'blob',
+      headers: new HttpHeaders({
+        Accept: 'text/plain',
+      }),
+    };
+
+    return this.http
+      .request('get', url_, options_)
+      .pipe(
+        _observableMergeMap((response_: any) => {
+          return this.processGetAllUsernames(response_);
+        }),
+      )
+      .pipe(
+        _observableCatch((response_: any) => {
+          if (response_ instanceof HttpResponseBase) {
+            try {
+              return this.processGetAllUsernames(response_ as any);
+            } catch (e) {
+              return _observableThrow(
+                e,
+              ) as any as Observable<UsersGetAllUsernamesResponse>;
+            }
+          } else
+            return _observableThrow(
+              response_,
+            ) as any as Observable<UsersGetAllUsernamesResponse>;
+        }),
+      );
+  }
+
+  protected processGetAllUsernames(
+    response: HttpResponseBase,
+  ): Observable<UsersGetAllUsernamesResponse> {
+    const status = response.status;
+    const responseBlob =
+      response instanceof HttpResponse
+        ? response.body
+        : (response as any).error instanceof Blob
+          ? (response as any).error
+          : undefined;
+
+    let _headers: any = {};
+    if (response.headers) {
+      for (let key of response.headers.keys()) {
+        _headers[key] = response.headers.get(key);
+      }
+    }
+    if (status === 200) {
+      return blobToText(responseBlob).pipe(
+        _observableMergeMap((_responseText) => {
+          let result200: any = null;
+          let resultData200 =
+            _responseText === ''
+              ? null
+              : JSON.parse(_responseText, this.jsonParseReviver);
+          result200 = UsersGetAllUsernamesResponse.fromJS(resultData200);
+          return _observableOf(result200);
+        }),
+      );
+    } else if (status !== 200 && status !== 204) {
+      return blobToText(responseBlob).pipe(
+        _observableMergeMap((_responseText) => {
+          return throwException(
+            'An unexpected server error occurred.',
+            status,
+            _responseText,
+            _headers,
+          );
+        }),
+      );
+    }
+    return _observableOf<UsersGetAllUsernamesResponse>(null as any);
   }
 }
 
@@ -4735,6 +4735,50 @@ export interface IUser {
   trucks?: Truck[] | undefined;
   truckUsers?: TruckUser[] | undefined;
   orders?: Order[] | undefined;
+}
+
+export class UserCreateModel implements IUserCreateModel {
+  username?: string | undefined;
+  password?: string | undefined;
+  role?: UserRole;
+
+  constructor(data?: IUserCreateModel) {
+    if (data) {
+      for (var property in data) {
+        if (data.hasOwnProperty(property))
+          (<any>this)[property] = (<any>data)[property];
+      }
+    }
+  }
+
+  init(_data?: any) {
+    if (_data) {
+      this.username = _data['username'];
+      this.password = _data['password'];
+      this.role = _data['role'];
+    }
+  }
+
+  static fromJS(data: any): UserCreateModel {
+    data = typeof data === 'object' ? data : {};
+    let result = new UserCreateModel();
+    result.init(data);
+    return result;
+  }
+
+  toJSON(data?: any) {
+    data = typeof data === 'object' ? data : {};
+    data['username'] = this.username;
+    data['password'] = this.password;
+    data['role'] = this.role;
+    return data;
+  }
+}
+
+export interface IUserCreateModel {
+  username?: string | undefined;
+  password?: string | undefined;
+  role?: UserRole;
 }
 
 export class UserIdAndRoleResponseFromUsernameRequest
