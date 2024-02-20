@@ -1,1 +1,59 @@
-<p>usercreate works!</p>
+<!-- usercreate.component.html -->
+
+<h2>Create a New User</h2>
+
+<div class="user-detail-container">
+  <mat-form-field appearance="fill">
+    <mat-label>Username</mat-label>
+    <input matInput [(ngModel)]="user.username" placeholder="Enter username" />
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Password</mat-label>
+    <input
+      matInput
+      [type]="showPassword ? 'text' : 'password'"
+      [(ngModel)]="user.passwordHash"
+      placeholder="Enter new password"
+    />
+    <button mat-icon-button matSuffix (click)="toggleShowPassword()">
+      <fa-icon [icon]="showPassword ? faEye : faEyeSlash"></fa-icon>
+    </button>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Confirm Password</mat-label>
+    <input
+      matInput
+      [type]="showConfirmPassword ? 'text' : 'password'"
+      [(ngModel)]="confirmedPassword"
+      placeholder="Confirm password"
+      (keyup)="checkPasswords()"
+    />
+    <button mat-icon-button matSuffix (click)="toggleShowConfirmPassword()">
+      <fa-icon [icon]="showConfirmPassword ? faEye : faEyeSlash"></fa-icon>
+    </button>
+    <mat-hint *ngIf="!passwordsMatch">Passwords do not match!</mat-hint>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Role</mat-label>
+    <mat-select [(ngModel)]="user.role">
+      <mat-option *ngFor="let role of roles" [value]="role">{{
+        role
+      }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <button mat-button class="create-user-button" (click)="createUser()">
+    Create User
+  </button>
+
+  <!-- Display success/error message here -->
+  <div *ngIf="successMessage" class="success-message">
+    {{ successMessage }}
+  </div>
+  <div *ngIf="errorMessage" class="error-message">
+    {{ errorMessage }}
+  </div>
+</div>

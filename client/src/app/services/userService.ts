@@ -6,6 +6,7 @@ import {
   UpdateUserRoleModel,
   UserIdAndRoleResponseFromUsernameRequest,
   UpdateUserPasswordAndRoleModel,
+  UserCreateModel,
 } from './api'; // Adjust the import path as necessary
 import { tap } from 'rxjs/operators';
 
@@ -89,5 +90,8 @@ export class UserService {
       newPassword: password,
     });
     return this.client.updatepasswordandrole(userId, updateModel);
+  }
+  createUser(newUser: UserCreateModel): Observable<any> {
+    return this.client.usersPOST(newUser);
   }
 }
