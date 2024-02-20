@@ -33,6 +33,9 @@ import {MatIconModule} from '@angular/material/icon';
 import { DummyDataService } from './dummy-data.service';
 import { CreateareaComponent } from './area/createarea/createarea.component';
 import { ViewTruckComponent } from './view-truck/view-truck.component';
+import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
+import { AreaDetailsComponent } from './area/area-detail/area-detail.component';
+
 // import { MatInputModule } from '@angular/material/input';
 // import { MatSelectModule } from '@angular/material/select';
 
@@ -53,7 +56,10 @@ import { ViewTruckComponent } from './view-truck/view-truck.component';
     AreaComponent,
     AreaCrudpageComponent,
     CreateareaComponent,
-    ViewTruckComponent
+    ViewTruckComponent,
+    ConfirmationDialogComponent,
+    AreaDetailsComponent,
+    ConfirmDialogComponent,
   ],
   imports: [
     BrowserModule,

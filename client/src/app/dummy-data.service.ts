@@ -1,11 +1,15 @@
 import { Injectable } from '@angular/core';
-import { Area } from './services/api'; // Correct import path
+import { Area } from './services/api';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DummyDataService {
-  constructor() {}
+  private dummyAreas: Area[] = [];
+
+  constructor() {
+    this.dummyAreas = this.generateDummyAreas(15);
+  }
 
   // Generate dummy areas
   generateDummyAreas(count: number): Area[] {
@@ -15,7 +19,6 @@ export class DummyDataService {
       const dummyArea: Area = {
         areaId: `Area${i}`,
         name: `Area ${i}`,
-        //locationIds: [`Location${i}_1`, `Location${i}_2`],
         trucks: [],
         locations: [],
         init: function (_data?: any): void {
@@ -23,12 +26,20 @@ export class DummyDataService {
         },
         toJSON: function (data?: any) {
           throw new Error('Function not implemented.');
-        }
+        },
       };
 
       dummyAreas.push(dummyArea);
     }
 
     return dummyAreas;
+  }
+
+  getDummyAreas(): Area[] {
+    return this.dummyAreas;
+  }
+
+  getAreaById(areaId: string): Area | undefined {
+    return this.dummyAreas.find((area) => area.areaId === areaId);
   }
 }
