@@ -19,6 +19,8 @@ import { MatInputModule } from '@angular/material/input';
 import { AdminlocationComponent } from './adminlocation/adminlocation.component';
 import { MatOptionModule } from '@angular/material/core';
 import { UserlocationComponent } from './userlocation/userlocation.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AdmineditComponent } from './adminedit/adminedit.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,9 @@ import { UserlocationComponent } from './userlocation/userlocation.component';
     DashboardComponent,
     LocationListComponent,
     AdminlocationComponent,
-    UserlocationComponent
+    UserlocationComponent,
+    AdmineditComponent
+    
   ],
   imports: [
     BrowserModule,
@@ -42,7 +46,8 @@ import { UserlocationComponent } from './userlocation/userlocation.component';
     MatSelectModule,
     MatFormFieldModule,
     MatInputModule,
-    MatOptionModule
+    MatOptionModule,
+    BrowserAnimationsModule
   ],
   providers: [Client],
   bootstrap: [AppComponent], // Bootstrap AppComponent

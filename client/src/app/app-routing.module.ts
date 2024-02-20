@@ -8,6 +8,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { LocationListComponent } from './location-list/location-list.component';
 import { AdminlocationComponent } from './adminlocation/adminlocation.component';
 import { UserlocationComponent } from './userlocation/userlocation.component';
+import { AdmineditComponent } from './adminedit/adminedit.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' }, // default route
@@ -15,7 +16,8 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent }, // Default route
   { path: 'locationlist', component: LocationListComponent },
   { path: 'adminlocation', component: AdminlocationComponent},
-  { path: 'userlocation' , component: UserlocationComponent}
+  { path: 'userlocation' , component: UserlocationComponent},
+  { path: 'adminedit', component: AdmineditComponent}
   //{ path: 'feature', loadChildren: () => import('./feature/feature.module').then(m => m.FeatureModule), canActivate: [AuthGuard] }, Add canActivate: [AuthGuard] to all other routes except 'home'
 ];
 

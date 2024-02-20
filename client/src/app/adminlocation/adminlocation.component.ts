@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-adminlocation',
@@ -21,7 +22,7 @@ export class AdminlocationComponent {
     // 假设这些数据来自后端
   ];
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -38,11 +39,13 @@ export class AdminlocationComponent {
 
   createLocation() {
     // 实现创建逻辑
+    this.router.navigate(['/adminedit'])
     console.log('Creating new location...');
   }
 
   editLocation() {
     // 实现编辑逻辑
+    this.router.navigate(['/adminedit'])
     console.log('Editing location...');
   }
 

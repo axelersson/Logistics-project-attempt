@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-userlocation',
@@ -21,13 +22,14 @@ export class UserlocationComponent {
     // 假设这些数据来自后端
   ];
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
   }
 
   createView() {
     // 实现查看逻辑
+    this.router.navigate(['/locationlist'])
     console.log('Viewing location...');
   }
 
