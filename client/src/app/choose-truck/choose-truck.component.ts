@@ -4,12 +4,19 @@ import { Truck } from '../services/api';
 //import { Truck } from '../truck.model'; // Assuming you have a Truck model
 import { ITruck } from '../services/api';
 
+
 @Component({
   selector: 'app-choose-truck',
   templateUrl: './choose-truck.component.html',
   styleUrls: ['./choose-truck.component.css']
 })
 export class TruckListComponent implements OnInit {
+bookTruck(arg0: string|undefined) {
+throw new Error('Method not implemented.');
+}
+goBack() {
+throw new Error('Method not implemented.');
+}
   trucks: ITruck[] = [
     {
       truckId: 'T001',
@@ -33,5 +40,8 @@ export class TruckListComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
+  
+  //goHome(): void {
+  //  this.router.navigate(['/homepage']); // Use the router to navigate to the homepage
+  //}
 }

@@ -1,7 +1,13 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { Client } from './api'; // Adjust the import path as necessary
-import { UserIdAndRoleResponseFromUsernameRequest } from '../services/api'; // Adjust path as necessary
+import {
+  Client,
+  UserRole,
+  UpdateUserRoleModel,
+  UserIdAndRoleResponseFromUsernameRequest,
+  UpdateUserPasswordAndRoleModel,
+} from './api'; // Adjust the import path as necessary
+import { tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
@@ -43,7 +49,6 @@ export class UserService {
   fetchUserDetailsByUsername(username: string) {
     this.client.byUsername(username).subscribe({
       next: (response: any) => {
-        console.log(response);
         this.selectedUserDetailsSource.next(response);
       },
       error: (error) => {
@@ -51,5 +56,38 @@ export class UserService {
         this.selectedUserDetailsSource.next(null); // Reset or handle as needed
       },
     });
+  }
+  refreshUsernames() {
+    // This method should fetch all usernames again or update the local list.
+    this.fetchAllUsernames(); // Assuming this method updates the usernames$ observable.
+  }
+  /// UserService method to delete user by ID
+  deleteUserById(userId: string): Observable<void> {
+    return this.client.usersDELETE(userId).pipe(
+      tap(() => {
+        this.refreshUsernames();
+        console.log(`User with ID ${userId} deleted successfully.`);
+      }),
+    );
+  }
+
+  updateUserRole(userId: string, role: string): Observable<any> {
+    const enumRole = UserRole[role as keyof typeof UserRole];
+    const updateModel = new UpdateUserRoleModel({ userId, role: enumRole });
+    return this.client.updaterole(userId, updateModel);
+  }
+
+  updatePasswordAndRole(
+    userId: string,
+    role: string,
+    password: string,
+  ): Observable<any> {
+    const enumRole = UserRole[role as keyof typeof UserRole];
+    const updateModel = new UpdateUserPasswordAndRoleModel({
+      userId, // Might be redundant
+      role: enumRole,
+      newPassword: password,
+    });
+    return this.client.updatepasswordandrole(userId, updateModel);
   }
 }

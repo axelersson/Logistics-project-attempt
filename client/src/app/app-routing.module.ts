@@ -14,6 +14,7 @@ import { Area } from './services/api';
 import { AreaComponent } from './area/area.component';
 import { AreaCrudpageComponent } from './area/area-crudpage/area-crudpage.component';
 import { CreateareaComponent } from './area/createarea/createarea.component';
+import { ViewTruckComponent } from './view-truck/view-truck.component'; // Import the new component
 
 const routes: Routes = [
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' }, // default route
@@ -30,6 +31,7 @@ const routes: Routes = [
   //{ path: 'feature', loadChildren: () => import('./feature/feature.module').then(m => m.FeatureModule), canActivate: [AuthGuard] }, Add canActivate: [AuthGuard] to all other routes except 'home',
   { path: 'userdetail', component: UserdetailComponent },
   { path: 'usercreate', component: UsercreateComponent },
+  { path: 'view-truck/:id', component: ViewTruckComponent }
 ];
 
 @NgModule({

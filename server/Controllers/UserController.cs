@@ -102,6 +102,46 @@ public class UsersController : ControllerBase
 
         return Ok(user);
     }
+    [HttpPut("/updaterole/{userId}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public IActionResult UpdateUserRole(string userId, [FromBody] UpdateUserRoleModel updatedUserRole)
+    {
+        var user = _context.Users.FirstOrDefault(u => u.UserId == updatedUserRole.UserId);
+        if (user == null)
+        {
+            return NotFound();
+        }
+
+        // Update user role
+        user.Role = updatedUserRole.Role;
+
+        _context.SaveChanges();
+
+        return Ok(user);
+    }
+    [HttpPut("updatepasswordandrole/{userId}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public IActionResult UpdateUserPasswordAndRole(string userId, [FromBody] UpdateUserPasswordAndRoleModel updatedUser)
+    {
+        var user = _context.Users.FirstOrDefault(u => u.UserId == updatedUser.UserId);
+        if (user == null)
+        {
+            return NotFound();
+        }
+
+        // Update user properties
+        user.Role = updatedUser.Role;
+        // Re-hashing the password if it's updated. 
+        user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(updatedUser.NewPassword);
+
+        _context.SaveChanges();
+
+        return Ok(user);
+    }
 
     [HttpDelete("{userId}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
