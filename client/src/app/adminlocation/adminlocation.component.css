@@ -1,0 +1,17 @@
+.location-card {
+  max-width: 100%;
+  margin: 10px;
+}
+
+mat-form-field {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.buttons-container {
+  display: grid;
+  grid-template-columns: 1fr; /* 这将使得每个按钮各占一行 */
+  gap: 10px;
+  
+}
+

@@ -13,6 +13,12 @@ import { HttpClientModule } from '@angular/common/http';
 import { LocationListComponent } from './location-list/location-list.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
+import { MatSelectModule } from '@angular/material/select';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { AdminlocationComponent } from './adminlocation/adminlocation.component';
+import { MatOptionModule } from '@angular/material/core';
+import { UserlocationComponent } from './userlocation/userlocation.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +26,9 @@ import { MatButtonModule } from '@angular/material/button';
     LoginComponent, // Declare other components here
     NavigationComponent, // ... any other components
     DashboardComponent,
-    LocationListComponent
+    LocationListComponent,
+    AdminlocationComponent,
+    UserlocationComponent
   ],
   imports: [
     BrowserModule,
@@ -30,7 +38,11 @@ import { MatButtonModule } from '@angular/material/button';
     FontAwesomeModule,
     HttpClientModule,
     MatButtonModule,
-    MatCardModule
+    MatCardModule,
+    MatSelectModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatOptionModule
   ],
   providers: [Client],
   bootstrap: [AppComponent], // Bootstrap AppComponent
