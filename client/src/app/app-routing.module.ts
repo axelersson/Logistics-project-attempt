@@ -20,6 +20,8 @@ import { CreateareaComponent } from './area/createarea/createarea.component';
 import { ViewTruckComponent } from './view-truck/view-truck.component'; // Import the new component
 import { AreaDetailsComponent } from './area/area-detail/area-detail.component';
 
+
+
 const routes: Routes = [
   { path: '', redirectTo: '/homepage', pathMatch: 'full' }, // default route
   { path: 'login', component: LoginComponent }, // Default route
@@ -34,6 +36,12 @@ const routes: Routes = [
   { path: 'usercreate', component: UsercreateComponent },
   { path: 'view-truck/:id', component: ViewTruckComponent }, 
   { path: 'area/:areaId', component: AreaDetailsComponent },
+  { path: 'homepage', component:HomeComponent},
+  { path: 'arealist', component:AreaComponent},
+  { path: 'orderlist', component:OrderdetailComponent},
+  { path: 'choosetruck', component:TruckListComponent},
+  { path: 'usercrud', component:AreaCrudpageComponent}
+
 ];
 
 @NgModule({
