@@ -3,6 +3,7 @@ using System;
 using LogisticsApp.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace server.Migrations
 {
     [DbContext(typeof(LogisticsDBContext))]
-    partial class LogisticsDBContextModelSnapshot : ModelSnapshot
+    [Migration("20240216105200_InitialCreate")]
+    partial class InitialCreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -24,28 +27,9 @@ namespace server.Migrations
                     b.Property<string>("AreaId")
                         .HasColumnType("varchar(255)");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("varchar(255)");
-
                     b.HasKey("AreaId");
 
-                    b.HasIndex("Name")
-                        .IsUnique();
-
                     b.ToTable("Areas");
-
-                    b.HasData(
-                        new
-                        {
-                            AreaId = "A1-4f53ece1-6c07-47ce-825c-91ddd6907b41",
-                            Name = "North Warehouse"
-                        },
-                        new
-                        {
-                            AreaId = "A2-456e5939-dd43-4805-ad29-9aaeefd9355e",
-                            Name = "South Warehouse"
-                        });
                 });
 
             modelBuilder.Entity("Location", b =>
@@ -65,20 +49,6 @@ namespace server.Migrations
                     b.HasIndex("AreaId");
 
                     b.ToTable("Locations");
-
-                    b.HasData(
-                        new
-                        {
-                            LocationId = "L1-11bbb211-17fe-474b-8aec-d73ebabfe72f",
-                            AreaId = "A1-4f53ece1-6c07-47ce-825c-91ddd6907b41",
-                            LocationType = 0
-                        },
-                        new
-                        {
-                            LocationId = "L2-53b58517-feb0-4945-b754-c88fa46fee28",
-                            AreaId = "A2-456e5939-dd43-4805-ad29-9aaeefd9355e",
-                            LocationType = 1
-                        });
                 });
 
             modelBuilder.Entity("Order", b =>
@@ -107,16 +77,6 @@ namespace server.Migrations
                     b.HasIndex("UserID");
 
                     b.ToTable("Orders");
-
-                    b.HasData(
-                        new
-                        {
-                            OrderId = "O1-a9f872a3-da49-4b29-8d88-401b56185d49",
-                            CreatedAt = new DateTime(2024, 2, 20, 12, 0, 31, 514, DateTimeKind.Utc).AddTicks(343),
-                            DestinationId = "L1-11bbb211-17fe-474b-8aec-d73ebabfe72f",
-                            OrderStatus = 0,
-                            UserID = "U1-853d1499-3362-484d-96a9-4d95949b5854"
-                        });
                 });
 
             modelBuilder.Entity("OrderRoll", b =>
@@ -141,15 +101,6 @@ namespace server.Migrations
                     b.HasIndex("RollOfSteelId");
 
                     b.ToTable("OrderRolls");
-
-                    b.HasData(
-                        new
-                        {
-                            OrderRollId = 1,
-                            OrderId = "O1-a9f872a3-da49-4b29-8d88-401b56185d49",
-                            OrderRollStatus = 0,
-                            RollOfSteelId = "R1-523831d0-7b3f-451a-8a1c-1baab2eb77a4"
-                        });
                 });
 
             modelBuilder.Entity("RollOfSteel", b =>
@@ -169,14 +120,6 @@ namespace server.Migrations
                     b.HasIndex("CurrentLocationId");
 
                     b.ToTable("RollsOfSteel");
-
-                    b.HasData(
-                        new
-                        {
-                            RollOfSteelId = "R1-523831d0-7b3f-451a-8a1c-1baab2eb77a4",
-                            CurrentLocationId = "L1-11bbb211-17fe-474b-8aec-d73ebabfe72f",
-                            RollStatus = 1
-                        });
                 });
 
             modelBuilder.Entity("Truck", b =>
@@ -197,21 +140,7 @@ namespace server.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.HasIndex("UserId");
-
                     b.ToTable("Trucks");
-
-                    b.HasData(
-                        new
-                        {
-                            TruckId = "T1-2e99947c-c445-4dbf-ae78-ecb3e9bd553a",
-                            CurrentAreaId = "A1-4f53ece1-6c07-47ce-825c-91ddd6907b41"
-                        },
-                        new
-                        {
-                            TruckId = "T2-fbefe4e0-1925-4adc-bab6-9e81ed9549eb",
-                            CurrentAreaId = "A2-456e5939-dd43-4805-ad29-9aaeefd9355e"
-                        });
                 });
 
             modelBuilder.Entity("TruckOrderAssignment", b =>
@@ -241,14 +170,6 @@ namespace server.Migrations
                     b.HasIndex("TruckId");
 
                     b.ToTable("TruckOrderAssignments");
-
-                    b.HasData(
-                        new
-                        {
-                            TruckOrderAssignmentId = 1,
-                            OrderId = "O1-a9f872a3-da49-4b29-8d88-401b56185d49",
-                            TruckId = "T1-2e99947c-c445-4dbf-ae78-ecb3e9bd553a"
-                        });
                 });
 
             modelBuilder.Entity("TruckUser", b =>
@@ -279,16 +200,6 @@ namespace server.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("TruckUsers");
-
-                    b.HasData(
-                        new
-                        {
-                            TruckUserId = 1,
-                            DateAssigned = new DateTime(2024, 2, 20, 12, 0, 31, 514, DateTimeKind.Utc).AddTicks(374),
-                            IsAssigned = true,
-                            TruckId = "T1-2e99947c-c445-4dbf-ae78-ecb3e9bd553a",
-                            UserId = "U1-853d1499-3362-484d-96a9-4d95949b5854"
-                        });
                 });
 
             modelBuilder.Entity("User", b =>
@@ -305,30 +216,11 @@ namespace server.Migrations
 
                     b.Property<string>("Username")
                         .IsRequired()
-                        .HasColumnType("varchar(255)");
+                        .HasColumnType("longtext");
 
                     b.HasKey("UserId");
 
-                    b.HasIndex("Username")
-                        .IsUnique();
-
                     b.ToTable("Users");
-
-                    b.HasData(
-                        new
-                        {
-                            UserId = "U1-853d1499-3362-484d-96a9-4d95949b5854",
-                            PasswordHash = "hashedPassword1",
-                            Role = 0,
-                            Username = "adminUser"
-                        },
-                        new
-                        {
-                            UserId = "U2-3a5ea4bd-c472-470d-a03c-75104596e6e7",
-                            PasswordHash = "hashedPassword2",
-                            Role = 1,
-                            Username = "standardUser"
-                        });
                 });
 
             modelBuilder.Entity("Location", b =>
@@ -365,8 +257,7 @@ namespace server.Migrations
                 {
                     b.HasOne("Order", "Order")
                         .WithMany("OrderRolls")
-                        .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("OrderId");
 
                     b.HasOne("RollOfSteel", "RollOfSteel")
                         .WithMany("OrderRolls")
@@ -400,10 +291,6 @@ namespace server.Migrations
                         .WithMany("Trucks")
                         .HasForeignKey("UserId");
 
-                    b.HasOne("User", null)
-                        .WithMany("Trucks")
-                        .HasForeignKey("UserId");
-
                     b.Navigation("CurrentArea");
                 });
 
@@ -430,13 +317,11 @@ namespace server.Migrations
                 {
                     b.HasOne("Truck", "Truck")
                         .WithMany("TruckUsers")
-                        .HasForeignKey("TruckId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("TruckId");
 
                     b.HasOne("User", "User")
                         .WithMany("TruckUsers")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("UserId");
 
                     b.Navigation("Truck");
 

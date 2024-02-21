@@ -7,6 +7,9 @@ import { LoginComponent } from './login/login.component';
 import { OrderdetailComponent } from './orderdetail/orderdetail.component';
 import { LogoutComponent } from './logout/logout.component';
 import { LocationListComponent } from './location-list/location-list.component';
+import { AdminlocationComponent } from './adminlocation/adminlocation.component';
+import { UserlocationComponent } from './userlocation/userlocation.component';
+import { AdmineditComponent } from './adminedit/adminedit.component';
 import { TruckListComponent } from './choose-truck/choose-truck.component';
 import { UserdetailComponent } from './users/userdetail/userdetail.component';
 import { UsercreateComponent } from './users/usercreate/usercreate.component';
@@ -22,12 +25,9 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent }, // Default route
   { path: 'logout', component: LogoutComponent },
   { path: 'locationlist', component: LocationListComponent },
-  { path: 'choosetruck', component: TruckListComponent },
-  { path: 'homepage', component: HomeComponent},
-  { path: 'orderdetail', component: OrderdetailComponent},
-  { path: 'arealist', component: AreaComponent},
-  { path: 'usercrud', component: AreaCrudpageComponent},
-  {path: 'createarea', component: CreateareaComponent},
+  { path: 'adminlocation', component: AdminlocationComponent},
+  { path: 'userlocation' , component: UserlocationComponent},
+  { path: 'adminedit', component: AdmineditComponent},
   //{ path: 'feature', loadChildren: () => import('./feature/feature.module').then(m => m.FeatureModule), canActivate: [AuthGuard] }, Add canActivate: [AuthGuard] to all other routes except 'home'
   //{ path: 'feature', loadChildren: () => import('./feature/feature.module').then(m => m.FeatureModule), canActivate: [AuthGuard] }, Add canActivate: [AuthGuard] to all other routes except 'home',
   { path: 'userdetail', component: UserdetailComponent },

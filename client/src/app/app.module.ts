@@ -9,7 +9,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { HttpClientModule } from '@angular/common/http';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatButtonModule, MatIconButton } from '@angular/material/button';
-import { FlexLayoutModule } from '@angular/flex-layout';
+
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { HomeComponent } from './home/home.component';
 import { OrderdetailComponent } from './orderdetail/orderdetail.component';
@@ -19,10 +19,7 @@ import { MatCardModule } from '@angular/material/card';
 import { TruckListComponent } from './choose-truck/choose-truck.component';
 import { UserdetailComponent } from './users/userdetail/userdetail.component';
 // Import Angular Material modules
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
-import { MatSelectModule } from '@angular/material/select';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; // Import BrowserAnimationsModule
+
 import { Client } from './services/api';
 import { ConfirmDialogComponent } from './confirm-dialog/confirm-dialog.component';
 import { UsercreateComponent } from './users/usercreate/usercreate.component';
@@ -38,6 +35,15 @@ import { MatDialogModule } from '@angular/material/dialog';
 
 // import { MatInputModule } from '@angular/material/input';
 // import { MatSelectModule } from '@angular/material/select';
+
+import { MatSelectModule } from '@angular/material/select';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { AdminlocationComponent } from './adminlocation/adminlocation.component';
+import { MatOptionModule } from '@angular/material/core';
+import { UserlocationComponent } from './userlocation/userlocation.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AdmineditComponent } from './adminedit/adminedit.component';
 
 @NgModule({
   declarations: [
@@ -59,6 +65,15 @@ import { MatDialogModule } from '@angular/material/dialog';
     ConfirmationDialogComponent,
     AreaDetailsComponent,
     ConfirmDialogComponent,
+    AppComponent, // Declare it here
+    LoginComponent, // Declare other components here
+    NavigationComponent, // ... any other components
+    
+    LocationListComponent,
+    AdminlocationComponent,
+    UserlocationComponent,
+    AdmineditComponent
+    
   ],
   imports: [
     BrowserModule,
@@ -70,7 +85,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     HttpClientModule,
     MatSlideToggleModule,
     MatButtonModule,
-    FlexLayoutModule,
+    
     MatToolbarModule,
     MatCardModule,
     MatIconButton,
@@ -80,6 +95,12 @@ import { MatDialogModule } from '@angular/material/dialog';
     MatSelectModule,
     MatDialogModule,
     MatIconModule,
+    MatCardModule,
+    MatSelectModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatOptionModule,
+    BrowserAnimationsModule
   ],
   providers: [Client, DummyDataService], // Provide your services here
   bootstrap: [AppComponent], // Bootstrap the AppComponent
