@@ -74,7 +74,7 @@ public class OrdersController : ControllerBase
 
     // CREATE NEW ORDER
     // Required body attributes: FromLocId, ToLocId, UserId, Pieces, OrderType
-    [HttpPost("NewOrder/")]
+    [HttpPost("NewOrder/{userId}")]
     public async Task<IActionResult> CreateOrder(string userId, [FromBody] Order order)
     {
         //get ToLoc And FromLoc from order body

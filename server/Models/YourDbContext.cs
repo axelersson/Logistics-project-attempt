@@ -26,74 +26,62 @@ namespace LogisticsApp.Data // Change to your actual namespace
         {   
 
 
-                // Area
-            // var area1Id = "A1-" + Guid.NewGuid().ToString();
-            // var area2Id = "A2-" + Guid.NewGuid().ToString();
+               // Area
+            var area1Id = "A1-" + Guid.NewGuid().ToString();
+            var area2Id = "A2-" + Guid.NewGuid().ToString();
 
-            // modelBuilder.Entity<Area>().HasData(
-            //     new Area { AreaId = area1Id, Name = "North Warehouse" },
-            //     new Area { AreaId = area2Id, Name = "South Warehouse" }
-            // );
+            modelBuilder.Entity<Area>().HasData(
+                new Area { AreaId = area1Id, Name = "North Warehouse" },
+                new Area { AreaId = area2Id, Name = "South Warehouse" }
+            );
 
-            // // Location
-            // var location1Id = "L1-" + Guid.NewGuid().ToString();
-            // var location2Id = "L2-" + Guid.NewGuid().ToString();
+            // Location
+            var location1Id = "L1-" + Guid.NewGuid().ToString();
+            var location2Id = "L2-" + Guid.NewGuid().ToString();
 
-            // modelBuilder.Entity<Location>().HasData(
-            //     new Location { LocationId = location1Id, AreaId = area1Id, LocationType = LocationType.Storage },
-            //     new Location { LocationId = location2Id, AreaId = area2Id, LocationType = LocationType.Machine }
-            // );
+            modelBuilder.Entity<Location>().HasData(
+                new Location { LocationId = location1Id, AreaId = area1Id, LocationType = LocationType.Storage },
+                new Location { LocationId = location2Id, AreaId = area2Id, LocationType = LocationType.Machine }
+            );
 
-            // // User
-            // var user1Id = "U1-" + Guid.NewGuid().ToString();
-            // var user2Id = "U2-" + Guid.NewGuid().ToString();
+            // User
+            var user1Id = "U1-" + Guid.NewGuid().ToString();
+            var user2Id = "U2-" + Guid.NewGuid().ToString();
 
-            // modelBuilder.Entity<User>().HasData(
-            //     new User { UserId = user1Id, Username = "adminUser", Role = User.UserRole.Admin, PasswordHash = "hashedPassword1" },
-            //     new User { UserId = user2Id, Username = "standardUser", Role = User.UserRole.User, PasswordHash = "hashedPassword2" }
-            // );
+            modelBuilder.Entity<User>().HasData(
+                new User { UserId = user1Id, Username = "adminUser", Role = User.UserRole.Admin, PasswordHash = "hashedPassword1" },
+                new User { UserId = user2Id, Username = "standardUser", Role = User.UserRole.User, PasswordHash = "hashedPassword2" }
+            );
 
-            // // Truck
-            // var truck1Id = "T1-" + Guid.NewGuid().ToString();
-            // var truck2Id = "T2-" + Guid.NewGuid().ToString();
+            // Truck
+            var truck1Id = "T1-" + Guid.NewGuid().ToString();
+            var truck2Id = "T2-" + Guid.NewGuid().ToString();
 
-            // modelBuilder.Entity<Truck>().HasData(
-            //     new Truck { TruckId = truck1Id, CurrentAreaId = area1Id },
-            //     new Truck { TruckId = truck2Id, CurrentAreaId = area2Id }
-            // );
+            modelBuilder.Entity<Truck>().HasData(
+                new Truck { TruckId = truck1Id, CurrentAreaId = area1Id },
+                new Truck { TruckId = truck2Id, CurrentAreaId = area2Id }
+            );
 
-            // // RollOfSteel
-            // var rollOfSteel1Id = "R1-" + Guid.NewGuid().ToString();
+            // Order
+            var order1Id = "O1-" + Guid.NewGuid().ToString();
 
-            // modelBuilder.Entity<RollOfSteel>().HasData(
-            //     new RollOfSteel { RollOfSteelId = rollOfSteel1Id, CurrentLocationId = location1Id, RollStatus = RollStatus.Raw }
-            // );
+            modelBuilder.Entity<Order>().HasData(
+                new Order { OrderId = order1Id, UserID = user1Id, OrderStatus = OrderStatus.Pending, FromLocId = location1Id, ToLocId = location2Id, Pieces = 7, CreatedAt = DateTime.UtcNow }
+            );
 
-            // // Order
-            // var order1Id = "O1-" + Guid.NewGuid().ToString();
+            // TruckUser
+            modelBuilder.Entity<TruckUser>().HasData(
+                new TruckUser { TruckUserId = 1, TruckId = truck1Id, UserId = user1Id, IsAssigned = true, AssignedAt = DateTime.UtcNow }
+            );
 
-            // modelBuilder.Entity<Order>().HasData(
-            //     new Order { OrderId = order1Id, UserID = user1Id, OrderStatus = OrderStatus.Pending, DestinationId = location1Id, CreatedAt = DateTime.UtcNow }
-            // );
+            // Define a counter variable to generate incrementing IDs
+            int truckOrderAssignmentCounter = 1;
 
-            // // OrderRoll
-            // modelBuilder.Entity<OrderRoll>().HasData(
-            //     new OrderRoll { OrderRollId = 1, OrderId = order1Id, RollOfSteelId = rollOfSteel1Id, OrderRollStatus = OrderRollStatus.Pending }
-            // );
-
-            // // TruckUser
-            // modelBuilder.Entity<TruckUser>().HasData(
-            //     new TruckUser { TruckUserId = 1, TruckId = truck1Id, UserId = user1Id, IsAssigned = true, DateAssigned = DateTime.UtcNow }
-            // );
-
-            // // Define a counter variable to generate incrementing IDs
-            // int truckOrderAssignmentCounter = 1;
-
-            // // Seeding method
-            // modelBuilder.Entity<TruckOrderAssignment>().HasData(
-            //     new TruckOrderAssignment { TruckOrderAssignmentId = truckOrderAssignmentCounter++, TruckId = truck1Id, OrderId = order1Id }
-            //     // Add more TruckOrderAssignment entries here as needed
-            // );
+            // Seeding method
+            modelBuilder.Entity<TruckOrderAssignment>().HasData(
+                new TruckOrderAssignment { TruckOrderAssignmentId = truckOrderAssignmentCounter++, TruckId = truck1Id, OrderId = order1Id }
+                // Add more TruckOrderAssignment entries here as needed
+            );
 
             // Ensure Area Name is unique
             modelBuilder.Entity<Area>()

@@ -34,6 +34,18 @@ namespace server.Migrations
                         .IsUnique();
 
                     b.ToTable("Areas");
+
+                    b.HasData(
+                        new
+                        {
+                            AreaId = "A1-f10c689a-75b6-4808-80ab-b13aaf6e92ef",
+                            Name = "North Warehouse"
+                        },
+                        new
+                        {
+                            AreaId = "A2-06f53ced-11b6-4539-9af4-07e54c8ca2d2",
+                            Name = "South Warehouse"
+                        });
                 });
 
             modelBuilder.Entity("Location", b =>
@@ -53,6 +65,20 @@ namespace server.Migrations
                     b.HasIndex("AreaId");
 
                     b.ToTable("Locations");
+
+                    b.HasData(
+                        new
+                        {
+                            LocationId = "L1-86af138b-e7ae-4c74-a1ba-8a5378d503f7",
+                            AreaId = "A1-f10c689a-75b6-4808-80ab-b13aaf6e92ef",
+                            LocationType = 0
+                        },
+                        new
+                        {
+                            LocationId = "L2-0ac984a6-09e7-4d1e-ab76-a1dfa9dface3",
+                            AreaId = "A2-06f53ced-11b6-4539-9af4-07e54c8ca2d2",
+                            LocationType = 1
+                        });
                 });
 
             modelBuilder.Entity("Order", b =>
@@ -96,6 +122,18 @@ namespace server.Migrations
                     b.HasIndex("UserID");
 
                     b.ToTable("Orders");
+
+                    b.HasData(
+                        new
+                        {
+                            OrderId = "O1-7999b9ad-9d6a-463a-971b-436c5ff7f738",
+                            CreatedAt = new DateTime(2024, 2, 22, 10, 32, 56, 156, DateTimeKind.Utc).AddTicks(6830),
+                            FromLocId = "L1-86af138b-e7ae-4c74-a1ba-8a5378d503f7",
+                            OrderStatus = 0,
+                            Pieces = 7,
+                            ToLocId = "L2-0ac984a6-09e7-4d1e-ab76-a1dfa9dface3",
+                            UserID = "U1-c7615ea8-918e-414e-9789-bb581184a45b"
+                        });
                 });
 
             modelBuilder.Entity("Truck", b =>
@@ -111,6 +149,18 @@ namespace server.Migrations
                     b.HasIndex("CurrentAreaId");
 
                     b.ToTable("Trucks");
+
+                    b.HasData(
+                        new
+                        {
+                            TruckId = "T1-f699e895-3185-4d1a-9cee-99e9788e192c",
+                            CurrentAreaId = "A1-f10c689a-75b6-4808-80ab-b13aaf6e92ef"
+                        },
+                        new
+                        {
+                            TruckId = "T2-c49bc780-5eff-4926-99a0-b46eba2deae0",
+                            CurrentAreaId = "A2-06f53ced-11b6-4539-9af4-07e54c8ca2d2"
+                        });
                 });
 
             modelBuilder.Entity("TruckOrderAssignment", b =>
@@ -143,6 +193,16 @@ namespace server.Migrations
                     b.HasIndex("TruckId");
 
                     b.ToTable("TruckOrderAssignments");
+
+                    b.HasData(
+                        new
+                        {
+                            TruckOrderAssignmentId = 1,
+                            AssignedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            IsAssigned = true,
+                            OrderId = "O1-7999b9ad-9d6a-463a-971b-436c5ff7f738",
+                            TruckId = "T1-f699e895-3185-4d1a-9cee-99e9788e192c"
+                        });
                 });
 
             modelBuilder.Entity("TruckUser", b =>
@@ -173,6 +233,16 @@ namespace server.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("TruckUsers");
+
+                    b.HasData(
+                        new
+                        {
+                            TruckUserId = 1,
+                            AssignedAt = new DateTime(2024, 2, 22, 10, 32, 56, 156, DateTimeKind.Utc).AddTicks(6850),
+                            IsAssigned = true,
+                            TruckId = "T1-f699e895-3185-4d1a-9cee-99e9788e192c",
+                            UserId = "U1-c7615ea8-918e-414e-9789-bb581184a45b"
+                        });
                 });
 
             modelBuilder.Entity("User", b =>
@@ -197,6 +267,22 @@ namespace server.Migrations
                         .IsUnique();
 
                     b.ToTable("Users");
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = "U1-c7615ea8-918e-414e-9789-bb581184a45b",
+                            PasswordHash = "hashedPassword1",
+                            Role = 0,
+                            Username = "adminUser"
+                        },
+                        new
+                        {
+                            UserId = "U2-22236e78-bcc1-4e45-ad10-254534e3940b",
+                            PasswordHash = "hashedPassword2",
+                            Role = 1,
+                            Username = "standardUser"
+                        });
                 });
 
             modelBuilder.Entity("Location", b =>
