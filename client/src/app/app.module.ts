@@ -44,6 +44,7 @@ import { MatOptionModule } from '@angular/material/core';
 import { UserlocationComponent } from './userlocation/userlocation.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AdmineditComponent } from './adminedit/adminedit.component';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
   declarations: [
@@ -100,7 +101,8 @@ import { AdmineditComponent } from './adminedit/adminedit.component';
     MatFormFieldModule,
     MatInputModule,
     MatOptionModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    FlexLayoutModule
   ],
   providers: [Client, DummyDataService], // Provide your services here
   bootstrap: [AppComponent], // Bootstrap the AppComponent
