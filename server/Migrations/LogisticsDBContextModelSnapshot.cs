@@ -43,7 +43,7 @@ namespace server.Migrations
                         },
                         new
                         {
-                            AreaId = "A2-1b73b7f3-bb49-49c4-ae14-78acb75743e5",
+                            AreaId = "A2-731fad73-e9d8-4299-9f44-aae35bf9e116",
                             Name = "South Warehouse"
                         });
                 });
@@ -86,15 +86,28 @@ namespace server.Migrations
                     b.Property<string>("OrderId")
                         .HasColumnType("varchar(255)");
 
+                    b.Property<DateTime?>("CompletedAt")
+                        .HasColumnType("datetime(6)");
+
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<string>("DestinationId")
+                    b.Property<string>("FromLocId")
                         .IsRequired()
                         .HasColumnType("varchar(255)");
 
                     b.Property<int>("OrderStatus")
                         .HasColumnType("int");
+
+                    b.Property<int?>("OrderType")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Pieces")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ToLocId")
+                        .IsRequired()
+                        .HasColumnType("varchar(255)");
 
                     b.Property<string>("UserID")
                         .IsRequired()
@@ -102,7 +115,9 @@ namespace server.Migrations
 
                     b.HasKey("OrderId");
 
-                    b.HasIndex("DestinationId");
+                    b.HasIndex("FromLocId");
+
+                    b.HasIndex("ToLocId");
 
                     b.HasIndex("UserID");
 
@@ -185,19 +200,11 @@ namespace server.Migrations
                         .HasColumnType("varchar(255)");
 
                     b.Property<string>("CurrentAreaId")
-                        .IsRequired()
-                        .HasColumnType("varchar(255)");
-
-                    b.Property<string>("UserId")
                         .HasColumnType("varchar(255)");
 
                     b.HasKey("TruckId");
 
                     b.HasIndex("CurrentAreaId");
-
-                    b.HasIndex("UserId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Trucks");
 
@@ -220,8 +227,11 @@ namespace server.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("AssignmentAt")
+                    b.Property<DateTime?>("AssignedAt")
                         .HasColumnType("datetime(6)");
+
+                    b.Property<bool>("IsAssigned")
+                        .HasColumnType("tinyint(1)");
 
                     b.Property<string>("OrderId")
                         .IsRequired()
@@ -231,7 +241,7 @@ namespace server.Migrations
                         .IsRequired()
                         .HasColumnType("varchar(255)");
 
-                    b.Property<DateTime?>("UnassignmentAt")
+                    b.Property<DateTime?>("UnassignedAt")
                         .HasColumnType("datetime(6)");
 
                     b.HasKey("TruckOrderAssignmentId");
@@ -257,10 +267,7 @@ namespace server.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<DateTime?>("DateAssigned")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<DateTime?>("DateUnassigned")
+                    b.Property<DateTime>("AssignedAt")
                         .HasColumnType("datetime(6)");
 
                     b.Property<bool>("IsAssigned")
@@ -268,6 +275,9 @@ namespace server.Migrations
 
                     b.Property<string>("TruckId")
                         .HasColumnType("varchar(255)");
+
+                    b.Property<DateTime?>("UnassignedAt")
+                        .HasColumnType("datetime(6)");
 
                     b.Property<string>("UserId")
                         .HasColumnType("varchar(255)");
@@ -344,9 +354,15 @@ namespace server.Migrations
 
             modelBuilder.Entity("Order", b =>
                 {
-                    b.HasOne("Location", "DestinationLocation")
-                        .WithMany("DestinationOrders")
-                        .HasForeignKey("DestinationId")
+                    b.HasOne("Location", "FromLocation")
+                        .WithMany("FromOrders")
+                        .HasForeignKey("FromLocId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Location", "ToLocation")
+                        .WithMany("ToOrders")
+                        .HasForeignKey("ToLocId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -356,53 +372,18 @@ namespace server.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("DestinationLocation");
+                    b.Navigation("FromLocation");
+
+                    b.Navigation("ToLocation");
 
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("OrderRoll", b =>
-                {
-                    b.HasOne("Order", "Order")
-                        .WithMany("OrderRolls")
-                        .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("RollOfSteel", "RollOfSteel")
-                        .WithMany("OrderRolls")
-                        .HasForeignKey("RollOfSteelId");
-
-                    b.Navigation("Order");
-
-                    b.Navigation("RollOfSteel");
-                });
-
-            modelBuilder.Entity("RollOfSteel", b =>
-                {
-                    b.HasOne("Location", "CurrentLocation")
-                        .WithMany("RollsOfSteel")
-                        .HasForeignKey("CurrentLocationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("CurrentLocation");
                 });
 
             modelBuilder.Entity("Truck", b =>
                 {
                     b.HasOne("Area", "CurrentArea")
                         .WithMany("Trucks")
-                        .HasForeignKey("CurrentAreaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("User", null)
-                        .WithMany("Trucks")
-                        .HasForeignKey("UserId");
-
-                    b.HasOne("User", null)
-                        .WithMany("Trucks")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("CurrentAreaId");
 
                     b.Navigation("CurrentArea");
                 });
@@ -430,13 +411,11 @@ namespace server.Migrations
                 {
                     b.HasOne("Truck", "Truck")
                         .WithMany("TruckUsers")
-                        .HasForeignKey("TruckId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("TruckId");
 
                     b.HasOne("User", "User")
                         .WithMany("TruckUsers")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("UserId");
 
                     b.Navigation("Truck");
 
@@ -452,21 +431,14 @@ namespace server.Migrations
 
             modelBuilder.Entity("Location", b =>
                 {
-                    b.Navigation("DestinationOrders");
+                    b.Navigation("FromOrders");
 
-                    b.Navigation("RollsOfSteel");
+                    b.Navigation("ToOrders");
                 });
 
             modelBuilder.Entity("Order", b =>
                 {
-                    b.Navigation("OrderRolls");
-
                     b.Navigation("TruckOrderAssignments");
-                });
-
-            modelBuilder.Entity("RollOfSteel", b =>
-                {
-                    b.Navigation("OrderRolls");
                 });
 
             modelBuilder.Entity("Truck", b =>
@@ -481,8 +453,6 @@ namespace server.Migrations
                     b.Navigation("Orders");
 
                     b.Navigation("TruckUsers");
-
-                    b.Navigation("Trucks");
                 });
 #pragma warning restore 612, 618
         }

@@ -12,21 +12,21 @@ namespace LogisticsApp.Data // Change to your actual namespace
         }
 
         // DbSet properties for your entities
-        public DbSet<RollOfSteel> RollsOfSteel { get; set; }
+        // public DbSet<RollOfSteel> RollsOfSteel { get; set; } REMOVED
         public DbSet<Truck> Trucks { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<Area> Areas { get; set; }
         public DbSet<Location> Locations { get; set; }
         public DbSet<User> Users { get; set; }
         public DbSet<TruckUser> TruckUsers { get; set; }
-        public DbSet<OrderRoll> OrderRolls { get; set; }
+        // public DbSet<OrderRoll> OrderRolls { get; set; } REMOVED
         public DbSet<TruckOrderAssignment> TruckOrderAssignments { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {   
             //#################################################################################### COMMENT OUT START FOR NO DATABASE OBJECT SEEDING
 
-                // Area
+               // Area
             var area1Id = "A1-" + Guid.NewGuid().ToString();
             var area2Id = "A2-" + Guid.NewGuid().ToString();
 
@@ -48,42 +48,37 @@ namespace LogisticsApp.Data // Change to your actual namespace
             var user1Id = "U1-" + Guid.NewGuid().ToString();
             var user2Id = "U2-" + Guid.NewGuid().ToString();
 
+            string plainPassword1 = "yourPasswordHere";
+            // Hash the password
+            string hashedPassword1 = BCrypt.Net.BCrypt.HashPassword(plainPassword1);
+
+
             modelBuilder.Entity<User>().HasData(
-                new User { UserId = user1Id, Username = "adminUser", Role = User.UserRole.Admin, PasswordHash = "hashedPassword1" },
+                new User { UserId = user1Id, Username = "adminUser", Role = User.UserRole.Admin, PasswordHash = BCrypt.Net.BCrypt.HashPassword(plainPassword1) },
                 new User { UserId = user2Id, Username = "standardUser", Role = User.UserRole.User, PasswordHash = "hashedPassword2" }
             );
 
             // Truck
             var truck1Id = "T1-" + Guid.NewGuid().ToString();
             var truck2Id = "T2-" + Guid.NewGuid().ToString();
+            var truckregnr1 = "abc123";
+            var truckregnr2 = "bcd234";
 
             modelBuilder.Entity<Truck>().HasData(
-                new Truck { TruckId = truck1Id, CurrentAreaId = area1Id },
-                new Truck { TruckId = truck2Id, CurrentAreaId = area2Id }
-            );
-
-            // RollOfSteel
-            var rollOfSteel1Id = "R1-" + Guid.NewGuid().ToString();
-
-            modelBuilder.Entity<RollOfSteel>().HasData(
-                new RollOfSteel { RollOfSteelId = rollOfSteel1Id, CurrentLocationId = location1Id, RollStatus = RollStatus.Raw }
+                new Truck { TruckId = truck1Id, CurrentAreaId = area1Id, registrationnumber = truckregnr1 },
+                new Truck { TruckId = truck2Id, CurrentAreaId = area2Id, registrationnumber = truckregnr2 }
             );
 
             // Order
             var order1Id = "O1-" + Guid.NewGuid().ToString();
 
             modelBuilder.Entity<Order>().HasData(
-                new Order { OrderId = order1Id, UserID = user1Id, OrderStatus = OrderStatus.Pending, DestinationId = location1Id, CreatedAt = DateTime.UtcNow }
-            );
-
-            // OrderRoll
-            modelBuilder.Entity<OrderRoll>().HasData(
-                new OrderRoll { OrderRollId = 1, OrderId = order1Id, RollOfSteelId = rollOfSteel1Id, OrderRollStatus = OrderRollStatus.Pending }
+                new Order { OrderId = order1Id, UserID = user1Id, OrderStatus = OrderStatus.Pending, FromLocId = location1Id, ToLocId = location2Id, Pieces = 7, CreatedAt = DateTime.UtcNow }
             );
 
             // TruckUser
             modelBuilder.Entity<TruckUser>().HasData(
-                new TruckUser { TruckUserId = 1, TruckId = truck1Id, UserId = user1Id, IsAssigned = true, DateAssigned = DateTime.UtcNow }
+                new TruckUser { TruckUserId = 1, TruckId = truck1Id, UserId = user1Id, IsAssigned = true, AssignedAt = DateTime.UtcNow }
             );
 
             // Define a counter variable to generate incrementing IDs
@@ -110,7 +105,8 @@ namespace LogisticsApp.Data // Change to your actual namespace
             modelBuilder.Entity<Truck>()
                 .HasOne<Area>(t => t.CurrentArea)
                 .WithMany(a => a.Trucks)
-                .HasForeignKey(t => t.CurrentAreaId);
+                .HasForeignKey(t => t.CurrentAreaId)
+                .IsRequired(false);
             
             // One Area, Many Locations
             modelBuilder.Entity<Location>()
@@ -119,16 +115,21 @@ namespace LogisticsApp.Data // Change to your actual namespace
                 .HasForeignKey(l => l.AreaId);
 
             // One Location, Many RollsOfSteel
-            modelBuilder.Entity<RollOfSteel>()
-                .HasOne<Location>(r => r.CurrentLocation)
-                .WithMany(l => l.RollsOfSteel)
-                .HasForeignKey(r => r.CurrentLocationId);
+            // modelBuilder.Entity<RollOfSteel>()
+            //     .HasOne<Location>(r => r.CurrentLocation)
+            //     .WithMany(l => l.RollsOfSteel)
+            //     .HasForeignKey(r => r.CurrentLocationId);
             
             // One Location, Many Orders
             modelBuilder.Entity<Order>()
-                .HasOne<Location>(o => o.DestinationLocation)
-                .WithMany(l => l.DestinationOrders)
-                .HasForeignKey(o => o.DestinationId);
+                .HasOne<Location>(o => o.ToLocation)
+                .WithMany(l => l.ToOrders)
+                .HasForeignKey(o => o.ToLocId);
+
+            modelBuilder.Entity<Order>()
+                .HasOne<Location>(o => o.FromLocation)
+                .WithMany(l => l.FromOrders)
+                .HasForeignKey(o => o.FromLocId);
 
             // One User, Many Orders
             modelBuilder.Entity<Order>()
@@ -136,11 +137,12 @@ namespace LogisticsApp.Data // Change to your actual namespace
                 .WithMany(u => u.Orders)
                 .HasForeignKey(o => o.UserID);
             
-            modelBuilder.Entity<Order>()
-            .HasMany(o => o.OrderRolls)
-            .WithOne(or => or.Order)
-            .HasForeignKey(or => or.OrderId)
-            .OnDelete(DeleteBehavior.Cascade);
+            // REMOVED
+            // modelBuilder.Entity<Order>()
+            // .HasMany(o => o.OrderRolls)
+            // .WithOne(or => or.Order)
+            // .HasForeignKey(or => or.OrderId)
+            // .OnDelete(DeleteBehavior.Cascade);
 
             // INTERMEDIATE TABLES
             // Configure TruckUser
@@ -154,34 +156,23 @@ namespace LogisticsApp.Data // Change to your actual namespace
                 .HasOne<User>(tu => tu.User)
                 .WithMany(u => u.TruckUsers)
                 .HasForeignKey(tu => tu.UserId);
-            
-            // Configure TruckUser
-            modelBuilder.Entity<TruckUser>()
-                .HasOne(tu => tu.Truck)
-                .WithMany(t => t.TruckUsers)
-                .HasForeignKey(tu => tu.TruckId)
-                .OnDelete(DeleteBehavior.Cascade);
-
-            modelBuilder.Entity<TruckUser>()
-                .HasOne(tu => tu.User)
-                .WithMany(u => u.TruckUsers)
-                .HasForeignKey(tu => tu.UserId)
-                .OnDelete(DeleteBehavior.Cascade);
 
             // Configure OrderRoll
 
-            modelBuilder.Entity<OrderRoll>()
-                .HasKey(or => or.OrderRollId);
-                
-            modelBuilder.Entity<OrderRoll>()
-                .HasOne(or => or.RollOfSteel)
-                .WithMany(r => r.OrderRolls)
-                .HasForeignKey(or => or.RollOfSteelId);
 
-            modelBuilder.Entity<OrderRoll>()
-                .HasOne(or => or.Order)
-                .WithMany(o => o.OrderRolls)
-                .HasForeignKey(or => or.OrderId);
+            // REMOVED ORDERROLL
+            // modelBuilder.Entity<OrderRoll>()
+            //     .HasKey(or => or.OrderRollId);
+                
+            // modelBuilder.Entity<OrderRoll>()
+            //     .HasOne(or => or.RollOfSteel)
+            //     .WithMany(r => r.OrderRolls)
+            //     .HasForeignKey(or => or.RollOfSteelId);
+
+            // modelBuilder.Entity<OrderRoll>()
+            //     .HasOne(or => or.Order)
+            //     .WithMany(o => o.OrderRolls)
+            //     .HasForeignKey(or => or.OrderId);
 
             // Configure TruckOrderAssignment
 
