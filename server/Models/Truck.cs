@@ -5,6 +5,8 @@ public class Truck
     public string TruckId { get; set; } = Guid.NewGuid().ToString();
     public string CurrentAreaId { get; set; } = string.Empty;
 
+    public string registrationnumber { get; set; } = string.Empty;
+
     // Navigation Properties
     [JsonIgnore]
     public Area? CurrentArea { get; set; }

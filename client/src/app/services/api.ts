@@ -99,7 +99,7 @@ export class Client {
     }
     if (status === 200) {
       return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
+        _observableMergeMap((_responseText: string) => {
           let result200: any = null;
           let resultData200 =
             _responseText === ''
@@ -111,7 +111,7 @@ export class Client {
       );
     } else if (status !== 200 && status !== 204) {
       return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
+        _observableMergeMap((_responseText: string) => {
           return throwException(
             'An unexpected server error occurred.',
             status,
@@ -121,7 +121,7 @@ export class Client {
         }),
       );
     }
-    return _observableOf<AreasResponse>(null as any);
+    return _observableOf(null as any);
   }
 
   /**
@@ -181,7 +181,7 @@ export class Client {
     }
     if (status === 201) {
       return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
+        _observableMergeMap((_responseText: string) => {
           let result201: any = null;
           let resultData201 =
             _responseText === ''
@@ -193,7 +193,7 @@ export class Client {
       );
     } else if (status === 400) {
       return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
+        _observableMergeMap((_responseText: string) => {
           let result400: any = null;
           let resultData400 =
             _responseText === ''
@@ -211,7 +211,7 @@ export class Client {
       );
     } else if (status !== 200 && status !== 204) {
       return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
+        _observableMergeMap((_responseText: string) => {
           return throwException(
             'An unexpected server error occurred.',
             status,
@@ -221,7 +221,7 @@ export class Client {
         }),
       );
     }
-    return _observableOf<Area>(null as any);
+    return _observableOf(null as any);
   }
 
   /**
@@ -279,7 +279,7 @@ export class Client {
     }
     if (status === 200) {
       return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
+        _observableMergeMap((_responseText: string) => {
           let result200: any = null;
           let resultData200 =
             _responseText === ''
@@ -291,7 +291,7 @@ export class Client {
       );
     } else if (status === 404) {
       return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
+        _observableMergeMap((_responseText: string) => {
           let result404: any = null;
           let resultData404 =
             _responseText === ''
@@ -309,7 +309,7 @@ export class Client {
       );
     } else if (status !== 200 && status !== 204) {
       return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
+        _observableMergeMap((_responseText: string) => {
           return throwException(
             'An unexpected server error occurred.',
             status,
@@ -319,7 +319,7 @@ export class Client {
         }),
       );
     }
-    return _observableOf<Area>(null as any);
+    return _observableOf(null as any);
   }
 
   /**
@@ -381,13 +381,13 @@ export class Client {
     }
     if (status === 204) {
       return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
-          return _observableOf<void>(null as any);
+        _observableMergeMap((_responseText: string) => {
+          return _observableOf(null as any);
         }),
       );
     } else if (status === 400) {
       return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
+        _observableMergeMap((_responseText: string) => {
           let result400: any = null;
           let resultData400 =
             _responseText === ''
@@ -405,7 +405,7 @@ export class Client {
       );
     } else if (status === 404) {
       return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
+        _observableMergeMap((_responseText: string) => {
           let result404: any = null;
           let resultData404 =
             _responseText === ''
@@ -423,7 +423,7 @@ export class Client {
       );
     } else if (status !== 200 && status !== 204) {
       return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
+        _observableMergeMap((_responseText: string) => {
           return throwException(
             'An unexpected server error occurred.',
             status,
@@ -433,7 +433,7 @@ export class Client {
         }),
       );
     }
-    return _observableOf<void>(null as any);
+    return _observableOf(null as any);
   }
 
   /**
@@ -489,13 +489,13 @@ export class Client {
     }
     if (status === 204) {
       return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
-          return _observableOf<void>(null as any);
+        _observableMergeMap((_responseText: string) => {
+          return _observableOf(null as any);
         }),
       );
     } else if (status === 404) {
       return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
+        _observableMergeMap((_responseText: string) => {
           let result404: any = null;
           let resultData404 =
             _responseText === ''
@@ -513,7 +513,7 @@ export class Client {
       );
     } else if (status !== 200 && status !== 204) {
       return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
+        _observableMergeMap((_responseText: string) => {
           return throwException(
             'An unexpected server error occurred.',
             status,
@@ -523,7 +523,7 @@ export class Client {
         }),
       );
     }
-    return _observableOf<void>(null as any);
+    return _observableOf(null as any);
   }
 
   /**
@@ -585,7 +585,7 @@ export class Client {
     }
     if (status === 200) {
       return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
+        _observableMergeMap((_responseText: string) => {
           let result200: any = null;
           let resultData200 =
             _responseText === ''
@@ -597,7 +597,7 @@ export class Client {
       );
     } else if (status !== 200 && status !== 204) {
       return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
+        _observableMergeMap((_responseText: string) => {
           return throwException(
             'An unexpected server error occurred.',
             status,
@@ -607,7 +607,7 @@ export class Client {
         }),
       );
     }
-    return _observableOf<LocationsGetAllResponse>(null as any);
+    return _observableOf(null as any);
   }
 
   /**
@@ -670,7 +670,7 @@ export class Client {
     }
     if (status === 201) {
       return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
+        _observableMergeMap((_responseText: string) => {
           let result201: any = null;
           let resultData201 =
             _responseText === ''
@@ -682,7 +682,7 @@ export class Client {
       );
     } else if (status === 400) {
       return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
+        _observableMergeMap((_responseText: string) => {
           let result400: any = null;
           let resultData400 =
             _responseText === ''
@@ -700,7 +700,7 @@ export class Client {
       );
     } else if (status !== 200 && status !== 204) {
       return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
+        _observableMergeMap((_responseText: string) => {
           return throwException(
             'An unexpected server error occurred.',
             status,
@@ -710,7 +710,7 @@ export class Client {
         }),
       );
     }
-    return _observableOf<Location>(null as any);
+    return _observableOf(null as any);
   }
 
   /**
@@ -771,7 +771,7 @@ export class Client {
     }
     if (status === 200) {
       return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
+        _observableMergeMap((_responseText: string) => {
           let result200: any = null;
           let resultData200 =
             _responseText === ''
@@ -783,7 +783,7 @@ export class Client {
       );
     } else if (status === 404) {
       return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
+        _observableMergeMap((_responseText: string) => {
           let result404: any = null;
           let resultData404 =
             _responseText === ''
@@ -801,7 +801,7 @@ export class Client {
       );
     } else if (status !== 200 && status !== 204) {
       return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
+        _observableMergeMap((_responseText: string) => {
           return throwException(
             'An unexpected server error occurred.',
             status,
@@ -811,7 +811,7 @@ export class Client {
         }),
       );
     }
-    return _observableOf<Location>(null as any);
+    return _observableOf(null as any);
   }
 
   /**
@@ -876,13 +876,13 @@ export class Client {
     }
     if (status === 204) {
       return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
-          return _observableOf<void>(null as any);
+        _observableMergeMap((_responseText: string) => {
+          return _observableOf(null as any);
         }),
       );
     } else if (status === 400) {
       return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
+        _observableMergeMap((_responseText: string) => {
           let result400: any = null;
           let resultData400 =
             _responseText === ''
@@ -900,7 +900,7 @@ export class Client {
       );
     } else if (status === 404) {
       return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
+        _observableMergeMap((_responseText: string) => {
           let result404: any = null;
           let resultData404 =
             _responseText === ''
@@ -918,7 +918,7 @@ export class Client {
       );
     } else if (status !== 200 && status !== 204) {
       return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
+        _observableMergeMap((_responseText: string) => {
           return throwException(
             'An unexpected server error occurred.',
             status,
@@ -928,7 +928,7 @@ export class Client {
         }),
       );
     }
-    return _observableOf<void>(null as any);
+    return _observableOf(null as any);
   }
 
   /**
@@ -986,13 +986,13 @@ export class Client {
     }
     if (status === 204) {
       return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
-          return _observableOf<void>(null as any);
+        _observableMergeMap((_responseText: string) => {
+          return _observableOf(null as any);
         }),
       );
     } else if (status === 404) {
       return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
+        _observableMergeMap((_responseText: string) => {
           let result404: any = null;
           let resultData404 =
             _responseText === ''
@@ -1010,7 +1010,7 @@ export class Client {
       );
     } else if (status !== 200 && status !== 204) {
       return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
+        _observableMergeMap((_responseText: string) => {
           return throwException(
             'An unexpected server error occurred.',
             status,
@@ -1020,7 +1020,7 @@ export class Client {
         }),
       );
     }
-    return _observableOf<void>(null as any);
+    return _observableOf(null as any);
   }
 
   /**
@@ -1082,13 +1082,13 @@ export class Client {
     }
     if (status === 200) {
       return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
-          return _observableOf<void>(null as any);
+        _observableMergeMap((_responseText: string) => {
+          return _observableOf(null as any);
         }),
       );
     } else if (status === 400) {
       return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
+        _observableMergeMap((_responseText: string) => {
           let result400: any = null;
           let resultData400 =
             _responseText === ''
@@ -1106,7 +1106,7 @@ export class Client {
       );
     } else if (status === 404) {
       return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
+        _observableMergeMap((_responseText: string) => {
           let result404: any = null;
           let resultData404 =
             _responseText === ''
@@ -1124,7 +1124,7 @@ export class Client {
       );
     } else if (status !== 200 && status !== 204) {
       return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
+        _observableMergeMap((_responseText: string) => {
           return throwException(
             'An unexpected server error occurred.',
             status,
@@ -1134,7 +1134,7 @@ export class Client {
         }),
       );
     }
-    return _observableOf<void>(null as any);
+    return _observableOf(null as any);
   }
 
   /**
@@ -1196,7 +1196,7 @@ export class Client {
     }
     if (status === 200) {
       return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
+        _observableMergeMap((_responseText: string) => {
           let result200: any = null;
           let resultData200 =
             _responseText === ''
@@ -1208,7 +1208,7 @@ export class Client {
       );
     } else if (status !== 200 && status !== 204) {
       return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
+        _observableMergeMap((_responseText: string) => {
           return throwException(
             'An unexpected server error occurred.',
             status,
@@ -1218,7 +1218,7 @@ export class Client {
         }),
       );
     }
-    return _observableOf<OrdersGetAllResponse>(null as any);
+    return _observableOf(null as any);
   }
 
   /**
@@ -1276,7 +1276,7 @@ export class Client {
     }
     if (status === 200) {
       return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
+        _observableMergeMap((_responseText: string) => {
           let result200: any = null;
           let resultData200 =
             _responseText === ''
@@ -1288,7 +1288,7 @@ export class Client {
       );
     } else if (status === 404) {
       return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
+        _observableMergeMap((_responseText: string) => {
           let result404: any = null;
           let resultData404 =
             _responseText === ''
@@ -1306,7 +1306,7 @@ export class Client {
       );
     } else if (status !== 200 && status !== 204) {
       return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
+        _observableMergeMap((_responseText: string) => {
           return throwException(
             'An unexpected server error occurred.',
             status,
@@ -1316,7 +1316,7 @@ export class Client {
         }),
       );
     }
-    return _observableOf<Order>(null as any);
+    return _observableOf(null as any);
   }
 
   /**
@@ -1378,13 +1378,13 @@ export class Client {
     }
     if (status === 204) {
       return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
-          return _observableOf<void>(null as any);
+        _observableMergeMap((_responseText: string) => {
+          return _observableOf(null as any);
         }),
       );
     } else if (status === 400) {
       return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
+        _observableMergeMap((_responseText: string) => {
           let result400: any = null;
           let resultData400 =
             _responseText === ''
@@ -1402,7 +1402,7 @@ export class Client {
       );
     } else if (status === 404) {
       return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
+        _observableMergeMap((_responseText: string) => {
           let result404: any = null;
           let resultData404 =
             _responseText === ''
@@ -1420,7 +1420,7 @@ export class Client {
       );
     } else if (status !== 200 && status !== 204) {
       return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
+        _observableMergeMap((_responseText: string) => {
           return throwException(
             'An unexpected server error occurred.',
             status,
@@ -1430,7 +1430,7 @@ export class Client {
         }),
       );
     }
-    return _observableOf<void>(null as any);
+    return _observableOf(null as any);
   }
 
   /**
@@ -1486,13 +1486,13 @@ export class Client {
     }
     if (status === 204) {
       return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
-          return _observableOf<void>(null as any);
+        _observableMergeMap((_responseText: string) => {
+          return _observableOf(null as any);
         }),
       );
     } else if (status === 404) {
       return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
+        _observableMergeMap((_responseText: string) => {
           let result404: any = null;
           let resultData404 =
             _responseText === ''
@@ -1510,7 +1510,7 @@ export class Client {
       );
     } else if (status !== 200 && status !== 204) {
       return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
+        _observableMergeMap((_responseText: string) => {
           return throwException(
             'An unexpected server error occurred.',
             status,
@@ -1520,94 +1520,15 @@ export class Client {
         }),
       );
     }
-    return _observableOf<void>(null as any);
-  }
-
-  /**
-   * @return Success
-   */
-  rolls(orderId: string): Observable<void> {
-    let url_ = this.baseUrl + '/Orders/{orderId}/rolls';
-    if (orderId === undefined || orderId === null)
-      throw new Error("The parameter 'orderId' must be defined.");
-    url_ = url_.replace('{orderId}', encodeURIComponent('' + orderId));
-    url_ = url_.replace(/[?&]$/, '');
-
-    let options_: any = {
-      observe: 'response',
-      responseType: 'blob',
-      headers: new HttpHeaders({}),
-    };
-
-    return this.http
-      .request('get', url_, options_)
-      .pipe(
-        _observableMergeMap((response_: any) => {
-          return this.processRolls(response_);
-        }),
-      )
-      .pipe(
-        _observableCatch((response_: any) => {
-          if (response_ instanceof HttpResponseBase) {
-            try {
-              return this.processRolls(response_ as any);
-            } catch (e) {
-              return _observableThrow(e) as any as Observable<void>;
-            }
-          } else return _observableThrow(response_) as any as Observable<void>;
-        }),
-      );
-  }
-
-  protected processRolls(response: HttpResponseBase): Observable<void> {
-    const status = response.status;
-    const responseBlob =
-      response instanceof HttpResponse
-        ? response.body
-        : (response as any).error instanceof Blob
-          ? (response as any).error
-          : undefined;
-
-    let _headers: any = {};
-    if (response.headers) {
-      for (let key of response.headers.keys()) {
-        _headers[key] = response.headers.get(key);
-      }
-    }
-    if (status === 200) {
-      return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
-          return _observableOf<void>(null as any);
-        }),
-      );
-    } else if (status !== 200 && status !== 204) {
-      return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
-          return throwException(
-            'An unexpected server error occurred.',
-            status,
-            _responseText,
-            _headers,
-          );
-        }),
-      );
-    }
-    return _observableOf<void>(null as any);
+    return _observableOf(null as any);
   }
 
   /**
    * @param body (optional)
    * @return Success
    */
-  location(
-    locationId: string,
-    userId: string,
-    body: RollOfSteel[] | undefined,
-  ): Observable<void> {
-    let url_ = this.baseUrl + '/Orders/user/{userId}/location/{locationId}';
-    if (locationId === undefined || locationId === null)
-      throw new Error("The parameter 'locationId' must be defined.");
-    url_ = url_.replace('{locationId}', encodeURIComponent('' + locationId));
+  newOrder(userId: string, body: Order | undefined): Observable<void> {
+    let url_ = this.baseUrl + '/Orders/NewOrder/{userId}';
     if (userId === undefined || userId === null)
       throw new Error("The parameter 'userId' must be defined.");
     url_ = url_.replace('{userId}', encodeURIComponent('' + userId));
@@ -1628,14 +1549,14 @@ export class Client {
       .request('post', url_, options_)
       .pipe(
         _observableMergeMap((response_: any) => {
-          return this.processLocation(response_);
+          return this.processNewOrder(response_);
         }),
       )
       .pipe(
         _observableCatch((response_: any) => {
           if (response_ instanceof HttpResponseBase) {
             try {
-              return this.processLocation(response_ as any);
+              return this.processNewOrder(response_ as any);
             } catch (e) {
               return _observableThrow(e) as any as Observable<void>;
             }
@@ -1644,7 +1565,7 @@ export class Client {
       );
   }
 
-  protected processLocation(response: HttpResponseBase): Observable<void> {
+  protected processNewOrder(response: HttpResponseBase): Observable<void> {
     const status = response.status;
     const responseBlob =
       response instanceof HttpResponse
@@ -1661,13 +1582,13 @@ export class Client {
     }
     if (status === 200) {
       return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
-          return _observableOf<void>(null as any);
+        _observableMergeMap((_responseText: string) => {
+          return _observableOf(null as any);
         }),
       );
     } else if (status !== 200 && status !== 204) {
       return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
+        _observableMergeMap((_responseText: string) => {
           return throwException(
             'An unexpected server error occurred.',
             status,
@@ -1677,437 +1598,17 @@ export class Client {
         }),
       );
     }
-    return _observableOf<void>(null as any);
+    return _observableOf(null as any);
   }
 
   /**
    * @return Success
    */
-  rollsOfSteelGET(): Observable<RollsOfSteelGetAllResponse> {
-    let url_ = this.baseUrl + '/api/RollsOfSteel';
-    url_ = url_.replace(/[?&]$/, '');
-
-    let options_: any = {
-      observe: 'response',
-      responseType: 'blob',
-      headers: new HttpHeaders({
-        Accept: 'text/plain',
-      }),
-    };
-
-    return this.http
-      .request('get', url_, options_)
-      .pipe(
-        _observableMergeMap((response_: any) => {
-          return this.processRollsOfSteelGET(response_);
-        }),
-      )
-      .pipe(
-        _observableCatch((response_: any) => {
-          if (response_ instanceof HttpResponseBase) {
-            try {
-              return this.processRollsOfSteelGET(response_ as any);
-            } catch (e) {
-              return _observableThrow(
-                e,
-              ) as any as Observable<RollsOfSteelGetAllResponse>;
-            }
-          } else
-            return _observableThrow(
-              response_,
-            ) as any as Observable<RollsOfSteelGetAllResponse>;
-        }),
-      );
-  }
-
-  protected processRollsOfSteelGET(
-    response: HttpResponseBase,
-  ): Observable<RollsOfSteelGetAllResponse> {
-    const status = response.status;
-    const responseBlob =
-      response instanceof HttpResponse
-        ? response.body
-        : (response as any).error instanceof Blob
-          ? (response as any).error
-          : undefined;
-
-    let _headers: any = {};
-    if (response.headers) {
-      for (let key of response.headers.keys()) {
-        _headers[key] = response.headers.get(key);
-      }
-    }
-    if (status === 200) {
-      return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
-          let result200: any = null;
-          let resultData200 =
-            _responseText === ''
-              ? null
-              : JSON.parse(_responseText, this.jsonParseReviver);
-          result200 = RollsOfSteelGetAllResponse.fromJS(resultData200);
-          return _observableOf(result200);
-        }),
-      );
-    } else if (status !== 200 && status !== 204) {
-      return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
-          return throwException(
-            'An unexpected server error occurred.',
-            status,
-            _responseText,
-            _headers,
-          );
-        }),
-      );
-    }
-    return _observableOf<RollsOfSteelGetAllResponse>(null as any);
-  }
-
-  /**
-   * @param body (optional)
-   * @return Created
-   */
-  rollsOfSteelPOST(body: RollOfSteel | undefined): Observable<RollOfSteel> {
-    let url_ = this.baseUrl + '/api/RollsOfSteel';
-    url_ = url_.replace(/[?&]$/, '');
-
-    const content_ = JSON.stringify(body);
-
-    let options_: any = {
-      body: content_,
-      observe: 'response',
-      responseType: 'blob',
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        Accept: 'text/plain',
-      }),
-    };
-
-    return this.http
-      .request('post', url_, options_)
-      .pipe(
-        _observableMergeMap((response_: any) => {
-          return this.processRollsOfSteelPOST(response_);
-        }),
-      )
-      .pipe(
-        _observableCatch((response_: any) => {
-          if (response_ instanceof HttpResponseBase) {
-            try {
-              return this.processRollsOfSteelPOST(response_ as any);
-            } catch (e) {
-              return _observableThrow(e) as any as Observable<RollOfSteel>;
-            }
-          } else
-            return _observableThrow(
-              response_,
-            ) as any as Observable<RollOfSteel>;
-        }),
-      );
-  }
-
-  protected processRollsOfSteelPOST(
-    response: HttpResponseBase,
-  ): Observable<RollOfSteel> {
-    const status = response.status;
-    const responseBlob =
-      response instanceof HttpResponse
-        ? response.body
-        : (response as any).error instanceof Blob
-          ? (response as any).error
-          : undefined;
-
-    let _headers: any = {};
-    if (response.headers) {
-      for (let key of response.headers.keys()) {
-        _headers[key] = response.headers.get(key);
-      }
-    }
-    if (status === 201) {
-      return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
-          let result201: any = null;
-          let resultData201 =
-            _responseText === ''
-              ? null
-              : JSON.parse(_responseText, this.jsonParseReviver);
-          result201 = RollOfSteel.fromJS(resultData201);
-          return _observableOf(result201);
-        }),
-      );
-    } else if (status === 400) {
-      return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
-          let result400: any = null;
-          let resultData400 =
-            _responseText === ''
-              ? null
-              : JSON.parse(_responseText, this.jsonParseReviver);
-          result400 = ProblemDetails.fromJS(resultData400);
-          return throwException(
-            'Bad Request',
-            status,
-            _responseText,
-            _headers,
-            result400,
-          );
-        }),
-      );
-    } else if (status !== 200 && status !== 204) {
-      return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
-          return throwException(
-            'An unexpected server error occurred.',
-            status,
-            _responseText,
-            _headers,
-          );
-        }),
-      );
-    }
-    return _observableOf<RollOfSteel>(null as any);
-  }
-
-  /**
-   * @return Success
-   */
-  rollsOfSteelGET2(rollOfSteelId: string): Observable<RollOfSteel> {
-    let url_ = this.baseUrl + '/api/RollsOfSteel/{rollOfSteelId}';
-    if (rollOfSteelId === undefined || rollOfSteelId === null)
-      throw new Error("The parameter 'rollOfSteelId' must be defined.");
-    url_ = url_.replace(
-      '{rollOfSteelId}',
-      encodeURIComponent('' + rollOfSteelId),
-    );
-    url_ = url_.replace(/[?&]$/, '');
-
-    let options_: any = {
-      observe: 'response',
-      responseType: 'blob',
-      headers: new HttpHeaders({
-        Accept: 'text/plain',
-      }),
-    };
-
-    return this.http
-      .request('get', url_, options_)
-      .pipe(
-        _observableMergeMap((response_: any) => {
-          return this.processRollsOfSteelGET2(response_);
-        }),
-      )
-      .pipe(
-        _observableCatch((response_: any) => {
-          if (response_ instanceof HttpResponseBase) {
-            try {
-              return this.processRollsOfSteelGET2(response_ as any);
-            } catch (e) {
-              return _observableThrow(e) as any as Observable<RollOfSteel>;
-            }
-          } else
-            return _observableThrow(
-              response_,
-            ) as any as Observable<RollOfSteel>;
-        }),
-      );
-  }
-
-  protected processRollsOfSteelGET2(
-    response: HttpResponseBase,
-  ): Observable<RollOfSteel> {
-    const status = response.status;
-    const responseBlob =
-      response instanceof HttpResponse
-        ? response.body
-        : (response as any).error instanceof Blob
-          ? (response as any).error
-          : undefined;
-
-    let _headers: any = {};
-    if (response.headers) {
-      for (let key of response.headers.keys()) {
-        _headers[key] = response.headers.get(key);
-      }
-    }
-    if (status === 200) {
-      return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
-          let result200: any = null;
-          let resultData200 =
-            _responseText === ''
-              ? null
-              : JSON.parse(_responseText, this.jsonParseReviver);
-          result200 = RollOfSteel.fromJS(resultData200);
-          return _observableOf(result200);
-        }),
-      );
-    } else if (status === 404) {
-      return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
-          let result404: any = null;
-          let resultData404 =
-            _responseText === ''
-              ? null
-              : JSON.parse(_responseText, this.jsonParseReviver);
-          result404 = ProblemDetails.fromJS(resultData404);
-          return throwException(
-            'Not Found',
-            status,
-            _responseText,
-            _headers,
-            result404,
-          );
-        }),
-      );
-    } else if (status !== 200 && status !== 204) {
-      return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
-          return throwException(
-            'An unexpected server error occurred.',
-            status,
-            _responseText,
-            _headers,
-          );
-        }),
-      );
-    }
-    return _observableOf<RollOfSteel>(null as any);
-  }
-
-  /**
-   * @param body (optional)
-   * @return No Content
-   */
-  rollsOfSteelPUT(
-    rollOfSteelId: string,
-    body: RollOfSteel | undefined,
-  ): Observable<void> {
-    let url_ = this.baseUrl + '/api/RollsOfSteel/{rollOfSteelId}';
-    if (rollOfSteelId === undefined || rollOfSteelId === null)
-      throw new Error("The parameter 'rollOfSteelId' must be defined.");
-    url_ = url_.replace(
-      '{rollOfSteelId}',
-      encodeURIComponent('' + rollOfSteelId),
-    );
-    url_ = url_.replace(/[?&]$/, '');
-
-    const content_ = JSON.stringify(body);
-
-    let options_: any = {
-      body: content_,
-      observe: 'response',
-      responseType: 'blob',
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-      }),
-    };
-
-    return this.http
-      .request('put', url_, options_)
-      .pipe(
-        _observableMergeMap((response_: any) => {
-          return this.processRollsOfSteelPUT(response_);
-        }),
-      )
-      .pipe(
-        _observableCatch((response_: any) => {
-          if (response_ instanceof HttpResponseBase) {
-            try {
-              return this.processRollsOfSteelPUT(response_ as any);
-            } catch (e) {
-              return _observableThrow(e) as any as Observable<void>;
-            }
-          } else return _observableThrow(response_) as any as Observable<void>;
-        }),
-      );
-  }
-
-  protected processRollsOfSteelPUT(
-    response: HttpResponseBase,
-  ): Observable<void> {
-    const status = response.status;
-    const responseBlob =
-      response instanceof HttpResponse
-        ? response.body
-        : (response as any).error instanceof Blob
-          ? (response as any).error
-          : undefined;
-
-    let _headers: any = {};
-    if (response.headers) {
-      for (let key of response.headers.keys()) {
-        _headers[key] = response.headers.get(key);
-      }
-    }
-    if (status === 204) {
-      return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
-          return _observableOf<void>(null as any);
-        }),
-      );
-    } else if (status === 400) {
-      return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
-          let result400: any = null;
-          let resultData400 =
-            _responseText === ''
-              ? null
-              : JSON.parse(_responseText, this.jsonParseReviver);
-          result400 = ProblemDetails.fromJS(resultData400);
-          return throwException(
-            'Bad Request',
-            status,
-            _responseText,
-            _headers,
-            result400,
-          );
-        }),
-      );
-    } else if (status === 404) {
-      return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
-          let result404: any = null;
-          let resultData404 =
-            _responseText === ''
-              ? null
-              : JSON.parse(_responseText, this.jsonParseReviver);
-          result404 = ProblemDetails.fromJS(resultData404);
-          return throwException(
-            'Not Found',
-            status,
-            _responseText,
-            _headers,
-            result404,
-          );
-        }),
-      );
-    } else if (status !== 200 && status !== 204) {
-      return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
-          return throwException(
-            'An unexpected server error occurred.',
-            status,
-            _responseText,
-            _headers,
-          );
-        }),
-      );
-    }
-    return _observableOf<void>(null as any);
-  }
-
-  /**
-   * @return No Content
-   */
-  rollsOfSteelDELETE(rollOfSteelId: string): Observable<void> {
-    let url_ = this.baseUrl + '/api/RollsOfSteel/{rollOfSteelId}';
-    if (rollOfSteelId === undefined || rollOfSteelId === null)
-      throw new Error("The parameter 'rollOfSteelId' must be defined.");
-    url_ = url_.replace(
-      '{rollOfSteelId}',
-      encodeURIComponent('' + rollOfSteelId),
-    );
+  deliver(orderId: string): Observable<void> {
+    let url_ = this.baseUrl + '/Orders/Deliver/{orderId}';
+    if (orderId === undefined || orderId === null)
+      throw new Error("The parameter 'orderId' must be defined.");
+    url_ = url_.replace('{orderId}', encodeURIComponent('' + orderId));
     url_ = url_.replace(/[?&]$/, '');
 
     let options_: any = {
@@ -2117,17 +1618,17 @@ export class Client {
     };
 
     return this.http
-      .request('delete', url_, options_)
+      .request('put', url_, options_)
       .pipe(
         _observableMergeMap((response_: any) => {
-          return this.processRollsOfSteelDELETE(response_);
+          return this.processDeliver(response_);
         }),
       )
       .pipe(
         _observableCatch((response_: any) => {
           if (response_ instanceof HttpResponseBase) {
             try {
-              return this.processRollsOfSteelDELETE(response_ as any);
+              return this.processDeliver(response_ as any);
             } catch (e) {
               return _observableThrow(e) as any as Observable<void>;
             }
@@ -2136,7 +1637,79 @@ export class Client {
       );
   }
 
-  protected processRollsOfSteelDELETE(
+  protected processDeliver(response: HttpResponseBase): Observable<void> {
+    const status = response.status;
+    const responseBlob =
+      response instanceof HttpResponse
+        ? response.body
+        : (response as any).error instanceof Blob
+          ? (response as any).error
+          : undefined;
+
+    let _headers: any = {};
+    if (response.headers) {
+      for (let key of response.headers.keys()) {
+        _headers[key] = response.headers.get(key);
+      }
+    }
+    if (status === 200) {
+      return blobToText(responseBlob).pipe(
+        _observableMergeMap((_responseText: string) => {
+          return _observableOf(null as any);
+        }),
+      );
+    } else if (status !== 200 && status !== 204) {
+      return blobToText(responseBlob).pipe(
+        _observableMergeMap((_responseText: string) => {
+          return throwException(
+            'An unexpected server error occurred.',
+            status,
+            _responseText,
+            _headers,
+          );
+        }),
+      );
+    }
+    return _observableOf(null as any);
+  }
+
+  /**
+   * @return No Content
+   */
+  partialDeliver(orderId: string): Observable<void> {
+    let url_ = this.baseUrl + '/Orders/PartialDeliver/{orderId}';
+    if (orderId === undefined || orderId === null)
+      throw new Error("The parameter 'orderId' must be defined.");
+    url_ = url_.replace('{orderId}', encodeURIComponent('' + orderId));
+    url_ = url_.replace(/[?&]$/, '');
+
+    let options_: any = {
+      observe: 'response',
+      responseType: 'blob',
+      headers: new HttpHeaders({}),
+    };
+
+    return this.http
+      .request('put', url_, options_)
+      .pipe(
+        _observableMergeMap((response_: any) => {
+          return this.processPartialDeliver(response_);
+        }),
+      )
+      .pipe(
+        _observableCatch((response_: any) => {
+          if (response_ instanceof HttpResponseBase) {
+            try {
+              return this.processPartialDeliver(response_ as any);
+            } catch (e) {
+              return _observableThrow(e) as any as Observable<void>;
+            }
+          } else return _observableThrow(response_) as any as Observable<void>;
+        }),
+      );
+  }
+
+  protected processPartialDeliver(
     response: HttpResponseBase,
   ): Observable<void> {
     const status = response.status;
@@ -2155,13 +1728,13 @@ export class Client {
     }
     if (status === 204) {
       return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
-          return _observableOf<void>(null as any);
+        _observableMergeMap((_responseText: string) => {
+          return _observableOf(null as any);
         }),
       );
     } else if (status === 404) {
       return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
+        _observableMergeMap((_responseText: string) => {
           let result404: any = null;
           let resultData404 =
             _responseText === ''
@@ -2179,7 +1752,7 @@ export class Client {
       );
     } else if (status !== 200 && status !== 204) {
       return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
+        _observableMergeMap((_responseText: string) => {
           return throwException(
             'An unexpected server error occurred.',
             status,
@@ -2189,7 +1762,181 @@ export class Client {
         }),
       );
     }
-    return _observableOf<void>(null as any);
+    return _observableOf(null as any);
+  }
+
+  /**
+   * @return No Content
+   */
+  cancel(orderId: string): Observable<void> {
+    let url_ = this.baseUrl + '/Orders/Cancel/{orderId}';
+    if (orderId === undefined || orderId === null)
+      throw new Error("The parameter 'orderId' must be defined.");
+    url_ = url_.replace('{orderId}', encodeURIComponent('' + orderId));
+    url_ = url_.replace(/[?&]$/, '');
+
+    let options_: any = {
+      observe: 'response',
+      responseType: 'blob',
+      headers: new HttpHeaders({}),
+    };
+
+    return this.http
+      .request('put', url_, options_)
+      .pipe(
+        _observableMergeMap((response_: any) => {
+          return this.processCancel(response_);
+        }),
+      )
+      .pipe(
+        _observableCatch((response_: any) => {
+          if (response_ instanceof HttpResponseBase) {
+            try {
+              return this.processCancel(response_ as any);
+            } catch (e) {
+              return _observableThrow(e) as any as Observable<void>;
+            }
+          } else return _observableThrow(response_) as any as Observable<void>;
+        }),
+      );
+  }
+
+  protected processCancel(response: HttpResponseBase): Observable<void> {
+    const status = response.status;
+    const responseBlob =
+      response instanceof HttpResponse
+        ? response.body
+        : (response as any).error instanceof Blob
+          ? (response as any).error
+          : undefined;
+
+    let _headers: any = {};
+    if (response.headers) {
+      for (let key of response.headers.keys()) {
+        _headers[key] = response.headers.get(key);
+      }
+    }
+    if (status === 204) {
+      return blobToText(responseBlob).pipe(
+        _observableMergeMap((_responseText: string) => {
+          return _observableOf(null as any);
+        }),
+      );
+    } else if (status === 404) {
+      return blobToText(responseBlob).pipe(
+        _observableMergeMap((_responseText: string) => {
+          let result404: any = null;
+          let resultData404 =
+            _responseText === ''
+              ? null
+              : JSON.parse(_responseText, this.jsonParseReviver);
+          result404 = ProblemDetails.fromJS(resultData404);
+          return throwException(
+            'Not Found',
+            status,
+            _responseText,
+            _headers,
+            result404,
+          );
+        }),
+      );
+    } else if (status !== 200 && status !== 204) {
+      return blobToText(responseBlob).pipe(
+        _observableMergeMap((_responseText: string) => {
+          return throwException(
+            'An unexpected server error occurred.',
+            status,
+            _responseText,
+            _headers,
+          );
+        }),
+      );
+    }
+    return _observableOf(null as any);
+  }
+
+  /**
+   * @return Success
+   */
+  assignments(): Observable<TruckOrderAssignmentsGetAllResponse> {
+    let url_ = this.baseUrl + '/Orders/Assignments';
+    url_ = url_.replace(/[?&]$/, '');
+
+    let options_: any = {
+      observe: 'response',
+      responseType: 'blob',
+      headers: new HttpHeaders({
+        Accept: 'text/plain',
+      }),
+    };
+
+    return this.http
+      .request('get', url_, options_)
+      .pipe(
+        _observableMergeMap((response_: any) => {
+          return this.processAssignments(response_);
+        }),
+      )
+      .pipe(
+        _observableCatch((response_: any) => {
+          if (response_ instanceof HttpResponseBase) {
+            try {
+              return this.processAssignments(response_ as any);
+            } catch (e) {
+              return _observableThrow(
+                e,
+              ) as any as Observable<TruckOrderAssignmentsGetAllResponse>;
+            }
+          } else
+            return _observableThrow(
+              response_,
+            ) as any as Observable<TruckOrderAssignmentsGetAllResponse>;
+        }),
+      );
+  }
+
+  protected processAssignments(
+    response: HttpResponseBase,
+  ): Observable<TruckOrderAssignmentsGetAllResponse> {
+    const status = response.status;
+    const responseBlob =
+      response instanceof HttpResponse
+        ? response.body
+        : (response as any).error instanceof Blob
+          ? (response as any).error
+          : undefined;
+
+    let _headers: any = {};
+    if (response.headers) {
+      for (let key of response.headers.keys()) {
+        _headers[key] = response.headers.get(key);
+      }
+    }
+    if (status === 200) {
+      return blobToText(responseBlob).pipe(
+        _observableMergeMap((_responseText: string) => {
+          let result200: any = null;
+          let resultData200 =
+            _responseText === ''
+              ? null
+              : JSON.parse(_responseText, this.jsonParseReviver);
+          result200 = TruckOrderAssignmentsGetAllResponse.fromJS(resultData200);
+          return _observableOf(result200);
+        }),
+      );
+    } else if (status !== 200 && status !== 204) {
+      return blobToText(responseBlob).pipe(
+        _observableMergeMap((_responseText: string) => {
+          return throwException(
+            'An unexpected server error occurred.',
+            status,
+            _responseText,
+            _headers,
+          );
+        }),
+      );
+    }
+    return _observableOf(null as any);
   }
 
   /**
@@ -2251,7 +1998,7 @@ export class Client {
     }
     if (status === 200) {
       return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
+        _observableMergeMap((_responseText: string) => {
           let result200: any = null;
           let resultData200 =
             _responseText === ''
@@ -2263,7 +2010,7 @@ export class Client {
       );
     } else if (status !== 200 && status !== 204) {
       return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
+        _observableMergeMap((_responseText: string) => {
           return throwException(
             'An unexpected server error occurred.',
             status,
@@ -2273,7 +2020,7 @@ export class Client {
         }),
       );
     }
-    return _observableOf<TrucksGetAllResponse>(null as any);
+    return _observableOf(null as any);
   }
 
   /**
@@ -2333,7 +2080,7 @@ export class Client {
     }
     if (status === 201) {
       return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
+        _observableMergeMap((_responseText: string) => {
           let result201: any = null;
           let resultData201 =
             _responseText === ''
@@ -2345,7 +2092,7 @@ export class Client {
       );
     } else if (status === 400) {
       return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
+        _observableMergeMap((_responseText: string) => {
           let result400: any = null;
           let resultData400 =
             _responseText === ''
@@ -2363,7 +2110,7 @@ export class Client {
       );
     } else if (status !== 200 && status !== 204) {
       return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
+        _observableMergeMap((_responseText: string) => {
           return throwException(
             'An unexpected server error occurred.',
             status,
@@ -2373,7 +2120,7 @@ export class Client {
         }),
       );
     }
-    return _observableOf<Truck>(null as any);
+    return _observableOf(null as any);
   }
 
   /**
@@ -2431,7 +2178,7 @@ export class Client {
     }
     if (status === 200) {
       return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
+        _observableMergeMap((_responseText: string) => {
           let result200: any = null;
           let resultData200 =
             _responseText === ''
@@ -2443,7 +2190,7 @@ export class Client {
       );
     } else if (status === 404) {
       return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
+        _observableMergeMap((_responseText: string) => {
           let result404: any = null;
           let resultData404 =
             _responseText === ''
@@ -2461,7 +2208,7 @@ export class Client {
       );
     } else if (status !== 200 && status !== 204) {
       return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
+        _observableMergeMap((_responseText: string) => {
           return throwException(
             'An unexpected server error occurred.',
             status,
@@ -2471,7 +2218,7 @@ export class Client {
         }),
       );
     }
-    return _observableOf<Truck>(null as any);
+    return _observableOf(null as any);
   }
 
   /**
@@ -2533,13 +2280,13 @@ export class Client {
     }
     if (status === 204) {
       return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
-          return _observableOf<void>(null as any);
+        _observableMergeMap((_responseText: string) => {
+          return _observableOf(null as any);
         }),
       );
     } else if (status === 400) {
       return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
+        _observableMergeMap((_responseText: string) => {
           let result400: any = null;
           let resultData400 =
             _responseText === ''
@@ -2557,7 +2304,7 @@ export class Client {
       );
     } else if (status === 404) {
       return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
+        _observableMergeMap((_responseText: string) => {
           let result404: any = null;
           let resultData404 =
             _responseText === ''
@@ -2575,7 +2322,7 @@ export class Client {
       );
     } else if (status !== 200 && status !== 204) {
       return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
+        _observableMergeMap((_responseText: string) => {
           return throwException(
             'An unexpected server error occurred.',
             status,
@@ -2585,7 +2332,7 @@ export class Client {
         }),
       );
     }
-    return _observableOf<void>(null as any);
+    return _observableOf(null as any);
   }
 
   /**
@@ -2641,13 +2388,13 @@ export class Client {
     }
     if (status === 204) {
       return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
-          return _observableOf<void>(null as any);
+        _observableMergeMap((_responseText: string) => {
+          return _observableOf(null as any);
         }),
       );
     } else if (status === 404) {
       return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
+        _observableMergeMap((_responseText: string) => {
           let result404: any = null;
           let resultData404 =
             _responseText === ''
@@ -2665,7 +2412,7 @@ export class Client {
       );
     } else if (status !== 200 && status !== 204) {
       return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
+        _observableMergeMap((_responseText: string) => {
           return throwException(
             'An unexpected server error occurred.',
             status,
@@ -2675,7 +2422,600 @@ export class Client {
         }),
       );
     }
-    return _observableOf<void>(null as any);
+    return _observableOf(null as any);
+  }
+
+  /**
+   * @return No Content
+   */
+  assignUser(truckId: string, userId: string): Observable<void> {
+    let url_ = this.baseUrl + '/api/Trucks/{truckId}/AssignUser/{userId}';
+    if (truckId === undefined || truckId === null)
+      throw new Error("The parameter 'truckId' must be defined.");
+    url_ = url_.replace('{truckId}', encodeURIComponent('' + truckId));
+    if (userId === undefined || userId === null)
+      throw new Error("The parameter 'userId' must be defined.");
+    url_ = url_.replace('{userId}', encodeURIComponent('' + userId));
+    url_ = url_.replace(/[?&]$/, '');
+
+    let options_: any = {
+      observe: 'response',
+      responseType: 'blob',
+      headers: new HttpHeaders({}),
+    };
+
+    return this.http
+      .request('post', url_, options_)
+      .pipe(
+        _observableMergeMap((response_: any) => {
+          return this.processAssignUser(response_);
+        }),
+      )
+      .pipe(
+        _observableCatch((response_: any) => {
+          if (response_ instanceof HttpResponseBase) {
+            try {
+              return this.processAssignUser(response_ as any);
+            } catch (e) {
+              return _observableThrow(e) as any as Observable<void>;
+            }
+          } else return _observableThrow(response_) as any as Observable<void>;
+        }),
+      );
+  }
+
+  protected processAssignUser(response: HttpResponseBase): Observable<void> {
+    const status = response.status;
+    const responseBlob =
+      response instanceof HttpResponse
+        ? response.body
+        : (response as any).error instanceof Blob
+          ? (response as any).error
+          : undefined;
+
+    let _headers: any = {};
+    if (response.headers) {
+      for (let key of response.headers.keys()) {
+        _headers[key] = response.headers.get(key);
+      }
+    }
+    if (status === 204) {
+      return blobToText(responseBlob).pipe(
+        _observableMergeMap((_responseText: string) => {
+          return _observableOf(null as any);
+        }),
+      );
+    } else if (status === 404) {
+      return blobToText(responseBlob).pipe(
+        _observableMergeMap((_responseText: string) => {
+          let result404: any = null;
+          let resultData404 =
+            _responseText === ''
+              ? null
+              : JSON.parse(_responseText, this.jsonParseReviver);
+          result404 = ProblemDetails.fromJS(resultData404);
+          return throwException(
+            'Not Found',
+            status,
+            _responseText,
+            _headers,
+            result404,
+          );
+        }),
+      );
+    } else if (status !== 200 && status !== 204) {
+      return blobToText(responseBlob).pipe(
+        _observableMergeMap((_responseText: string) => {
+          return throwException(
+            'An unexpected server error occurred.',
+            status,
+            _responseText,
+            _headers,
+          );
+        }),
+      );
+    }
+    return _observableOf(null as any);
+  }
+
+  /**
+   * @return No Content
+   */
+  unassign(truckId: string): Observable<void> {
+    let url_ = this.baseUrl + '/api/Trucks/Unassign/{truckId}';
+    if (truckId === undefined || truckId === null)
+      throw new Error("The parameter 'truckId' must be defined.");
+    url_ = url_.replace('{truckId}', encodeURIComponent('' + truckId));
+    url_ = url_.replace(/[?&]$/, '');
+
+    let options_: any = {
+      observe: 'response',
+      responseType: 'blob',
+      headers: new HttpHeaders({}),
+    };
+
+    return this.http
+      .request('post', url_, options_)
+      .pipe(
+        _observableMergeMap((response_: any) => {
+          return this.processUnassign(response_);
+        }),
+      )
+      .pipe(
+        _observableCatch((response_: any) => {
+          if (response_ instanceof HttpResponseBase) {
+            try {
+              return this.processUnassign(response_ as any);
+            } catch (e) {
+              return _observableThrow(e) as any as Observable<void>;
+            }
+          } else return _observableThrow(response_) as any as Observable<void>;
+        }),
+      );
+  }
+
+  protected processUnassign(response: HttpResponseBase): Observable<void> {
+    const status = response.status;
+    const responseBlob =
+      response instanceof HttpResponse
+        ? response.body
+        : (response as any).error instanceof Blob
+          ? (response as any).error
+          : undefined;
+
+    let _headers: any = {};
+    if (response.headers) {
+      for (let key of response.headers.keys()) {
+        _headers[key] = response.headers.get(key);
+      }
+    }
+    if (status === 204) {
+      return blobToText(responseBlob).pipe(
+        _observableMergeMap((_responseText: string) => {
+          return _observableOf(null as any);
+        }),
+      );
+    } else if (status === 404) {
+      return blobToText(responseBlob).pipe(
+        _observableMergeMap((_responseText: string) => {
+          let result404: any = null;
+          let resultData404 =
+            _responseText === ''
+              ? null
+              : JSON.parse(_responseText, this.jsonParseReviver);
+          result404 = ProblemDetails.fromJS(resultData404);
+          return throwException(
+            'Not Found',
+            status,
+            _responseText,
+            _headers,
+            result404,
+          );
+        }),
+      );
+    } else if (status !== 200 && status !== 204) {
+      return blobToText(responseBlob).pipe(
+        _observableMergeMap((_responseText: string) => {
+          return throwException(
+            'An unexpected server error occurred.',
+            status,
+            _responseText,
+            _headers,
+          );
+        }),
+      );
+    }
+    return _observableOf(null as any);
+  }
+
+  /**
+   * @return Success
+   */
+  truckUser(truckUserId: number): Observable<TruckUser> {
+    let url_ = this.baseUrl + '/api/Trucks/TruckUser/{truckUserId}';
+    if (truckUserId === undefined || truckUserId === null)
+      throw new Error("The parameter 'truckUserId' must be defined.");
+    url_ = url_.replace('{truckUserId}', encodeURIComponent('' + truckUserId));
+    url_ = url_.replace(/[?&]$/, '');
+
+    let options_: any = {
+      observe: 'response',
+      responseType: 'blob',
+      headers: new HttpHeaders({
+        Accept: 'text/plain',
+      }),
+    };
+
+    return this.http
+      .request('get', url_, options_)
+      .pipe(
+        _observableMergeMap((response_: any) => {
+          return this.processTruckUser(response_);
+        }),
+      )
+      .pipe(
+        _observableCatch((response_: any) => {
+          if (response_ instanceof HttpResponseBase) {
+            try {
+              return this.processTruckUser(response_ as any);
+            } catch (e) {
+              return _observableThrow(e) as any as Observable<TruckUser>;
+            }
+          } else
+            return _observableThrow(response_) as any as Observable<TruckUser>;
+        }),
+      );
+  }
+
+  protected processTruckUser(
+    response: HttpResponseBase,
+  ): Observable<TruckUser> {
+    const status = response.status;
+    const responseBlob =
+      response instanceof HttpResponse
+        ? response.body
+        : (response as any).error instanceof Blob
+          ? (response as any).error
+          : undefined;
+
+    let _headers: any = {};
+    if (response.headers) {
+      for (let key of response.headers.keys()) {
+        _headers[key] = response.headers.get(key);
+      }
+    }
+    if (status === 200) {
+      return blobToText(responseBlob).pipe(
+        _observableMergeMap((_responseText: string) => {
+          let result200: any = null;
+          let resultData200 =
+            _responseText === ''
+              ? null
+              : JSON.parse(_responseText, this.jsonParseReviver);
+          result200 = TruckUser.fromJS(resultData200);
+          return _observableOf(result200);
+        }),
+      );
+    } else if (status === 404) {
+      return blobToText(responseBlob).pipe(
+        _observableMergeMap((_responseText: string) => {
+          let result404: any = null;
+          let resultData404 =
+            _responseText === ''
+              ? null
+              : JSON.parse(_responseText, this.jsonParseReviver);
+          result404 = ProblemDetails.fromJS(resultData404);
+          return throwException(
+            'Not Found',
+            status,
+            _responseText,
+            _headers,
+            result404,
+          );
+        }),
+      );
+    } else if (status !== 200 && status !== 204) {
+      return blobToText(responseBlob).pipe(
+        _observableMergeMap((_responseText: string) => {
+          return throwException(
+            'An unexpected server error occurred.',
+            status,
+            _responseText,
+            _headers,
+          );
+        }),
+      );
+    }
+    return _observableOf(null as any);
+  }
+
+  /**
+   * @return Success
+   */
+  assignedTruckUsers(): Observable<TruckUsersGetAllResponse> {
+    let url_ = this.baseUrl + '/api/Trucks/AssignedTruckUsers';
+    url_ = url_.replace(/[?&]$/, '');
+
+    let options_: any = {
+      observe: 'response',
+      responseType: 'blob',
+      headers: new HttpHeaders({
+        Accept: 'text/plain',
+      }),
+    };
+
+    return this.http
+      .request('get', url_, options_)
+      .pipe(
+        _observableMergeMap((response_: any) => {
+          return this.processAssignedTruckUsers(response_);
+        }),
+      )
+      .pipe(
+        _observableCatch((response_: any) => {
+          if (response_ instanceof HttpResponseBase) {
+            try {
+              return this.processAssignedTruckUsers(response_ as any);
+            } catch (e) {
+              return _observableThrow(
+                e,
+              ) as any as Observable<TruckUsersGetAllResponse>;
+            }
+          } else
+            return _observableThrow(
+              response_,
+            ) as any as Observable<TruckUsersGetAllResponse>;
+        }),
+      );
+  }
+
+  protected processAssignedTruckUsers(
+    response: HttpResponseBase,
+  ): Observable<TruckUsersGetAllResponse> {
+    const status = response.status;
+    const responseBlob =
+      response instanceof HttpResponse
+        ? response.body
+        : (response as any).error instanceof Blob
+          ? (response as any).error
+          : undefined;
+
+    let _headers: any = {};
+    if (response.headers) {
+      for (let key of response.headers.keys()) {
+        _headers[key] = response.headers.get(key);
+      }
+    }
+    if (status === 200) {
+      return blobToText(responseBlob).pipe(
+        _observableMergeMap((_responseText: string) => {
+          let result200: any = null;
+          let resultData200 =
+            _responseText === ''
+              ? null
+              : JSON.parse(_responseText, this.jsonParseReviver);
+          result200 = TruckUsersGetAllResponse.fromJS(resultData200);
+          return _observableOf(result200);
+        }),
+      );
+    } else if (status === 404) {
+      return blobToText(responseBlob).pipe(
+        _observableMergeMap((_responseText: string) => {
+          let result404: any = null;
+          let resultData404 =
+            _responseText === ''
+              ? null
+              : JSON.parse(_responseText, this.jsonParseReviver);
+          result404 = ProblemDetails.fromJS(resultData404);
+          return throwException(
+            'Not Found',
+            status,
+            _responseText,
+            _headers,
+            result404,
+          );
+        }),
+      );
+    } else if (status !== 200 && status !== 204) {
+      return blobToText(responseBlob).pipe(
+        _observableMergeMap((_responseText: string) => {
+          return throwException(
+            'An unexpected server error occurred.',
+            status,
+            _responseText,
+            _headers,
+          );
+        }),
+      );
+    }
+    return _observableOf(null as any);
+  }
+
+  /**
+   * @return No Content
+   */
+  assignOrder(truckId: string, orderId: string): Observable<void> {
+    let url_ = this.baseUrl + '/api/Trucks/{truckId}/AssignOrder/{orderId}';
+    if (truckId === undefined || truckId === null)
+      throw new Error("The parameter 'truckId' must be defined.");
+    url_ = url_.replace('{truckId}', encodeURIComponent('' + truckId));
+    if (orderId === undefined || orderId === null)
+      throw new Error("The parameter 'orderId' must be defined.");
+    url_ = url_.replace('{orderId}', encodeURIComponent('' + orderId));
+    url_ = url_.replace(/[?&]$/, '');
+
+    let options_: any = {
+      observe: 'response',
+      responseType: 'blob',
+      headers: new HttpHeaders({}),
+    };
+
+    return this.http
+      .request('post', url_, options_)
+      .pipe(
+        _observableMergeMap((response_: any) => {
+          return this.processAssignOrder(response_);
+        }),
+      )
+      .pipe(
+        _observableCatch((response_: any) => {
+          if (response_ instanceof HttpResponseBase) {
+            try {
+              return this.processAssignOrder(response_ as any);
+            } catch (e) {
+              return _observableThrow(e) as any as Observable<void>;
+            }
+          } else return _observableThrow(response_) as any as Observable<void>;
+        }),
+      );
+  }
+
+  protected processAssignOrder(response: HttpResponseBase): Observable<void> {
+    const status = response.status;
+    const responseBlob =
+      response instanceof HttpResponse
+        ? response.body
+        : (response as any).error instanceof Blob
+          ? (response as any).error
+          : undefined;
+
+    let _headers: any = {};
+    if (response.headers) {
+      for (let key of response.headers.keys()) {
+        _headers[key] = response.headers.get(key);
+      }
+    }
+    if (status === 204) {
+      return blobToText(responseBlob).pipe(
+        _observableMergeMap((_responseText: string) => {
+          return _observableOf(null as any);
+        }),
+      );
+    } else if (status === 404) {
+      return blobToText(responseBlob).pipe(
+        _observableMergeMap((_responseText: string) => {
+          let result404: any = null;
+          let resultData404 =
+            _responseText === ''
+              ? null
+              : JSON.parse(_responseText, this.jsonParseReviver);
+          result404 = ProblemDetails.fromJS(resultData404);
+          return throwException(
+            'Not Found',
+            status,
+            _responseText,
+            _headers,
+            result404,
+          );
+        }),
+      );
+    } else if (status !== 200 && status !== 204) {
+      return blobToText(responseBlob).pipe(
+        _observableMergeMap((_responseText: string) => {
+          return throwException(
+            'An unexpected server error occurred.',
+            status,
+            _responseText,
+            _headers,
+          );
+        }),
+      );
+    }
+    return _observableOf(null as any);
+  }
+
+  /**
+   * @return Success
+   */
+  truckOrderAssignment(
+    truckOrderAssignmentId: number,
+  ): Observable<TruckOrderAssignment> {
+    let url_ =
+      this.baseUrl +
+      '/api/Trucks/TruckOrderAssignment/{truckOrderAssignmentId}';
+    if (truckOrderAssignmentId === undefined || truckOrderAssignmentId === null)
+      throw new Error(
+        "The parameter 'truckOrderAssignmentId' must be defined.",
+      );
+    url_ = url_.replace(
+      '{truckOrderAssignmentId}',
+      encodeURIComponent('' + truckOrderAssignmentId),
+    );
+    url_ = url_.replace(/[?&]$/, '');
+
+    let options_: any = {
+      observe: 'response',
+      responseType: 'blob',
+      headers: new HttpHeaders({
+        Accept: 'text/plain',
+      }),
+    };
+
+    return this.http
+      .request('get', url_, options_)
+      .pipe(
+        _observableMergeMap((response_: any) => {
+          return this.processTruckOrderAssignment(response_);
+        }),
+      )
+      .pipe(
+        _observableCatch((response_: any) => {
+          if (response_ instanceof HttpResponseBase) {
+            try {
+              return this.processTruckOrderAssignment(response_ as any);
+            } catch (e) {
+              return _observableThrow(
+                e,
+              ) as any as Observable<TruckOrderAssignment>;
+            }
+          } else
+            return _observableThrow(
+              response_,
+            ) as any as Observable<TruckOrderAssignment>;
+        }),
+      );
+  }
+
+  protected processTruckOrderAssignment(
+    response: HttpResponseBase,
+  ): Observable<TruckOrderAssignment> {
+    const status = response.status;
+    const responseBlob =
+      response instanceof HttpResponse
+        ? response.body
+        : (response as any).error instanceof Blob
+          ? (response as any).error
+          : undefined;
+
+    let _headers: any = {};
+    if (response.headers) {
+      for (let key of response.headers.keys()) {
+        _headers[key] = response.headers.get(key);
+      }
+    }
+    if (status === 200) {
+      return blobToText(responseBlob).pipe(
+        _observableMergeMap((_responseText: string) => {
+          let result200: any = null;
+          let resultData200 =
+            _responseText === ''
+              ? null
+              : JSON.parse(_responseText, this.jsonParseReviver);
+          result200 = TruckOrderAssignment.fromJS(resultData200);
+          return _observableOf(result200);
+        }),
+      );
+    } else if (status === 404) {
+      return blobToText(responseBlob).pipe(
+        _observableMergeMap((_responseText: string) => {
+          let result404: any = null;
+          let resultData404 =
+            _responseText === ''
+              ? null
+              : JSON.parse(_responseText, this.jsonParseReviver);
+          result404 = ProblemDetails.fromJS(resultData404);
+          return throwException(
+            'Not Found',
+            status,
+            _responseText,
+            _headers,
+            result404,
+          );
+        }),
+      );
+    } else if (status !== 200 && status !== 204) {
+      return blobToText(responseBlob).pipe(
+        _observableMergeMap((_responseText: string) => {
+          return throwException(
+            'An unexpected server error occurred.',
+            status,
+            _responseText,
+            _headers,
+          );
+        }),
+      );
+    }
+    return _observableOf(null as any);
   }
 
   /**
@@ -2734,13 +3074,13 @@ export class Client {
     }
     if (status === 200) {
       return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
-          return _observableOf<void>(null as any);
+        _observableMergeMap((_responseText: string) => {
+          return _observableOf(null as any);
         }),
       );
     } else if (status === 400) {
       return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
+        _observableMergeMap((_responseText: string) => {
           let result400: any = null;
           let resultData400 =
             _responseText === ''
@@ -2758,7 +3098,7 @@ export class Client {
       );
     } else if (status !== 200 && status !== 204) {
       return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
+        _observableMergeMap((_responseText: string) => {
           return throwException(
             'An unexpected server error occurred.',
             status,
@@ -2768,7 +3108,7 @@ export class Client {
         }),
       );
     }
-    return _observableOf<void>(null as any);
+    return _observableOf(null as any);
   }
 
   /**
@@ -2830,7 +3170,7 @@ export class Client {
     }
     if (status === 200) {
       return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
+        _observableMergeMap((_responseText: string) => {
           let result200: any = null;
           let resultData200 =
             _responseText === ''
@@ -2842,7 +3182,7 @@ export class Client {
       );
     } else if (status !== 200 && status !== 204) {
       return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
+        _observableMergeMap((_responseText: string) => {
           return throwException(
             'An unexpected server error occurred.',
             status,
@@ -2852,7 +3192,7 @@ export class Client {
         }),
       );
     }
-    return _observableOf<UsersGetAllResponse>(null as any);
+    return _observableOf(null as any);
   }
 
   /**
@@ -2910,7 +3250,7 @@ export class Client {
     }
     if (status === 200) {
       return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
+        _observableMergeMap((_responseText: string) => {
           let result200: any = null;
           let resultData200 =
             _responseText === ''
@@ -2922,7 +3262,7 @@ export class Client {
       );
     } else if (status === 404) {
       return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
+        _observableMergeMap((_responseText: string) => {
           let result404: any = null;
           let resultData404 =
             _responseText === ''
@@ -2940,7 +3280,7 @@ export class Client {
       );
     } else if (status !== 200 && status !== 204) {
       return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
+        _observableMergeMap((_responseText: string) => {
           return throwException(
             'An unexpected server error occurred.',
             status,
@@ -2950,7 +3290,7 @@ export class Client {
         }),
       );
     }
-    return _observableOf<User>(null as any);
+    return _observableOf(null as any);
   }
 
   /**
@@ -3012,13 +3352,13 @@ export class Client {
     }
     if (status === 200) {
       return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
-          return _observableOf<void>(null as any);
+        _observableMergeMap((_responseText: string) => {
+          return _observableOf(null as any);
         }),
       );
     } else if (status === 404) {
       return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
+        _observableMergeMap((_responseText: string) => {
           let result404: any = null;
           let resultData404 =
             _responseText === ''
@@ -3036,7 +3376,7 @@ export class Client {
       );
     } else if (status === 400) {
       return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
+        _observableMergeMap((_responseText: string) => {
           let result400: any = null;
           let resultData400 =
             _responseText === ''
@@ -3054,7 +3394,7 @@ export class Client {
       );
     } else if (status !== 200 && status !== 204) {
       return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
+        _observableMergeMap((_responseText: string) => {
           return throwException(
             'An unexpected server error occurred.',
             status,
@@ -3064,7 +3404,7 @@ export class Client {
         }),
       );
     }
-    return _observableOf<void>(null as any);
+    return _observableOf(null as any);
   }
 
   /**
@@ -3120,13 +3460,13 @@ export class Client {
     }
     if (status === 204) {
       return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
-          return _observableOf<void>(null as any);
+        _observableMergeMap((_responseText: string) => {
+          return _observableOf(null as any);
         }),
       );
     } else if (status === 404) {
       return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
+        _observableMergeMap((_responseText: string) => {
           let result404: any = null;
           let resultData404 =
             _responseText === ''
@@ -3144,7 +3484,7 @@ export class Client {
       );
     } else if (status !== 200 && status !== 204) {
       return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
+        _observableMergeMap((_responseText: string) => {
           return throwException(
             'An unexpected server error occurred.',
             status,
@@ -3154,7 +3494,7 @@ export class Client {
         }),
       );
     }
-    return _observableOf<void>(null as any);
+    return _observableOf(null as any);
   }
 
   /**
@@ -3221,7 +3561,7 @@ export class Client {
     }
     if (status === 200) {
       return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
+        _observableMergeMap((_responseText: string) => {
           let result200: any = null;
           let resultData200 =
             _responseText === ''
@@ -3234,7 +3574,7 @@ export class Client {
       );
     } else if (status === 404) {
       return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
+        _observableMergeMap((_responseText: string) => {
           let result404: any = null;
           let resultData404 =
             _responseText === ''
@@ -3252,7 +3592,7 @@ export class Client {
       );
     } else if (status !== 200 && status !== 204) {
       return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
+        _observableMergeMap((_responseText: string) => {
           return throwException(
             'An unexpected server error occurred.',
             status,
@@ -3262,7 +3602,7 @@ export class Client {
         }),
       );
     }
-    return _observableOf<UserIdAndRoleResponseFromUsernameRequest>(null as any);
+    return _observableOf(null as any);
   }
 
   /**
@@ -3327,13 +3667,13 @@ export class Client {
     }
     if (status === 200) {
       return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
-          return _observableOf<void>(null as any);
+        _observableMergeMap((_responseText: string) => {
+          return _observableOf(null as any);
         }),
       );
     } else if (status === 404) {
       return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
+        _observableMergeMap((_responseText: string) => {
           let result404: any = null;
           let resultData404 =
             _responseText === ''
@@ -3351,7 +3691,7 @@ export class Client {
       );
     } else if (status === 400) {
       return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
+        _observableMergeMap((_responseText: string) => {
           let result400: any = null;
           let resultData400 =
             _responseText === ''
@@ -3369,7 +3709,7 @@ export class Client {
       );
     } else if (status !== 200 && status !== 204) {
       return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
+        _observableMergeMap((_responseText: string) => {
           return throwException(
             'An unexpected server error occurred.',
             status,
@@ -3379,7 +3719,7 @@ export class Client {
         }),
       );
     }
-    return _observableOf<void>(null as any);
+    return _observableOf(null as any);
   }
 
   /**
@@ -3446,13 +3786,13 @@ export class Client {
     }
     if (status === 200) {
       return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
-          return _observableOf<void>(null as any);
+        _observableMergeMap((_responseText: string) => {
+          return _observableOf(null as any);
         }),
       );
     } else if (status === 404) {
       return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
+        _observableMergeMap((_responseText: string) => {
           let result404: any = null;
           let resultData404 =
             _responseText === ''
@@ -3470,7 +3810,7 @@ export class Client {
       );
     } else if (status === 400) {
       return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
+        _observableMergeMap((_responseText: string) => {
           let result400: any = null;
           let resultData400 =
             _responseText === ''
@@ -3488,7 +3828,7 @@ export class Client {
       );
     } else if (status !== 200 && status !== 204) {
       return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
+        _observableMergeMap((_responseText: string) => {
           return throwException(
             'An unexpected server error occurred.',
             status,
@@ -3498,7 +3838,7 @@ export class Client {
         }),
       );
     }
-    return _observableOf<void>(null as any);
+    return _observableOf(null as any);
   }
 
   /**
@@ -3563,7 +3903,7 @@ export class Client {
     }
     if (status === 200) {
       return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
+        _observableMergeMap((_responseText: string) => {
           let result200: any = null;
           let resultData200 =
             _responseText === ''
@@ -3575,7 +3915,7 @@ export class Client {
       );
     } else if (status === 401) {
       return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
+        _observableMergeMap((_responseText: string) => {
           let result401: any = null;
           let resultData401 =
             _responseText === ''
@@ -3593,7 +3933,7 @@ export class Client {
       );
     } else if (status !== 200 && status !== 204) {
       return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
+        _observableMergeMap((_responseText: string) => {
           return throwException(
             'An unexpected server error occurred.',
             status,
@@ -3603,7 +3943,7 @@ export class Client {
         }),
       );
     }
-    return _observableOf<LoginResponse>(null as any);
+    return _observableOf(null as any);
   }
 
   /**
@@ -3665,7 +4005,7 @@ export class Client {
     }
     if (status === 200) {
       return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
+        _observableMergeMap((_responseText: string) => {
           let result200: any = null;
           let resultData200 =
             _responseText === ''
@@ -3677,7 +4017,7 @@ export class Client {
       );
     } else if (status !== 200 && status !== 204) {
       return blobToText(responseBlob).pipe(
-        _observableMergeMap((_responseText) => {
+        _observableMergeMap((_responseText: string) => {
           return throwException(
             'An unexpected server error occurred.',
             status,
@@ -3687,7 +4027,7 @@ export class Client {
         }),
       );
     }
-    return _observableOf<UsersGetAllUsernamesResponse>(null as any);
+    return _observableOf(null as any);
   }
 }
 
@@ -3798,8 +4138,8 @@ export class Location implements ILocation {
   locationId?: string | undefined;
   areaId?: string | undefined;
   locationType?: LocationType;
-  rollsOfSteel?: RollOfSteel[] | undefined;
-  destinationOrders?: Order[] | undefined;
+  fromOrders?: Order[] | undefined;
+  toOrders?: Order[] | undefined;
 
   constructor(data?: ILocation) {
     if (data) {
@@ -3815,15 +4155,15 @@ export class Location implements ILocation {
       this.locationId = _data['locationId'];
       this.areaId = _data['areaId'];
       this.locationType = _data['locationType'];
-      if (Array.isArray(_data['rollsOfSteel'])) {
-        this.rollsOfSteel = [] as any;
-        for (let item of _data['rollsOfSteel'])
-          this.rollsOfSteel!.push(RollOfSteel.fromJS(item));
+      if (Array.isArray(_data['fromOrders'])) {
+        this.fromOrders = [] as any;
+        for (let item of _data['fromOrders'])
+          this.fromOrders!.push(Order.fromJS(item));
       }
-      if (Array.isArray(_data['destinationOrders'])) {
-        this.destinationOrders = [] as any;
-        for (let item of _data['destinationOrders'])
-          this.destinationOrders!.push(Order.fromJS(item));
+      if (Array.isArray(_data['toOrders'])) {
+        this.toOrders = [] as any;
+        for (let item of _data['toOrders'])
+          this.toOrders!.push(Order.fromJS(item));
       }
     }
   }
@@ -3840,15 +4180,13 @@ export class Location implements ILocation {
     data['locationId'] = this.locationId;
     data['areaId'] = this.areaId;
     data['locationType'] = this.locationType;
-    if (Array.isArray(this.rollsOfSteel)) {
-      data['rollsOfSteel'] = [];
-      for (let item of this.rollsOfSteel)
-        data['rollsOfSteel'].push(item.toJSON());
+    if (Array.isArray(this.fromOrders)) {
+      data['fromOrders'] = [];
+      for (let item of this.fromOrders) data['fromOrders'].push(item.toJSON());
     }
-    if (Array.isArray(this.destinationOrders)) {
-      data['destinationOrders'] = [];
-      for (let item of this.destinationOrders)
-        data['destinationOrders'].push(item.toJSON());
+    if (Array.isArray(this.toOrders)) {
+      data['toOrders'] = [];
+      for (let item of this.toOrders) data['toOrders'].push(item.toJSON());
     }
     return data;
   }
@@ -3858,8 +4196,8 @@ export interface ILocation {
   locationId?: string | undefined;
   areaId?: string | undefined;
   locationType?: LocationType;
-  rollsOfSteel?: RollOfSteel[] | undefined;
-  destinationOrders?: Order[] | undefined;
+  fromOrders?: Order[] | undefined;
+  toOrders?: Order[] | undefined;
 }
 
 export enum LocationType {
@@ -3990,9 +4328,12 @@ export class Order implements IOrder {
   orderId?: string | undefined;
   userID?: string | undefined;
   orderStatus?: OrderStatus;
-  destinationId?: string | undefined;
+  toLocId?: string | undefined;
+  fromLocId?: string | undefined;
+  pieces?: number;
+  orderType?: OrderType;
   createdAt?: Date;
-  orderRolls?: OrderRoll[] | undefined;
+  completedAt?: Date | undefined;
   truckOrderAssignments?: TruckOrderAssignment[] | undefined;
 
   constructor(data?: IOrder) {
@@ -4009,15 +4350,16 @@ export class Order implements IOrder {
       this.orderId = _data['orderId'];
       this.userID = _data['userID'];
       this.orderStatus = _data['orderStatus'];
-      this.destinationId = _data['destinationId'];
+      this.toLocId = _data['toLocId'];
+      this.fromLocId = _data['fromLocId'];
+      this.pieces = _data['pieces'];
+      this.orderType = _data['orderType'];
       this.createdAt = _data['createdAt']
         ? new Date(_data['createdAt'].toString())
         : <any>undefined;
-      if (Array.isArray(_data['orderRolls'])) {
-        this.orderRolls = [] as any;
-        for (let item of _data['orderRolls'])
-          this.orderRolls!.push(OrderRoll.fromJS(item));
-      }
+      this.completedAt = _data['completedAt']
+        ? new Date(_data['completedAt'].toString())
+        : <any>undefined;
       if (Array.isArray(_data['truckOrderAssignments'])) {
         this.truckOrderAssignments = [] as any;
         for (let item of _data['truckOrderAssignments'])
@@ -4038,14 +4380,16 @@ export class Order implements IOrder {
     data['orderId'] = this.orderId;
     data['userID'] = this.userID;
     data['orderStatus'] = this.orderStatus;
-    data['destinationId'] = this.destinationId;
+    data['toLocId'] = this.toLocId;
+    data['fromLocId'] = this.fromLocId;
+    data['pieces'] = this.pieces;
+    data['orderType'] = this.orderType;
     data['createdAt'] = this.createdAt
       ? this.createdAt.toISOString()
       : <any>undefined;
-    if (Array.isArray(this.orderRolls)) {
-      data['orderRolls'] = [];
-      for (let item of this.orderRolls) data['orderRolls'].push(item.toJSON());
-    }
+    data['completedAt'] = this.completedAt
+      ? this.completedAt.toISOString()
+      : <any>undefined;
     if (Array.isArray(this.truckOrderAssignments)) {
       data['truckOrderAssignments'] = [];
       for (let item of this.truckOrderAssignments)
@@ -4059,64 +4403,13 @@ export interface IOrder {
   orderId?: string | undefined;
   userID?: string | undefined;
   orderStatus?: OrderStatus;
-  destinationId?: string | undefined;
+  toLocId?: string | undefined;
+  fromLocId?: string | undefined;
+  pieces?: number;
+  orderType?: OrderType;
   createdAt?: Date;
-  orderRolls?: OrderRoll[] | undefined;
+  completedAt?: Date | undefined;
   truckOrderAssignments?: TruckOrderAssignment[] | undefined;
-}
-
-export class OrderRoll implements IOrderRoll {
-  orderRollId?: number;
-  orderId?: string | undefined;
-  rollOfSteelId?: string | undefined;
-  orderRollStatus?: OrderRollStatus;
-
-  constructor(data?: IOrderRoll) {
-    if (data) {
-      for (var property in data) {
-        if (data.hasOwnProperty(property))
-          (<any>this)[property] = (<any>data)[property];
-      }
-    }
-  }
-
-  init(_data?: any) {
-    if (_data) {
-      this.orderRollId = _data['orderRollId'];
-      this.orderId = _data['orderId'];
-      this.rollOfSteelId = _data['rollOfSteelId'];
-      this.orderRollStatus = _data['orderRollStatus'];
-    }
-  }
-
-  static fromJS(data: any): OrderRoll {
-    data = typeof data === 'object' ? data : {};
-    let result = new OrderRoll();
-    result.init(data);
-    return result;
-  }
-
-  toJSON(data?: any) {
-    data = typeof data === 'object' ? data : {};
-    data['orderRollId'] = this.orderRollId;
-    data['orderId'] = this.orderId;
-    data['rollOfSteelId'] = this.rollOfSteelId;
-    data['orderRollStatus'] = this.orderRollStatus;
-    return data;
-  }
-}
-
-export interface IOrderRoll {
-  orderRollId?: number;
-  orderId?: string | undefined;
-  rollOfSteelId?: string | undefined;
-  orderRollStatus?: OrderRollStatus;
-}
-
-export enum OrderRollStatus {
-  Pending = 'Pending',
-  Delivered = 'Delivered',
-  Cancelled = 'Cancelled',
 }
 
 export enum OrderStatus {
@@ -4124,6 +4417,11 @@ export enum OrderStatus {
   PartiallyDelivered = 'PartiallyDelivered',
   Delivered = 'Delivered',
   Cancelled = 'Cancelled',
+}
+
+export enum OrderType {
+  Recieving = 'Recieving',
+  Sending = 'Sending',
 }
 
 export class OrdersGetAllResponse implements IOrdersGetAllResponse {
@@ -4230,123 +4528,12 @@ export interface IProblemDetails {
   [key: string]: any;
 }
 
-export class RollOfSteel implements IRollOfSteel {
-  rollOfSteelId?: string | undefined;
-  currentLocationId?: string | undefined;
-  rollStatus?: RollStatus;
-  currentLocation?: Location;
-  orderRolls?: OrderRoll[] | undefined;
-
-  constructor(data?: IRollOfSteel) {
-    if (data) {
-      for (var property in data) {
-        if (data.hasOwnProperty(property))
-          (<any>this)[property] = (<any>data)[property];
-      }
-    }
-  }
-
-  init(_data?: any) {
-    if (_data) {
-      this.rollOfSteelId = _data['rollOfSteelId'];
-      this.currentLocationId = _data['currentLocationId'];
-      this.rollStatus = _data['rollStatus'];
-      this.currentLocation = _data['currentLocation']
-        ? Location.fromJS(_data['currentLocation'])
-        : <any>undefined;
-      if (Array.isArray(_data['orderRolls'])) {
-        this.orderRolls = [] as any;
-        for (let item of _data['orderRolls'])
-          this.orderRolls!.push(OrderRoll.fromJS(item));
-      }
-    }
-  }
-
-  static fromJS(data: any): RollOfSteel {
-    data = typeof data === 'object' ? data : {};
-    let result = new RollOfSteel();
-    result.init(data);
-    return result;
-  }
-
-  toJSON(data?: any) {
-    data = typeof data === 'object' ? data : {};
-    data['rollOfSteelId'] = this.rollOfSteelId;
-    data['currentLocationId'] = this.currentLocationId;
-    data['rollStatus'] = this.rollStatus;
-    data['currentLocation'] = this.currentLocation
-      ? this.currentLocation.toJSON()
-      : <any>undefined;
-    if (Array.isArray(this.orderRolls)) {
-      data['orderRolls'] = [];
-      for (let item of this.orderRolls) data['orderRolls'].push(item.toJSON());
-    }
-    return data;
-  }
-}
-
-export interface IRollOfSteel {
-  rollOfSteelId?: string | undefined;
-  currentLocationId?: string | undefined;
-  rollStatus?: RollStatus;
-  currentLocation?: Location;
-  orderRolls?: OrderRoll[] | undefined;
-}
-
-export enum RollStatus {
-  Processed = 'Processed',
-  Raw = 'Raw',
-}
-
-export class RollsOfSteelGetAllResponse implements IRollsOfSteelGetAllResponse {
-  rollsOfSteel?: RollOfSteel[] | undefined;
-
-  constructor(data?: IRollsOfSteelGetAllResponse) {
-    if (data) {
-      for (var property in data) {
-        if (data.hasOwnProperty(property))
-          (<any>this)[property] = (<any>data)[property];
-      }
-    }
-  }
-
-  init(_data?: any) {
-    if (_data) {
-      if (Array.isArray(_data['rollsOfSteel'])) {
-        this.rollsOfSteel = [] as any;
-        for (let item of _data['rollsOfSteel'])
-          this.rollsOfSteel!.push(RollOfSteel.fromJS(item));
-      }
-    }
-  }
-
-  static fromJS(data: any): RollsOfSteelGetAllResponse {
-    data = typeof data === 'object' ? data : {};
-    let result = new RollsOfSteelGetAllResponse();
-    result.init(data);
-    return result;
-  }
-
-  toJSON(data?: any) {
-    data = typeof data === 'object' ? data : {};
-    if (Array.isArray(this.rollsOfSteel)) {
-      data['rollsOfSteel'] = [];
-      for (let item of this.rollsOfSteel)
-        data['rollsOfSteel'].push(item.toJSON());
-    }
-    return data;
-  }
-}
-
-export interface IRollsOfSteelGetAllResponse {
-  rollsOfSteel?: RollOfSteel[] | undefined;
-}
-
 export class Truck implements ITruck {
   truckId?: string | undefined;
   currentAreaId?: string | undefined;
   truckUsers?: TruckUser[] | undefined;
   truckOrderAssignments?: TruckOrderAssignment[] | undefined;
+  registrationnumber?: string | undefined;
 
   constructor(data?: ITruck) {
     if (data) {
@@ -4371,6 +4558,7 @@ export class Truck implements ITruck {
         for (let item of _data['truckOrderAssignments'])
           this.truckOrderAssignments!.push(TruckOrderAssignment.fromJS(item));
       }
+      this.registrationnumber = _data['registrationnumber'];
     }
   }
 
@@ -4394,6 +4582,7 @@ export class Truck implements ITruck {
       for (let item of this.truckOrderAssignments)
         data['truckOrderAssignments'].push(item.toJSON());
     }
+    data['registrationnumber'] = this.registrationnumber;
     return data;
   }
 }
@@ -4403,14 +4592,16 @@ export interface ITruck {
   currentAreaId?: string | undefined;
   truckUsers?: TruckUser[] | undefined;
   truckOrderAssignments?: TruckOrderAssignment[] | undefined;
+  registrationnumber?: string | undefined;
 }
 
 export class TruckOrderAssignment implements ITruckOrderAssignment {
   truckOrderAssignmentId?: number;
   truckId?: string | undefined;
   orderId?: string | undefined;
-  assignmentAt?: Date | undefined;
-  unassignmentAt?: Date | undefined;
+  isAssigned?: boolean;
+  assignedAt?: Date | undefined;
+  unassignedAt?: Date | undefined;
 
   constructor(data?: ITruckOrderAssignment) {
     if (data) {
@@ -4426,11 +4617,12 @@ export class TruckOrderAssignment implements ITruckOrderAssignment {
       this.truckOrderAssignmentId = _data['truckOrderAssignmentId'];
       this.truckId = _data['truckId'];
       this.orderId = _data['orderId'];
-      this.assignmentAt = _data['assignmentAt']
-        ? new Date(_data['assignmentAt'].toString())
+      this.isAssigned = _data['isAssigned'];
+      this.assignedAt = _data['assignedAt']
+        ? new Date(_data['assignedAt'].toString())
         : <any>undefined;
-      this.unassignmentAt = _data['unassignmentAt']
-        ? new Date(_data['unassignmentAt'].toString())
+      this.unassignedAt = _data['unassignedAt']
+        ? new Date(_data['unassignedAt'].toString())
         : <any>undefined;
     }
   }
@@ -4447,11 +4639,12 @@ export class TruckOrderAssignment implements ITruckOrderAssignment {
     data['truckOrderAssignmentId'] = this.truckOrderAssignmentId;
     data['truckId'] = this.truckId;
     data['orderId'] = this.orderId;
-    data['assignmentAt'] = this.assignmentAt
-      ? this.assignmentAt.toISOString()
+    data['isAssigned'] = this.isAssigned;
+    data['assignedAt'] = this.assignedAt
+      ? this.assignedAt.toISOString()
       : <any>undefined;
-    data['unassignmentAt'] = this.unassignmentAt
-      ? this.unassignmentAt.toISOString()
+    data['unassignedAt'] = this.unassignedAt
+      ? this.unassignedAt.toISOString()
       : <any>undefined;
     return data;
   }
@@ -4461,8 +4654,55 @@ export interface ITruckOrderAssignment {
   truckOrderAssignmentId?: number;
   truckId?: string | undefined;
   orderId?: string | undefined;
-  assignmentAt?: Date | undefined;
-  unassignmentAt?: Date | undefined;
+  isAssigned?: boolean;
+  assignedAt?: Date | undefined;
+  unassignedAt?: Date | undefined;
+}
+
+export class TruckOrderAssignmentsGetAllResponse
+  implements ITruckOrderAssignmentsGetAllResponse
+{
+  truckOrderAssignments?: TruckOrderAssignment[] | undefined;
+
+  constructor(data?: ITruckOrderAssignmentsGetAllResponse) {
+    if (data) {
+      for (var property in data) {
+        if (data.hasOwnProperty(property))
+          (<any>this)[property] = (<any>data)[property];
+      }
+    }
+  }
+
+  init(_data?: any) {
+    if (_data) {
+      if (Array.isArray(_data['truckOrderAssignments'])) {
+        this.truckOrderAssignments = [] as any;
+        for (let item of _data['truckOrderAssignments'])
+          this.truckOrderAssignments!.push(TruckOrderAssignment.fromJS(item));
+      }
+    }
+  }
+
+  static fromJS(data: any): TruckOrderAssignmentsGetAllResponse {
+    data = typeof data === 'object' ? data : {};
+    let result = new TruckOrderAssignmentsGetAllResponse();
+    result.init(data);
+    return result;
+  }
+
+  toJSON(data?: any) {
+    data = typeof data === 'object' ? data : {};
+    if (Array.isArray(this.truckOrderAssignments)) {
+      data['truckOrderAssignments'] = [];
+      for (let item of this.truckOrderAssignments)
+        data['truckOrderAssignments'].push(item.toJSON());
+    }
+    return data;
+  }
+}
+
+export interface ITruckOrderAssignmentsGetAllResponse {
+  truckOrderAssignments?: TruckOrderAssignment[] | undefined;
 }
 
 export class TruckUser implements ITruckUser {
@@ -4470,8 +4710,8 @@ export class TruckUser implements ITruckUser {
   truckId?: string | undefined;
   userId?: string | undefined;
   isAssigned?: boolean;
-  dateAssigned?: Date | undefined;
-  dateUnassigned?: Date | undefined;
+  assignedAt?: Date;
+  unassignedAt?: Date | undefined;
 
   constructor(data?: ITruckUser) {
     if (data) {
@@ -4488,11 +4728,11 @@ export class TruckUser implements ITruckUser {
       this.truckId = _data['truckId'];
       this.userId = _data['userId'];
       this.isAssigned = _data['isAssigned'];
-      this.dateAssigned = _data['dateAssigned']
-        ? new Date(_data['dateAssigned'].toString())
+      this.assignedAt = _data['assignedAt']
+        ? new Date(_data['assignedAt'].toString())
         : <any>undefined;
-      this.dateUnassigned = _data['dateUnassigned']
-        ? new Date(_data['dateUnassigned'].toString())
+      this.unassignedAt = _data['unassignedAt']
+        ? new Date(_data['unassignedAt'].toString())
         : <any>undefined;
     }
   }
@@ -4510,11 +4750,11 @@ export class TruckUser implements ITruckUser {
     data['truckId'] = this.truckId;
     data['userId'] = this.userId;
     data['isAssigned'] = this.isAssigned;
-    data['dateAssigned'] = this.dateAssigned
-      ? this.dateAssigned.toISOString()
+    data['assignedAt'] = this.assignedAt
+      ? this.assignedAt.toISOString()
       : <any>undefined;
-    data['dateUnassigned'] = this.dateUnassigned
-      ? this.dateUnassigned.toISOString()
+    data['unassignedAt'] = this.unassignedAt
+      ? this.unassignedAt.toISOString()
       : <any>undefined;
     return data;
   }
@@ -4525,8 +4765,51 @@ export interface ITruckUser {
   truckId?: string | undefined;
   userId?: string | undefined;
   isAssigned?: boolean;
-  dateAssigned?: Date | undefined;
-  dateUnassigned?: Date | undefined;
+  assignedAt?: Date;
+  unassignedAt?: Date | undefined;
+}
+
+export class TruckUsersGetAllResponse implements ITruckUsersGetAllResponse {
+  truckUsers?: TruckUser[] | undefined;
+
+  constructor(data?: ITruckUsersGetAllResponse) {
+    if (data) {
+      for (var property in data) {
+        if (data.hasOwnProperty(property))
+          (<any>this)[property] = (<any>data)[property];
+      }
+    }
+  }
+
+  init(_data?: any) {
+    if (_data) {
+      if (Array.isArray(_data['truckUsers'])) {
+        this.truckUsers = [] as any;
+        for (let item of _data['truckUsers'])
+          this.truckUsers!.push(TruckUser.fromJS(item));
+      }
+    }
+  }
+
+  static fromJS(data: any): TruckUsersGetAllResponse {
+    data = typeof data === 'object' ? data : {};
+    let result = new TruckUsersGetAllResponse();
+    result.init(data);
+    return result;
+  }
+
+  toJSON(data?: any) {
+    data = typeof data === 'object' ? data : {};
+    if (Array.isArray(this.truckUsers)) {
+      data['truckUsers'] = [];
+      for (let item of this.truckUsers) data['truckUsers'].push(item.toJSON());
+    }
+    return data;
+  }
+}
+
+export interface ITruckUsersGetAllResponse {
+  truckUsers?: TruckUser[] | undefined;
 }
 
 export class TrucksGetAllResponse implements ITrucksGetAllResponse {
@@ -4662,7 +4945,6 @@ export class User implements IUser {
   role?: UserRole;
   username?: string | undefined;
   passwordHash?: string | undefined;
-  readonly trucks?: Truck[] | undefined;
   truckUsers?: TruckUser[] | undefined;
   orders?: Order[] | undefined;
 
@@ -4681,11 +4963,6 @@ export class User implements IUser {
       this.role = _data['role'];
       this.username = _data['username'];
       this.passwordHash = _data['passwordHash'];
-      if (Array.isArray(_data['trucks'])) {
-        (<any>this).trucks = [] as any;
-        for (let item of _data['trucks'])
-          (<any>this).trucks!.push(Truck.fromJS(item));
-      }
       if (Array.isArray(_data['truckUsers'])) {
         this.truckUsers = [] as any;
         for (let item of _data['truckUsers'])
@@ -4711,10 +4988,6 @@ export class User implements IUser {
     data['role'] = this.role;
     data['username'] = this.username;
     data['passwordHash'] = this.passwordHash;
-    if (Array.isArray(this.trucks)) {
-      data['trucks'] = [];
-      for (let item of this.trucks) data['trucks'].push(item.toJSON());
-    }
     if (Array.isArray(this.truckUsers)) {
       data['truckUsers'] = [];
       for (let item of this.truckUsers) data['truckUsers'].push(item.toJSON());
@@ -4732,7 +5005,6 @@ export interface IUser {
   role?: UserRole;
   username?: string | undefined;
   passwordHash?: string | undefined;
-  trucks?: Truck[] | undefined;
   truckUsers?: TruckUser[] | undefined;
   orders?: Order[] | undefined;
 }
