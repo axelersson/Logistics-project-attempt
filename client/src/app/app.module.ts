@@ -16,7 +16,7 @@ import { OrderdetailComponent } from './orderdetail/orderdetail.component';
 import { LogoutComponent } from './logout/logout.component';
 import { LocationListComponent } from './location-list/location-list.component';
 import { MatCardModule } from '@angular/material/card';
-import { TruckListComponent } from './choose-truck/choose-truck.component';
+import { TruckListComponent } from './truck/choose-truck/choose-truck.component';
 import { UserdetailComponent } from './users/userdetail/userdetail.component';
 // Import Angular Material modules
 
@@ -28,11 +28,16 @@ import { AreaCrudpageComponent } from './area/area-crudpage/area-crudpage.compon
 import { MatIconModule } from '@angular/material/icon';
 import { DummyDataService } from './dummy-data.service';
 import { CreateareaComponent } from './area/createarea/createarea.component';
-import { ViewTruckComponent } from './view-truck/view-truck.component';
+import { ViewTruckComponent } from './truck/view-truck/view-truck.component';
 import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
 import { AreaDetailsComponent } from './area/area-detail/area-detail.component';
+<<<<<<< Updated upstream
 import { MatDialogModule } from '@angular/material/dialog';
 
+=======
+import { TruckAdminComponent } from './truck/truck-admin/truck-admin.component';
+import { TruckEditComponent } from './truck/truck-edit/truck-edit.component';
+>>>>>>> Stashed changes
 // import { MatInputModule } from '@angular/material/input';
 // import { MatSelectModule } from '@angular/material/select';
 
@@ -65,6 +70,7 @@ import { AdmineditComponent } from './adminedit/adminedit.component';
     ConfirmationDialogComponent,
     AreaDetailsComponent,
     ConfirmDialogComponent,
+<<<<<<< Updated upstream
     AppComponent, // Declare it here
     LoginComponent, // Declare other components here
     NavigationComponent, // ... any other components
@@ -73,6 +79,10 @@ import { AdmineditComponent } from './adminedit/adminedit.component';
     AdminlocationComponent,
     UserlocationComponent,
     AdmineditComponent
+=======
+    TruckAdminComponent,
+    TruckEditComponent
+>>>>>>> Stashed changes
     
   ],
   imports: [

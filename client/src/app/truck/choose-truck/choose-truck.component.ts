@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 //import { TrucksService } from '../services/trucks.service'; // Adjust path as necessary
-import { Truck } from '../services/api';
+import { Truck } from '../../services/api';
 //import { Truck } from '../truck.model'; // Assuming you have a Truck model
-import { ITruck } from '../services/api';
+import { ITruck } from '../../services/api';
 
 
 @Component({

@@ -38,12 +38,12 @@ namespace server.Migrations
                     b.HasData(
                         new
                         {
-                            AreaId = "A1-4f53ece1-6c07-47ce-825c-91ddd6907b41",
+                            AreaId = "A1-5a9b6897-575b-414d-a61d-66cc7f788e33",
                             Name = "North Warehouse"
                         },
                         new
                         {
-                            AreaId = "A2-456e5939-dd43-4805-ad29-9aaeefd9355e",
+                            AreaId = "A2-1b73b7f3-bb49-49c4-ae14-78acb75743e5",
                             Name = "South Warehouse"
                         });
                 });
@@ -69,14 +69,14 @@ namespace server.Migrations
                     b.HasData(
                         new
                         {
-                            LocationId = "L1-11bbb211-17fe-474b-8aec-d73ebabfe72f",
-                            AreaId = "A1-4f53ece1-6c07-47ce-825c-91ddd6907b41",
+                            LocationId = "L1-9c35c7e9-a1b7-48b0-adf3-f7a3b657134d",
+                            AreaId = "A1-5a9b6897-575b-414d-a61d-66cc7f788e33",
                             LocationType = 0
                         },
                         new
                         {
-                            LocationId = "L2-53b58517-feb0-4945-b754-c88fa46fee28",
-                            AreaId = "A2-456e5939-dd43-4805-ad29-9aaeefd9355e",
+                            LocationId = "L2-1fc4ba98-7b28-4c93-a908-d1e098a7cd2e",
+                            AreaId = "A2-1b73b7f3-bb49-49c4-ae14-78acb75743e5",
                             LocationType = 1
                         });
                 });
@@ -111,11 +111,11 @@ namespace server.Migrations
                     b.HasData(
                         new
                         {
-                            OrderId = "O1-a9f872a3-da49-4b29-8d88-401b56185d49",
-                            CreatedAt = new DateTime(2024, 2, 20, 12, 0, 31, 514, DateTimeKind.Utc).AddTicks(343),
-                            DestinationId = "L1-11bbb211-17fe-474b-8aec-d73ebabfe72f",
+                            OrderId = "O1-05463d2a-7322-479d-b4d4-05a3508bf91a",
+                            CreatedAt = new DateTime(2024, 2, 20, 15, 59, 47, 147, DateTimeKind.Utc).AddTicks(354),
+                            DestinationId = "L1-9c35c7e9-a1b7-48b0-adf3-f7a3b657134d",
                             OrderStatus = 0,
-                            UserID = "U1-853d1499-3362-484d-96a9-4d95949b5854"
+                            UserID = "U1-6e25c795-251d-4a86-9e5b-4493ba396843"
                         });
                 });
 
@@ -146,9 +146,9 @@ namespace server.Migrations
                         new
                         {
                             OrderRollId = 1,
-                            OrderId = "O1-a9f872a3-da49-4b29-8d88-401b56185d49",
+                            OrderId = "O1-05463d2a-7322-479d-b4d4-05a3508bf91a",
                             OrderRollStatus = 0,
-                            RollOfSteelId = "R1-523831d0-7b3f-451a-8a1c-1baab2eb77a4"
+                            RollOfSteelId = "R1-812ad6cb-c713-4689-9554-35848e42b0ab"
                         });
                 });
 
@@ -173,8 +173,8 @@ namespace server.Migrations
                     b.HasData(
                         new
                         {
-                            RollOfSteelId = "R1-523831d0-7b3f-451a-8a1c-1baab2eb77a4",
-                            CurrentLocationId = "L1-11bbb211-17fe-474b-8aec-d73ebabfe72f",
+                            RollOfSteelId = "R1-812ad6cb-c713-4689-9554-35848e42b0ab",
+                            CurrentLocationId = "L1-9c35c7e9-a1b7-48b0-adf3-f7a3b657134d",
                             RollStatus = 1
                         });
                 });
@@ -204,13 +204,13 @@ namespace server.Migrations
                     b.HasData(
                         new
                         {
-                            TruckId = "T1-2e99947c-c445-4dbf-ae78-ecb3e9bd553a",
-                            CurrentAreaId = "A1-4f53ece1-6c07-47ce-825c-91ddd6907b41"
+                            TruckId = "T1-9fd9c471-c5ea-43ac-a88a-b6a58508e880",
+                            CurrentAreaId = "A1-5a9b6897-575b-414d-a61d-66cc7f788e33"
                         },
                         new
                         {
-                            TruckId = "T2-fbefe4e0-1925-4adc-bab6-9e81ed9549eb",
-                            CurrentAreaId = "A2-456e5939-dd43-4805-ad29-9aaeefd9355e"
+                            TruckId = "T2-f07bf846-8fa4-41b8-ac93-2d86a25a58d9",
+                            CurrentAreaId = "A2-1b73b7f3-bb49-49c4-ae14-78acb75743e5"
                         });
                 });
 
@@ -246,8 +246,8 @@ namespace server.Migrations
                         new
                         {
                             TruckOrderAssignmentId = 1,
-                            OrderId = "O1-a9f872a3-da49-4b29-8d88-401b56185d49",
-                            TruckId = "T1-2e99947c-c445-4dbf-ae78-ecb3e9bd553a"
+                            OrderId = "O1-05463d2a-7322-479d-b4d4-05a3508bf91a",
+                            TruckId = "T1-9fd9c471-c5ea-43ac-a88a-b6a58508e880"
                         });
                 });
 
@@ -284,10 +284,10 @@ namespace server.Migrations
                         new
                         {
                             TruckUserId = 1,
-                            DateAssigned = new DateTime(2024, 2, 20, 12, 0, 31, 514, DateTimeKind.Utc).AddTicks(374),
+                            DateAssigned = new DateTime(2024, 2, 20, 15, 59, 47, 147, DateTimeKind.Utc).AddTicks(400),
                             IsAssigned = true,
-                            TruckId = "T1-2e99947c-c445-4dbf-ae78-ecb3e9bd553a",
-                            UserId = "U1-853d1499-3362-484d-96a9-4d95949b5854"
+                            TruckId = "T1-9fd9c471-c5ea-43ac-a88a-b6a58508e880",
+                            UserId = "U1-6e25c795-251d-4a86-9e5b-4493ba396843"
                         });
                 });
 
@@ -317,14 +317,14 @@ namespace server.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "U1-853d1499-3362-484d-96a9-4d95949b5854",
+                            UserId = "U1-6e25c795-251d-4a86-9e5b-4493ba396843",
                             PasswordHash = "hashedPassword1",
                             Role = 0,
                             Username = "adminUser"
                         },
                         new
                         {
-                            UserId = "U2-3a5ea4bd-c472-470d-a03c-75104596e6e7",
+                            UserId = "U2-91aed1ac-e820-4780-a2ed-a58a2505406b",
                             PasswordHash = "hashedPassword2",
                             Role = 1,
                             Username = "standardUser"
