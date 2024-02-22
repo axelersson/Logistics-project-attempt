@@ -14,7 +14,9 @@ public class User
     public string Username { get; set; } = string.Empty;
     public string PasswordHash { get; set; } = string.Empty;
 
-    public List<Truck> Trucks { get; } = new List<Truck>();
+    // !! Removed Trucks property since they are related by the TruckUser table now
+
+    // public List<Truck> Trucks { get; } = new List<Truck>();
 
     // UserRole enum definition
     public enum UserRole

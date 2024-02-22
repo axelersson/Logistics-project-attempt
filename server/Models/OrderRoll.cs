@@ -1,24 +1,26 @@
-using System.Text.Json.Serialization;
+// REMOVED
 
-public class OrderRoll
-{
-    public int OrderRollId { get; set; }
-    public string? OrderId { get; set; }
-    public string? RollOfSteelId { get; set; }
-    public OrderRollStatus OrderRollStatus { get; set; }
+// using System.Text.Json.Serialization;
 
-    // Navigaion properties
+// public class OrderRoll
+// {
+//     public int OrderRollId { get; set; }
+//     public string? OrderId { get; set; }
+//     public string? RollOfSteelId { get; set; }
+//     public OrderRollStatus OrderRollStatus { get; set; }
 
-    [JsonIgnore]
-    public Order? Order { get; set; }
+//     // Navigaion properties
 
-    [JsonIgnore]
-    public RollOfSteel? RollOfSteel { get; set; }
-}
+//     [JsonIgnore]
+//     public Order? Order { get; set; }
 
-public enum OrderRollStatus
-{
-    Pending,
-    Delivered,
-    Cancelled
-}
+//     [JsonIgnore]
+//     public RollOfSteel? RollOfSteel { get; set; }
+// }
+
+// public enum OrderRollStatus
+// {
+//     Pending,
+//     Delivered,
+//     Cancelled
+// }

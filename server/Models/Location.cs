@@ -8,8 +8,10 @@ public class Location
 
     // Navigation Properties
 
-    public List<RollOfSteel> RollsOfSteel { get; set; } = new List<RollOfSteel>();
-    public List<Order> DestinationOrders { get; set; } = new List<Order>();
+    // OBSOLETE
+    // public List<RollOfSteel> RollsOfSteel { get; set; } = new List<RollOfSteel>();
+    public List<Order> FromOrders { get; set; } = new List<Order>();
+    public List<Order> ToOrders { get; set; } = new List<Order>();
 
     [JsonIgnore]
      public Area? Area { get; set; }

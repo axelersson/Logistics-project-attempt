@@ -7,9 +7,6 @@ using System.Threading.Tasks;
 using LogisticsApp.Data; // Import your DbContext namespace
 using Microsoft.Extensions.Logging; // Import for logging
 
-// TODO: Need to add rolls of steel to the order 
-// and add them to the OrderRollsOfSteel table
-// when making an order
 
 [ApiController]
 [Route("/[controller]")]
@@ -37,10 +34,7 @@ public class OrdersController : ControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetOrderById(string orderId)
     {
-        var order = await _context.Orders
-        .Include(o => o.OrderRolls)
-            .ThenInclude(or => or.RollOfSteel)
-        .FirstOrDefaultAsync(o => o.OrderId == orderId);
+        var order = await _context.Orders.FirstOrDefaultAsync(o => o.OrderId == orderId);
 
         if (order == null)
         {
@@ -51,42 +45,42 @@ public class OrdersController : ControllerBase
     }
 
     // Get all rolls of steel associated with an order
-    [HttpGet("{orderId}/rolls")]
-    public async Task<IActionResult> GetOrderRolls(string orderId)
+    // REMOVED
+//     [HttpGet("{orderId}/rolls")]
+//     public async Task<IActionResult> GetOrderRolls(string orderId)
+//     {
+//     var order = await _context.Orders
+//         .Select(o => new { OrderId = o.OrderId, DestinationId = o.DestinationId }) // Only select the fields we need
+//         .FirstOrDefaultAsync(o => o.OrderId == orderId);
+
+//     if (order == null)
+//     {
+//         return NotFound();
+//     }
+
+//     var orderRolls = await _context.OrderRolls
+//         .Where(or => or.OrderId == orderId)
+//         .ToListAsync();
+
+//     var rollOfSteelIds = orderRolls.Select(or => or.RollOfSteelId).ToList();
+
+//     var rollsOfSteel = await _context.RollsOfSteel
+//         .Where(roll => rollOfSteelIds.Contains(roll.RollOfSteelId))
+//         .ToListAsync();
+
+//     return Ok(new { Order = order, RollsOfSteel = rollsOfSteel });
+// }
+
+
+    // CREATE NEW ORDER
+    // Required body attributes: FromLocId, ToLocId, UserId, Pieces, OrderType
+    [HttpPost("NewOrder/")]
+    public async Task<IActionResult> CreateOrder(string userId, [FromBody] Order order)
     {
-    var order = await _context.Orders
-        .Select(o => new { OrderId = o.OrderId, DestinationId = o.DestinationId }) // Only select the fields we need
-        .FirstOrDefaultAsync(o => o.OrderId == orderId);
-
-    if (order == null)
-    {
-        return NotFound();
-    }
-
-    var orderRolls = await _context.OrderRolls
-        .Where(or => or.OrderId == orderId)
-        .ToListAsync();
-
-    var rollOfSteelIds = orderRolls.Select(or => or.RollOfSteelId).ToList();
-
-    var rollsOfSteel = await _context.RollsOfSteel
-        .Where(roll => rollOfSteelIds.Contains(roll.RollOfSteelId))
-        .ToListAsync();
-
-    return Ok(new { Order = order, RollsOfSteel = rollsOfSteel });
-}
-
-    [HttpPost("user/{userId}/location/{locationId}")]
-    public async Task<IActionResult> CreateOrder(string locationId, string userId, [FromBody] List<RollOfSteel> rolls)
-    {
-        if (rolls == null)
-        {
-            return BadRequest();
-        }
-
-        //get location from locationId
-        var location = await _context.Locations.FirstOrDefaultAsync(l => l.LocationId == locationId);
-        if (location == null)
+        //get ToLoc And FromLoc from order body
+        var fromLoc = await _context.Locations.FirstOrDefaultAsync(l => l.LocationId == order.FromLocId);
+        var toLoc = await _context.Locations.FirstOrDefaultAsync(l => l.LocationId == order.ToLocId);
+        if (fromLoc == null || toLoc == null)
         {
             return BadRequest("Location not found");
         }
@@ -96,22 +90,13 @@ public class OrdersController : ControllerBase
             return BadRequest("User not found");
         }
 
-        Order order = new Order();
+        order.ToLocation = toLoc;
+        order.FromLocation = fromLoc;
 
-        order.DestinationLocation = location;
         order.OrderId = Guid.NewGuid().ToString();
         order.OrderStatus = OrderStatus.Pending;
         order.User = user;
 
-        foreach (var roll in rolls)
-        {
-            var orderRoll = new OrderRoll();
-            orderRoll.Order = order;
-            orderRoll.RollOfSteelId = roll.RollOfSteelId;
-            orderRoll.OrderRollStatus = OrderRollStatus.Pending;
-            _context.OrderRolls.Add(orderRoll);
-        }
-        order.DestinationId = locationId;
         order.CreatedAt = DateTime.Now;
         _context.Orders.Add(order);
         await _context.SaveChangesAsync();
@@ -168,6 +153,100 @@ public class OrdersController : ControllerBase
         await _context.SaveChangesAsync();
 
         return NoContent();
+    }
+
+    // DELIVER ORDER 
+    [HttpPut("Deliver/{orderId}")]
+    public async Task<IActionResult> DeliverOrder(string orderId)
+    {
+        var order = await _context.Orders.FirstOrDefaultAsync(o => o.OrderId == orderId);
+
+        if (order == null)
+        {
+            return BadRequest("Order not found");
+        }
+
+        var truckOrderAssignment = await _context.TruckOrderAssignments.FirstOrDefaultAsync(toa => toa.OrderId == orderId);
+        
+        if (truckOrderAssignment == null)
+        {
+            return BadRequest("Order not assigned to a truck");
+        }
+
+        order.OrderStatus = OrderStatus.Delivered;
+        order.CompletedAt = DateTime.Now;
+
+        truckOrderAssignment.UnassignedAt = DateTime.Now;
+        truckOrderAssignment.IsAssigned = false;
+
+        _context.Entry(truckOrderAssignment).State = EntityState.Modified;
+        _context.Entry(order).State = EntityState.Modified;
+        await _context.SaveChangesAsync();
+
+        return CreatedAtAction(nameof(GetOrderById), new { orderId = order.OrderId }, order);
+    }
+
+    // PARTIALLY DELIVER ORDER
+    [HttpPut("PartialDeliver/{orderId}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+
+    public async Task<IActionResult> PartiallyDeliverOrder(string orderId)
+    {
+        var order = await _context.Orders.FirstOrDefaultAsync(o => o.OrderId == orderId);
+
+        if (order == null)
+        {
+            return BadRequest("Order not found");
+        }
+
+        order.OrderStatus = OrderStatus.PartiallyDelivered;
+        _context.Entry(order).State = EntityState.Modified;
+        await _context.SaveChangesAsync();
+
+        return CreatedAtAction(nameof(GetOrderById), new { orderId = order.OrderId }, order);
+    }
+
+    // CANCEL ORDER
+    [HttpPut("Cancel/{orderId}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+
+    public async Task<IActionResult> CancelOrder(string orderId)
+    {
+        var order = await _context.Orders.FirstOrDefaultAsync(o => o.OrderId == orderId);
+
+        if (order == null)
+        {
+            return BadRequest("Order not found");
+        }
+
+        var truckOrderAssignment = await _context.TruckOrderAssignments.FirstOrDefaultAsync(toa => toa.OrderId == orderId);
+        if (truckOrderAssignment != null)
+        {
+            truckOrderAssignment.UnassignedAt = DateTime.Now;
+            truckOrderAssignment.IsAssigned = false;
+            _context.Entry(truckOrderAssignment).State = EntityState.Modified;
+        }
+
+        order.OrderStatus = OrderStatus.Cancelled;
+        truckOrderAssignment.UnassignedAt = DateTime.Now;
+        truckOrderAssignment.IsAssigned = false; 
+
+        _context.Entry(truckOrderAssignment).State = EntityState.Modified;
+        _context.Entry(order).State = EntityState.Modified;
+        await _context.SaveChangesAsync();
+
+        return CreatedAtAction(nameof(GetOrderById), new { orderId = order.OrderId }, order);
+    }
+
+    // GET ALL TRUCKORDERASSIGNMENTS
+    [HttpGet("Assignments")]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(TruckOrderAssignmentsGetAllResponse))]
+    public async Task<IActionResult> GetTruckOrderAssignments()
+    {
+        var truckOrderAssignments = await _context.TruckOrderAssignments.ToListAsync();
+        return Ok(new TruckOrderAssignmentsGetAllResponse { TruckOrderAssignments = truckOrderAssignments });
     }
 
     private bool OrderExists(string orderId)
