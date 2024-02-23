@@ -35,20 +35,15 @@ export class LoginComponent {
 
     this.client.login(loginRequest).subscribe(
       (response: any) => {
-        console.log('Response:', response);
-        const token = response?.token;
-
+        const token = response?.token; // Extract the token from the response
         if (token) {
-          console.log('Token:', token);
-          this.authService.setToken(token); // Store the token
-
+          this.authService.setToken(token); // Store the token using AuthService
           const decodedToken = this.authService.decodeJwtToken(token);
           if (decodedToken && decodedToken.role) {
-            console.log('User role:', decodedToken.role);
-            this.authService.setUserRole(decodedToken.role); // Store the user role
+            this.authService.setUserRole(decodedToken.role); // Optionally, store the user role
           }
 
-          this.router.navigate(['/dashboard']);
+          this.router.navigate(['/homepage']); // Navigate to the homepage upon successful login
         } else {
           console.error('Token not found in response');
           this.loginError = 'Token not found in response';

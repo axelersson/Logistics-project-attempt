@@ -1,21 +1,22 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms'; // Import FormsModule if you use Template-driven forms
-import { AppRoutingModule } from './app-routing.module'; // Import the AppRoutingModule
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'; // Ensure FormsModule is imported for ngModel
+import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
-import { NavigationComponent } from './navigation/navigation.component'; // Adjust path as necessary
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { NavigationComponent } from './navigation/navigation.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { Client } from './services/api';
 import { HttpClientModule } from '@angular/common/http';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatButtonModule, MatIconButton } from '@angular/material/button';
+
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { HomeComponent } from './home/home.component';
+import { OrderdetailComponent } from './orderdetail/orderdetail.component';
+import { LogoutComponent } from './logout/logout.component';
 import { LocationListComponent } from './location-list/location-list.component';
 import { MatCardModule } from '@angular/material/card';
-<<<<<<< Updated upstream
-import { MatButtonModule } from '@angular/material/button';
-=======
-import { ChooseTruckComponent } from './choose-truck/choose-truck.component';
+import { TruckListComponent } from './choose-truck/choose-truck.component';
 import { UserdetailComponent } from './users/userdetail/userdetail.component';
 // Import Angular Material modules
 
@@ -35,7 +36,6 @@ import { MatDialogModule } from '@angular/material/dialog';
 // import { MatInputModule } from '@angular/material/input';
 // import { MatSelectModule } from '@angular/material/select';
 
->>>>>>> Stashed changes
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -44,13 +44,7 @@ import { MatOptionModule } from '@angular/material/core';
 import { UserlocationComponent } from './userlocation/userlocation.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AdmineditComponent } from './adminedit/adminedit.component';
-<<<<<<< Updated upstream
-
-@NgModule({
-  declarations: [
-=======
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { API_BASE_URL } from './services/api';
 
 @NgModule({
   declarations: [
@@ -61,7 +55,7 @@ import { API_BASE_URL } from './services/api';
     OrderdetailComponent,
     LogoutComponent,
     LocationListComponent,
-    ChooseTruckComponent,
+    TruckListComponent,
     LocationListComponent,
     UserdetailComponent,
     UsercreateComponent,
@@ -72,11 +66,10 @@ import { API_BASE_URL } from './services/api';
     ConfirmationDialogComponent,
     AreaDetailsComponent,
     ConfirmDialogComponent,
->>>>>>> Stashed changes
     AppComponent, // Declare it here
     LoginComponent, // Declare other components here
     NavigationComponent, // ... any other components
-    DashboardComponent,
+    
     LocationListComponent,
     AdminlocationComponent,
     UserlocationComponent,
@@ -85,25 +78,33 @@ import { API_BASE_URL } from './services/api';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule, // Include BrowserAnimationsModule
     FormsModule,
     AppRoutingModule,
     ReactiveFormsModule,
     FontAwesomeModule,
     HttpClientModule,
+    MatSlideToggleModule,
     MatButtonModule,
+    
+    MatToolbarModule,
+    MatCardModule,
+    MatIconButton,
+    // Include the Angular Material modules
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule,
+    MatDialogModule,
+    MatIconModule,
     MatCardModule,
     MatSelectModule,
     MatFormFieldModule,
     MatInputModule,
     MatOptionModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    FlexLayoutModule
   ],
-<<<<<<< Updated upstream
-  providers: [Client],
-  bootstrap: [AppComponent], // Bootstrap AppComponent
-=======
-  providers: [Client, DummyDataService,{ provide: API_BASE_URL, useValue: 'http://localhost:5000' }], // Provide your services here
+  providers: [Client, DummyDataService], // Provide your services here
   bootstrap: [AppComponent], // Bootstrap the AppComponent
->>>>>>> Stashed changes
 })
 export class AppModule {}

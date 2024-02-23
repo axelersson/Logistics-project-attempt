@@ -1,0 +1,7 @@
+button {
+    font-size: 24px;
+    margin: 10px;
+    padding: 7.2rem;
+    background: linear-gradient(0deg, rgba(34,195,57,0.3799894957983193) 0%, rgba(68,253,45,0.2007177871148459) 100%);
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,.2);
+  }

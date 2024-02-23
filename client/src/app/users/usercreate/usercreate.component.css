@@ -1,0 +1,70 @@
+/* Center the title */
+h2 {
+  text-align: center;
+  margin-bottom: 20px; /* Adds some space below the title */
+}
+
+/* Styles for the container to align fields */
+.user-detail-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center align items */
+  width: 60%; /* Set width to 60% of the screen */
+  margin: 0 auto; /* Center the container */
+}
+
+/* Make children of user-detail-container take up 100% of its width */
+.user-detail-container > * {
+  width: 100%;
+}
+
+/* Set all form fields to full width of their container */
+.user-detail-container .mat-form-field {
+  width: 100%; /* Form fields take full width of the container */
+  margin-bottom: 16px; /* Adds space between form fields */
+}
+/* Specific style for the 'Role' form field if it should be different */
+.user-detail-container .mat-form-field.role-select {
+  width: auto; /* Set the width as auto or specific percentage as per design requirement */
+}
+
+/* Styling for the 'Create User' button */
+.create-user-button {
+  font-size: 18px; /* Larger font size */
+  padding: 10px 20px; /* Larger padding for a bigger button */
+  border: none; /* No border */
+  background-color: #007bff; /* Example blue background, adjust color as needed */
+  color: white; /* Text color */
+  width: 60%;
+  align-self: center; /* Ensure the button is centered */
+}
+
+.create-user-button:hover {
+  background-color: #0056b3; /* Darker shade of blue on hover */
+}
+
+/* Adjust the icon button within the form fields for consistency */
+.mat-icon-button {
+  transform: skewX(-15deg); /* Skew icon buttons to match the pointy design */
+}
+
+/* Success and error message styling */
+.success-message,
+.error-message {
+  width: 100%; /* Match the width of the form fields */
+  margin: 20px auto; /* Space above the message and center it */
+  padding: 10px;
+  border-radius: 5px; /* Rounded corners */
+  font-weight: bold;
+  text-align: center; /* Center the text within */
+}
+
+.success-message {
+  background-color: #d4edda; /* Light green background */
+  color: #155724; /* Dark green text */
+}
+
+.error-message {
+  background-color: #f8d7da; /* Light red background */
+  color: #721c24; /* Dark red text */
+}

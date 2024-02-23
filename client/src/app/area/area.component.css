@@ -1,0 +1,40 @@
+  .next-button {
+    position: fixed;
+    top: 4rem;
+    right: 1.5rem;
+    background-color: #40a460;
+    color: white;
+    padding-top: 1.2rem;
+    height: 3rem;
+    z-index: 1;
+    align-items: center;
+  }
+  
+  .next-button mat-icon {
+    margin-right: 5px; 
+    font-size: 1.5em; 
+    width: 4rem;
+    height: 3rem;
+  }
+  
+  .location-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 20px;
+    padding: 20px;
+    max-height: 80vh; /* Limit the height to 5rem in viewport height */
+    overflow-y: auto;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); 
+  }
+  
+  .example-card {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: box-shadow 0.3s;
+  }
+  
+  .example-card:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }

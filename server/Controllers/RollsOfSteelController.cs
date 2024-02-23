@@ -1,106 +1,118 @@
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using LogisticsApp.Data; // Import your DbContext namespace
-using Microsoft.Extensions.Logging; // Import for logging
+// REMOVED
 
-[ApiController]
-[Route("api/[controller]")]
-public class RollsOfSteelController : ControllerBase
-{
-    private readonly LogisticsDBContext _context; // Replace with your actual DbContext
-    private readonly ILogger<RollsOfSteelController> _logger;
+// using Microsoft.AspNetCore.Mvc;
+// using Microsoft.EntityFrameworkCore;
+// using System;
+// using System.Collections.Generic;
+// using System.Linq;
+// using System.Threading.Tasks;
+// using LogisticsApp.Data; // Import your DbContext namespace
+// using Microsoft.Extensions.Logging; // Import for logging
 
-    public RollsOfSteelController(LogisticsDBContext context, ILogger<RollsOfSteelController> logger)
-    {
-        _context = context;
-        _logger = logger;
-    }
+// [ApiController]
+// [Route("api/[controller]")]
+// public class RollsOfSteelController : ControllerBase
+// {
+//     private readonly LogisticsDBContext _context; 
+//     private readonly ILogger<RollsOfSteelController> _logger;
 
-    [HttpGet]
-    public async Task<IActionResult> GetRollsOfSteel()
-    {
-        var rollsOfSteel = await _context.RollsOfSteel.ToListAsync();
-        return Ok(rollsOfSteel);
-    }
+//     public RollsOfSteelController(LogisticsDBContext context, ILogger<RollsOfSteelController> logger)
+//     {
+//         _context = context;
+//         _logger = logger;
+//     }
 
-    [HttpGet("{rollOfSteelId}")]
-    public async Task<IActionResult> GetRollOfSteelById(string rollOfSteelId)
-    {
-        var rollOfSteel = await _context.RollsOfSteel.FirstOrDefaultAsync(r => r.RollOfSteelId == rollOfSteelId);
+//     [HttpGet]
+//     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(RollsOfSteelGetAllResponse))]
+//     public async Task<IActionResult> GetRollsOfSteel()
+//     {
+//         var rollsOfSteel = await _context.RollsOfSteel.ToListAsync();
+//         return Ok(new RollsOfSteelGetAllResponse { RollsOfSteel = rollsOfSteel });
+//     }
 
-        if (rollOfSteel == null)
-        {
-            return NotFound();
-        }
+//     [HttpGet("{rollOfSteelId}")]
+//     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(RollOfSteel))]
+//     [ProducesResponseType(StatusCodes.Status404NotFound)]
+//     public async Task<IActionResult> GetRollOfSteelById(string rollOfSteelId)
+//     {
+//         var rollOfSteel = await _context.RollsOfSteel.FirstOrDefaultAsync(r => r.RollOfSteelId == rollOfSteelId);
 
-        return Ok(rollOfSteel);
-    }
+//         if (rollOfSteel == null)
+//         {
+//             return NotFound();
+//         }
 
-    [HttpPost]
-    public async Task<IActionResult> CreateRollOfSteel([FromBody] RollOfSteel rollOfSteel)
-    {
-        if (rollOfSteel == null)
-        {
-            return BadRequest();
-        }
+//         return Ok(rollOfSteel);
+//     }
 
-        _context.RollsOfSteel.Add(rollOfSteel);
-        await _context.SaveChangesAsync();
+//     [HttpPost]
+//     [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(RollOfSteel))]
+//     [ProducesResponseType(StatusCodes.Status400BadRequest)]
+//     public async Task<IActionResult> CreateRollOfSteel([FromBody] RollOfSteel rollOfSteel)
+//     {
+//         if (rollOfSteel == null)
+//         {
+//             return BadRequest();
+//         }
 
-        return CreatedAtAction(nameof(GetRollOfSteelById), new { rollOfSteelId = rollOfSteel.RollOfSteelId }, rollOfSteel);
-    }
+//         _context.RollsOfSteel.Add(rollOfSteel);
+//         await _context.SaveChangesAsync();
 
-    [HttpPut("{rollOfSteelId}")]
-    public async Task<IActionResult> UpdateRollOfSteel(string rollOfSteelId, [FromBody] RollOfSteel updatedRollOfSteel)
-    {
-        if (rollOfSteelId != updatedRollOfSteel.RollOfSteelId)
-        {
-            return BadRequest();
-        }
+//         return CreatedAtAction(nameof(GetRollOfSteelById), new { rollOfSteelId = rollOfSteel.RollOfSteelId }, rollOfSteel);
+//     }
 
-        _context.Entry(updatedRollOfSteel).State = EntityState.Modified;
+//     [HttpPut("{rollOfSteelId}")]
+//     [ProducesResponseType(StatusCodes.Status204NoContent)]
+//     [ProducesResponseType(StatusCodes.Status400BadRequest)]
+//     [ProducesResponseType(StatusCodes.Status404NotFound)]
+//     public async Task<IActionResult> UpdateRollOfSteel(string rollOfSteelId, [FromBody] RollOfSteel updatedRollOfSteel)
+//     {
+//         if (rollOfSteelId != updatedRollOfSteel.RollOfSteelId)
+//         {
+//             return BadRequest();
+//         }
 
-        try
-        {
-            await _context.SaveChangesAsync();
-        }
-        catch (DbUpdateConcurrencyException)
-        {
-            if (!RollOfSteelExists(rollOfSteelId))
-            {
-                return NotFound();
-            }
-            else
-            {
-                throw;
-            }
-        }
+//         _context.Entry(updatedRollOfSteel).State = EntityState.Modified;
 
-        return NoContent();
-    }
+//         try
+//         {
+//             await _context.SaveChangesAsync();
+//         }
+//         catch (DbUpdateConcurrencyException)
+//         {
+//             if (!RollOfSteelExists(rollOfSteelId))
+//             {
+//                 return NotFound();
+//             }
+//             else
+//             {
+//                 throw;
+//             }
+//         }
 
-    [HttpDelete("{rollOfSteelId}")]
-    public async Task<IActionResult> DeleteRollOfSteel(string rollOfSteelId)
-    {
-        var rollOfSteel = await _context.RollsOfSteel.FindAsync(rollOfSteelId);
+//         return NoContent();
+//     }
 
-        if (rollOfSteel == null)
-        {
-            return NotFound();
-        }
+//     [HttpDelete("{rollOfSteelId}")]
+//     [ProducesResponseType(StatusCodes.Status204NoContent)]
+//     [ProducesResponseType(StatusCodes.Status404NotFound)]
+//     public async Task<IActionResult> DeleteRollOfSteel(string rollOfSteelId)
+//     {
+//         var rollOfSteel = await _context.RollsOfSteel.FindAsync(rollOfSteelId);
 
-        _context.RollsOfSteel.Remove(rollOfSteel);
-        await _context.SaveChangesAsync();
+//         if (rollOfSteel == null)
+//         {
+//             return NotFound();
+//         }
 
-        return NoContent();
-    }
+//         _context.RollsOfSteel.Remove(rollOfSteel);
+//         await _context.SaveChangesAsync();
 
-    private bool RollOfSteelExists(string rollOfSteelId)
-    {
-        return _context.RollsOfSteel.Any(r => r.RollOfSteelId == rollOfSteelId);
-    }
-}
+//         return NoContent();
+//     }
+
+//     private bool RollOfSteelExists(string rollOfSteelId)
+//     {
+//         return _context.RollsOfSteel.Any(r => r.RollOfSteelId == rollOfSteelId);
+//     }
+// }

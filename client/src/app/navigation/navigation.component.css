@@ -1,55 +1,24 @@
+mat-button {
+  width: 3rem; /* Adjust the width as needed */
+  text-align: center; /* Center the text within the button */
+  padding: 4rem; /* Add padding for better visibility and clickability */
+  border-radius: 10px;
+}
 .navbar {
-  background-color: transparent;
-  padding: 0;
-}
-
-.title-container {
-  background-color: #f8f9fa; /* Slight gray */
-  height: 10vh; /* 10% of viewport height */
   display: flex;
+  justify-content: space-around;
   align-items: center;
-  justify-content: center;
+  background-color: rgba(144, 238, 144, 0.52); /* Adjust as needed */
+  padding: 1.5rem;
+  border-radius: .7rem;
+  font-weight: bold; 
+  box-shadow: 0 2px 4px 0 rgba(0,0,0,.2);
 }
 
-.nav-container {
-  background-color: transparent;
+.mat-button:hover {
+  background-color: #5c6bc0; /* Adjust as needed */
 }
 
-.navbar-brand {
-  font-size: 24px;
-  color: #000; /* Ensure the color is set explicitly if needed */
-}
-
-.navbar-nav {
-  display: flex;
-  justify-content: space-evenly;
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
-  width: 100%;
-  background-color: #f8f9fa; /* Slight gray for nav items */
-}
-
-.nav-item {
-  height: 10vh; /* 10% of viewport height */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.nav-link {
-  text-decoration: none;
-  color: #000; /* Set text color */
-  padding: 10px 15px;
-  transition: background-color 0.3s ease;
-  display: flex;
-  align-items: center;
-}
-
-.nav-link i {
-  margin-right: 8px; /* Space between icon and text */
-}
-
-.nav-link:hover {
-  background-color: #e2e2e2; /* Lighter gray on hover */
+.mat-button:active {
+  background-color: #3949ab; /* Adjust as needed */
 }

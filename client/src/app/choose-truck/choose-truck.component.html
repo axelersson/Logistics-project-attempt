@@ -1,0 +1,18 @@
+<!-- choose-truck.component.html -->
+<!-- Placeholder "Cancel" button with larger styling -->
+<button mat-stroked-button class="cancel-button large-button">Cancel</button>
+
+<div class="list-container">
+  <mat-card *ngFor="let truck of trucks" class="truck-card">
+    <mat-card-header>
+      <mat-card-title>Truck ID: {{ truck.truckId }}</mat-card-title>
+      <mat-card-subtitle>Current Area ID: {{ truck.currentAreaId }}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-actions>
+      <button mat-raised-button color="primary" class="large-button">Book</button>
+      <button mat-button [routerLink]="['/view-truck', truck.truckId]">View</button>
+    </mat-card-actions>
+  </mat-card>
+</div>
+
+

@@ -11,7 +11,7 @@ using Microsoft.Extensions.Logging; // Import for logging
 [Route("api/[controller]")]
 public class LocationsController : ControllerBase
 {
-    private readonly LogisticsDBContext _context; // Replace with your actual DbContext
+    private readonly LogisticsDBContext _context; 
     private readonly ILogger<LocationsController> _logger;
 
     public LocationsController(LogisticsDBContext context, ILogger<LocationsController> logger)
@@ -21,13 +21,16 @@ public class LocationsController : ControllerBase
     }
 
     [HttpGet]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(LocationsGetAllResponse))]
     public async Task<IActionResult> GetLocations()
     {
         var locations = await _context.Locations.ToListAsync();
-        return Ok(locations);
+        return Ok(new LocationsGetAllResponse { Locations = locations });
     }
 
     [HttpGet("{locationId}")]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Location))]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetLocationById(string locationId)
     {
         var location = await _context.Locations.FirstOrDefaultAsync(l => l.LocationId == locationId);
@@ -40,8 +43,9 @@ public class LocationsController : ControllerBase
         return Ok(location);
     }
 
-    // POST UNDEFINED AREA
     [HttpPost]
+    [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(Location))]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> CreateLocation([FromBody] Location location)
     {
         if (location == null)
@@ -55,8 +59,10 @@ public class LocationsController : ControllerBase
         return CreatedAtAction(nameof(GetLocationById), new { locationId = location.LocationId }, location);
     }
 
-    // POST TO SPECIFIC AREA
     [HttpPost("Area/{areaId}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> AddLocationsToArea(string areaId, [FromBody] List<Location> locations)
     {
         if (locations == null || locations.Count == 0)
@@ -64,36 +70,32 @@ public class LocationsController : ControllerBase
             return BadRequest("No locations provided.");
         }
 
-        // Find the area by its ID
         var area = await _context.Areas.FirstOrDefaultAsync(a => a.AreaId == areaId);
         if (area == null)
         {
             return NotFound("Area not found.");
         }
 
-        // Add each location to the area
         foreach (var location in locations)
         {
-            // Ensure the location is not already associated with an area
             if (!string.IsNullOrEmpty(location.AreaId))
             {
                 return BadRequest("Locations should not already be associated with an area.");
             }
 
-            // Set the area ID for the location
-            //location.AreaId = areaId;
             location.Area = area;
             _context.Locations.Add(location);
         }
 
-        // Save changes to the database
-        
         await _context.SaveChangesAsync();
 
         return Ok("Locations added to the area successfully.");
     }
 
     [HttpPut("{locationId}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> UpdateLocation(string locationId, [FromBody] Location updatedLocation)
     {
         if (locationId != updatedLocation.LocationId)
@@ -123,6 +125,8 @@ public class LocationsController : ControllerBase
     }
 
     [HttpDelete("{locationId}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> DeleteLocation(string locationId)
     {
         var location = await _context.Locations.FindAsync(locationId);

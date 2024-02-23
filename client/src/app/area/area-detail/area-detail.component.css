@@ -1,0 +1,35 @@
+.example-card {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 70%;
+    max-width: 800px; /* Adjust the maximum width as needed */
+    display: block;
+  }
+
+  
+  /* Style the card title */
+  .mat-card-title,
+  .mat-card-subtitle,
+  .mat-card-content {
+    font-size: 6rem; /* Set your desired font size */
+  }
+  
+  /* Style the buttons */
+  .mat-card-actions button {
+    font-size: 6rem; /* Set your desired font size */
+    background-color: #4CAF50; /* Set your desired background color */
+    color: white; /* Set your desired text color */
+    padding: 15px 30px; /* Set your desired padding */
+    margin: 15px; /* Set your desired margin */
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    height: 3rem;
+  }
+  
+  /* Hover effect for buttons */
+  .mat-card-actions button:hover {
+    background-color: #45a049; /* Set your desired hover background color */
+  }

@@ -11,7 +11,7 @@ using Microsoft.Extensions.Logging; // Import for logging
 [Route("api/[controller]")]
 public class AreasController : ControllerBase
 {
-    private readonly LogisticsDBContext _context; // Replace with your actual DbContext
+    private readonly LogisticsDBContext _context; 
     private readonly ILogger<AreasController> _logger;
 
     public AreasController(LogisticsDBContext context, ILogger<AreasController> logger)
@@ -20,14 +20,20 @@ public class AreasController : ControllerBase
         _logger = logger;
     }
 
+
     [HttpGet]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(AreasResponse))] // Note the changed type here
     public async Task<IActionResult> GetAreas()
     {
         var areas = await _context.Areas.ToListAsync();
-        return Ok(areas);
+        var response = new AreasResponse { Areas = areas };
+        return Ok(response);
     }
 
+
     [HttpGet("{areaId}")]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Area))]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetAreaById(string areaId)
     {
         var area = await _context.Areas.FirstOrDefaultAsync(a => a.AreaId == areaId);
@@ -41,6 +47,8 @@ public class AreasController : ControllerBase
     }
 
     [HttpPost]
+    [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(Area))]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> CreateArea([FromBody] Area area)
     {
         if (area == null)
@@ -55,6 +63,9 @@ public class AreasController : ControllerBase
     }
 
     [HttpPut("{areaId}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> UpdateArea(string areaId, [FromBody] Area updatedArea)
     {
         if (areaId != updatedArea.AreaId)
@@ -84,6 +95,8 @@ public class AreasController : ControllerBase
     }
 
     [HttpDelete("{areaId}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> DeleteArea(string areaId)
     {
         var area = await _context.Areas.FindAsync(areaId);

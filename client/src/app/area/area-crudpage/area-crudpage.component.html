@@ -1,0 +1,15 @@
+<div fxLayout="row" fxLayoutAlign="space-between center">
+    <mat-form-field appearance="outline" fxFlex="100%">
+      <input matInput placeholder="Här måste du skriva in Area ID (Area1) för att sedan kunna klicka på delete och view" fxFlex="100%" [(ngModel)]="areaIdToDelete">
+    </mat-form-field>
+  </div>
+    <div fxLayout="row" fxLayoutAlign="space-between center">
+        <button mat-button routerLink="/createarea" color="primary" fxFlex="50%" routerLinkActive="active">Create Area</button>
+        <button mat-button routerLink="/update-area" color="accent" fxFlex="50%" routerLinkActive="active">Update Area</button>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="space-between center">
+        <button mat-button (click)="deleteArea()" color="primary" fxFlex="50%">Delete Area</button>
+        <button mat-button (click)="viewArea()" color="accent" fxFlex="50%" routerLinkActive="active">View Area</button>
+      </div>
+
+      

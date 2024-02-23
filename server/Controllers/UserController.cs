@@ -8,16 +8,14 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.IdentityModel.Tokens;
-using System.Security.Cryptography;
 using LogisticsApp.Data;
 
-
 [ApiController]
-[Route("[controller]")]
+[Route("/[controller]")]
 public class UsersController : ControllerBase
 {
-    private readonly LogisticsDBContext _context; // Replace with the actual name of your DbContext
-    private readonly ILogger<UsersController> _logger; // Logger instance
+    private readonly LogisticsDBContext _context;
+    private readonly ILogger<UsersController> _logger;
 
     public UsersController(LogisticsDBContext context, ILogger<UsersController> logger)
     {
@@ -25,29 +23,60 @@ public class UsersController : ControllerBase
         _logger = logger;
     }
 
-    [HttpPost]
-    public IActionResult CreateUser([FromBody] User user)
+    /* [HttpPost]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public IActionResult CreateUser([FromBody] UserCreateModel user)
     {
         _logger.LogInformation("POST request received to create user: {Username}", user.Username);
 
-        // Hash the user's password using BCrypt
-        string hashedPassword = BCrypt.Net.BCrypt.HashPassword(user.PasswordHash);
-        user.PasswordHash = hashedPassword;
+        // Hash the user's password
+        string hashedPassword = BCrypt.Net.BCrypt.HashPassword(user.Password);
+        user.Password = hashedPassword;
 
         _context.Users.Add(user);
         _context.SaveChanges();
 
         return Ok(user);
+    } */
+    [HttpPost]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public IActionResult CreateUser([FromBody] UserCreateModel user)
+    {
+        _logger.LogInformation("POST request received to create user: {Username}", user.Username);
+
+        // Hash the user's password
+        string hashedPassword = BCrypt.Net.BCrypt.HashPassword(user.Password);
+
+        // Create a new User object from the UserCreateModel
+        var newUser = new User
+        {
+            Username = user.Username,
+            PasswordHash = hashedPassword,
+            Role = user.Role
+        };
+
+        _context.Users.Add(newUser);
+        _context.SaveChanges();
+
+        return Ok(newUser);
     }
+
 
     [HttpGet]
-    public IActionResult GetAllUsers()
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(UsersGetAllResponse))]
+    public async Task<IActionResult> GetUsers()
     {
-        var users = _context.Users.ToList();
-        return Ok(users);
+        var users = await _context.Users.ToListAsync();
+        return Ok(new UsersGetAllResponse { Users = users });
     }
 
+
+
     [HttpGet("{userId}")]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(User))]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public IActionResult GetUserById(string userId)
     {
         var user = _context.Users.FirstOrDefault(u => u.UserId == userId);
@@ -58,7 +87,28 @@ public class UsersController : ControllerBase
         return Ok(user);
     }
 
+    [HttpGet("ByUsername/{username}")]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(UserIdAndRoleResponseFromUsernameRequest))]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public IActionResult GetUserByUsername(string username)
+    {
+        var user = _context.Users.FirstOrDefault(u => u.Username == username);
+        if (user == null)
+        {
+            return NotFound();
+        }
+
+        // Pass the username along with UserId and Role to the response model
+        var response = new UserIdAndRoleResponseFromUsernameRequest(user.UserId, user.Username, user.Role);
+        return Ok(response);
+    }
+
+
+
     [HttpPut("{userId}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public IActionResult UpdateUser(string userId, [FromBody] User updatedUser)
     {
         var user = _context.Users.FirstOrDefault(u => u.UserId == userId);
@@ -67,9 +117,50 @@ public class UsersController : ControllerBase
             return NotFound();
         }
 
-        // Update user properties here
+        // Update user properties
         user.Username = updatedUser.Username;
-        user.PasswordHash = updatedUser.PasswordHash;
+        // Re-hashing the password if it's updated. 
+        user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(updatedUser.PasswordHash);
+
+        _context.SaveChanges();
+
+        return Ok(user);
+    }
+    [HttpPut("/updaterole/{userId}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public IActionResult UpdateUserRole(string userId, [FromBody] UpdateUserRoleModel updatedUserRole)
+    {
+        var user = _context.Users.FirstOrDefault(u => u.UserId == updatedUserRole.UserId);
+        if (user == null)
+        {
+            return NotFound();
+        }
+
+        // Update user role
+        user.Role = updatedUserRole.Role;
+
+        _context.SaveChanges();
+
+        return Ok(user);
+    }
+    [HttpPut("updatepasswordandrole/{userId}")]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public IActionResult UpdateUserPasswordAndRole(string userId, [FromBody] UpdateUserPasswordAndRoleModel updatedUser)
+    {
+        var user = _context.Users.FirstOrDefault(u => u.UserId == updatedUser.UserId);
+        if (user == null)
+        {
+            return NotFound();
+        }
+
+        // Update user properties
+        user.Role = updatedUser.Role;
+        // Re-hashing the password if it's updated. 
+        user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(updatedUser.NewPassword);
 
         _context.SaveChanges();
 
@@ -77,6 +168,8 @@ public class UsersController : ControllerBase
     }
 
     [HttpDelete("{userId}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
     public IActionResult DeleteUser(string userId)
     {
         var user = _context.Users.FirstOrDefault(u => u.UserId == userId);
@@ -91,52 +184,69 @@ public class UsersController : ControllerBase
         return NoContent();
     }
 
-     [HttpPost("login")]
+    [HttpPost("login")]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(LoginResponse))]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public async Task<IActionResult> Login([FromBody] LoginRequest loginRequest)
     {
-    var user = await _context.Users.FirstOrDefaultAsync(u => u.Username == loginRequest.Username);
-    if (user == null)
-    {
-        return Unauthorized();
+        var user = await _context.Users.FirstOrDefaultAsync(u => u.Username == loginRequest.Username);
+        if (user == null)
+        {
+            return Unauthorized();
+        }
+
+        // Verify the password
+        if (!BCrypt.Net.BCrypt.Verify(loginRequest.Password, user.PasswordHash))
+        {
+            return Unauthorized();
+        }
+
+        // Authentication successful, generate JWT token
+        var token = GenerateJwtToken(user);
+
+        // Return the token
+        var response = new LoginResponse
+        {
+            Token = token
+        };
+        return Ok(response);
     }
 
-    // Verify the password using BCrypt
-    if (!BCrypt.Net.BCrypt.Verify(loginRequest.Password, user.PasswordHash))
-    {
-        return Unauthorized();
-    }
-
-    // Authentication successful, generate JWT token
-    var token = GenerateJwtToken(user);
-
-    // Return the token using the LoginResponse model
-    var response = new LoginResponse
-    {
-        Token = token
-    };
-    return Ok(response);
-    }
     private string GenerateJwtToken(User user)
     {
-        var tokenHandler = new JwtSecurityTokenHandler();
-        var key = Encoding.ASCII.GetBytes("testingthissecretkeydforthedotnetproject"); // Change this to a secure secret key
-
-        // Calculate token expiration to be 10 hours from now
-    var tokenExpiration = DateTime.UtcNow.AddHours(10);
+    var tokenHandler = new JwtSecurityTokenHandler();
+    var key = Encoding.ASCII.GetBytes("thesecurestofkeysofchowevershouldbeintheenvdfolder"); // JWT Token key
 
     var tokenDescriptor = new SecurityTokenDescriptor
     {
         Subject = new ClaimsIdentity(new[]
         {
-        new Claim(ClaimTypes.NameIdentifier, user.UserId),
-        new Claim(ClaimTypes.Role, user.Role.ToString()) // Assuming user.Role is enum UserRole
+            new Claim(ClaimTypes.NameIdentifier, user.UserId),
+            new Claim(ClaimTypes.Role, user.Role.ToString()), // Convert enum to string
+            // Add other claims as needed
         }),
-        Expires = tokenExpiration, // Token expiration set to 10 hours from now
+        Expires = DateTime.UtcNow.AddHours(10), // Set token expiration
         SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
     };
 
-        var token = tokenHandler.CreateToken(tokenDescriptor);
-        return tokenHandler.WriteToken(token);
+    var token = tokenHandler.CreateToken(tokenDescriptor);
+    return tokenHandler.WriteToken(token);
+    }
+
+ 
+    [HttpGet("getAllUsernames")]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(UsersGetAllUsernamesResponse))]
+    public async Task<IActionResult> GetAllUsernames()
+    {
+        var usernamesList = await _context.Users
+            .Select(u => u.Username)
+            .ToListAsync();
+
+        var response = new UsersGetAllUsernamesResponse
+        {
+            Usernames = usernamesList
+        };
+
+        return Ok(response);
     }
 }
-
