@@ -1,7 +1,7 @@
 import { Injectable, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { API_BASE_URL } from './api'; 
+import { API_BASE_URL } from '.service/api'; 
 import { map } from 'rxjs';
 
 @Injectable({
