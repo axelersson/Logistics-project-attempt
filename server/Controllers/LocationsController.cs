@@ -48,15 +48,38 @@ public class LocationsController : ControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> CreateLocation([FromBody] Location location)
     {
+        // if (location == null)
+        // {
+        //     return BadRequest();
+        // }
+
+        // _context.Locations.Add(location);
+        // await _context.SaveChangesAsync();
+
+        // return CreatedAtAction(nameof(GetLocationById), new { locationId = location.LocationId }, location);
         if (location == null)
-        {
-            return BadRequest();
-        }
+    {
+        return BadRequest();
+    }
 
-        _context.Locations.Add(location);
-        await _context.SaveChangesAsync();
+    if (await _context.Locations.AnyAsync(l => l.LocationId == location.LocationId))
+    {
+        // 如果 locationId 已存在，则返回一个具体的错误消息
+        return BadRequest("Location ID already exists.");
+    }
 
-        return CreatedAtAction(nameof(GetLocationById), new { locationId = location.LocationId }, location);
+    var area = await _context.Areas.FindAsync(location.AreaId);
+    if (area == null)
+    {
+        // 如果找不到对应的 areaId，则返回一个具体的错误消息
+        return BadRequest("Area ID does not exist.");
+    }
+
+    location.Area = area; // 确保 location 与区域关联
+    _context.Locations.Add(location);
+    await _context.SaveChangesAsync();
+
+    return CreatedAtAction(nameof(GetLocationById), new { locationId = location.LocationId }, location);
     }
 
     [HttpPost("Area/{areaId}")]

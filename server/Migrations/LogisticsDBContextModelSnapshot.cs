@@ -27,8 +27,6 @@ namespace server.Migrations
                     b.HasKey("AreaId");
 
                     b.ToTable("Areas");
-<<<<<<< Updated upstream
-=======
 
                     b.HasData(
                         new
@@ -41,7 +39,6 @@ namespace server.Migrations
                             AreaId = "A2-641ec683-3771-4b04-8993-cb0f37702591",
                             Name = "South Warehouse"
                         });
->>>>>>> Stashed changes
                 });
 
             modelBuilder.Entity("Location", b =>
@@ -60,7 +57,6 @@ namespace server.Migrations
                     b.ToTable("Locations");
                 });
 
-<<<<<<< Updated upstream
             modelBuilder.Entity("Machine", b =>
                 {
                     b.Property<string>("MachineId")
@@ -73,7 +69,6 @@ namespace server.Migrations
                     b.HasKey("MachineId");
 
                     b.ToTable("Machines");
-=======
                     b.HasData(
                         new
                         {
@@ -87,7 +82,6 @@ namespace server.Migrations
                             AreaId = "A2-641ec683-3771-4b04-8993-cb0f37702591",
                             LocationType = 1
                         });
->>>>>>> Stashed changes
                 });
 
             modelBuilder.Entity("Order", b =>
@@ -115,7 +109,6 @@ namespace server.Migrations
                     b.ToTable("Orders");
                 });
 
-<<<<<<< Updated upstream
             modelBuilder.Entity("OrderRollsOfSteel", b =>
                 {
                     b.Property<string>("OrdersOrderId")
@@ -145,7 +138,6 @@ namespace server.Migrations
                     b.HasIndex("CurrentLocationId");
 
                     b.ToTable("RollsOfSteel");
-=======
                     b.HasData(
                         new
                         {
@@ -157,7 +149,6 @@ namespace server.Migrations
                             ToLocId = "L2-eecfc614-3b89-4ef9-bd4e-c640e76b3274",
                             UserID = "U1-78bb3bfe-d057-478c-b50f-f79e4ddb3d57"
                         });
->>>>>>> Stashed changes
                 });
 
             modelBuilder.Entity("Truck", b =>
@@ -172,14 +163,11 @@ namespace server.Migrations
                         .IsRequired()
                         .HasColumnType("varchar(255)");
 
-<<<<<<< Updated upstream
                     b.Property<string>("Status")
                         .IsRequired()
                         .HasColumnType("longtext");
-=======
                     b.Property<string>("UserId")
                         .HasColumnType("varchar(255)");
->>>>>>> Stashed changes
 
                     b.HasKey("TruckId");
 
@@ -189,9 +177,7 @@ namespace server.Migrations
 
                     b.HasIndex("UserId");
 
-<<<<<<< Updated upstream
                     b.ToTable("Trucks");
-=======
                     b.HasData(
                         new
                         {
@@ -203,7 +189,6 @@ namespace server.Migrations
                             TruckId = "T2-097b6c50-3728-4c93-9e65-5ffa91868e18",
                             CurrentAreaId = "A2-641ec683-3771-4b04-8993-cb0f37702591"
                         });
->>>>>>> Stashed changes
                 });
 
             modelBuilder.Entity("TruckOrder", b =>
@@ -218,9 +203,7 @@ namespace server.Migrations
 
                     b.HasIndex("TrucksTruckId");
 
-<<<<<<< Updated upstream
                     b.ToTable("TruckOrder");
-=======
                     b.HasIndex("OrderId");
 
                     b.HasIndex("TruckId");
@@ -236,7 +219,6 @@ namespace server.Migrations
                             OrderId = "O1-5a7bad59-2e44-4614-89c7-18679c6cc074",
                             TruckId = "T1-e0a1a249-fbda-4c74-b4e0-c9d8d8c83261"
                         });
->>>>>>> Stashed changes
                 });
 
             modelBuilder.Entity("TruckUser", b =>
@@ -251,9 +233,7 @@ namespace server.Migrations
 
                     b.HasIndex("UsersUserId");
 
-<<<<<<< Updated upstream
                     b.ToTable("TruckUser");
-=======
                     b.HasIndex("UserId");
 
                     b.ToTable("TruckUsers");
@@ -267,7 +247,6 @@ namespace server.Migrations
                             TruckId = "T1-e0a1a249-fbda-4c74-b4e0-c9d8d8c83261",
                             UserId = "U1-78bb3bfe-d057-478c-b50f-f79e4ddb3d57"
                         });
->>>>>>> Stashed changes
                 });
 
             modelBuilder.Entity("User", b =>
@@ -289,8 +268,6 @@ namespace server.Migrations
                     b.HasKey("UserId");
 
                     b.ToTable("Users");
-<<<<<<< Updated upstream
-=======
 
                     b.HasData(
                         new
@@ -307,7 +284,6 @@ namespace server.Migrations
                             Role = 1,
                             Username = "standardUser"
                         });
->>>>>>> Stashed changes
                 });
 
             modelBuilder.Entity("Location", b =>
@@ -400,8 +376,6 @@ namespace server.Migrations
                 {
                     b.Navigation("Trucks");
                 });
-<<<<<<< Updated upstream
-=======
 
             modelBuilder.Entity("Location", b =>
                 {
@@ -437,7 +411,6 @@ namespace server.Migrations
 
                     b.Navigation("Trucks");
                 });
->>>>>>> Stashed changes
 #pragma warning restore 612, 618
         }
     }

@@ -10,7 +10,7 @@ import { LocationListComponent } from './location-list/location-list.component';
 import { AdminlocationComponent } from './adminlocation/adminlocation.component';
 import { UserlocationComponent } from './userlocation/userlocation.component';
 import { AdmineditComponent } from './adminedit/adminedit.component';
-import { TruckListComponent } from './choose-truck/choose-truck.component';
+import { ChooseTruckComponent } from './choose-truck/choose-truck.component';
 import { UserdetailComponent } from './users/userdetail/userdetail.component';
 import { UsercreateComponent } from './users/usercreate/usercreate.component';
 import { Area } from './services/api';
@@ -39,7 +39,7 @@ const routes: Routes = [
   { path: 'homepage', component:HomeComponent},
   { path: 'arealist', component:AreaComponent},
   { path: 'orderlist', component:OrderdetailComponent},
-  { path: 'choosetruck', component:TruckListComponent},
+  { path: 'choosetruck', component:ChooseTruckComponent},
   { path: 'usercrud', component:AreaCrudpageComponent}
 
 ];

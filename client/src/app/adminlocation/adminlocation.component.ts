@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { LocationService } from '../services/location.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-adminlocation',
@@ -9,8 +10,9 @@ import { LocationService } from '../services/location.service';
 })
 export class AdminlocationComponent {
   locations: any[] = [];
+  selectedLocationId: string | null = null;
 
-  constructor(private router: Router, private locationService: LocationService) { }
+  constructor(private router: Router, private locationService: LocationService, private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.locationService.getLocations().subscribe({
@@ -30,10 +32,25 @@ export class AdminlocationComponent {
     console.log('Viewing location...');
   }
 
-  deleteLocation() {
-    // 实现删除逻辑
-    console.log('Deleting location...');
+  deleteSelectedLocation(): void {
+    if (this.selectedLocationId) {
+      this.locationService.deleteLocation(this.selectedLocationId).subscribe({
+          next: () => {
+              this.snackBar.open('Location deleted successfully', 'Close', { duration: 3000 });
+              this.locations = this.locations.filter(location => location.locationId !== this.selectedLocationId);
+              this.selectedLocationId = null; // 清空选中的 locationId
+          },
+          error: (err) => {
+              console.error('Error deleting location:', err);
+              this.snackBar.open('Failed to delete location', 'Close', { duration: 3000 });
+          }
+      });
+  } else {
+      this.snackBar.open('No location selected ', 'Close', { duration: 3000 });
+
   }
+}
+
 
   createLocation() {
     // 实现创建逻辑
@@ -42,13 +59,20 @@ export class AdminlocationComponent {
   }
 
   editLocation() {
-    // 实现编辑逻辑
-    this.router.navigate(['/adminedit'])
+    if (!this.selectedLocationId) {
+      // 如果没有选中任何位置，则显示提示消息
+      this.snackBar.open('Please select a location to edit', 'Close', { duration: 3000 });
+    } else {
+      // 如果选中了位置，则导航到编辑页面，并传递选中的 locationId
+    this.router.navigate(['/adminedit', { locationId: this.selectedLocationId }])
     console.log('Editing location...');
+    }
+   
   }
 
   cancel() {
     // 实现取消逻辑
+    this.router.navigate(['/homepage'])
     console.log('Operation cancelled.');
   }
 
