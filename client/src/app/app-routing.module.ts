@@ -9,6 +9,20 @@ import { LocationListComponent } from './location-list/location-list.component';
 import { AdminlocationComponent } from './adminlocation/adminlocation.component';
 import { UserlocationComponent } from './userlocation/userlocation.component';
 import { AdmineditComponent } from './adminedit/adminedit.component';
+<<<<<<< Updated upstream
+=======
+import { ChooseTruckComponent } from './choose-truck/choose-truck.component';
+import { UserdetailComponent } from './users/userdetail/userdetail.component';
+import { UsercreateComponent } from './users/usercreate/usercreate.component';
+import { Area } from './services/api';
+import { AreaComponent } from './area/area.component';
+import { AreaCrudpageComponent } from './area/area-crudpage/area-crudpage.component';
+import { CreateareaComponent } from './area/createarea/createarea.component';
+import { ViewTruckComponent } from './view-truck/view-truck.component'; // Import the new component
+import { AreaDetailsComponent } from './area/area-detail/area-detail.component';
+
+
+>>>>>>> Stashed changes
 
 const routes: Routes = [
   { path: '', redirectTo: '/dashboard', pathMatch: 'full' }, // default route
@@ -19,6 +33,20 @@ const routes: Routes = [
   { path: 'userlocation' , component: UserlocationComponent},
   { path: 'adminedit', component: AdmineditComponent}
   //{ path: 'feature', loadChildren: () => import('./feature/feature.module').then(m => m.FeatureModule), canActivate: [AuthGuard] }, Add canActivate: [AuthGuard] to all other routes except 'home'
+<<<<<<< Updated upstream
+=======
+  //{ path: 'feature', loadChildren: () => import('./feature/feature.module').then(m => m.FeatureModule), canActivate: [AuthGuard] }, Add canActivate: [AuthGuard] to all other routes except 'home',
+  { path: 'userdetail', component: UserdetailComponent },
+  { path: 'usercreate', component: UsercreateComponent },
+  { path: 'view-truck/:id', component: ViewTruckComponent }, 
+  { path: 'area/:areaId', component: AreaDetailsComponent },
+  { path: 'homepage', component:HomeComponent},
+  { path: 'arealist', component:AreaComponent},
+  { path: 'orderlist', component:OrderdetailComponent},
+  { path: 'choosetruck', component:ChooseTruckComponent},
+  { path: 'usercrud', component:AreaCrudpageComponent}
+
+>>>>>>> Stashed changes
 ];
 
 @NgModule({

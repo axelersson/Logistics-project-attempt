@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { LocationService } from '../services/location.service';
 
 @Component({
   selector: 'app-adminlocation',
@@ -7,24 +8,21 @@ import { Router } from '@angular/router';
   styleUrl: './adminlocation.component.css'
 })
 export class AdminlocationComponent {
-  locations = [
-    {LocationID: 1, type: "String", AreaID: 1 },
-    {LocationID: 1, type: "String", AreaID: 1 },
-    {LocationID: 1, type: "String", AreaID: 1 },
-    {LocationID: 1, type: "String", AreaID: 1 },
-    {LocationID: 1, type: "String", AreaID: 1 },
-    {LocationID: 1, type: "String", AreaID: 1 },
-    {LocationID: 1, type: "String", AreaID: 1 },
-    {LocationID: 1, type: "String", AreaID: 1 },
-    {LocationID: 1, type: "String", AreaID: 1 },
-    {LocationID: 1, type: "String", AreaID: 1 },
-    {LocationID: 1, type: "String", AreaID: 1 },
-    // 假设这些数据来自后端
-  ];
+  locations: any[] = [];
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private locationService: LocationService) { }
 
   ngOnInit(): void {
+    this.locationService.getLocations().subscribe({
+      next: (data) => {
+        this.locations = data;
+        console.log(this.locations);
+      },
+      error: (err) => {
+        console.error('Error fetching locations:', err);
+      }
+    });
+    
   }
 
   createView() {

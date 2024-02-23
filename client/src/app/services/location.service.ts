@@ -1,16 +1,19 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { API_BASE_URL } from './api'; 
+import { map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LocationService {
-  private baseUrl: string = 'http://localhost:5000/api'; // 
+  constructor(private http: HttpClient, @Inject(API_BASE_URL) private baseUrl: string) {}
 
-  constructor(private http: HttpClient) {}
-
-  getLocations(): Observable<any[]> { // 
-    return this.http.get<any[]>(`${this.baseUrl}/Locations`);
+  getLocations(): Observable<any[]> {
+    return this.http.get<any>(`${this.baseUrl}/api/locations`).pipe(
+      map(response => response.locations || []) // 假设后端返回的结构是 { locations: [...] }
+    );
   }
+  
 }
