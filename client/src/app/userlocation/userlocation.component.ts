@@ -24,7 +24,7 @@ export class UserlocationComponent {
     
   }
 
-  createView() {
+  view() {
     // 实现查看逻辑
     this.router.navigate(['/locationlist'])
     console.log('Viewing location...');
@@ -32,6 +32,7 @@ export class UserlocationComponent {
 
   cancel() {
     // 实现取消逻辑
+    this.router.navigate(['/homepage'])
     console.log('Operation cancelled.');
   }
 

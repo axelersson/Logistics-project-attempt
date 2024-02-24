@@ -11,6 +11,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class AdminlocationComponent {
   locations: any[] = [];
   selectedLocationId: string | null = null;
+  backpage = 'adminlocation'
 
   constructor(private router: Router, private locationService: LocationService, private snackBar: MatSnackBar) { }
 
@@ -27,9 +28,10 @@ export class AdminlocationComponent {
     
   }
 
-  createView() {
+  view() {
     // 实现查看逻辑
     console.log('Viewing location...');
+    this.router.navigate(['locationlist'],{ queryParams: { backpage: this.backpage } })
   }
 
   deleteSelectedLocation(): void {
