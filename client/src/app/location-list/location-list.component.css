@@ -1,6 +1,6 @@
 
 html {
-  font-size: 2vw; /* Set the font-size relative to the width of the viewport */
+  font-size: 2vw; 
 }
 .location-list {
   display: grid;
@@ -17,6 +17,7 @@ html {
 }
 
 .fixed-bottom-button {
+  position: fixed;
   width: 80vw; /* The button will take up 80% of the viewport width */
   padding: 2vh 1vw; /* Padding based on viewport size */
   font-size: 2vw; /* Font size based on viewport width */
