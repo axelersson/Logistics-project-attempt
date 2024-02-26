@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { ActivatedRoute } from '@angular/router';
 import { Client} from '../services/api';
 
 
@@ -27,13 +26,13 @@ export class TestorderComponent {
 
   // *** Using Nswag generated Client(Api.js), no need to create separate service file ***
   orders: any[] = [];
-  constructor(private client: Client, private router: Router, private route: ActivatedRoute) {}
+  constructor(private client: Client, private router: Router) {}
 
   ngOnInit(): void {
     // Get all orders on init
     this.client.ordersGET().subscribe(data => {
-      console.log(data) // This only contains an object that contains the orders array 
-      this.orders = data.orders ?? []; // Thats why we need to access the orders array and assign it to the orders variable
+      console.log(data) // data only contains an object that contains the orders array 
+      this.orders = data.orders ?? []; // Thats why we need to access the orders array and assign it to the orders variable, if its null it will be assigned an empty array
       console.log(this.orders) // This should contain the actual orders
     });    
   }
