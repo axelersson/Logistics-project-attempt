@@ -1,0 +1,11 @@
+<div class="order-list">
+    <mat-card *ngFor="let order of orders" class="example-card">
+      <mat-card-content><strong>Order ID:</strong>  {{ order.orderId }}</mat-card-content>
+      <mat-card-content><strong>Uder ID:</strong>  {{ order.userId }}</mat-card-content>
+      <mat-card-content><strong>Order Status:</strong>  {{ order.orderStatus }}</mat-card-content>
+      <mat-card-content><strong>From:</strong>  {{ order.fromLocId }}</mat-card-content>
+      <mat-card-content><strong>To :</strong>  {{ order.toLocId }}</mat-card-content>
+      <mat-card-content><strong>Pieces</strong>  {{ order.pieces }}</mat-card-content>
+      <mat-card-content><strong>Order Created</strong>  {{ order.createdAt }}</mat-card-content>
+    </mat-card>
+  </div>

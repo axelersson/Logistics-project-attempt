@@ -78,8 +78,12 @@ public class OrdersController : ControllerBase
     public async Task<IActionResult> CreateOrder(string userId, [FromBody] Order order)
     {
         //get ToLoc And FromLoc from order body
+        Console.WriteLine("FromLocId: " + order.FromLocId);
+        Console.WriteLine("ToLocId: " + order.ToLocId);
         var fromLoc = await _context.Locations.FirstOrDefaultAsync(l => l.LocationId == order.FromLocId);
         var toLoc = await _context.Locations.FirstOrDefaultAsync(l => l.LocationId == order.ToLocId);
+        Console.WriteLine("FromLoc: " + fromLoc);
+        Console.WriteLine("ToLoc: " + toLoc);
         if (fromLoc == null || toLoc == null)
         {
             return BadRequest("Location not found");
@@ -165,7 +169,8 @@ public class OrdersController : ControllerBase
         {
             return BadRequest("Order not found");
         }
-
+        // Unassign truck from order
+        // Maybe this should change all assigned trucks, not just the first one?
         var truckOrderAssignment = await _context.TruckOrderAssignments.FirstOrDefaultAsync(toa => toa.OrderId == orderId);
         
         if (truckOrderAssignment == null)
@@ -220,7 +225,8 @@ public class OrdersController : ControllerBase
         {
             return BadRequest("Order not found");
         }
-
+        // Unassign truck from order
+        // Maybe this should change all assigned trucks, not just the first one?
         var truckOrderAssignment = await _context.TruckOrderAssignments.FirstOrDefaultAsync(toa => toa.OrderId == orderId);
         if (truckOrderAssignment != null)
         {

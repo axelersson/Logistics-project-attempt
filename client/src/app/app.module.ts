@@ -18,6 +18,7 @@ import { LocationListComponent } from './location-list/location-list.component';
 import { MatCardModule } from '@angular/material/card';
 import { ChooseTruckComponent } from './choose-truck/choose-truck.component';
 import { UserdetailComponent } from './users/userdetail/userdetail.component';
+import { TestorderComponent } from './testorder/testorder.component';
 // Import Angular Material modules
 
 import { Client } from './services/api';
@@ -72,6 +73,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     AppComponent, // Declare it here
     LoginComponent, // Declare other components here
     NavigationComponent, // ... any other components
+    TestorderComponent,
     
     LocationListComponent,
     AdminlocationComponent,

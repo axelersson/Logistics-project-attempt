@@ -10,7 +10,7 @@ import { ActivatedRoute } from '@angular/router';
   styleUrl: './location-list.component.css'
 })
 export class LocationListComponent {
-  locations: any[] = []; // 根据实际数据结构调整类型
+  locations: any[] = []; // 根据实际数据结构调整类型 
   backpage = ''
 
   constructor(private locationService: LocationService,private router: Router, private route: ActivatedRoute) {}
