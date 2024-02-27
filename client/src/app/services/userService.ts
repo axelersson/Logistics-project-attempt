@@ -9,6 +9,8 @@ import {
   UserCreateModel,
 } from './api'; // Adjust the import path as necessary
 import { tap } from 'rxjs/operators';
+import { AuthService } from './auth.service'; // Adjust the import path as necessary
+import { HttpClient, HttpHeaders } from '@angular/common/http'; // Import HttpClient and HttpHeaders
 
 @Injectable({
   providedIn: 'root',
@@ -21,7 +23,17 @@ export class UserService {
     new BehaviorSubject<UserIdAndRoleResponseFromUsernameRequest | null>(null);
   public selectedUserDetails$ = this.selectedUserDetailsSource.asObservable();
 
-  constructor(private client: Client) {}
+  constructor(
+    private client: Client,
+    private authService: AuthService,
+  ) {}
+
+  private getHeaders(): HttpHeaders {
+    const token = this.authService.getToken();
+    return new HttpHeaders({
+      Authorization: `Bearer ${token}`,
+    });
+  }
 
   fetchAllUsernames() {
     this.client.getAllUsernames().subscribe({
@@ -92,6 +104,9 @@ export class UserService {
     return this.client.updatepasswordandrole(userId, updateModel);
   }
   createUser(newUser: UserCreateModel): Observable<any> {
-    return this.client.usersPOST(newUser);
+    const token = this.authService.getToken(); // Get the JWT token
+    const authorization = token ? token : ''; // Set authorization to empty string if token is null
+    console.log(token);
+    return this.client.usersPOST(authorization, newUser); // Pass the token and newUser to usersPOST method
   }
 }

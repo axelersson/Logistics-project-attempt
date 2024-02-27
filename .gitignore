@@ -14,5 +14,12 @@ server/Migrations/
 
 server\appsettings.json
 
+\server\appsettings.Development.json
+
+server/appsettings.Development.json
+./server/appsettings.Development.json
+
 appsettings.json
+
+appsettings.Development.json
 

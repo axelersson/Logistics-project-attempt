@@ -8,6 +8,7 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Microsoft.Extensions.Logging;
 
 
 
@@ -31,27 +32,29 @@ builder.Services.AddControllers().AddJsonOptions(options =>
     options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
 });
 
+
+//DotNetEnv.Env.Load();
+//Console.WriteLine($"Direct Access JWT Secret: {Environment.GetEnvironmentVariable("JWT_Secret")}");
+
+// Use the secret for configuring authentication, JWT bearer options, etc.
+builder.Services.AddAuthentication().AddJwtBearer(options =>
+{
+    options.TokenValidationParameters = new TokenValidationParameters
+    {
+        // Setup your token validation parameters, and use jwtSecret as needed
+    };
+});
+
+
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddOpenApiDocument();
 builder.Services.AddAuthorization();
-//builder.Services.AddAuthentication("Bearer").AddJwtBearer();
+builder.Services.AddSingleton<ILoggerService, LoggerService>();
+builder.Services.AddSingleton<ITokenService, TokenService>();
 
-builder.Services.AddAuthentication(options =>//TOKEN MANAGE
-{
-    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-}).AddJwtBearer(options =>
-{
-    options.TokenValidationParameters = new TokenValidationParameters
-    {
-        ValidateIssuer = false,
-        ValidateAudience = false,
-        ValidateLifetime = true,
-        ValidateIssuerSigningKey = true,
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes("testingthissecretkeydforthedotnetproject")) // Same secret key as used for token generation
-    };
-});
+
 
 builder.Services.AddDbContext<LogisticsDBContext>(options =>
     options.UseMySql(builder.Configuration.GetConnectionString("DefaultConnection"),

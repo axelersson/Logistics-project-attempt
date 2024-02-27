@@ -57,7 +57,7 @@ namespace LogisticsApp.Data // Change to your actual namespace
             modelBuilder.Entity<User>().HasData(
                 new User { UserId = user1Id, Username = "adminUser", Role = User.UserRole.Admin, PasswordHash = BCrypt.Net.BCrypt.HashPassword(plainPassword1) },
                 new User { UserId = user2Id, Username = "standardUser", Role = User.UserRole.User, PasswordHash = "hashedPassword2" },
-                new User { UserId = user1Id, Username = "hej", Role = User.UserRole.Admin, PasswordHash = BCrypt.Net.BCrypt.HashPassword(plainPassword3) }
+                new User { UserId = user3Id, Username = "hej", Role = User.UserRole.Admin, PasswordHash = BCrypt.Net.BCrypt.HashPassword(plainPassword3) }
             );
 
             // Truck

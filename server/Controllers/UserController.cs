@@ -9,6 +9,8 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.IdentityModel.Tokens;
 using LogisticsApp.Data;
+using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Authorization;
 
 [ApiController]
 [Route("/[controller]")]
@@ -17,34 +19,24 @@ public class UsersController : ControllerBase
     private readonly LogisticsDBContext _context;
     private readonly ILogger<UsersController> _logger;
 
-    public UsersController(LogisticsDBContext context, ILogger<UsersController> logger)
+    private readonly ITokenService _tokenService;
+
+    public UsersController(LogisticsDBContext context, ILogger<UsersController> logger, ITokenService tokenService)
     {
         _context = context;
         _logger = logger;
+        _tokenService = tokenService;
     }
 
-    /* [HttpPost]
-    [ProducesResponseType(StatusCodes.Status200OK)]
-    [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public IActionResult CreateUser([FromBody] UserCreateModel user)
-    {
-        _logger.LogInformation("POST request received to create user: {Username}", user.Username);
-
-        // Hash the user's password
-        string hashedPassword = BCrypt.Net.BCrypt.HashPassword(user.Password);
-        user.Password = hashedPassword;
-
-        _context.Users.Add(user);
-        _context.SaveChanges();
-
-        return Ok(user);
-    } */
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public IActionResult CreateUser([FromBody] UserCreateModel user)
-    {
-        _logger.LogInformation("POST request received to create user: {Username}", user.Username);
+    public IActionResult CreateUser([FromBody] UserCreateModel user, [FromHeader(Name = "Authorization")] string token)
+    {   
+        if (!_tokenService.IsAdmin(token.Replace("Bearer ", ""))) // Assuming bearer token is used
+        {
+            return Unauthorized("Only admins can create users.");
+        }
 
         // Hash the user's password
         string hashedPassword = BCrypt.Net.BCrypt.HashPassword(user.Password);
@@ -59,6 +51,7 @@ public class UsersController : ControllerBase
 
         _context.Users.Add(newUser);
         _context.SaveChanges();
+        _logger.LogInformation("Creating user: {Username}", user.Username);
 
         return Ok(newUser);
     }
@@ -184,7 +177,7 @@ public class UsersController : ControllerBase
         return NoContent();
     }
 
-    [HttpPost("login")]
+        [HttpPost("login")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(LoginResponse))]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public async Task<IActionResult> Login([FromBody] LoginRequest loginRequest)
@@ -202,7 +195,7 @@ public class UsersController : ControllerBase
         }
 
         // Authentication successful, generate JWT token
-        var token = GenerateJwtToken(user);
+        var token = _tokenService.GenerateJwtToken(user);
 
         // Return the token
         var response = new LoginResponse
@@ -211,33 +204,23 @@ public class UsersController : ControllerBase
         };
         return Ok(response);
     }
-
-    private string GenerateJwtToken(User user)
-    {
-    var tokenHandler = new JwtSecurityTokenHandler();
-    var key = Encoding.ASCII.GetBytes("thesecurestofkeysofchowevershouldbeintheenvdfolder"); // JWT Token key
-
-    var tokenDescriptor = new SecurityTokenDescriptor
-    {
-        Subject = new ClaimsIdentity(new[]
-        {
-            new Claim(ClaimTypes.NameIdentifier, user.UserId),
-            new Claim(ClaimTypes.Role, user.Role.ToString()), // Convert enum to string
-            // Add other claims as needed
-        }),
-        Expires = DateTime.UtcNow.AddHours(10), // Set token expiration
-        SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
-    };
-
-    var token = tokenHandler.CreateToken(tokenDescriptor);
-    return tokenHandler.WriteToken(token);
-    }
-
  
     [HttpGet("getAllUsernames")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(UsersGetAllUsernamesResponse))]
+    [Authorize] // Add the [Authorize] attribute to require authentication
     public async Task<IActionResult> GetAllUsernames()
     {
+        // Extract JWT token from the request headers
+        var token = HttpContext.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
+        
+        // Verify the JWT token
+        if (string.IsNullOrEmpty(token) || !_tokenService.VerifyToken(token))
+        {
+            return Unauthorized(); // Return 401 Unauthorized if the token is missing or invalid
+        }
+
+        // Proceed with retrieving usernames if the token is valid
+
         var usernamesList = await _context.Users
             .Select(u => u.Username)
             .ToListAsync();
