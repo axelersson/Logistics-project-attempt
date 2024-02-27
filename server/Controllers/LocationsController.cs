@@ -134,7 +134,6 @@ public class LocationsController : ControllerBase
                 throw;
             }
         }
-
         return NoContent();
     }
 

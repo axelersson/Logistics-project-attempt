@@ -39,7 +39,6 @@ export class AdmineditComponent {
         this.snackBar.open('Please complete all fields', 'Close', { duration: 3000 });
         return;
     }
-
     // 检查是否处于编辑模式
     if (this.isEditing) {
         // 更新现有位置
