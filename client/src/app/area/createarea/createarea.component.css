@@ -1,15 +1,21 @@
-.top_component {
-    background-color: rgba(121, 200, 226, 0.5);
-}
-p {
-    text-align: center;
-    font-size: large;
-    font-weight: 500;
-}
-mat-form-field {
-    margin: 10px;
-    padding: 1.5rem;
-    background-color: rgba(169, 215, 169, 0.397); 
-    box-shadow: 0 2px 4px 0 rgba(0,0,0,.2);
-
+.edit-card {
+    max-width: 600px;
+    margin: 20px auto;
   }
+  
+  .edit-form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .mat-form-field {
+    width: 100%; /* Full width */
+    margin-bottom: 16px;
+  }
+  
+  .buttons-container {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+  }
+  

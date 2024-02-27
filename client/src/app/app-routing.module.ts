@@ -40,7 +40,8 @@ const routes: Routes = [
   { path: 'arealist', component:AreaComponent},
   { path: 'orderlist', component:OrderdetailComponent},
   { path: 'choosetruck', component:ChooseTruckComponent},
-  { path: 'usercrud', component:AreaCrudpageComponent}
+  { path: 'areacrud', component:AreaCrudpageComponent},
+  {path: 'createarea', component:CreateareaComponent}
 
 ];
 

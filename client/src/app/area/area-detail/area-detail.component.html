@@ -6,6 +6,13 @@
       </mat-card-header>
       <mat-card-content>
         <p>Area: {{ area.name }}</p>
+        <ul *ngFor="let location of locations" >
+          <li>          
+            <p>Location: {{ location.locationId }} </p>
+            <p>Location Type: {{ location.locationType }} </p>
+          </li>
+        </ul>
+
         <!-- Add more details as needed -->
       </mat-card-content>
       <!-- You can add more sections as needed -->

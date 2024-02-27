@@ -1,28 +1,35 @@
-<div fxLayout="row" fxLayoutAlign="space-between center" >
+<mat-card class="edit-card">
+    <form class="edit-form">
+      <mat-form-field appearance="fill">
+        <mat-label>Area ID</mat-label>
+        <input matInput placeholder="Enter new Area ID" [(ngModel)]="area.areaId"
+        name="areaId">
+      </mat-form-field>
+  
+      <mat-form-field appearance="fill">
+        <mat-label>Area name</mat-label>
+        <input matInput placeholder="Enter new Area name" [(ngModel)]="area.name" name="name">
+      </mat-form-field>
+      <div class="buttons-container">
+        <button mat-raised-button color="primary" (click)="confirm()">Confirm</button>
+      </div>
+    </form>
+  </mat-card>
+  
+
+<!-- <div fxLayout="row" fxLayoutAlign="space-between center">
     <mat-form-field class="top_component" appearance="outline" fxFlex="100%">
-        <p>Create New Area</p>
+      <p>Create New Area</p>
     </mat-form-field>
-</div>
-<div fxLayout="row" fxLayoutAlign="space-between center">
-    
-    <mat-form-field appearance="outline" fxFlex="100%">
-        <input matInput placeholder="Enter Area ID" fxFlex="100%">
-    </mat-form-field>
-</div>
-<div fxLayout="row" fxLayoutAlign="space-between center">
-        <mat-form-field appearance="outline" fxFlex="100%">
-        <input matInput placeholder="Enter Area name" fxFlex="100%">
-    </mat-form-field>
-</div>
-<div fxLayout="row" fxLayoutAlign="space-between center">
-    <mat-form-field appearance="outline" fxFlex="100%">
-        <input matInput placeholder="??" fxFlex="100%">
-    </mat-form-field>
-</div>
-<div fxLayout="row" fxLayoutAlign="space-between center">
-    <mat-form-field appearance="outline" fxFlex="100%">
-        <input matInput placeholder="??" fxFlex="100%">
-    </mat-form-field>
-</div>
-
-
+  </div>
+  
+  <div fxLayout="column" fxLayoutAlign="space-between center">
+    <input matInput placeholder="Enter Area ID" [(ngModel)]="area.areaId" fxFlex="100%">
+  
+    <input matInput placeholder="Enter Area name" [(ngModel)]="area.name" fxFlex="100%">
+  </div>
+  
+  <div class="buttons-container">
+    <button mat-raised-button color="primary" (click)="confirm()">Confirm</button>
+  </div>
+   -->

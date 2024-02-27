@@ -1,10 +1,10 @@
 <div class="next_page-component">
-  <button mat-raised-button color="primary" class="next-button" routerLink="/usercrud" routerLinkActive="active">
+  <button mat-raised-button color="primary" class="next-button" routerLink="/areacrud" routerLinkActive="active">
     <mat-icon>NEXT</mat-icon>
   </button>
 </div>
 
-<div class="location-list">
+<div class="area-list">
   <mat-card *ngFor="let area of areas" class="example-card">
     <mat-card-header>
       <mat-card-title>Name: {{ area.name }}</mat-card-title>
@@ -19,7 +19,8 @@
   </mat-card>
 </div>
 
-<app-area-detail [area]="selectedArea"></app-area-detail>
+<!-- <app-area-detail [area]="selectedArea"></app-area-detail> -->
+
 
 
 <!-- <div class="list-container">

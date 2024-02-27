@@ -4,8 +4,8 @@ using System.Text.Json.Serialization;
 public class TruckOrderAssignment
 {
     public int TruckOrderAssignmentId{ get; set; }
-    public string TruckId { get; set; } = string.Empty;
-    public string OrderId { get; set; } = string.Empty;
+    public string? TruckId { get; set; } = string.Empty;
+    public string? OrderId { get; set; } = string.Empty;
 
     public bool IsAssigned { get; set; } = true;
 
