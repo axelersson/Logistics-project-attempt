@@ -36,7 +36,7 @@ public class AreasController : ControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetAreaById(string areaId)
     {
-        var area = await _context.Areas.FirstOrDefaultAsync(a => a.AreaId == areaId);
+        var area = await _context.Areas.Include(a => a.Locations).FirstOrDefaultAsync(a => a.AreaId == areaId);
 
         if (area == null)
         {
@@ -58,7 +58,7 @@ public class AreasController : ControllerBase
 
         _context.Areas.Add(area);
         await _context.SaveChangesAsync();
-
+        Console.WriteLine("Created area: ", area);
         return CreatedAtAction(nameof(GetAreaById), new { areaId = area.AreaId }, area);
     }
 
@@ -100,7 +100,7 @@ public class AreasController : ControllerBase
     public async Task<IActionResult> DeleteArea(string areaId)
     {
         var area = await _context.Areas.FindAsync(areaId);
-
+        Console.WriteLine(area);
         if (area == null)
         {
             return NotFound();

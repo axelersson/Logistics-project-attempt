@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Identity.Client;
 using System;
 using System.Collections.Generic;
 using System.Security.Principal;
@@ -27,21 +28,29 @@ namespace LogisticsApp.Data // Change to your actual namespace
             //#################################################################################### COMMENT OUT START FOR NO DATABASE OBJECT SEEDING
 
                // Area
-            var area1Id = "A1-" + Guid.NewGuid().ToString();
-            var area2Id = "A2-" + Guid.NewGuid().ToString();
+
+            var area1Id = "A1";
+            var area2Id = "A2";
+            var area3Id = "A3";
 
             modelBuilder.Entity<Area>().HasData(
                 new Area { AreaId = area1Id, Name = "North Warehouse" },
-                new Area { AreaId = area2Id, Name = "South Warehouse" }
+                new Area { AreaId = area2Id, Name = "South Warehouse" },
+                new Area { AreaId = area3Id, Name = "East warehouse"}
             );
 
-            // Location
-            var location1Id = "L1-" + Guid.NewGuid().ToString();
-            var location2Id = "L2-" + Guid.NewGuid().ToString();
+            // Location;
+
+            var location1Id = "L1";
+            var location2Id = "L2";
+            var location3Id = "L3";
+            var location4Id = "L4";
 
             modelBuilder.Entity<Location>().HasData(
                 new Location { LocationId = location1Id, AreaId = area1Id, LocationType = LocationType.Storage },
-                new Location { LocationId = location2Id, AreaId = area2Id, LocationType = LocationType.Machine }
+                new Location { LocationId = location2Id, AreaId = area2Id, LocationType = LocationType.Machine },
+                new Location { LocationId = location3Id, AreaId = area3Id, LocationType = LocationType.Machine },
+                new Location { LocationId = location4Id, AreaId = area3Id, LocationType = LocationType.Machine }
             );
 
             // User
@@ -112,7 +121,8 @@ namespace LogisticsApp.Data // Change to your actual namespace
             modelBuilder.Entity<Location>()
                 .HasOne(l => l.Area)
                 .WithMany(a => a.Locations)
-                .HasForeignKey(l => l.AreaId);
+                .HasForeignKey(l => l.AreaId)
+                .OnDelete(DeleteBehavior.Cascade);
 
             // One Location, Many RollsOfSteel
             // modelBuilder.Entity<RollOfSteel>()

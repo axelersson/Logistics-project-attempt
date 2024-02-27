@@ -1,8 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { DummyDataService } from '../../dummy-data.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Area } from '../../services/api';
 import { MatDialog } from '@angular/material/dialog';
+import { Client } from '../../services/api'
 import { ConfirmationDialogComponent } from '../../confirmation-dialog/confirmation-dialog.component';
 
 @Component({
@@ -11,27 +10,35 @@ import { ConfirmationDialogComponent } from '../../confirmation-dialog/confirmat
   styleUrls: ['./area-crudpage.component.css']
 })
 export class AreaCrudpageComponent implements OnInit {
-  areas: Area[] = [];
+  areas: any[] = [];
   areaIdToDelete: string = '';
-  @Input() area: Area | undefined;
+  selectedAreaId: string | null = null;
+  @Input() area: any | undefined;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private dummyDataService: DummyDataService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private client: Client
   ) {}
 
   ngOnInit(): void {
-    this.areas = this.dummyDataService.generateDummyAreas(15);
+    this.client.areasGET().subscribe(data => {
+      console.log(data)
+      this.areas = data.areas ?? [];
+      console.log(this.areas)
+    })
   }
 
   deleteArea(): void {
+    const areaIdToDelete = this.selectedAreaId ?? ''
     // Find the index of the area with the specified ID
-    const index = this.areas.findIndex((area) => area.areaId === this.areaIdToDelete);
-
+    //const index = this.areas.findIndex((area) => area.areaId === this.areaIdToDelete);
+  
+    console.log("Area to delete:", areaIdToDelete)
+    console.log(typeof areaIdToDelete)
     // If the area is found, show a confirmation dialog
-    if (index !== -1) {
+    if (true) {
       const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
         data: { message: 'Are you sure you want to delete this area?' },
       });
@@ -39,11 +46,19 @@ export class AreaCrudpageComponent implements OnInit {
       dialogRef.afterClosed().subscribe((result) => {
         if (result) {
           // If the user confirms, delete the area
-          this.areas.splice(index, 1);
-          // Optionally, you can make an API call to delete the area on the server
+          this.client.areasDELETE(areaIdToDelete).subscribe(
+            () => {
+              //this.areas.splice(index, 1);
+              console.log('Area deleted successfully');
+            },
+            (error) => {
+              console.error('Error deleting area:', error);
+              // Handle error accordingly
+            }
+          );
         }
       });
-    } else {
+    }  else {
       // If the area with the specified ID is not found, show an error message or handle it accordingly
       console.log('Area not found');
     }
@@ -51,6 +66,6 @@ export class AreaCrudpageComponent implements OnInit {
 
   viewArea(): void {
     // Redirect to the area details page with the specified ID
-    this.router.navigate(['/area', this.areaIdToDelete]);
+    this.router.navigate(['/area', this.selectedAreaId]);
   }
 }

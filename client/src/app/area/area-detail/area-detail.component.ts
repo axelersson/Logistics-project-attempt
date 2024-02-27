@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { DummyDataService } from '../../dummy-data.service';
+import { Client } from '../../services/api';
 import { Area } from '../../services/api';
 
 @Component({
@@ -10,18 +10,28 @@ import { Area } from '../../services/api';
 })
 export class AreaDetailsComponent implements OnInit {
   @Input() area: Area | undefined;
-
+  locations: any[] = [];
+  
   constructor(
     private route: ActivatedRoute,
-    private dummyDataService: DummyDataService
+    private client: Client
   ) {}
 
   ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
       const areaId = params.get('areaId');
       if (areaId) {
-        // Fetch area details using areaId from stored dummy data
-        this.area = this.dummyDataService.getAreaById(areaId);
+        // Fetch area details using areaId from the Client service
+        this.client.areasGET2(areaId).subscribe(
+          (area: Area) => {
+            this.area = area;
+            this.locations = area.locations ?? [];
+            console.log("Locations: ", this.locations)
+          },
+          (error) => {
+            console.error('Error fetching area details:', error);
+          }
+        );
       }
     });
   }

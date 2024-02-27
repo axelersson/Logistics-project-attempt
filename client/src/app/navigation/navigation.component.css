@@ -3,16 +3,18 @@ mat-button {
   text-align: center; /* Center the text within the button */
   padding: 4rem; /* Add padding for better visibility and clickability */
   border-radius: 10px;
+
 }
 .navbar {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  background-color: rgba(144, 238, 144, 0.52); /* Adjust as needed */
+  background-color: rgba(201, 201, 201, 0.52); /* Adjust as needed */
   padding: 1.5rem;
   border-radius: .7rem;
   font-weight: bold; 
   box-shadow: 0 2px 4px 0 rgba(0,0,0,.2);
+  font-size: 20px;
 }
 
 .mat-button:hover {

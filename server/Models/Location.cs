@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 public class Location
 {
     public string LocationId { get; set; } = Guid.NewGuid().ToString();
-    public string AreaId { get; set; } = string.Empty;
+    public string? AreaId { get; set; } = string.Empty;
     public LocationType LocationType { get; set; }
 
     // Navigation Properties
