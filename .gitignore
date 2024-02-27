@@ -12,4 +12,7 @@ server/bin/
 # Migration files
 server/Migrations/
 
-server/appsettings.json
+server\appsettings.json
+
+appsettings.json
+

@@ -47,15 +47,17 @@ namespace LogisticsApp.Data // Change to your actual namespace
             // User
             var user1Id = "U1-" + Guid.NewGuid().ToString();
             var user2Id = "U2-" + Guid.NewGuid().ToString();
+            var user3Id = "U3-" + Guid.NewGuid().ToString();
 
             string plainPassword1 = "yourPasswordHere";
             // Hash the password
             string hashedPassword1 = BCrypt.Net.BCrypt.HashPassword(plainPassword1);
-
+            string plainPassword3 = "hej";
 
             modelBuilder.Entity<User>().HasData(
                 new User { UserId = user1Id, Username = "adminUser", Role = User.UserRole.Admin, PasswordHash = BCrypt.Net.BCrypt.HashPassword(plainPassword1) },
-                new User { UserId = user2Id, Username = "standardUser", Role = User.UserRole.User, PasswordHash = "hashedPassword2" }
+                new User { UserId = user2Id, Username = "standardUser", Role = User.UserRole.User, PasswordHash = "hashedPassword2" },
+                new User { UserId = user1Id, Username = "hej", Role = User.UserRole.Admin, PasswordHash = BCrypt.Net.BCrypt.HashPassword(plainPassword3) }
             );
 
             // Truck
