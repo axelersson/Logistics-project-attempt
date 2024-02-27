@@ -61,10 +61,12 @@ namespace LogisticsApp.Data // Change to your actual namespace
             // Truck
             var truck1Id = "T1-" + Guid.NewGuid().ToString();
             var truck2Id = "T2-" + Guid.NewGuid().ToString();
+            var truckregnr1 = "abc123";
+            var truckregnr2 = "bcd234";
 
             modelBuilder.Entity<Truck>().HasData(
-                new Truck { TruckId = truck1Id, CurrentAreaId = area1Id },
-                new Truck { TruckId = truck2Id, CurrentAreaId = area2Id }
+                new Truck { TruckId = truck1Id, CurrentAreaId = area1Id, registrationnumber = truckregnr1 },
+                new Truck { TruckId = truck2Id, CurrentAreaId = area2Id, registrationnumber = truckregnr2 }
             );
 
             // Order

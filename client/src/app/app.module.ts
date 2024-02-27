@@ -16,7 +16,7 @@ import { OrderdetailComponent } from './orderdetail/orderdetail.component';
 import { LogoutComponent } from './logout/logout.component';
 import { LocationListComponent } from './location-list/location-list.component';
 import { MatCardModule } from '@angular/material/card';
-import { TruckListComponent } from './choose-truck/choose-truck.component';
+import { ChooseTruckComponent } from './choose-truck/choose-truck.component';
 import { UserdetailComponent } from './users/userdetail/userdetail.component';
 // Import Angular Material modules
 
@@ -45,6 +45,9 @@ import { UserlocationComponent } from './userlocation/userlocation.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AdmineditComponent } from './adminedit/adminedit.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { API_BASE_URL } from './services/api';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
+
 
 @NgModule({
   declarations: [
@@ -55,7 +58,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     OrderdetailComponent,
     LogoutComponent,
     LocationListComponent,
-    TruckListComponent,
+    ChooseTruckComponent,
     LocationListComponent,
     UserdetailComponent,
     UsercreateComponent,
@@ -73,7 +76,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     LocationListComponent,
     AdminlocationComponent,
     UserlocationComponent,
-    AdmineditComponent
+    AdmineditComponent,
+    
     
   ],
   imports: [
@@ -102,9 +106,10 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MatInputModule,
     MatOptionModule,
     BrowserAnimationsModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    MatSnackBarModule
   ],
-  providers: [Client, DummyDataService], // Provide your services here
+  providers: [Client, DummyDataService,{ provide: API_BASE_URL, useValue: 'http://localhost:5000' }], // Provide your services here
   bootstrap: [AppComponent], // Bootstrap the AppComponent
 })
 export class AppModule {}

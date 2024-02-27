@@ -1,3 +1,7 @@
+
+html {
+  font-size: 2vw; 
+}
 .location-list {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -5,18 +9,20 @@
   padding: 20px;
 }
 
-.example-card {
-  max-width: 400px;
+.button-container {
+  display: flex; /* 将容器设置为 Flexbox 容器 */
+  justify-content: center; /* 水平居中 */
+  align-items: center; /* 垂直居中 */
+  height: 100px; /* 给容器一个高度 */
 }
 
-.mat-card-title, .mat-card-subtitle {
-  color: #333;
-}
-
-.example-header-image {
-  /* background-image: url('path/to/your/image'); */
-  background-color: antiquewhite;
-  background-size: cover;
+.fixed-bottom-button {
+  position: fixed;
+  width: 80vw; /* The button will take up 80% of the viewport width */
+  padding: 2vh 1vw; /* Padding based on viewport size */
+  font-size: 2vw; /* Font size based on viewport width */
+  bottom: 20px; /* Adjust the bottom position to lift the button above the bottom of the screen */
+  z-index: 1000; /* Ensure the button is above other content */
 }
 
 

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { LocationService } from '../services/location.service';
 
 @Component({
   selector: 'app-userlocation',
@@ -7,27 +8,23 @@ import { Router } from '@angular/router';
   styleUrl: './userlocation.component.css'
 })
 export class UserlocationComponent {
-  locations = [
-    {LocationID: 1, type: "String", AreaID: 1 },
-    {LocationID: 1, type: "String", AreaID: 1 },
-    {LocationID: 1, type: "String", AreaID: 1 },
-    {LocationID: 1, type: "String", AreaID: 1 },
-    {LocationID: 1, type: "String", AreaID: 1 },
-    {LocationID: 1, type: "String", AreaID: 1 },
-    {LocationID: 1, type: "String", AreaID: 1 },
-    {LocationID: 1, type: "String", AreaID: 1 },
-    {LocationID: 1, type: "String", AreaID: 1 },
-    {LocationID: 1, type: "String", AreaID: 1 },
-    {LocationID: 1, type: "String", AreaID: 1 },
-    // 假设这些数据来自后端
-  ];
-
-  constructor(private router: Router) { }
+  locations: any[] = [];
+  constructor(private router: Router, private locationService: LocationService) { }
 
   ngOnInit(): void {
+    this.locationService.getLocations().subscribe({
+      next: (data) => {
+        this.locations = data;
+        console.log(this.locations);
+      },
+      error: (err) => {
+        console.error('Error fetching locations:', err);
+      }
+    });
+    
   }
 
-  createView() {
+  view() {
     // 实现查看逻辑
     this.router.navigate(['/locationlist'])
     console.log('Viewing location...');
@@ -35,6 +32,7 @@ export class UserlocationComponent {
 
   cancel() {
     // 实现取消逻辑
+    this.router.navigate(['/homepage'])
     console.log('Operation cancelled.');
   }
 

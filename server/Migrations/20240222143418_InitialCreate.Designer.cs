@@ -3,6 +3,7 @@ using System;
 using LogisticsApp.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace server.Migrations
 {
     [DbContext(typeof(LogisticsDBContext))]
-    partial class LogisticsDBContextModelSnapshot : ModelSnapshot
+    [Migration("20240222143418_InitialCreate")]
+    partial class InitialCreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -24,7 +27,14 @@ namespace server.Migrations
                     b.Property<string>("AreaId")
                         .HasColumnType("varchar(255)");
 
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("varchar(255)");
+
                     b.HasKey("AreaId");
+
+                    b.HasIndex("Name")
+                        .IsUnique();
 
                     b.ToTable("Areas");
 
@@ -50,25 +60,15 @@ namespace server.Migrations
                         .IsRequired()
                         .HasColumnType("varchar(255)");
 
+                    b.Property<int>("LocationType")
+                        .HasColumnType("int");
+
                     b.HasKey("LocationId");
 
                     b.HasIndex("AreaId");
 
                     b.ToTable("Locations");
-                });
 
-            modelBuilder.Entity("Machine", b =>
-                {
-                    b.Property<string>("MachineId")
-                        .HasColumnType("varchar(255)");
-
-                    b.Property<string>("AreaID")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-
-                    b.HasKey("MachineId");
-
-                    b.ToTable("Machines");
                     b.HasData(
                         new
                         {
@@ -89,55 +89,43 @@ namespace server.Migrations
                     b.Property<string>("OrderId")
                         .HasColumnType("varchar(255)");
 
+                    b.Property<DateTime?>("CompletedAt")
+                        .HasColumnType("datetime(6)");
+
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<string>("DestinationId")
+                    b.Property<string>("FromLocId")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasColumnType("varchar(255)");
 
-                    b.Property<string>("SourceId")
-                        .IsRequired()
-                        .HasColumnType("longtext");
+                    b.Property<int>("OrderStatus")
+                        .HasColumnType("int");
 
-                    b.Property<string>("Status")
+                    b.Property<int?>("OrderType")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Pieces")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ToLocId")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasColumnType("varchar(255)");
+
+                    b.Property<string>("UserID")
+                        .IsRequired()
+                        .HasColumnType("varchar(255)");
 
                     b.HasKey("OrderId");
 
+                    b.HasIndex("FromLocId");
+
+                    b.HasIndex("ToLocId");
+
+                    b.HasIndex("UserID");
+
                     b.ToTable("Orders");
-                });
 
-            modelBuilder.Entity("OrderRollsOfSteel", b =>
-                {
-                    b.Property<string>("OrdersOrderId")
-                        .HasColumnType("varchar(255)");
-
-                    b.Property<string>("RollsOfSteelRollOfSteelId")
-                        .HasColumnType("varchar(255)");
-
-                    b.HasKey("OrdersOrderId", "RollsOfSteelRollOfSteelId");
-
-                    b.HasIndex("RollsOfSteelRollOfSteelId");
-
-                    b.ToTable("OrderRollsOfSteel");
-                });
-
-            modelBuilder.Entity("RollOfSteel", b =>
-                {
-                    b.Property<string>("RollOfSteelId")
-                        .HasColumnType("varchar(255)");
-
-                    b.Property<string>("CurrentLocationId")
-                        .IsRequired()
-                        .HasColumnType("varchar(255)");
-
-                    b.HasKey("RollOfSteelId");
-
-                    b.HasIndex("CurrentLocationId");
-
-                    b.ToTable("RollsOfSteel");
                     b.HasData(
                         new
                         {
@@ -156,28 +144,15 @@ namespace server.Migrations
                     b.Property<string>("TruckId")
                         .HasColumnType("varchar(255)");
 
-                    b.Property<string>("AreaId")
-                        .HasColumnType("varchar(255)");
-
                     b.Property<string>("CurrentAreaId")
-                        .IsRequired()
-                        .HasColumnType("varchar(255)");
-
-                    b.Property<string>("Status")
-                        .IsRequired()
-                        .HasColumnType("longtext");
-                    b.Property<string>("UserId")
                         .HasColumnType("varchar(255)");
 
                     b.HasKey("TruckId");
 
-                    b.HasIndex("AreaId");
-
                     b.HasIndex("CurrentAreaId");
 
-                    b.HasIndex("UserId");
-
                     b.ToTable("Trucks");
+
                     b.HasData(
                         new
                         {
@@ -191,19 +166,31 @@ namespace server.Migrations
                         });
                 });
 
-            modelBuilder.Entity("TruckOrder", b =>
+            modelBuilder.Entity("TruckOrderAssignment", b =>
                 {
-                    b.Property<string>("OrdersOrderId")
+                    b.Property<int>("TruckOrderAssignmentId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<DateTime?>("AssignedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<bool>("IsAssigned")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("OrderId")
+                        .IsRequired()
                         .HasColumnType("varchar(255)");
 
-                    b.Property<string>("TrucksTruckId")
+                    b.Property<string>("TruckId")
+                        .IsRequired()
                         .HasColumnType("varchar(255)");
 
-                    b.HasKey("OrdersOrderId", "TrucksTruckId");
+                    b.Property<DateTime?>("UnassignedAt")
+                        .HasColumnType("datetime(6)");
 
-                    b.HasIndex("TrucksTruckId");
+                    b.HasKey("TruckOrderAssignmentId");
 
-                    b.ToTable("TruckOrder");
                     b.HasIndex("OrderId");
 
                     b.HasIndex("TruckId");
@@ -223,17 +210,29 @@ namespace server.Migrations
 
             modelBuilder.Entity("TruckUser", b =>
                 {
-                    b.Property<string>("TrucksTruckId")
+                    b.Property<int>("TruckUserId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("AssignedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<bool>("IsAssigned")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("TruckId")
                         .HasColumnType("varchar(255)");
 
-                    b.Property<string>("UsersUserId")
+                    b.Property<DateTime?>("UnassignedAt")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("UserId")
                         .HasColumnType("varchar(255)");
 
-                    b.HasKey("TrucksTruckId", "UsersUserId");
+                    b.HasKey("TruckUserId");
 
-                    b.HasIndex("UsersUserId");
+                    b.HasIndex("TruckId");
 
-                    b.ToTable("TruckUser");
                     b.HasIndex("UserId");
 
                     b.ToTable("TruckUsers");
@@ -263,9 +262,12 @@ namespace server.Migrations
 
                     b.Property<string>("Username")
                         .IsRequired()
-                        .HasColumnType("longtext");
+                        .HasColumnType("varchar(255)");
 
                     b.HasKey("UserId");
+
+                    b.HasIndex("Username")
+                        .IsUnique();
 
                     b.ToTable("Users");
 
@@ -289,7 +291,7 @@ namespace server.Migrations
             modelBuilder.Entity("Location", b =>
                 {
                     b.HasOne("Area", "Area")
-                        .WithMany()
+                        .WithMany("Locations")
                         .HasForeignKey("AreaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -297,103 +299,93 @@ namespace server.Migrations
                     b.Navigation("Area");
                 });
 
-            modelBuilder.Entity("OrderRollsOfSteel", b =>
+            modelBuilder.Entity("Order", b =>
                 {
-                    b.HasOne("Order", null)
-                        .WithMany()
-                        .HasForeignKey("OrdersOrderId")
+                    b.HasOne("Location", "FromLocation")
+                        .WithMany("FromOrders")
+                        .HasForeignKey("FromLocId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("RollOfSteel", null)
-                        .WithMany()
-                        .HasForeignKey("RollsOfSteelRollOfSteelId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("RollOfSteel", b =>
-                {
-                    b.HasOne("Location", "CurrentLocation")
-                        .WithMany()
-                        .HasForeignKey("CurrentLocationId")
+                    b.HasOne("Location", "ToLocation")
+                        .WithMany("ToOrders")
+                        .HasForeignKey("ToLocId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("CurrentLocation");
+                    b.HasOne("User", "User")
+                        .WithMany("Orders")
+                        .HasForeignKey("UserID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("FromLocation");
+
+                    b.Navigation("ToLocation");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Truck", b =>
                 {
-                    b.HasOne("Area", null)
-                        .WithMany("Trucks")
-                        .HasForeignKey("AreaId");
-
                     b.HasOne("Area", "CurrentArea")
-                        .WithMany()
-                        .HasForeignKey("CurrentAreaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("User", null)
                         .WithMany("Trucks")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("CurrentAreaId");
 
                     b.Navigation("CurrentArea");
                 });
 
-            modelBuilder.Entity("TruckOrder", b =>
+            modelBuilder.Entity("TruckOrderAssignment", b =>
                 {
-                    b.HasOne("Order", null)
-                        .WithMany()
-                        .HasForeignKey("OrdersOrderId")
+                    b.HasOne("Order", "Order")
+                        .WithMany("TruckOrderAssignments")
+                        .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Truck", null)
-                        .WithMany()
-                        .HasForeignKey("TrucksTruckId")
+                    b.HasOne("Truck", "Truck")
+                        .WithMany("TruckOrderAssignments")
+                        .HasForeignKey("TruckId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Order");
+
+                    b.Navigation("Truck");
                 });
 
             modelBuilder.Entity("TruckUser", b =>
                 {
-                    b.HasOne("Truck", null)
-                        .WithMany()
-                        .HasForeignKey("TrucksTruckId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.HasOne("Truck", "Truck")
+                        .WithMany("TruckUsers")
+                        .HasForeignKey("TruckId");
 
-                    b.HasOne("User", null)
-                        .WithMany()
-                        .HasForeignKey("UsersUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.HasOne("User", "User")
+                        .WithMany("TruckUsers")
+                        .HasForeignKey("UserId");
+
+                    b.Navigation("Truck");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Area", b =>
                 {
+                    b.Navigation("Locations");
+
                     b.Navigation("Trucks");
                 });
 
             modelBuilder.Entity("Location", b =>
                 {
-                    b.Navigation("DestinationOrders");
+                    b.Navigation("FromOrders");
 
-                    b.Navigation("RollsOfSteel");
+                    b.Navigation("ToOrders");
                 });
 
             modelBuilder.Entity("Order", b =>
                 {
-                    b.Navigation("OrderRolls");
-
                     b.Navigation("TruckOrderAssignments");
-                });
-
-            modelBuilder.Entity("RollOfSteel", b =>
-                {
-                    b.Navigation("OrderRolls");
                 });
 
             modelBuilder.Entity("Truck", b =>
@@ -408,8 +400,6 @@ namespace server.Migrations
                     b.Navigation("Orders");
 
                     b.Navigation("TruckUsers");
-
-                    b.Navigation("Trucks");
                 });
 #pragma warning restore 612, 618
         }

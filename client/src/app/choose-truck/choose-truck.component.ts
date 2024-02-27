@@ -10,7 +10,7 @@ import { ITruck } from '../services/api';
   templateUrl: './choose-truck.component.html',
   styleUrls: ['./choose-truck.component.css']
 })
-export class TruckListComponent implements OnInit {
+export class ChooseTruckComponent  implements OnInit {
 bookTruck(arg0: string|undefined) {
 throw new Error('Method not implemented.');
 }
