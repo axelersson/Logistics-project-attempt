@@ -49,7 +49,7 @@ const routes: Routes = [
   { path: 'orderlist', component:OrderdetailComponent},
   { path: 'choosetruck', component:ChooseTruckComponent},
   { path: 'areacrud', component:AreaCrudpageComponent},
-  {path: 'createarea', component:CreateareaComponent}
+  {path: 'createarea', component:CreateareaComponent},
 
   { path: 'truckadmin', component: TruckAdminComponent },
   { path: 'truckedit', component: TruckEditComponent}
