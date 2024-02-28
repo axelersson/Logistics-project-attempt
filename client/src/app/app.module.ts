@@ -16,7 +16,7 @@ import { OrderdetailComponent } from './orderdetail/orderdetail.component';
 import { LogoutComponent } from './logout/logout.component';
 import { LocationListComponent } from './location-list/location-list.component';
 import { MatCardModule } from '@angular/material/card';
-import { ChooseTruckComponent } from './choose-truck/choose-truck.component';
+//import { ChooseTruckComponent } from './choose-truck/choose-truck.component';
 import { UserdetailComponent } from './users/userdetail/userdetail.component';
 // Import Angular Material modules
 
@@ -28,11 +28,13 @@ import { AreaCrudpageComponent } from './area/area-crudpage/area-crudpage.compon
 import { MatIconModule } from '@angular/material/icon';
 import { DummyDataService } from './dummy-data.service';
 import { CreateareaComponent } from './area/createarea/createarea.component';
-import { ViewTruckComponent } from './view-truck/view-truck.component';
+import { ViewTruckComponent } from './truck/view-truck/view-truck.component';
 import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
 import { AreaDetailsComponent } from './area/area-detail/area-detail.component';
 import { MatDialogModule } from '@angular/material/dialog';
 
+import { TruckAdminComponent } from './truck/truck-admin/truck-admin.component';
+import { TruckEditComponent } from './truck/truck-edit/truck-edit.component';
 // import { MatInputModule } from '@angular/material/input';
 // import { MatSelectModule } from '@angular/material/select';
 
@@ -47,6 +49,7 @@ import { AdmineditComponent } from './adminedit/adminedit.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { API_BASE_URL } from './services/api';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { ChooseTruckComponent } from './truck/choose-truck/choose-truck.component';
 
 
 @NgModule({
@@ -69,6 +72,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     ConfirmationDialogComponent,
     AreaDetailsComponent,
     ConfirmDialogComponent,
+
     AppComponent, // Declare it here
     LoginComponent, // Declare other components here
     NavigationComponent, // ... any other components
@@ -78,6 +82,9 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     UserlocationComponent,
     AdmineditComponent,
     
+    AdmineditComponent,
+    TruckEditComponent
+
     
   ],
   imports: [

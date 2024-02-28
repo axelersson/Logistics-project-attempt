@@ -7,18 +7,26 @@ import { LoginComponent } from './login/login.component';
 import { OrderdetailComponent } from './orderdetail/orderdetail.component';
 import { LogoutComponent } from './logout/logout.component';
 import { LocationListComponent } from './location-list/location-list.component';
+
 import { AdminlocationComponent } from './adminlocation/adminlocation.component';
 import { UserlocationComponent } from './userlocation/userlocation.component';
 import { AdmineditComponent } from './adminedit/adminedit.component';
-import { ChooseTruckComponent } from './choose-truck/choose-truck.component';
+
+//import { ChooseTruckComponent } from './choose-truck/choose-truck.component';
+
+
+
 import { UserdetailComponent } from './users/userdetail/userdetail.component';
 import { UsercreateComponent } from './users/usercreate/usercreate.component';
 import { Area } from './services/api';
 import { AreaComponent } from './area/area.component';
 import { AreaCrudpageComponent } from './area/area-crudpage/area-crudpage.component';
 import { CreateareaComponent } from './area/createarea/createarea.component';
-import { ViewTruckComponent } from './view-truck/view-truck.component'; // Import the new component
+import { ViewTruckComponent } from './truck/view-truck/view-truck.component'; // Import the new component
 import { AreaDetailsComponent } from './area/area-detail/area-detail.component';
+import { TruckAdminComponent } from './truck/truck-admin/truck-admin.component';
+import { TruckEditComponent } from './truck/truck-edit/truck-edit.component';
+import { ChooseTruckComponent } from './truck/choose-truck/choose-truck.component';
 
 
 
@@ -43,6 +51,8 @@ const routes: Routes = [
   { path: 'areacrud', component:AreaCrudpageComponent},
   {path: 'createarea', component:CreateareaComponent}
 
+  { path: 'truckadmin', component: TruckAdminComponent },
+  { path: 'truckedit', component: TruckEditComponent}
 ];
 
 @NgModule({
