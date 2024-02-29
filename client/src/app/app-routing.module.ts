@@ -10,15 +10,15 @@ import { LocationListComponent } from './location-list/location-list.component';
 import { AdminlocationComponent } from './adminlocation/adminlocation.component';
 import { UserlocationComponent } from './userlocation/userlocation.component';
 import { AdmineditComponent } from './adminedit/adminedit.component';
-import { ChooseTruckComponent } from './choose-truck/choose-truck.component';
 import { UserdetailComponent } from './users/userdetail/userdetail.component';
 import { UsercreateComponent } from './users/usercreate/usercreate.component';
 import { Area } from './services/api';
 import { AreaComponent } from './area/area.component';
 import { AreaCrudpageComponent } from './area/area-crudpage/area-crudpage.component';
 import { CreateareaComponent } from './area/createarea/createarea.component';
-import { ViewTruckComponent } from './view-truck/view-truck.component'; // Import the new component
 import { AreaDetailsComponent } from './area/area-detail/area-detail.component';
+import { ViewTruckComponent } from './Trucks/view-truck/view-truck.component';
+import { ChooseTruckComponent } from './Trucks/choose-truck/choose-truck.component';
 
 
 

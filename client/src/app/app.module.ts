@@ -16,7 +16,6 @@ import { OrderdetailComponent } from './orderdetail/orderdetail.component';
 import { LogoutComponent } from './logout/logout.component';
 import { LocationListComponent } from './location-list/location-list.component';
 import { MatCardModule } from '@angular/material/card';
-import { ChooseTruckComponent } from './choose-truck/choose-truck.component';
 import { UserdetailComponent } from './users/userdetail/userdetail.component';
 // Import Angular Material modules
 
@@ -28,7 +27,7 @@ import { AreaCrudpageComponent } from './area/area-crudpage/area-crudpage.compon
 import { MatIconModule } from '@angular/material/icon';
 import { DummyDataService } from './dummy-data.service';
 import { CreateareaComponent } from './area/createarea/createarea.component';
-import { ViewTruckComponent } from './view-truck/view-truck.component';
+
 import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
 import { AreaDetailsComponent } from './area/area-detail/area-detail.component';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -47,6 +46,8 @@ import { AdmineditComponent } from './adminedit/adminedit.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { API_BASE_URL } from './services/api';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { ChooseTruckComponent } from './Trucks/choose-truck/choose-truck.component';
+import { ViewTruckComponent } from './Trucks/view-truck/view-truck.component';
 
 
 @NgModule({
