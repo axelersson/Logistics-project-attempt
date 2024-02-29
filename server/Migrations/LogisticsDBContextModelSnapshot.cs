@@ -38,12 +38,12 @@ namespace server.Migrations
                     b.HasData(
                         new
                         {
-                            AreaId = "A1-9faa3e4d-663e-4c88-a80f-84e7279daf7a",
+                            AreaId = "A1",
                             Name = "North Warehouse"
                         },
                         new
                         {
-                            AreaId = "A2-641ec683-3771-4b04-8993-cb0f37702591",
+                            AreaId = "A2",
                             Name = "South Warehouse"
                         },
                         new
@@ -59,7 +59,6 @@ namespace server.Migrations
                         .HasColumnType("varchar(255)");
 
                     b.Property<string>("AreaId")
-                        .IsRequired()
                         .HasColumnType("varchar(255)");
 
                     b.Property<int>("LocationType")
@@ -74,14 +73,26 @@ namespace server.Migrations
                     b.HasData(
                         new
                         {
-                            LocationId = "L1-eb7f8845-6092-44da-8a97-1dd20d9def9b",
-                            AreaId = "A1-9faa3e4d-663e-4c88-a80f-84e7279daf7a",
+                            LocationId = "L1",
+                            AreaId = "A1",
                             LocationType = 0
                         },
                         new
                         {
-                            LocationId = "L2-eecfc614-3b89-4ef9-bd4e-c640e76b3274",
-                            AreaId = "A2-641ec683-3771-4b04-8993-cb0f37702591",
+                            LocationId = "L2",
+                            AreaId = "A2",
+                            LocationType = 1
+                        },
+                        new
+                        {
+                            LocationId = "L3",
+                            AreaId = "A3",
+                            LocationType = 1
+                        },
+                        new
+                        {
+                            LocationId = "L4",
+                            AreaId = "A3",
                             LocationType = 1
                         });
                 });
@@ -98,7 +109,6 @@ namespace server.Migrations
                         .HasColumnType("datetime(6)");
 
                     b.Property<string>("FromLocId")
-                        .IsRequired()
                         .HasColumnType("varchar(255)");
 
                     b.Property<int>("OrderStatus")
@@ -111,11 +121,9 @@ namespace server.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("ToLocId")
-                        .IsRequired()
                         .HasColumnType("varchar(255)");
 
                     b.Property<string>("UserID")
-                        .IsRequired()
                         .HasColumnType("varchar(255)");
 
                     b.HasKey("OrderId");
@@ -131,13 +139,13 @@ namespace server.Migrations
                     b.HasData(
                         new
                         {
-                            OrderId = "O1-5a7bad59-2e44-4614-89c7-18679c6cc074",
-                            CreatedAt = new DateTime(2024, 2, 22, 14, 34, 18, 91, DateTimeKind.Utc).AddTicks(7551),
-                            FromLocId = "L1-eb7f8845-6092-44da-8a97-1dd20d9def9b",
+                            OrderId = "O1-43b06211-ff38-4401-9e46-53198b76aa0c",
+                            CreatedAt = new DateTime(2024, 2, 29, 12, 32, 4, 573, DateTimeKind.Utc).AddTicks(225),
+                            FromLocId = "L1",
                             OrderStatus = 0,
                             Pieces = 7,
-                            ToLocId = "L2-eecfc614-3b89-4ef9-bd4e-c640e76b3274",
-                            UserID = "U1-78bb3bfe-d057-478c-b50f-f79e4ddb3d57"
+                            ToLocId = "L2",
+                            UserID = "U1-0534de5a-e37d-4034-a1f6-645b4054206e"
                         });
                 });
 
@@ -162,13 +170,15 @@ namespace server.Migrations
                     b.HasData(
                         new
                         {
-                            TruckId = "T1-e0a1a249-fbda-4c74-b4e0-c9d8d8c83261",
-                            CurrentAreaId = "A1-9faa3e4d-663e-4c88-a80f-84e7279daf7a"
+                            TruckId = "T1-9b68a6a4-0880-4955-a4ef-1b4e4ec9c0dd",
+                            CurrentAreaId = "A1",
+                            registrationnumber = "abc123"
                         },
                         new
                         {
-                            TruckId = "T2-097b6c50-3728-4c93-9e65-5ffa91868e18",
-                            CurrentAreaId = "A2-641ec683-3771-4b04-8993-cb0f37702591"
+                            TruckId = "T2-09be274e-0c79-4833-b38a-6c6cb6a5b553",
+                            CurrentAreaId = "A2",
+                            registrationnumber = "bcd234"
                         });
                 });
 
@@ -185,11 +195,9 @@ namespace server.Migrations
                         .HasColumnType("tinyint(1)");
 
                     b.Property<string>("OrderId")
-                        .IsRequired()
                         .HasColumnType("varchar(255)");
 
                     b.Property<string>("TruckId")
-                        .IsRequired()
                         .HasColumnType("varchar(255)");
 
                     b.Property<DateTime?>("UnassignedAt")
@@ -209,8 +217,8 @@ namespace server.Migrations
                             TruckOrderAssignmentId = 1,
                             AssignedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsAssigned = true,
-                            OrderId = "O1-5a7bad59-2e44-4614-89c7-18679c6cc074",
-                            TruckId = "T1-e0a1a249-fbda-4c74-b4e0-c9d8d8c83261"
+                            OrderId = "O1-43b06211-ff38-4401-9e46-53198b76aa0c",
+                            TruckId = "T1-9b68a6a4-0880-4955-a4ef-1b4e4ec9c0dd"
                         });
                 });
 
@@ -247,10 +255,10 @@ namespace server.Migrations
                         new
                         {
                             TruckUserId = 1,
-                            AssignedAt = new DateTime(2024, 2, 22, 14, 34, 18, 91, DateTimeKind.Utc).AddTicks(7587),
+                            AssignedAt = new DateTime(2024, 2, 29, 12, 32, 4, 573, DateTimeKind.Utc).AddTicks(271),
                             IsAssigned = true,
-                            TruckId = "T1-e0a1a249-fbda-4c74-b4e0-c9d8d8c83261",
-                            UserId = "U1-78bb3bfe-d057-478c-b50f-f79e4ddb3d57"
+                            TruckId = "T1-9b68a6a4-0880-4955-a4ef-1b4e4ec9c0dd",
+                            UserId = "U1-0534de5a-e37d-4034-a1f6-645b4054206e"
                         });
                 });
 
@@ -280,14 +288,14 @@ namespace server.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "U1-78bb3bfe-d057-478c-b50f-f79e4ddb3d57",
-                            PasswordHash = "$2a$11$valJRPFPqtCYAwil5TyaZOtPuOPpVMI6gv5yMwTUXDTtj.07kVJEW",
+                            UserId = "U1-0534de5a-e37d-4034-a1f6-645b4054206e",
+                            PasswordHash = "$2a$11$eu8D8Gegw0fv.8hCShDkReY3bkGSsB/FffekcXpkuLLxqpdo.ajYW",
                             Role = 0,
                             Username = "adminUser"
                         },
                         new
                         {
-                            UserId = "U2-f351a8af-003b-41e8-bf6d-72e657f794bc",
+                            UserId = "U2-5fb0abd3-7479-43f8-899f-cd023701807e",
                             PasswordHash = "hashedPassword2",
                             Role = 1,
                             Username = "standardUser"
@@ -299,8 +307,7 @@ namespace server.Migrations
                     b.HasOne("Area", "Area")
                         .WithMany("Locations")
                         .HasForeignKey("AreaId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("Area");
                 });
@@ -309,21 +316,15 @@ namespace server.Migrations
                 {
                     b.HasOne("Location", "FromLocation")
                         .WithMany("FromOrders")
-                        .HasForeignKey("FromLocId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("FromLocId");
 
                     b.HasOne("Location", "ToLocation")
                         .WithMany("ToOrders")
-                        .HasForeignKey("ToLocId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ToLocId");
 
                     b.HasOne("User", "User")
                         .WithMany("Orders")
-                        .HasForeignKey("UserID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UserID");
 
                     b.Navigation("FromLocation");
 
@@ -345,15 +346,11 @@ namespace server.Migrations
                 {
                     b.HasOne("Order", "Order")
                         .WithMany("TruckOrderAssignments")
-                        .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("OrderId");
 
                     b.HasOne("Truck", "Truck")
                         .WithMany("TruckOrderAssignments")
-                        .HasForeignKey("TruckId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("TruckId");
 
                     b.Navigation("Order");
 
