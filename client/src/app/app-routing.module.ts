@@ -17,8 +17,8 @@ import { AreaComponent } from './area/area.component';
 import { AreaCrudpageComponent } from './area/area-crudpage/area-crudpage.component';
 import { CreateareaComponent } from './area/createarea/createarea.component';
 import { AreaDetailsComponent } from './area/area-detail/area-detail.component';
-import { CrudTruckComponent } from './Trucks/crud-truck/crud-truck.component';
 import { TruckPageComponent } from './Trucks/truck-page/truck-page.component';
+import { CreateTruckComponent } from './Trucks/create-truck/create-truck.component';
 
 
 
@@ -34,12 +34,12 @@ const routes: Routes = [
   //{ path: 'feature', loadChildren: () => import('./feature/feature.module').then(m => m.FeatureModule), canActivate: [AuthGuard] }, Add canActivate: [AuthGuard] to all other routes except 'home',
   { path: 'userdetail', component: UserdetailComponent },
   { path: 'usercreate', component: UsercreateComponent },
-  { path: 'view-truck/:id', component: CrudTruckComponent }, 
+  { path: 'createtruck', component: CreateTruckComponent }, 
   { path: 'area/:areaId', component: AreaDetailsComponent },
   { path: 'homepage', component:HomeComponent},
   { path: 'arealist', component:AreaComponent},
   { path: 'orderlist', component:OrderdetailComponent},
-  { path: 'choosetruck', component:TruckPageComponent},
+  { path: 'truckpage', component:TruckPageComponent},
   { path: 'areacrud', component:AreaCrudpageComponent},
   {path: 'createarea', component:CreateareaComponent}, 
 

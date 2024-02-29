@@ -47,7 +47,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { API_BASE_URL } from './services/api';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { TruckPageComponent } from './Trucks/truck-page/truck-page.component';
-import { CrudTruckComponent } from './Trucks/crud-truck/crud-truck.component';
+import { CreateTruckComponent } from './Trucks/create-truck/create-truck.component';
 
 
 @NgModule({
@@ -66,7 +66,7 @@ import { CrudTruckComponent } from './Trucks/crud-truck/crud-truck.component';
     AreaComponent,
     AreaCrudpageComponent,
     CreateareaComponent,
-    CrudTruckComponent,
+    CreateTruckComponent,
     ConfirmationDialogComponent,
     AreaDetailsComponent,
     ConfirmDialogComponent,
@@ -78,6 +78,7 @@ import { CrudTruckComponent } from './Trucks/crud-truck/crud-truck.component';
     AdminlocationComponent,
     UserlocationComponent,
     AdmineditComponent,
+    CreateTruckComponent,
     
     
   ],

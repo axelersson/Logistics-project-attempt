@@ -1,75 +1,43 @@
-/* choose-truck.component.css */
-:host {
-  display: block;
-  padding: 10px;
+button {
+  font-size: 24px;
+  margin: 10px;
+  padding: 8rem;
+  background: linear-gradient(0deg, rgb(126, 126, 126) 0%, rgb(200, 199, 199) 100%);
+  box-shadow: 0 2px 4px 0 rgba(0,0,0,.2);
+}
+mat-form-field {
+  margin: 10px;
+  width: 100%;
+  padding: 1.5rem;
+  background-color: rgba(41, 99, 119, 0.832);
+  box-shadow: 0 2px 4px 0 rgba(0,0,0,.2);
 }
 
-.list-container {
+
+/* .list-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
+
+.button-container {
   display: flex;
-  flex-wrap: wrap; /* Allows items to wrap to the next line */
-  gap: 10px; /* Space between items */
-  justify-content: flex-start; /* Align items at the start of the container */
-  padding: 0;
-  margin: 0;
-  width: calc(100% - 20px); /* Adjust width based on host padding */
+  justify-content: center;
+  align-items: center;
+  gap: 10px; 
+  margin-top: 20px; 
 }
 
-.truck-list {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
-  width: 100%; /* Full width of its container */
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px; /* Adjust gap between boxes */
-}
-
-.truck-list li {
-  background-color: green;
-  color: white;
-  padding: 10px;
-  margin: 0; /* Remove margin to allow flex to manage spacing */
-  cursor: pointer;
-  flex: 1 1 auto; /* Flex grow, do not shrink, auto basis */
-  min-width: 180px; /* Prevent boxes from shrinking below 180px */
-  max-width: calc(25% - 10px); /* Adjust for gap */
-  box-sizing: border-box;
-  text-align: center;
-  border: 2px solid #000000; /* Adds a border around each box */
-  border-radius: 8px; /* Optional: Adds rounded corners for a smoother look */
-}
-
-/* General styling for larger buttons */
 .large-button {
-  font-size: 18px; /* Larger font size */
-  padding: 12px 24px; /* Larger padding */
-  margin: 5px; /* Space between buttons */
-  min-width: 120px; /* Minimum width to ensure buttons are wider */
+  font-size: 1.2rem; 
+  padding: 0.5rem 1rem; 
 }
 
-.cancel-button {
-  font-size: 18px; /* Larger font size for consistency */
-  padding: 12px 24px; /* Larger padding for easier touch */
-  position: absolute;
-  top: 20px;
-  left: 20px;
-  z-index: 1000; /* Ensure the button is above other elements */
-}
-
-/* Adjust the container to prevent overlap with the absolute positioned cancel button */
-.list-container {
-  padding-top: 30px; /* Adjust as necessary */
-}
-
-
-@media (max-width: 768px) {
-  .truck-list li {
-    max-width: calc(50% - 10px); /* Adjust for smaller screens */
-  }
-}
-
-@media (max-width: 480px) {
-  .truck-list li {
-    max-width: 100%; /* Full width on very small screens */
-  }
-}
+.fixed-bottom-button, .cancel-button {
+  position: fixed;
+  width: 80vw;
+  padding: 2vh 1vw;
+  bottom: 20px;
+  z-index: 1000;
+} */

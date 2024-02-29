@@ -1,18 +1,36 @@
-<!-- choose-truck.component.html -->
-<!-- Placeholder "Cancel" button with larger styling -->
-<button mat-stroked-button class="cancel-button large-button">Cancel</button>
+<div fxLayout="row" fxLayoutAlign="space-between center">
+  <mat-form-field appearance="fill">
+    <mat-label>Trucks</mat-label>
+    <mat-select [(value)]="selectedTruckId" (selectionChange)="selectedTruckId = $event.value">
+      <mat-option *ngFor="let truck of trucks" [value]="truck.truckId">
+        {{ truck.truckId }} 
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  </div>
+    <div fxLayout="row" fxLayoutAlign="space-between center">
+        <button mat-button routerLink="/createtruck" color="primary" fxFlex="100%" routerLinkActive="active">Create or Update Truck</button>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="space-between center">
+        <button mat-button (click)="deleteTruck()" color="primary" fxFlex="50%">Delete Truck</button>
+        <button mat-button (click)="viewTruck()" color="primary" fxFlex="50%" routerLinkActive="active">View Truck</button>
+      </div>
 
-<div class="list-container">
+
+<!-- <div class="list-container">
   <mat-card *ngFor="let truck of trucks" class="truck-card">
     <mat-card-header>
       <mat-card-title>Truck ID: {{ truck.truckId }}</mat-card-title>
       <mat-card-subtitle>Current Area ID: {{ truck.currentAreaId }}</mat-card-subtitle>
     </mat-card-header>
-    <mat-card-actions>
-      <button mat-raised-button color="primary" class="large-button">Book</button>
-      <button mat-button [routerLink]="['/view-truck', truck.truckId]">View</button>
-    </mat-card-actions>
+    <mat-card-content>
+      <!-- Add more truck details here as needed -->
+    <!-- </mat-card-content>
+    <mat-card-actions> -->
+<!--       <button mat-raised-button color="primary" (click)="bookTruck(truck.truckId)">Book</button>
+ -->      <!-- Include other action buttons here -->
+    <!-- </mat-card-actions>
   </mat-card>
-</div>
+</div> --> 
 
 

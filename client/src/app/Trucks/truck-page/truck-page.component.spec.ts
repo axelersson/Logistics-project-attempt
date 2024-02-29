@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TruckPageComponent } from './truck-page.component';
 
-describe('ChooseTruckComponent', () => {
+describe('TruckPageComponent', () => {
   let component: TruckPageComponent;
   let fixture: ComponentFixture<TruckPageComponent>;
 
