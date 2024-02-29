@@ -46,8 +46,8 @@ import { AdmineditComponent } from './adminedit/adminedit.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { API_BASE_URL } from './services/api';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { ChooseTruckComponent } from './Trucks/choose-truck/choose-truck.component';
-import { ViewTruckComponent } from './Trucks/view-truck/view-truck.component';
+import { TruckPageComponent } from './Trucks/truck-page/truck-page.component';
+import { CrudTruckComponent } from './Trucks/crud-truck/crud-truck.component';
 
 
 @NgModule({
@@ -59,14 +59,14 @@ import { ViewTruckComponent } from './Trucks/view-truck/view-truck.component';
     OrderdetailComponent,
     LogoutComponent,
     LocationListComponent,
-    ChooseTruckComponent,
+    TruckPageComponent,
     LocationListComponent,
     UserdetailComponent,
     UsercreateComponent,
     AreaComponent,
     AreaCrudpageComponent,
     CreateareaComponent,
-    ViewTruckComponent,
+    CrudTruckComponent,
     ConfirmationDialogComponent,
     AreaDetailsComponent,
     ConfirmDialogComponent,

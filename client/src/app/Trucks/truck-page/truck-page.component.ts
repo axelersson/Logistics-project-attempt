@@ -6,11 +6,11 @@ import { ITruck } from '../../services/api';
 
 
 @Component({
-  selector: 'app-choose-truck',
-  templateUrl: './choose-truck.component.html',
-  styleUrls: ['./choose-truck.component.css']
+  selector: 'app-truck-page',
+  templateUrl: './truck-page.component.html',
+  styleUrls: ['./truck-page.component.css']
 })
-export class ChooseTruckComponent  implements OnInit {
+export class TruckPageComponent  implements OnInit {
 bookTruck(arg0: string|undefined) {
 throw new Error('Method not implemented.');
 }
