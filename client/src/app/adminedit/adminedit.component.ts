@@ -63,7 +63,7 @@ export class AdmineditComponent {
             },
             error: (err) => {
                 // 显示从服务返回的错误消息
-                const errorMsg = err.error.message || 'Failed to create location';
+                const errorMsg = err.message || 'Failed to create location';
                 this.snackBar.open(errorMsg, 'Close', { duration: 3000 });
             }
         });
