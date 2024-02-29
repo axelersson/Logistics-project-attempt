@@ -39,7 +39,6 @@ export class AdmineditComponent {
         this.snackBar.open('Please complete all fields', 'Close', { duration: 3000 });
         return;
     }
-
     // 检查是否处于编辑模式
     if (this.isEditing) {
         // 更新现有位置
@@ -64,7 +63,7 @@ export class AdmineditComponent {
             },
             error: (err) => {
                 // 显示从服务返回的错误消息
-                const errorMsg = err.error.message || 'Failed to create location';
+                const errorMsg = err.message || 'Failed to create location';
                 this.snackBar.open(errorMsg, 'Close', { duration: 3000 });
             }
         });
