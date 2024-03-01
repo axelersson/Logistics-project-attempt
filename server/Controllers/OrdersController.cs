@@ -25,7 +25,7 @@ public class OrdersController : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(OrdersGetAllResponse))]
     public async Task<IActionResult> GetOrders()
     {
-        var orders = await _context.Orders.ToListAsync();
+        var orders = await _context.Orders.Include(o => o.TruckOrderAssignments).ToListAsync();
         return Ok(new OrdersGetAllResponse { Orders = orders });
     }
 
@@ -44,32 +44,6 @@ public class OrdersController : ControllerBase
         return Ok(order);
     }
 
-    // Get all rolls of steel associated with an order
-    // REMOVED
-//     [HttpGet("{orderId}/rolls")]
-//     public async Task<IActionResult> GetOrderRolls(string orderId)
-//     {
-//     var order = await _context.Orders
-//         .Select(o => new { OrderId = o.OrderId, DestinationId = o.DestinationId }) // Only select the fields we need
-//         .FirstOrDefaultAsync(o => o.OrderId == orderId);
-
-//     if (order == null)
-//     {
-//         return NotFound();
-//     }
-
-//     var orderRolls = await _context.OrderRolls
-//         .Where(or => or.OrderId == orderId)
-//         .ToListAsync();
-
-//     var rollOfSteelIds = orderRolls.Select(or => or.RollOfSteelId).ToList();
-
-//     var rollsOfSteel = await _context.RollsOfSteel
-//         .Where(roll => rollOfSteelIds.Contains(roll.RollOfSteelId))
-//         .ToListAsync();
-
-//     return Ok(new { Order = order, RollsOfSteel = rollsOfSteel });
-// }
 
 
     // CREATE NEW ORDER
@@ -143,6 +117,7 @@ public class OrdersController : ControllerBase
     public async Task<IActionResult> DeleteOrder(string orderId)
     {
         var order = await _context.Orders.FindAsync(orderId);
+        var truckOrderAssignment = await _context.TruckOrderAssignments.FirstOrDefaultAsync(toa => toa.OrderId == orderId);
 
         if (order == null)
         {
