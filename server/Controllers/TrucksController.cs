@@ -98,12 +98,29 @@ public class TrucksController : ControllerBase
     public async Task<IActionResult> DeleteTruck(string truckId)
     {
         var truck = await _context.Trucks.FindAsync(truckId);
+        var truckOrderAssignment = await _context.TruckOrderAssignments.FirstOrDefaultAsync(toa => toa.TruckId == truckId);
+        var truckUser = await _context.TruckUsers.FirstOrDefaultAsync(tu => tu.TruckId == truckId);
 
         if (truck == null)
         {
             return NotFound();
         }
 
+        if (truckOrderAssignment != null)
+        {
+            truckOrderAssignment.IsAssigned = false;
+            truckOrderAssignment.TruckId = null;
+            truckOrderAssignment.UnassignedAt = DateTime.Now;
+            _context.Entry(truckOrderAssignment).State = EntityState.Modified;
+
+        }
+        if (truckUser != null)
+        {
+            truckUser.IsAssigned = false;
+            truckUser.TruckId = null;
+            truckUser.UnassignedAt = DateTime.Now;
+            _context.Entry(truckUser).State = EntityState.Modified;
+        }
         _context.Trucks.Remove(truck);
         await _context.SaveChangesAsync();
 
