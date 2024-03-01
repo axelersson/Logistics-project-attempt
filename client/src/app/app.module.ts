@@ -47,6 +47,7 @@ import { AdmineditComponent } from './adminedit/adminedit.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { API_BASE_URL } from './services/api';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { AdminorderComponent } from './adminorder/adminorder.component';
 
 
 @NgModule({
@@ -77,7 +78,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     AdminlocationComponent,
     UserlocationComponent,
     AdmineditComponent,
-    
+    AdminorderComponent
     
   ],
   imports: [
@@ -90,17 +91,16 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     HttpClientModule,
     MatSlideToggleModule,
     MatButtonModule,
-    
     MatToolbarModule,
-    MatCardModule,
     MatIconButton,
+    MatCardModule,
     // Include the Angular Material modules
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
     MatDialogModule,
     MatIconModule,
-    MatCardModule,
+
     MatSelectModule,
     MatFormFieldModule,
     MatInputModule,
