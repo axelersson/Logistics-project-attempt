@@ -27,7 +27,7 @@ public class LocationsController : ControllerBase
         var locations = await _context.Locations.ToListAsync();
         return Ok(new LocationsGetAllResponse { Locations = locations });
     }
-
+    
     [HttpGet("{locationId}")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Location))]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -48,15 +48,6 @@ public class LocationsController : ControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> CreateLocation([FromBody] Location location)
     {
-        // if (location == null)
-        // {
-        //     return BadRequest();
-        // }
-
-        // _context.Locations.Add(location);
-        // await _context.SaveChangesAsync();
-
-        // return CreatedAtAction(nameof(GetLocationById), new { locationId = location.LocationId }, location);
         if (location == null)
     {
         return BadRequest();
@@ -143,7 +134,6 @@ public class LocationsController : ControllerBase
                 throw;
             }
         }
-
         return NoContent();
     }
 
