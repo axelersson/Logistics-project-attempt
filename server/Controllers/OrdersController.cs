@@ -23,7 +23,7 @@ public class OrdersController : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(OrdersGetAllResponse))]
     public async Task<IActionResult> GetOrders()
     {
-        var orders = await _context.Orders.ToListAsync();
+        var orders = await _context.Orders.Include(o => o.TruckOrderAssignments).ToListAsync();
         return Ok(new OrdersGetAllResponse { Orders = orders });
     }
 
@@ -41,6 +41,7 @@ public class OrdersController : ControllerBase
 
         return Ok(order);
     }
+
 
 
     // CREATE NEW ORDER
@@ -114,6 +115,7 @@ public class OrdersController : ControllerBase
     public async Task<IActionResult> DeleteOrder(string orderId)
     {
         var order = await _context.Orders.FindAsync(orderId);
+        var truckOrderAssignment = await _context.TruckOrderAssignments.FirstOrDefaultAsync(toa => toa.OrderId == orderId);
 
         if (order == null)
         {

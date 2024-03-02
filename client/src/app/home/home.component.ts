@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core'; // Ensure OnInit is imported
 import { AuthService } from '../services/auth.service'; // Correct import statement
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-homepage',
@@ -10,8 +12,8 @@ export class HomeComponent implements OnInit {
   // Implement OnInit interface
   // You can declare a class property if you need to use it in your template
   userRole: string | null = null;
-
-  constructor(private authService: AuthService) {} // Correctly inject AuthService
+  CurrentUserisAdmin = false
+  constructor(private authService: AuthService, private route: Router) {} // Correctly inject AuthService
 
   ngOnInit(): void {
     // Directly use authService to access getUserRole
@@ -24,5 +26,17 @@ export class HomeComponent implements OnInit {
       const decodedToken = this.authService.decodeJwtToken(token);
       console.log(decodedToken); // Log decoded token details, if necessary
     }
+  }
+
+  location():void{
+    if(this.authService.getUserRole() === 'Admin')
+    {
+      this.route.navigate(['/adminlocation'])
+    }
+    else
+    {
+      this.route.navigate(['/userlocation'])
+    }
+
   }
 }

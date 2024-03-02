@@ -15,7 +15,7 @@ export class UserlocationComponent {
     this.locationService.getLocations().subscribe({
       next: (data) => {
         this.locations = data;
-        console.log(this.locations);
+
       },
       error: (err) => {
         console.error('Error fetching locations:', err);
@@ -27,13 +27,13 @@ export class UserlocationComponent {
   view() {
     // 实现查看逻辑
     this.router.navigate(['/locationlist'])
-    console.log('Viewing location...');
+
   }
 
   cancel() {
     // 实现取消逻辑
     this.router.navigate(['/homepage'])
-    console.log('Operation cancelled.');
+
   }
 
 }

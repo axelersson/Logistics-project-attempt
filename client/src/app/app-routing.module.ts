@@ -19,6 +19,7 @@ import { AreaCrudpageComponent } from './area/area-crudpage/area-crudpage.compon
 import { CreateareaComponent } from './area/createarea/createarea.component';
 import { ViewTruckComponent } from './view-truck/view-truck.component'; // Import the new component
 import { AreaDetailsComponent } from './area/area-detail/area-detail.component';
+import { AdminorderComponent } from './adminorder/adminorder.component';
 
 
 
@@ -41,7 +42,8 @@ const routes: Routes = [
   { path: 'orderlist', component:OrderdetailComponent},
   { path: 'choosetruck', component:ChooseTruckComponent},
   { path: 'areacrud', component:AreaCrudpageComponent},
-  {path: 'createarea', component:CreateareaComponent}
+  {path: 'createarea', component:CreateareaComponent}, 
+  {path: 'adminorder', component:AdminorderComponent}, 
 
 ];
 

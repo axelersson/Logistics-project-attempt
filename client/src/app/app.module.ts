@@ -48,6 +48,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { API_BASE_URL } from './services/api';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { JwtInterceptor } from './services/jwt-interceptor';
+import { AdminorderComponent } from './adminorder/adminorder.component';
 
 @NgModule({
   declarations: [
@@ -77,6 +78,7 @@ import { JwtInterceptor } from './services/jwt-interceptor';
     AdminlocationComponent,
     UserlocationComponent,
     AdmineditComponent,
+    AdminorderComponent,
   ],
   imports: [
     BrowserModule,
@@ -90,15 +92,15 @@ import { JwtInterceptor } from './services/jwt-interceptor';
     MatButtonModule,
 
     MatToolbarModule,
-    MatCardModule,
     MatIconButton,
+    MatCardModule,
     // Include the Angular Material modules
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
     MatDialogModule,
     MatIconModule,
-    MatCardModule,
+
     MatSelectModule,
     MatFormFieldModule,
     MatInputModule,
