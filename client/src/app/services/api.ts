@@ -131,7 +131,7 @@ export class Client {
   areasPOST(body: Area | undefined): Observable<Area> {
     let url_ = this.baseUrl + '/api/Areas';
     url_ = url_.replace(/[?&]$/, '');
-    console.log(body)
+
     const content_ = JSON.stringify(body);
 
     let options_: any = {
@@ -441,12 +441,11 @@ export class Client {
    */
   areasDELETE(areaId: string): Observable<void> {
     let url_ = this.baseUrl + '/api/Areas/{areaId}';
-    console.log(url_);
     if (areaId === undefined || areaId === null)
       throw new Error("The parameter 'areaId' must be defined.");
     url_ = url_.replace('{areaId}', encodeURIComponent('' + areaId));
     url_ = url_.replace(/[?&]$/, '');
-    console.log(url_);
+
     let options_: any = {
       observe: 'response',
       responseType: 'blob',

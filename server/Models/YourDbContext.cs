@@ -23,6 +23,8 @@ namespace LogisticsApp.Data // Change to your actual namespace
         // public DbSet<OrderRoll> OrderRolls { get; set; } REMOVED
         public DbSet<TruckOrderAssignment> TruckOrderAssignments { get; set; }
 
+        public DbSet<LogEntry> LogEntries { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {   
             //#################################################################################### COMMENT OUT START FOR NO DATABASE OBJECT SEEDING
@@ -60,12 +62,12 @@ namespace LogisticsApp.Data // Change to your actual namespace
 
             string plainPassword1 = "yourPasswordHere";
             // Hash the password
-            string hashedPassword1 = BCrypt.Net.BCrypt.HashPassword(plainPassword1);
+            string plainPassword2 = "hashedPassword2";
             string plainPassword3 = "hej";
 
             modelBuilder.Entity<User>().HasData(
                 new User { UserId = user1Id, Username = "adminUser", Role = User.UserRole.Admin, PasswordHash = BCrypt.Net.BCrypt.HashPassword(plainPassword1) },
-                new User { UserId = user2Id, Username = "standardUser", Role = User.UserRole.User, PasswordHash = "hashedPassword2" },
+                new User { UserId = user2Id, Username = "standardUser", Role = User.UserRole.User, PasswordHash = BCrypt.Net.BCrypt.HashPassword(plainPassword2) },
                 new User { UserId = user3Id, Username = "hej", Role = User.UserRole.Admin, PasswordHash = BCrypt.Net.BCrypt.HashPassword(plainPassword3) }
             );
 

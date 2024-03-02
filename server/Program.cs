@@ -51,7 +51,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddOpenApiDocument();
 builder.Services.AddAuthorization();
-builder.Services.AddSingleton<ILoggerService, LoggerService>();
+builder.Services.AddScoped<ILoggerService, LoggerService>();
 builder.Services.AddSingleton<ITokenService, TokenService>();
 
 

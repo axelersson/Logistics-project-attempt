@@ -26,6 +26,7 @@ public class TrucksController : ControllerBase
     {
         var trucks = await _context.Trucks.ToListAsync();
         return Ok(new TrucksGetAllResponse { Trucks = trucks });
+        
     }
 
 

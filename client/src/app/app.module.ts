@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { NavigationComponent } from './navigation/navigation.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatButtonModule, MatIconButton } from '@angular/material/button';
 
@@ -47,7 +47,7 @@ import { AdmineditComponent } from './adminedit/adminedit.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { API_BASE_URL } from './services/api';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-
+import { JwtInterceptor } from './services/jwt-interceptor';
 
 @NgModule({
   declarations: [
@@ -72,13 +72,11 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     AppComponent, // Declare it here
     LoginComponent, // Declare other components here
     NavigationComponent, // ... any other components
-    
+
     LocationListComponent,
     AdminlocationComponent,
     UserlocationComponent,
     AdmineditComponent,
-    
-    
   ],
   imports: [
     BrowserModule,
@@ -90,7 +88,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     HttpClientModule,
     MatSlideToggleModule,
     MatButtonModule,
-    
+
     MatToolbarModule,
     MatCardModule,
     MatIconButton,
@@ -107,9 +105,14 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MatOptionModule,
     BrowserAnimationsModule,
     FlexLayoutModule,
-    MatSnackBarModule
+    MatSnackBarModule,
   ],
-  providers: [Client, DummyDataService,{ provide: API_BASE_URL, useValue: 'http://localhost:5000' }], // Provide your services here
+  providers: [
+    Client,
+    DummyDataService,
+    { provide: API_BASE_URL, useValue: 'http://localhost:5000' },
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+  ], // Provide your services here
   bootstrap: [AppComponent], // Bootstrap the AppComponent
 })
 export class AppModule {}
