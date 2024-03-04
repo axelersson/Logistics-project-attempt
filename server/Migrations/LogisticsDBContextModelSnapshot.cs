@@ -156,22 +156,13 @@ namespace server.Migrations
                     b.HasData(
                         new
                         {
-<<<<<<< HEAD
-                            OrderId = "O1-98d35218-ecf6-4cd9-92d2-7c82f0d8f52a",
-                            CreatedAt = new DateTime(2024, 2, 29, 9, 55, 39, 647, DateTimeKind.Utc).AddTicks(7811),
-=======
-                            OrderId = "O1-c6542b90-b9b2-47bb-99ec-84ab16ba24bd",
-                            CreatedAt = new DateTime(2024, 3, 2, 18, 36, 32, 243, DateTimeKind.Utc).AddTicks(4079),
->>>>>>> main
+                            OrderId = "O1-949ad451-2cb3-4d1b-b60c-f9a630d34be0",
+                            CreatedAt = new DateTime(2024, 3, 4, 10, 3, 36, 271, DateTimeKind.Utc).AddTicks(2955),
                             FromLocId = "L1",
                             OrderStatus = 0,
                             Pieces = 7,
                             ToLocId = "L2",
-<<<<<<< HEAD
-                            UserID = "U1-ed6747c9-0a63-4538-94de-0df5a5631989"
-=======
-                            UserID = "U1-caf86970-6e40-4657-a8e4-05ded88a5307"
->>>>>>> main
+                            UserID = "U1-a2d93989-b276-4b1a-8a97-1c5d511f55a2"
                         });
                 });
 
@@ -196,21 +187,13 @@ namespace server.Migrations
                     b.HasData(
                         new
                         {
-<<<<<<< HEAD
-                            TruckId = "T1-653334e5-4801-4e72-a0e9-819a7e8b2e34",
-=======
-                            TruckId = "T1-93459255-3cf6-48d1-ac3b-6a1f16aa8469",
->>>>>>> main
+                            TruckId = "T1-da63672a-51d4-4987-b702-6b9b693f437f",
                             CurrentAreaId = "A1",
                             registrationnumber = "abc123"
                         },
                         new
                         {
-<<<<<<< HEAD
-                            TruckId = "T2-e48c65b4-e3ce-4306-b814-8d13e53771c4",
-=======
-                            TruckId = "T2-9c2d75b5-27d0-4a0a-90b5-c11c027e14f5",
->>>>>>> main
+                            TruckId = "T2-a0beb4aa-9374-4c04-8338-3f88366604d6",
                             CurrentAreaId = "A2",
                             registrationnumber = "bcd234"
                         });
@@ -251,13 +234,8 @@ namespace server.Migrations
                             TruckOrderAssignmentId = 1,
                             AssignedAt = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             IsAssigned = true,
-<<<<<<< HEAD
-                            OrderId = "O1-98d35218-ecf6-4cd9-92d2-7c82f0d8f52a",
-                            TruckId = "T1-653334e5-4801-4e72-a0e9-819a7e8b2e34"
-=======
-                            OrderId = "O1-c6542b90-b9b2-47bb-99ec-84ab16ba24bd",
-                            TruckId = "T1-93459255-3cf6-48d1-ac3b-6a1f16aa8469"
->>>>>>> main
+                            OrderId = "O1-949ad451-2cb3-4d1b-b60c-f9a630d34be0",
+                            TruckId = "T1-da63672a-51d4-4987-b702-6b9b693f437f"
                         });
                 });
 
@@ -294,17 +272,10 @@ namespace server.Migrations
                         new
                         {
                             TruckUserId = 1,
-<<<<<<< HEAD
-                            AssignedAt = new DateTime(2024, 2, 29, 9, 55, 39, 647, DateTimeKind.Utc).AddTicks(7858),
+                            AssignedAt = new DateTime(2024, 3, 4, 10, 3, 36, 271, DateTimeKind.Utc).AddTicks(3011),
                             IsAssigned = true,
-                            TruckId = "T1-653334e5-4801-4e72-a0e9-819a7e8b2e34",
-                            UserId = "U1-ed6747c9-0a63-4538-94de-0df5a5631989"
-=======
-                            AssignedAt = new DateTime(2024, 3, 2, 18, 36, 32, 243, DateTimeKind.Utc).AddTicks(4126),
-                            IsAssigned = true,
-                            TruckId = "T1-93459255-3cf6-48d1-ac3b-6a1f16aa8469",
-                            UserId = "U1-caf86970-6e40-4657-a8e4-05ded88a5307"
->>>>>>> main
+                            TruckId = "T1-da63672a-51d4-4987-b702-6b9b693f437f",
+                            UserId = "U1-a2d93989-b276-4b1a-8a97-1c5d511f55a2"
                         });
                 });
 
@@ -334,32 +305,22 @@ namespace server.Migrations
                     b.HasData(
                         new
                         {
-<<<<<<< HEAD
-                            UserId = "U1-ed6747c9-0a63-4538-94de-0df5a5631989",
-                            PasswordHash = "$2a$11$RtSQzMxmQSRq4lsXxopNxOp1xUnkfgGergWzfdbbpY6/HlJqCxDQ2",
-=======
-                            UserId = "U1-caf86970-6e40-4657-a8e4-05ded88a5307",
-                            PasswordHash = "$2a$11$fhL2GnsSaZ6z8HmHGNauUO/An6yK7oEaxPYquOFM3hDW/Rjz2C.Dy",
->>>>>>> main
+                            UserId = "U1-a2d93989-b276-4b1a-8a97-1c5d511f55a2",
+                            PasswordHash = "$2a$11$Kjce.1o0OFLISRQDw1eUcOSc7f9xoNsZRk7dKlrr9xjwDn/0rQKI.",
                             Role = 0,
                             Username = "adminUser"
                         },
                         new
                         {
-<<<<<<< HEAD
-                            UserId = "U2-8e4cc73a-650b-4877-8a83-ca2a10025fa2",
-                            PasswordHash = "hashedPassword2",
-=======
-                            UserId = "U2-e3861701-6748-475a-9b01-67e47686b26a",
-                            PasswordHash = "$2a$11$bzl1lNCrhEo.220IUjAZXuyaDM8hLeQeNOot0waigWnXMVAkzet0a",
->>>>>>> main
+                            UserId = "U2-92db5743-4af8-46bd-b66e-c6412ebacf39",
+                            PasswordHash = "$2a$11$p1LqmWAityDLSJ1qEKZzB.6Dmvkz43A.zBSynUlrhpVu6QD0vpiDe",
                             Role = 1,
                             Username = "standardUser"
                         },
                         new
                         {
-                            UserId = "U3-9427a270-c7a9-4037-82cc-200512e2d7ba",
-                            PasswordHash = "$2a$11$5tkjkid6BGXNkUPoYQAyA.N65vqhAzG9Ys8obcU.z0KsUpEd3hCEe",
+                            UserId = "U3-341ca11b-a486-45df-ac57-22774d7eab0a",
+                            PasswordHash = "$2a$11$a5EQ7H.YE9zCi1wtCYbz/O.uRnVB7Ff40Tflu3832qssSGCvBVR/m",
                             Role = 0,
                             Username = "hej"
                         });
