@@ -1,14 +1,25 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  constructor() {}
+  // Initialize a BehaviorSubject with the initial login status
+  private loggedInStatus = new BehaviorSubject<boolean>(this.isLoggedIn());
 
-  // Save the token to localStorage
+  constructor(private router: Router) {}
+
+  // Observable for components to subscribe to for login status changes
+  get isLoggedInObservable() {
+    return this.loggedInStatus.asObservable();
+  }
+
+  // Save the token to localStorage and update the login status
   setToken(token: string): void {
     localStorage.setItem('token', token);
+    this.loggedInStatus.next(true); // Notify subscribers of the change
   }
 
   // Retrieve the token from localStorage
@@ -58,9 +69,11 @@ export class AuthService {
     return role === 'admin';
   }
 
-  // Clear user token and role from localStorage
+  // Clear user token and role from localStorage and update login status
   logout(): void {
     localStorage.removeItem('token');
     localStorage.removeItem('role');
+    this.loggedInStatus.next(false); // Notify subscribers of the change
+    this.router.navigate(['/login']);
   }
 }

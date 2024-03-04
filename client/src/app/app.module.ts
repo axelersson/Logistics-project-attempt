@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { NavigationComponent } from './navigation/navigation.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatButtonModule, MatIconButton } from '@angular/material/button';
 
@@ -28,10 +28,13 @@ import { MatIconModule } from '@angular/material/icon';
 import { DummyDataService } from './dummy-data.service';
 import { CreateareaComponent } from './area/createarea/createarea.component';
 
+import { ViewTruckComponent } from './truck/view-truck/view-truck.component';
 import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
 import { AreaDetailsComponent } from './area/area-detail/area-detail.component';
 import { MatDialogModule } from '@angular/material/dialog';
 
+import { TruckAdminComponent } from './truck/truck-admin/truck-admin.component';
+import { TruckEditComponent } from './truck/truck-edit/truck-edit.component';
 // import { MatInputModule } from '@angular/material/input';
 // import { MatSelectModule } from '@angular/material/select';
 
@@ -49,6 +52,9 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { TruckPageComponent } from './Trucks/truck-page/truck-page.component';
 import { CreateTruckComponent } from './Trucks/create-truck/create-truck.component';
 
+import { JwtInterceptor } from './services/jwt-interceptor';
+import { AdminorderComponent } from './adminorder/adminorder.component';
+import { CompleteorderComponent } from './completeorder/completeorder.component';
 
 @NgModule({
   declarations: [
@@ -70,10 +76,11 @@ import { CreateTruckComponent } from './Trucks/create-truck/create-truck.compone
     ConfirmationDialogComponent,
     AreaDetailsComponent,
     ConfirmDialogComponent,
+
     AppComponent, // Declare it here
     LoginComponent, // Declare other components here
     NavigationComponent, // ... any other components
-    
+
     LocationListComponent,
     AdminlocationComponent,
     UserlocationComponent,
@@ -81,6 +88,8 @@ import { CreateTruckComponent } from './Trucks/create-truck/create-truck.compone
     CreateTruckComponent,
     
     
+    AdminorderComponent,
+    CompleteorderComponent
   ],
   imports: [
     BrowserModule,
@@ -92,26 +101,31 @@ import { CreateTruckComponent } from './Trucks/create-truck/create-truck.compone
     HttpClientModule,
     MatSlideToggleModule,
     MatButtonModule,
-    
+
     MatToolbarModule,
-    MatCardModule,
     MatIconButton,
+    MatCardModule,
     // Include the Angular Material modules
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
     MatDialogModule,
     MatIconModule,
-    MatCardModule,
+
     MatSelectModule,
     MatFormFieldModule,
     MatInputModule,
     MatOptionModule,
     BrowserAnimationsModule,
     FlexLayoutModule,
-    MatSnackBarModule
+    MatSnackBarModule,
   ],
-  providers: [Client, DummyDataService,{ provide: API_BASE_URL, useValue: 'http://localhost:5000' }], // Provide your services here
+  providers: [
+    Client,
+    DummyDataService,
+    { provide: API_BASE_URL, useValue: 'http://localhost:5000' },
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+  ], // Provide your services here
   bootstrap: [AppComponent], // Bootstrap the AppComponent
 })
 export class AppModule {}

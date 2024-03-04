@@ -1,18 +1,16 @@
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using LogisticsApp.Data; // Import your DbContext namespace
-using Microsoft.Extensions.Logging; // Import for logging
-
+using LogisticsApp.Data;
 
 [ApiController]
 [Route("/[controller]")]
 public class OrdersController : ControllerBase
 {
-    private readonly LogisticsDBContext _context; 
+    private readonly LogisticsDBContext _context;
     private readonly ILogger<OrdersController> _logger;
 
     public OrdersController(LogisticsDBContext context, ILogger<OrdersController> logger)
@@ -25,7 +23,7 @@ public class OrdersController : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(OrdersGetAllResponse))]
     public async Task<IActionResult> GetOrders()
     {
-        var orders = await _context.Orders.ToListAsync();
+        var orders = await _context.Orders.Include(o => o.TruckOrderAssignments).ToListAsync();
         return Ok(new OrdersGetAllResponse { Orders = orders });
     }
 
@@ -44,32 +42,6 @@ public class OrdersController : ControllerBase
         return Ok(order);
     }
 
-    // Get all rolls of steel associated with an order
-    // REMOVED
-//     [HttpGet("{orderId}/rolls")]
-//     public async Task<IActionResult> GetOrderRolls(string orderId)
-//     {
-//     var order = await _context.Orders
-//         .Select(o => new { OrderId = o.OrderId, DestinationId = o.DestinationId }) // Only select the fields we need
-//         .FirstOrDefaultAsync(o => o.OrderId == orderId);
-
-//     if (order == null)
-//     {
-//         return NotFound();
-//     }
-
-//     var orderRolls = await _context.OrderRolls
-//         .Where(or => or.OrderId == orderId)
-//         .ToListAsync();
-
-//     var rollOfSteelIds = orderRolls.Select(or => or.RollOfSteelId).ToList();
-
-//     var rollsOfSteel = await _context.RollsOfSteel
-//         .Where(roll => rollOfSteelIds.Contains(roll.RollOfSteelId))
-//         .ToListAsync();
-
-//     return Ok(new { Order = order, RollsOfSteel = rollsOfSteel });
-// }
 
 
     // CREATE NEW ORDER
@@ -143,6 +115,7 @@ public class OrdersController : ControllerBase
     public async Task<IActionResult> DeleteOrder(string orderId)
     {
         var order = await _context.Orders.FindAsync(orderId);
+        var truckOrderAssignment = await _context.TruckOrderAssignments.FirstOrDefaultAsync(toa => toa.OrderId == orderId);
 
         if (order == null)
         {
@@ -167,7 +140,7 @@ public class OrdersController : ControllerBase
         }
 
         var truckOrderAssignment = await _context.TruckOrderAssignments.FirstOrDefaultAsync(toa => toa.OrderId == orderId);
-        
+
         if (truckOrderAssignment == null)
         {
             return BadRequest("Order not assigned to a truck");
@@ -190,7 +163,6 @@ public class OrdersController : ControllerBase
     [HttpPut("PartialDeliver/{orderId}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-
     public async Task<IActionResult> PartiallyDeliverOrder(string orderId)
     {
         var order = await _context.Orders.FirstOrDefaultAsync(o => o.OrderId == orderId);
@@ -211,7 +183,6 @@ public class OrdersController : ControllerBase
     [HttpPut("Cancel/{orderId}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-
     public async Task<IActionResult> CancelOrder(string orderId)
     {
         var order = await _context.Orders.FirstOrDefaultAsync(o => o.OrderId == orderId);
@@ -230,10 +201,7 @@ public class OrdersController : ControllerBase
         }
 
         order.OrderStatus = OrderStatus.Cancelled;
-        truckOrderAssignment.UnassignedAt = DateTime.Now;
-        truckOrderAssignment.IsAssigned = false; 
-
-        _context.Entry(truckOrderAssignment).State = EntityState.Modified;
+        
         _context.Entry(order).State = EntityState.Modified;
         await _context.SaveChangesAsync();
 

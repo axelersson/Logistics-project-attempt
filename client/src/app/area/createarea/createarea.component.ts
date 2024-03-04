@@ -19,7 +19,7 @@ export class CreateareaComponent {
 
   confirm() : void{
     if ( this.area.areaId == "" || this.area.name == ""){
-      const snackBarRef = this.snackBar.open('Please complete all fields', 'Close', { duration: 500 });
+      const snackBarRef = this.snackBar.open('Please complete all fields', 'Close', { duration: 1500 });
     setTimeout(() => {
       snackBarRef.dismiss();
     }, 500);
@@ -37,18 +37,18 @@ export class CreateareaComponent {
   }
   updateArea(): void {
     if ( this.area.areaId == "" || this.area.name == ""){
-      const snackBarRef = this.snackBar.open('Please complete all fields', 'Close', { duration: 500 });
+      const snackBarRef = this.snackBar.open('Please complete all fields', 'Close', { duration: 1500 });
     setTimeout(() => {
       snackBarRef.dismiss();
     }, 500);
     this.client.areasPUT(this.area.areaId ?? '', this.area).subscribe(
       (response) => {
         console.log('Area updated successfully', response);
-        this.snackBar.open('Area updated successfully', 'Close', { duration: 500 });
+        this.snackBar.open('Area updated successfully', 'Close', { duration: 1500 });
       },
       (error: any) => {
         console.error('Error updating area:', error);
-        this.snackBar.open('Could not update area, check that the area ID is correct.', 'Close', { duration: 500 });
+        this.snackBar.open('Could not update area, check that the area ID is correct.', 'Close', { duration: 1500 });
       }
     );
   }

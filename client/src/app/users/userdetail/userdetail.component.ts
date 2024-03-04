@@ -42,7 +42,6 @@ export class UserdetailComponent implements OnInit {
       (usernames) => (this.usernames = usernames),
     );
     this.userService.fetchAllUsernames();
-    console.log(this.userService)
   }
 
   checkPasswords(): void {

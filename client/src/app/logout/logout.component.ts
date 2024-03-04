@@ -1,18 +1,15 @@
 import { Component } from '@angular/core';
 import { AuthService } from '../services/auth.service';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-logout',
   templateUrl: './logout.component.html',
-  styleUrl: './logout.component.css'
+  styleUrls: ['./logout.component.css'], // Corrected from styleUrl to styleUrls
 })
 export class LogoutComponent {
-  constructor(private authService: AuthService,  private router: Router) {}
+  constructor(private authService: AuthService) {}
 
   logout(): void {
-    this.authService.logout();
-    this.router.navigate(['/']);
+    this.authService.logout(); // Assuming logout is the correct method name
   }
-
 }
