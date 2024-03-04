@@ -24,8 +24,9 @@ public class TrucksController : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(TrucksGetAllResponse))]
     public async Task<IActionResult> GetTrucks()
     {
-        var trucks = await _context.Trucks.ToListAsync();
+        var trucks = await _context.Trucks.Include(tu => tu.TruckUsers).ToListAsync();
         return Ok(new TrucksGetAllResponse { Trucks = trucks });
+        
     }
 
 
@@ -34,7 +35,7 @@ public class TrucksController : ControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> GetTruckById(string truckId)
     {
-        var truck = await _context.Trucks.FirstOrDefaultAsync(t => t.TruckId == truckId);
+        var truck = await _context.Trucks.Include(tu => tu.TruckUsers).FirstOrDefaultAsync(t => t.TruckId == truckId);
 
         if (truck == null)
         {
@@ -99,11 +100,35 @@ public class TrucksController : ControllerBase
     {
         var truck = await _context.Trucks.FindAsync(truckId);
 
+        var truckOrderAssignments = await _context.TruckOrderAssignments
+            .Where(toa => toa.TruckId == truckId)
+            .ToListAsync();
+
+        var truckUsers = await _context.TruckUsers
+            .Where(tu => tu.TruckId == truckId)
+            .ToListAsync();
+
+
         if (truck == null)
         {
             return NotFound();
         }
 
+        foreach (var truckOrderAssignment in truckOrderAssignments)
+        {
+            truckOrderAssignment.IsAssigned = false;
+            truckOrderAssignment.TruckId = null;
+            truckOrderAssignment.UnassignedAt = DateTime.Now;
+            _context.Entry(truckOrderAssignment).State = EntityState.Modified;
+        }
+
+        foreach (var truckUser in truckUsers)
+        {
+            truckUser.IsAssigned = false;
+            truckUser.TruckId = null;
+            truckUser.UnassignedAt = DateTime.Now;
+            _context.Entry(truckUser).State = EntityState.Modified;
+        }
         _context.Trucks.Remove(truck);
         await _context.SaveChangesAsync();
 

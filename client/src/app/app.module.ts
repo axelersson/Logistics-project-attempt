@@ -6,7 +6,7 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { NavigationComponent } from './navigation/navigation.component';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatButtonModule, MatIconButton } from '@angular/material/button';
 
@@ -49,8 +49,9 @@ import { AdmineditComponent } from './adminedit/adminedit.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { API_BASE_URL } from './services/api';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { ChooseTruckComponent } from './truck/choose-truck/choose-truck.component';
-
+import { JwtInterceptor } from './services/jwt-interceptor';
+import { AdminorderComponent } from './adminorder/adminorder.component';
+import { CompleteorderComponent } from './completeorder/completeorder.component';
 
 @NgModule({
   declarations: [
@@ -61,7 +62,6 @@ import { ChooseTruckComponent } from './truck/choose-truck/choose-truck.componen
     OrderdetailComponent,
     LogoutComponent,
     LocationListComponent,
-    ChooseTruckComponent,
     LocationListComponent,
     UserdetailComponent,
     UsercreateComponent,
@@ -76,16 +76,13 @@ import { ChooseTruckComponent } from './truck/choose-truck/choose-truck.componen
     AppComponent, // Declare it here
     LoginComponent, // Declare other components here
     NavigationComponent, // ... any other components
-    
+
     LocationListComponent,
     AdminlocationComponent,
     UserlocationComponent,
     AdmineditComponent,
-    
-    AdmineditComponent,
-    TruckEditComponent
-
-    
+    AdminorderComponent,
+    CompleteorderComponent
   ],
   imports: [
     BrowserModule,
@@ -97,26 +94,31 @@ import { ChooseTruckComponent } from './truck/choose-truck/choose-truck.componen
     HttpClientModule,
     MatSlideToggleModule,
     MatButtonModule,
-    
+
     MatToolbarModule,
-    MatCardModule,
     MatIconButton,
+    MatCardModule,
     // Include the Angular Material modules
     MatFormFieldModule,
     MatInputModule,
     MatSelectModule,
     MatDialogModule,
     MatIconModule,
-    MatCardModule,
+
     MatSelectModule,
     MatFormFieldModule,
     MatInputModule,
     MatOptionModule,
     BrowserAnimationsModule,
     FlexLayoutModule,
-    MatSnackBarModule
+    MatSnackBarModule,
   ],
-  providers: [Client, DummyDataService,{ provide: API_BASE_URL, useValue: 'http://localhost:5000' }], // Provide your services here
+  providers: [
+    Client,
+    DummyDataService,
+    { provide: API_BASE_URL, useValue: 'http://localhost:5000' },
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+  ], // Provide your services here
   bootstrap: [AppComponent], // Bootstrap the AppComponent
 })
 export class AppModule {}

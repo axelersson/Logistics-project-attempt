@@ -1,0 +1,13 @@
+.Order-card {
+      max-width: 100%;
+      margin: 10px;
+    }
+    
+    .buttons-container {
+      display: grid;
+      grid-template-columns: 1fr; 
+      gap: 10px;
+      
+    }
+    
+    

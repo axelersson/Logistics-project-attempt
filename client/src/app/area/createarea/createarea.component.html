@@ -11,7 +11,8 @@
         <input matInput placeholder="Enter new Area name" [(ngModel)]="area.name" name="name">
       </mat-form-field>
       <div class="buttons-container">
-        <button mat-raised-button color="primary" (click)="confirm()">Confirm</button>
+        <button mat-raised-button color="primary" (click)="confirm()">Create</button>
+        <button mat-raised-button color="primary" (click)="updateArea()">Update</button>
       </div>
     </form>
   </mat-card>

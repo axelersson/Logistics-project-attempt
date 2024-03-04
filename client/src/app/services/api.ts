@@ -131,7 +131,7 @@ export class Client {
   areasPOST(body: Area | undefined): Observable<Area> {
     let url_ = this.baseUrl + '/api/Areas';
     url_ = url_.replace(/[?&]$/, '');
-    console.log(body)
+
     const content_ = JSON.stringify(body);
 
     let options_: any = {
@@ -441,12 +441,11 @@ export class Client {
    */
   areasDELETE(areaId: string): Observable<void> {
     let url_ = this.baseUrl + '/api/Areas/{areaId}';
-    console.log(url_);
     if (areaId === undefined || areaId === null)
       throw new Error("The parameter 'areaId' must be defined.");
     url_ = url_.replace('{areaId}', encodeURIComponent('' + areaId));
     url_ = url_.replace(/[?&]$/, '');
-    console.log(url_);
+
     let options_: any = {
       observe: 'response',
       responseType: 'blob',
@@ -3020,10 +3019,14 @@ export class Client {
   }
 
   /**
+   * @param authorization (optional)
    * @param body (optional)
    * @return Success
    */
-  usersPOST(body: UserCreateModel | undefined): Observable<void> {
+  usersPOST(
+    authorization: string | undefined,
+    body: UserCreateModel | undefined,
+  ): Observable<void> {
     let url_ = this.baseUrl + '/Users';
     url_ = url_.replace(/[?&]$/, '');
 
@@ -3034,6 +3037,10 @@ export class Client {
       observe: 'response',
       responseType: 'blob',
       headers: new HttpHeaders({
+        Authorization:
+          authorization !== undefined && authorization !== null
+            ? '' + authorization
+            : '',
         'Content-Type': 'application/json',
       }),
     };
@@ -4532,9 +4539,9 @@ export interface IProblemDetails {
 export class Truck implements ITruck {
   truckId?: string | undefined;
   currentAreaId?: string | undefined;
+  registrationnumber?: string | undefined;
   truckUsers?: TruckUser[] | undefined;
   truckOrderAssignments?: TruckOrderAssignment[] | undefined;
-  registrationnumber?: string | undefined;
 
   constructor(data?: ITruck) {
     if (data) {
@@ -4549,6 +4556,7 @@ export class Truck implements ITruck {
     if (_data) {
       this.truckId = _data['truckId'];
       this.currentAreaId = _data['currentAreaId'];
+      this.registrationnumber = _data['registrationnumber'];
       if (Array.isArray(_data['truckUsers'])) {
         this.truckUsers = [] as any;
         for (let item of _data['truckUsers'])
@@ -4559,7 +4567,6 @@ export class Truck implements ITruck {
         for (let item of _data['truckOrderAssignments'])
           this.truckOrderAssignments!.push(TruckOrderAssignment.fromJS(item));
       }
-      this.registrationnumber = _data['registrationnumber'];
     }
   }
 
@@ -4574,6 +4581,7 @@ export class Truck implements ITruck {
     data = typeof data === 'object' ? data : {};
     data['truckId'] = this.truckId;
     data['currentAreaId'] = this.currentAreaId;
+    data['registrationnumber'] = this.registrationnumber;
     if (Array.isArray(this.truckUsers)) {
       data['truckUsers'] = [];
       for (let item of this.truckUsers) data['truckUsers'].push(item.toJSON());
@@ -4583,7 +4591,6 @@ export class Truck implements ITruck {
       for (let item of this.truckOrderAssignments)
         data['truckOrderAssignments'].push(item.toJSON());
     }
-    data['registrationnumber'] = this.registrationnumber;
     return data;
   }
 }
@@ -4591,9 +4598,9 @@ export class Truck implements ITruck {
 export interface ITruck {
   truckId?: string | undefined;
   currentAreaId?: string | undefined;
+  registrationnumber?: string | undefined;
   truckUsers?: TruckUser[] | undefined;
   truckOrderAssignments?: TruckOrderAssignment[] | undefined;
-  registrationnumber?: string | undefined;
 }
 
 export class TruckOrderAssignment implements ITruckOrderAssignment {

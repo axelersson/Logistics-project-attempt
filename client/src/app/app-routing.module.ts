@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 //import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
-import { authGuard } from './auth.guard'; // Import the guard
+import { AuthGuard } from './security/auth.guard'; // Import the guard
 import { LoginComponent } from './login/login.component';
 import { OrderdetailComponent } from './orderdetail/orderdetail.component';
 import { LogoutComponent } from './logout/logout.component';
@@ -24,35 +24,46 @@ import { AreaCrudpageComponent } from './area/area-crudpage/area-crudpage.compon
 import { CreateareaComponent } from './area/createarea/createarea.component';
 import { ViewTruckComponent } from './truck/view-truck/view-truck.component'; // Import the new component
 import { AreaDetailsComponent } from './area/area-detail/area-detail.component';
-import { TruckAdminComponent } from './truck/truck-admin/truck-admin.component';
-import { TruckEditComponent } from './truck/truck-edit/truck-edit.component';
-import { ChooseTruckComponent } from './truck/choose-truck/choose-truck.component';
-
-
+import { AdminorderComponent } from './adminorder/adminorder.component';
+import { CompleteorderComponent } from './completeorder/completeorder.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/homepage', pathMatch: 'full' }, // default route
   { path: 'login', component: LoginComponent }, // Default route
   { path: 'logout', component: LogoutComponent },
   { path: 'locationlist', component: LocationListComponent },
-  { path: 'adminlocation', component: AdminlocationComponent},
-  { path: 'userlocation' , component: UserlocationComponent},
-  { path: 'adminedit', component: AdmineditComponent},
-  //{ path: 'feature', loadChildren: () => import('./feature/feature.module').then(m => m.FeatureModule), canActivate: [AuthGuard] }, Add canActivate: [AuthGuard] to all other routes except 'home'
-  //{ path: 'feature', loadChildren: () => import('./feature/feature.module').then(m => m.FeatureModule), canActivate: [AuthGuard] }, Add canActivate: [AuthGuard] to all other routes except 'home',
-  { path: 'userdetail', component: UserdetailComponent },
-  { path: 'usercreate', component: UsercreateComponent },
-  { path: 'view-truck/:id', component: ViewTruckComponent }, 
+  { path: 'adminlocation', component: AdminlocationComponent },
+  { path: 'userlocation', component: UserlocationComponent },
+  { path: 'adminedit', component: AdmineditComponent },
+  {
+    path: 'userdetail',
+    component: UserdetailComponent,
+    canActivate: [AuthGuard],
+    data: { role: 'Admin' },
+  },
+  {
+    path: 'usercreate',
+    component: UsercreateComponent,
+    canActivate: [AuthGuard],
+    data: { role: 'Admin' },
+  },
+  { path: 'view-truck/:id', component: ViewTruckComponent },
   { path: 'area/:areaId', component: AreaDetailsComponent },
   { path: 'homepage', component:HomeComponent},
   { path: 'arealist', component:AreaComponent},
   { path: 'orderlist', component:OrderdetailComponent},
-  { path: 'choosetruck', component:ChooseTruckComponent},
   { path: 'areacrud', component:AreaCrudpageComponent},
-  {path: 'createarea', component:CreateareaComponent},
+  {path: 'createarea', component:CreateareaComponent}, 
+  {path: 'adminorder', component:AdminorderComponent}, 
+  {path: 'completeorder', component:CompleteorderComponent}, 
 
-  { path: 'truckadmin', component: TruckAdminComponent },
-  { path: 'truckedit', component: TruckEditComponent}
+  { path: 'homepage', component: HomeComponent, canActivate: [AuthGuard] },
+  { path: 'arealist', component: AreaComponent },
+  { path: 'orderlist', component: OrderdetailComponent },
+  { path: 'areacrud', component: AreaCrudpageComponent },
+  { path: 'createarea', component: CreateareaComponent },
+  { path: 'adminorder', component: AdminorderComponent },
+  //{ path: 'feature', loadChildren: () => import('./feature/feature.module').then(m => m.FeatureModule), canActivate: [AuthGuard] }, Add canActivate: [AuthGuard] to all other routes except 'home'
 ];
 
 @NgModule({

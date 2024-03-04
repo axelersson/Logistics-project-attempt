@@ -19,7 +19,7 @@ export class AdminlocationComponent {
     this.locationService.getLocations().subscribe({
       next: (data) => {
         this.locations = data;
-        console.log(this.locations);
+
       },
       error: (err) => {
         console.error('Error fetching locations:', err);
@@ -30,7 +30,6 @@ export class AdminlocationComponent {
 
   view() {
     // 实现查看逻辑
-    console.log('Viewing location...');
     this.router.navigate(['locationlist'],{ queryParams: { backpage: this.backpage } })
   }
 
@@ -57,7 +56,7 @@ export class AdminlocationComponent {
   createLocation() {
     // 实现创建逻辑
     this.router.navigate(['/adminedit'])
-    console.log('Creating new location...');
+
   }
 
   editLocation() {
@@ -67,7 +66,7 @@ export class AdminlocationComponent {
     } else {
       // 如果选中了位置，则导航到编辑页面，并传递选中的 locationId
     this.router.navigate(['/adminedit', { locationId: this.selectedLocationId }])
-    console.log('Editing location...');
+  
     }
    
   }
@@ -75,7 +74,7 @@ export class AdminlocationComponent {
   cancel() {
     // 实现取消逻辑
     this.router.navigate(['/homepage'])
-    console.log('Operation cancelled.');
+
   }
 
 }
