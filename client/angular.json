@@ -13,6 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
+            "localize": ["sv-SE"],
             "outputPath": "dist/testingdotnetandfirebase-web",
             "index": "src/index.html",
             "browser": "src/main.ts",
@@ -97,6 +98,12 @@
             ],
             "scripts": []
           }
+        }
+      },
+      "i18n": {
+        "sourceLocale": "en-US",
+        "locales": {
+          "sv-SE": "src/locale/messages.sv.xlf"
         }
       }
     }
