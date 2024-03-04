@@ -26,6 +26,9 @@ import { CreateTruckComponent } from './Trucks/create-truck/create-truck.compone
 
 import { AdminorderComponent } from './adminorder/adminorder.component';
 import { CompleteorderComponent } from './completeorder/completeorder.component';
+import { CreateorderComponent } from './createorder/createorder.component';
+import { DisplayorderComponent } from './displayorder/displayorder.component'
+import { UpdateorderComponent } from './updateorder/updateorder.component';
 
 
 const routes: Routes = [
@@ -72,6 +75,9 @@ const routes: Routes = [
   { path: 'areacrud', component: AreaCrudpageComponent },
   { path: 'createarea', component: CreateareaComponent },
   { path: 'adminorder', component: AdminorderComponent },
+  { path: 'createorder', component: CreateorderComponent },
+  { path: 'displayorder', component: DisplayorderComponent },
+  { path: 'updateorder', component: UpdateorderComponent },
   //{ path: 'feature', loadChildren: () => import('./feature/feature.module').then(m => m.FeatureModule), canActivate: [AuthGuard] }, Add canActivate: [AuthGuard] to all other routes except 'home'
 ];
 

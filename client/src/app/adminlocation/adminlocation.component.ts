@@ -71,6 +71,8 @@ export class AdminlocationComponent {
    
   }
 
+  
+
   cancel() {
     // 实现取消逻辑
     this.router.navigate(['/homepage'])
