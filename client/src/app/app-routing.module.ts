@@ -22,6 +22,7 @@ import { AreaDetailsComponent } from './area/area-detail/area-detail.component';
 import { AdminorderComponent } from './adminorder/adminorder.component';
 import { CompleteorderComponent } from './completeorder/completeorder.component';
 
+
 const routes: Routes = [
   { path: '', redirectTo: '/homepage', pathMatch: 'full' }, // default route
   { path: 'login', component: LoginComponent }, // Default route
