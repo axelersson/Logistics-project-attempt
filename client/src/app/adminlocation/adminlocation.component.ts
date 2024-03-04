@@ -30,7 +30,6 @@ export class AdminlocationComponent {
 
   view() {
     // 实现查看逻辑
-
     this.router.navigate(['locationlist'],{ queryParams: { backpage: this.backpage } })
   }
 

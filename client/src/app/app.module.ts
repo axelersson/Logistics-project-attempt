@@ -49,6 +49,7 @@ import { API_BASE_URL } from './services/api';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { JwtInterceptor } from './services/jwt-interceptor';
 import { AdminorderComponent } from './adminorder/adminorder.component';
+import { CompleteorderComponent } from './completeorder/completeorder.component';
 
 @NgModule({
   declarations: [
@@ -79,6 +80,7 @@ import { AdminorderComponent } from './adminorder/adminorder.component';
     UserlocationComponent,
     AdmineditComponent,
     AdminorderComponent,
+    CompleteorderComponent
   ],
   imports: [
     BrowserModule,

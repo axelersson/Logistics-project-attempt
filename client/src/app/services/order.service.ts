@@ -12,7 +12,7 @@ import { throwError } from 'rxjs';
 export class OrderService {
   constructor(private http: HttpClient, @Inject(API_BASE_URL) private baseUrl: string) {}
 
-  getOrders(): Observable<any> { // 修改返回类型为具体的订单类型
+  getOrders(): Observable<any> { 
     const url = `${this.baseUrl}/Orders`;
     return this.http.get<any>(url, {
       headers: new HttpHeaders({
@@ -21,6 +21,24 @@ export class OrderService {
     }).pipe(
       map(response => response.orders || []), // make the data into array
       catchError(error => throwError(() => error))
+    );
+  }
+
+  partialDeliver(orderId: string): Observable<void> {
+    let url = `${this.baseUrl}/Orders/PartialDeliver/${orderId}`;
+    return this.http.put<void>(url, {}).pipe(
+      catchError(error => {
+        throw new Error(`Error in partial delivery of order: ${error.message}`);
+      })
+    );
+  }
+
+  deliver(orderId: string): Observable<void> {
+    let url = `${this.baseUrl}/Orders/Deliver/${orderId}`;
+    return this.http.put<void>(url, {}).pipe(
+      catchError(error => {
+        throw new Error(`Error in complete delivery of order: ${error.message}`);
+      })
     );
   }
 
