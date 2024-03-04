@@ -1,32 +1,42 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core'; // Import OnInit
 import { FormControl, FormGroup } from '@angular/forms';
-import { Client, LoginRequest } from '../services/api'; // Make sure this is an @Injectable service
+import { Client, LoginRequest } from '../services/api';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
-import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'; // Import FontAwesome icons
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
+  // Implement OnInit interface
   loginForm = new FormGroup({
     username: new FormControl(''),
     password: new FormControl(''),
   });
 
-  // Define the missing properties referenced in the template
   hidePassword: boolean = true;
   faEye = faEye;
   faEyeSlash = faEyeSlash;
   loginError: string | null = null;
 
   constructor(
-    private client: Client, // Ensure this is an @Injectable service
+    private client: Client,
     private router: Router,
     private authService: AuthService,
   ) {}
+
+  ngOnInit(): void {
+    this.checkTokenAndRedirect();
+  }
+
+  checkTokenAndRedirect(): void {
+    if (this.authService.isLoggedIn()) {
+      this.router.navigate(['/homepage']);
+    }
+  }
 
   onLogin(): void {
     const username = this.loginForm.value.username ?? '';
@@ -35,15 +45,14 @@ export class LoginComponent {
 
     this.client.login(loginRequest).subscribe(
       (response: any) => {
-        const token = response?.token; // Extract the token from the response
+        const token = response?.token;
         if (token) {
-          this.authService.setToken(token); // Store the token using AuthService
+          this.authService.setToken(token);
           const decodedToken = this.authService.decodeJwtToken(token);
           if (decodedToken && decodedToken.role) {
-            this.authService.setUserRole(decodedToken.role); // Optionally, store the user role
+            this.authService.setUserRole(decodedToken.role);
           }
-
-          this.router.navigate(['/homepage']); // Navigate to the homepage upon successful login
+          this.router.navigate(['/homepage']);
         } else {
           console.error('Token not found in response');
           this.loginError = 'Token not found in response';
@@ -56,7 +65,6 @@ export class LoginComponent {
     );
   }
 
-  // Method to toggle password visibility
   togglePasswordVisibility(): void {
     this.hidePassword = !this.hidePassword;
   }
