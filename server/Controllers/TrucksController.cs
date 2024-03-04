@@ -67,30 +67,40 @@ public class TrucksController : ControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> UpdateTruck(string truckId, [FromBody] Truck updatedTruck)
     {
-        if (truckId != updatedTruck.TruckId)
+        if (truckId == null)
         {
             return BadRequest();
         }
-
+        updatedTruck.TruckId = truckId;
         _context.Entry(updatedTruck).State = EntityState.Modified;
 
         try
+    {
+        // Save changes to the database
+        await _context.SaveChangesAsync();
+
+        // Retrieve the updated truck from the database
+        var updatedEntity = await _context.Trucks.FindAsync(truckId);
+
+        if (updatedEntity == null)
         {
-            await _context.SaveChangesAsync();
-        }
-        catch (DbUpdateConcurrencyException)
-        {
-            if (!TruckExists(truckId))
-            {
-                return NotFound();
-            }
-            else
-            {
-                throw;
-            }
+            return NotFound();
         }
 
-        return NoContent();
+        // Return the updated truck in the response
+        return Ok(updatedEntity);
+    }
+    catch (DbUpdateConcurrencyException)
+    {
+        if (!TruckExists(truckId))
+        {
+            return NotFound();
+        }
+        else
+        {
+            throw;
+        }
+    }
     }
 
     [HttpDelete("{truckId}")]
@@ -98,6 +108,7 @@ public class TrucksController : ControllerBase
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     public async Task<IActionResult> DeleteTruck(string truckId)
     {
+        Console.WriteLine("Hello");
         var truck = await _context.Trucks.FindAsync(truckId);
 
         var truckOrderAssignments = await _context.TruckOrderAssignments

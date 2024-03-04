@@ -15,13 +15,13 @@ export class CreateTruckComponent {
     this.truck = new Truck();
     // Initialize your truck properties here
     this.truck.truckId = '';
-    this.truck.registrationnumber = ''; // Assuming your Truck model has a registrationNumber
+    // this.truck.registrationnumber = ''; // Assuming your Truck model has a registrationNumber
     // Add other necessary initializations
   }
 
   confirm(): void {
     // Validation logic
-    if (this.truck.truckId === '' || this.truck.registrationnumber === '') {
+    if (this.truck.truckId == '' || this.truck.currentAreaId == '' || this.truck.registrationnumber == '') {
       this.snackBar.open('Please complete all fields', 'Close', { duration: 5000 });
       return;
     } else {
@@ -39,6 +39,25 @@ export class CreateTruckComponent {
       );
     }
   }
+  updateTruck(): void {
+    console.log(this.truck);
+    if (this.truck.truckId == '' || this.truck.currentAreaId == '' || this.truck.registrationnumber == ''){
+      const snackBarRef = this.snackBar.open('Please complete all fields', 'Close', { duration: 1500 });
+    setTimeout(() => {
+      snackBarRef.dismiss();
+    }, 500);
+    this.client.trucksPUT(this.truck.truckId ?? '', this.truck).subscribe(
+      (response) => {
+        console.log('Truck updated successfully', response);
+        this.snackBar.open('Truck updated successfully', 'Close', { duration: 1500 });
+      },
+      (error: any) => {
+        console.error('Error updating Truck:', error);
+        this.snackBar.open('Could not update Truck, check that the truck ID is correct.', 'Close', { duration: 1500 });
+      }
+    );
+  }
+}
 
   // Any additional methods for CreateTruckComponent
 }

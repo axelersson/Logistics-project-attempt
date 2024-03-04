@@ -41,7 +41,7 @@ export class AreaCrudpageComponent implements OnInit {
     if (true) {
       const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
         data: { message: 'Are you sure you want to delete this area?' },
-      });
+      }); 
 
       dialogRef.afterClosed().subscribe((result) => {
         if (result) {

@@ -8,7 +8,7 @@ import { Location } from '@angular/common';
   styleUrls: ['./navigation.component.css'],
 })
 export class NavigationComponent implements OnInit {
-  isLoggedIn: boolean = false;
+  isLoggedIn: boolean = true;
   isAdmin: boolean = false;
 
   constructor(

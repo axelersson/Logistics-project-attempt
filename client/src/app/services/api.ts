@@ -2233,7 +2233,9 @@ export class Client {
     url_ = url_.replace(/[?&]$/, '');
 
     const content_ = JSON.stringify(body);
-
+    console.log(url_);
+    console.log(body);
+    console.log(truckId);
     let options_: any = {
       body: content_,
       observe: 'response',
@@ -2344,7 +2346,7 @@ export class Client {
       throw new Error("The parameter 'truckId' must be defined.");
     url_ = url_.replace('{truckId}', encodeURIComponent('' + truckId));
     url_ = url_.replace(/[?&]$/, '');
-
+    console.log(url_);
     let options_: any = {
       observe: 'response',
       responseType: 'blob',

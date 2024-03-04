@@ -5,14 +5,17 @@
         <input matInput placeholder="Enter new Truck ID" [(ngModel)]="truck.truckId"
         name="truckId">
       </mat-form-field>
-  
-     <!--  <mat-form-field appearance="fill">
-        <mat-label>Location ID</mat-label>
-        <input matInput placeholder="Enter new Location ID" [(ngModel)]="location.id" name="name">
-      </mat-form-field> -->
+      <mat-form-field appearance="fill">
+        <mat-label>Assign area</mat-label>
+        <input matInput placeholder="Enter new Area ID" [(ngModel)]="truck.currentAreaId" name="area id">
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Reg.nmr</mat-label>
+        <input matInput placeholder="Enter new reg.nmr" [(ngModel)]="truck.registrationnumber" name="regnmr">
+      </mat-form-field>
       <div class="buttons-container">
         <button mat-raised-button color="primary" (click)="confirm()">Create</button>
-        <!-- <button mat-raised-button color="primary" (click)="updateTruck()">Update</button> -->
+        <button mat-raised-button color="primary" (click)="updateTruck()">Update</button>
       </div>
     </form>
   </mat-card>

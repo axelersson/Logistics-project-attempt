@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { Client, Truck } from '../../services/api'
 import { ConfirmationDialogComponent } from '../../confirmation-dialog/confirmation-dialog.component';
-
+import { AuthService } from '../../services/auth.service';
 @Component({
    selector: 'app-truck-page',
    templateUrl: './truck-page.component.html',
@@ -11,9 +11,10 @@ import { ConfirmationDialogComponent } from '../../confirmation-dialog/confirmat
  })
 export class TruckPageComponent implements OnInit {
   trucks: any[] = [];
-  selectedTruckId: Truck | undefined;
+  selectedTruckId: string | null = null;
   truckIdToDelete: string = '';
   @Input() truck: any | undefined;
+  
 
   constructor(
     private route: ActivatedRoute,
@@ -31,16 +32,15 @@ export class TruckPageComponent implements OnInit {
   }
 
   deleteTruck(): void {
-    const truckIdToDelete = this.selectedTruckId?.truckId ?? '';
-
+    const truckIdToDelete = this.selectedTruckId ?? ''
     // Find the index of the area with the specified ID
     //const index = this.areas.findIndex((area) => area.areaId === this.areaIdToDelete);
-
+    console.log(truckIdToDelete);
     // If the area is found, show a confirmation dialog
     if (true) {
       const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
         data: { message: 'Are you sure you want to delete this truck?' },
-      });
+      }); 
 
       dialogRef.afterClosed().subscribe((result) => {
         if (result) {
