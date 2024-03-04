@@ -1,0 +1,18 @@
+.update-order-card {
+      max-width: 100%;
+      margin: 10px;
+    }
+    
+    mat-form-field {
+      width: 100%;
+      margin-bottom: 20px;
+    }
+    
+    .buttons-container {
+      display: grid;
+      grid-template-columns: 1fr; 
+      gap: 10px;
+      
+    }
+    
+    

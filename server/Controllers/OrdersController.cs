@@ -65,7 +65,7 @@ public class OrdersController : ControllerBase
         order.ToLocation = toLoc;
         order.FromLocation = fromLoc;
 
-        order.OrderId = Guid.NewGuid().ToString();
+        // order.OrderId = Guid.NewGuid().ToString();
         order.OrderStatus = OrderStatus.Pending;
         order.User = user;
 

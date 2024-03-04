@@ -21,6 +21,9 @@ import { ViewTruckComponent } from './view-truck/view-truck.component'; // Impor
 import { AreaDetailsComponent } from './area/area-detail/area-detail.component';
 import { AdminorderComponent } from './adminorder/adminorder.component';
 import { CompleteorderComponent } from './completeorder/completeorder.component';
+import { CreateorderComponent } from './createorder/createorder.component';
+import { DisplayorderComponent } from './displayorder/displayorder.component'
+import { UpdateorderComponent } from './updateorder/updateorder.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/homepage', pathMatch: 'full' }, // default route
@@ -60,6 +63,9 @@ const routes: Routes = [
   { path: 'areacrud', component: AreaCrudpageComponent },
   { path: 'createarea', component: CreateareaComponent },
   { path: 'adminorder', component: AdminorderComponent },
+  { path: 'createorder', component: CreateorderComponent },
+  { path: 'displayorder', component: DisplayorderComponent },
+  { path: 'updateorder', component: UpdateorderComponent },
   //{ path: 'feature', loadChildren: () => import('./feature/feature.module').then(m => m.FeatureModule), canActivate: [AuthGuard] }, Add canActivate: [AuthGuard] to all other routes except 'home'
 ];
 
