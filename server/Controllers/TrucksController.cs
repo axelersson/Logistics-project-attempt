@@ -26,6 +26,7 @@ public class TrucksController : ControllerBase
     {
         var trucks = await _context.Trucks.Include(tu => tu.TruckUsers).ToListAsync();
         return Ok(new TrucksGetAllResponse { Trucks = trucks });
+        
     }
 
 

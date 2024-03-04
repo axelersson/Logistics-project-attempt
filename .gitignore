@@ -11,5 +11,19 @@ server/bin/
 
 # Migration files
 server/Migrations/
+/server/Migrations/
+\Migrations
 
-server/appsettings.json
+server\appsettings.json
+
+\server\appsettings.Development.json
+
+server/appsettings.Development.json
+./server/appsettings.Development.json
+
+appsettings.json
+
+appsettings.Development.json
+
+/server/Migrations/LogisticsDBContextModelSnapshot.cs
+

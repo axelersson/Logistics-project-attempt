@@ -9,6 +9,8 @@ import {
   UserCreateModel,
 } from './api'; // Adjust the import path as necessary
 import { tap } from 'rxjs/operators';
+import { AuthService } from './auth.service'; // Adjust the import path as necessary
+import { HttpHeaders } from '@angular/common/http'; // Import HttpClient and HttpHeaders
 
 @Injectable({
   providedIn: 'root',
@@ -21,7 +23,11 @@ export class UserService {
     new BehaviorSubject<UserIdAndRoleResponseFromUsernameRequest | null>(null);
   public selectedUserDetails$ = this.selectedUserDetailsSource.asObservable();
 
-  constructor(private client: Client) {}
+  constructor(
+    //private clientService: ClientService,
+    private client: Client,
+    private authService: AuthService,
+  ) {}
 
   fetchAllUsernames() {
     this.client.getAllUsernames().subscribe({
@@ -45,6 +51,39 @@ export class UserService {
       },
     });
   }
+
+  /* fetchAllUsernames() {
+    // Retrieve the JWT token from AuthService
+    const token = this.authService.getToken();
+    console.log(token);
+    // Check if token exists
+    if (!token) {
+      console.error('No token found.');
+      return;
+    }
+
+    // Call getAllUsernames with the token
+    this.client.getAllUsernames().subscribe({
+      next: (response: any) => {
+        if (Array.isArray(response)) {
+          // If the response is an array, update the BehaviorSubject
+          this.usernamesSource.next(response);
+        } else if (
+          response &&
+          response.usernames &&
+          Array.isArray(response.usernames)
+        ) {
+          // Adjust based on actual structure; this is if the response has a 'usernames' property that is an array
+          this.usernamesSource.next(response.usernames);
+        } else {
+          console.error('The response format is not supported:', response);
+        }
+      },
+      error: (error) => {
+        console.error('Error fetching usernames:', error);
+      },
+    });
+  } */
 
   // Method to fetch user details by username
   fetchUserDetailsByUsername(username: string) {
@@ -92,6 +131,9 @@ export class UserService {
     return this.client.updatepasswordandrole(userId, updateModel);
   }
   createUser(newUser: UserCreateModel): Observable<any> {
-    return this.client.usersPOST(newUser);
+    const token = this.authService.getToken(); // Get the JWT token
+    const authorization = token ? token : ''; // Set authorization to empty string if token is null
+    console.log(token);
+    return this.client.usersPOST(authorization, newUser); // Pass the token and newUser to usersPOST method
   }
 }

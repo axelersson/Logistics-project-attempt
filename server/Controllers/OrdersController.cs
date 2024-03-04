@@ -1,18 +1,16 @@
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using LogisticsApp.Data; // Import your DbContext namespace
-using Microsoft.Extensions.Logging; // Import for logging
-
+using LogisticsApp.Data;
 
 [ApiController]
 [Route("/[controller]")]
 public class OrdersController : ControllerBase
 {
-    private readonly LogisticsDBContext _context; 
+    private readonly LogisticsDBContext _context;
     private readonly ILogger<OrdersController> _logger;
 
     public OrdersController(LogisticsDBContext context, ILogger<OrdersController> logger)
@@ -142,7 +140,7 @@ public class OrdersController : ControllerBase
         }
 
         var truckOrderAssignment = await _context.TruckOrderAssignments.FirstOrDefaultAsync(toa => toa.OrderId == orderId);
-        
+
         if (truckOrderAssignment == null)
         {
             return BadRequest("Order not assigned to a truck");
@@ -165,7 +163,6 @@ public class OrdersController : ControllerBase
     [HttpPut("PartialDeliver/{orderId}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-
     public async Task<IActionResult> PartiallyDeliverOrder(string orderId)
     {
         var order = await _context.Orders.FirstOrDefaultAsync(o => o.OrderId == orderId);
@@ -186,7 +183,6 @@ public class OrdersController : ControllerBase
     [HttpPut("Cancel/{orderId}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-
     public async Task<IActionResult> CancelOrder(string orderId)
     {
         var order = await _context.Orders.FirstOrDefaultAsync(o => o.OrderId == orderId);
@@ -205,10 +201,7 @@ public class OrdersController : ControllerBase
         }
 
         order.OrderStatus = OrderStatus.Cancelled;
-        truckOrderAssignment.UnassignedAt = DateTime.Now;
-        truckOrderAssignment.IsAssigned = false; 
-
-        _context.Entry(truckOrderAssignment).State = EntityState.Modified;
+        
         _context.Entry(order).State = EntityState.Modified;
         await _context.SaveChangesAsync();
 
