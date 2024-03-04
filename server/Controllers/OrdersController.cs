@@ -138,10 +138,11 @@ public class OrdersController : ControllerBase
         {
             return BadRequest("Order not found");
         }
+        var truckOrderAssignments = await _context.TruckOrderAssignments
+                    .Where(toa => toa.OrderId == orderId)
+                    .ToListAsync();
 
-        var truckOrderAssignment = await _context.TruckOrderAssignments.FirstOrDefaultAsync(toa => toa.OrderId == orderId);
-
-        if (truckOrderAssignment == null)
+        if (truckOrderAssignments == null)
         {
             return BadRequest("Order not assigned to a truck");
         }
@@ -149,10 +150,13 @@ public class OrdersController : ControllerBase
         order.OrderStatus = OrderStatus.Delivered;
         order.CompletedAt = DateTime.Now;
 
-        truckOrderAssignment.UnassignedAt = DateTime.Now;
-        truckOrderAssignment.IsAssigned = false;
+        foreach (var truckOrderAssignment in truckOrderAssignments)
+        {
+            truckOrderAssignment.IsAssigned = false;
+            truckOrderAssignment.UnassignedAt = DateTime.Now;
+            _context.Entry(truckOrderAssignment).State = EntityState.Modified;
+        }
 
-        _context.Entry(truckOrderAssignment).State = EntityState.Modified;
         _context.Entry(order).State = EntityState.Modified;
         await _context.SaveChangesAsync();
 
@@ -160,10 +164,10 @@ public class OrdersController : ControllerBase
     }
 
     // PARTIALLY DELIVER ORDER
-    [HttpPut("PartialDeliver/{orderId}")]
+    [HttpPut("PartialDeliver/{orderId}/Pieces/{deliveredPieces}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
-    public async Task<IActionResult> PartiallyDeliverOrder(string orderId)
+    public async Task<IActionResult> PartiallyDeliverOrder(string orderId, int deliveredPieces)
     {
         var order = await _context.Orders.FirstOrDefaultAsync(o => o.OrderId == orderId);
 
@@ -172,7 +176,35 @@ public class OrdersController : ControllerBase
             return BadRequest("Order not found");
         }
 
-        order.OrderStatus = OrderStatus.PartiallyDelivered;
+        // Logic to completely deliver order if deliveredPieces > pieces
+        Console.WriteLine("Delivered pieces", order.DeliveredPieces);
+        order.DeliveredPieces += deliveredPieces;
+        Console.WriteLine(order.DeliveredPieces);
+        if(order.DeliveredPieces >= order.Pieces){
+            Console.WriteLine("Order Delivered!");
+            order.OrderStatus = OrderStatus.Delivered;
+            order.CompletedAt = DateTime.Now;
+
+            //Unassign trucks assigned to order if completelty delivered
+            var truckOrderAssignments = await _context.TruckOrderAssignments
+                    .Where(toa => toa.OrderId == orderId)
+                    .ToListAsync();
+            
+            if(truckOrderAssignments != null){
+                foreach (var truckOrderAssignment in truckOrderAssignments)
+                {
+                    truckOrderAssignment.IsAssigned = false;
+                    truckOrderAssignment.UnassignedAt = DateTime.Now;
+                    _context.Entry(truckOrderAssignment).State = EntityState.Modified;
+                }  
+            }
+           
+        }
+        else {
+            Console.WriteLine("Order Partially Delivered!");
+            order.OrderStatus = OrderStatus.PartiallyDelivered;
+        }
+
         _context.Entry(order).State = EntityState.Modified;
         await _context.SaveChangesAsync();
 
@@ -195,7 +227,7 @@ public class OrdersController : ControllerBase
         var truckOrderAssignment = await _context.TruckOrderAssignments.FirstOrDefaultAsync(toa => toa.OrderId == orderId);
         if (truckOrderAssignment != null)
         {
-            truckOrderAssignment.UnassignedAt = DateTime.Now;
+            truckOrderAssignment.UnassignedAt = DateTime.Now; 
             truckOrderAssignment.IsAssigned = false;
             _context.Entry(truckOrderAssignment).State = EntityState.Modified;
         }

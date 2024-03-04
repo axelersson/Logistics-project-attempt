@@ -11,6 +11,7 @@ public class Order
     public string? ToLocId { get; set; } = string.Empty; 
     public string? FromLocId { get; set; } = string.Empty;
     public int Pieces { get; set; } = 0;
+    public int DeliveredPieces { get; set; } = 0;
     public OrderType? OrderType { get; set; }
     public DateTime CreatedAt { get; set; } = new DateTime();
     public DateTime? CompletedAt { get; set; }
