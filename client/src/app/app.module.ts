@@ -28,13 +28,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { DummyDataService } from './dummy-data.service';
 import { CreateareaComponent } from './area/createarea/createarea.component';
 
-import { ViewTruckComponent } from './truck/view-truck/view-truck.component';
 import { ConfirmationDialogComponent } from './confirmation-dialog/confirmation-dialog.component';
 import { AreaDetailsComponent } from './area/area-detail/area-detail.component';
 import { MatDialogModule } from '@angular/material/dialog';
 
-import { TruckAdminComponent } from './truck/truck-admin/truck-admin.component';
-import { TruckEditComponent } from './truck/truck-edit/truck-edit.component';
 // import { MatInputModule } from '@angular/material/input';
 // import { MatSelectModule } from '@angular/material/select';
 

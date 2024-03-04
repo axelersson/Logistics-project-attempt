@@ -24,7 +24,6 @@ import { TruckPageComponent } from './Trucks/truck-page/truck-page.component';
 import { CreateTruckComponent } from './Trucks/create-truck/create-truck.component';
 
 
-import { ViewTruckComponent } from './truck/view-truck/view-truck.component'; // Import the new component
 import { AdminorderComponent } from './adminorder/adminorder.component';
 import { CompleteorderComponent } from './completeorder/completeorder.component';
 
@@ -56,7 +55,6 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     data: { role: 'Admin' },
   },
-  { path: 'view-truck/:id', component: ViewTruckComponent },
   { path: 'area/:areaId', component: AreaDetailsComponent },
   { path: 'homepage', component:HomeComponent},
   { path: 'arealist', component:AreaComponent},
