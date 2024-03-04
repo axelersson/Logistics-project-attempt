@@ -21,6 +21,7 @@ import { ViewTruckComponent } from './view-truck/view-truck.component'; // Impor
 import { AreaDetailsComponent } from './area/area-detail/area-detail.component';
 import { AdminorderComponent } from './adminorder/adminorder.component';
 import { CompleteorderComponent } from './completeorder/completeorder.component';
+import { AdminmonitoringComponent } from './adminmonitoring/adminmonitoring.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/homepage', pathMatch: 'full' }, // default route
@@ -30,6 +31,7 @@ const routes: Routes = [
   { path: 'adminlocation', component: AdminlocationComponent },
   { path: 'userlocation', component: UserlocationComponent },
   { path: 'adminedit', component: AdmineditComponent },
+  { path: 'adminmonitoring', component: AdminmonitoringComponent },
   {
     path: 'userdetail',
     component: UserdetailComponent,
@@ -44,14 +46,14 @@ const routes: Routes = [
   },
   { path: 'view-truck/:id', component: ViewTruckComponent },
   { path: 'area/:areaId', component: AreaDetailsComponent },
-  { path: 'homepage', component:HomeComponent},
-  { path: 'arealist', component:AreaComponent},
-  { path: 'orderlist', component:OrderdetailComponent},
-  { path: 'choosetruck', component:ChooseTruckComponent},
-  { path: 'areacrud', component:AreaCrudpageComponent},
-  {path: 'createarea', component:CreateareaComponent}, 
-  {path: 'adminorder', component:AdminorderComponent}, 
-  {path: 'completeorder', component:CompleteorderComponent}, 
+  { path: 'homepage', component: HomeComponent },
+  { path: 'arealist', component: AreaComponent },
+  { path: 'orderlist', component: OrderdetailComponent },
+  { path: 'choosetruck', component: ChooseTruckComponent },
+  { path: 'areacrud', component: AreaCrudpageComponent },
+  { path: 'createarea', component: CreateareaComponent },
+  { path: 'adminorder', component: AdminorderComponent },
+  { path: 'completeorder', component: CompleteorderComponent },
 
   { path: 'homepage', component: HomeComponent, canActivate: [AuthGuard] },
   { path: 'arealist', component: AreaComponent },
