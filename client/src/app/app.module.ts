@@ -48,6 +48,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { API_BASE_URL } from './services/api';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { AdminorderComponent } from './adminorder/adminorder.component';
+import { CompleteorderComponent } from './completeorder/completeorder.component';
 
 
 @NgModule({
@@ -78,8 +79,8 @@ import { AdminorderComponent } from './adminorder/adminorder.component';
     AdminlocationComponent,
     UserlocationComponent,
     AdmineditComponent,
-    AdminorderComponent
-    
+    AdminorderComponent,
+    CompleteorderComponent
   ],
   imports: [
     BrowserModule,
