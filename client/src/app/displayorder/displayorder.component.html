@@ -1,7 +1,12 @@
 <div class="order-list">
-      <mat-card *ngFor="let order of orders" class="example-card">
+      <mat-card *ngFor="let order of orders | sortByStatus" [ngClass]="{
+        'pending-order': order.orderStatus === 'Pending',
+        'partially-delivered-order': order.orderStatus === 'PartiallyDelivered',
+        'delivered-order': order.orderStatus === 'Delivered',
+        'cancelled-order': order.orderStatus === 'Cancelled'
+      }" class="example-card">
         <mat-card-content><strong>Order ID:</strong> {{ order.orderId }}</mat-card-content>
-        <mat-card-content><strong>User ID:</strong> {{ order.userId }}</mat-card-content>
+        <mat-card-content><strong>User ID:</strong> {{ order.userID }}</mat-card-content>
         <mat-card-content><strong>Status:</strong> {{ order.orderStatus }}</mat-card-content>
         <mat-card-content><strong>To Location ID:</strong> {{ order.toLocId }}</mat-card-content>
         <mat-card-content><strong>From Location ID:</strong> {{ order.fromLocId }}</mat-card-content>
@@ -13,6 +18,7 @@
       </mat-card>
     </div>
     <div class="button-container">
-      <button mat-raised-button color="primary" class="fixed-bottom-button" (click)="returnBack()">Return</button>
-    </div>
+      <button mat-raised-button color="primary" class="fixed-bottom-button1" (click)="return()">Return</button>
+      <button mat-raised-button color="primary" class="fixed-bottom-button2" (click)="next()">Next</button>
+      </div>
     

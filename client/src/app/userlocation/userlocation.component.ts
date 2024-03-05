@@ -32,7 +32,7 @@ export class UserlocationComponent {
 
   cancel() {
     // 实现取消逻辑
-    this.router.navigate(['/homepage'])
+    this.router.navigate(['/locationlist'])
 
   }
 

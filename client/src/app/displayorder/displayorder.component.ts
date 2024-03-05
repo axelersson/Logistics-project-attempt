@@ -34,7 +34,10 @@ export class DisplayorderComponent implements OnInit {
     });
   }
 
-  returnBack(): void {
+  return(): void {
+    this.router.navigate(['/homepage']); // Adjust this if you have a specific path to return to
+  }
+  next(): void {
     this.router.navigate(['/adminorder']); // Adjust this if you have a specific path to return to
   }
 }

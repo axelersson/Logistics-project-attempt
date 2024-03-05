@@ -65,7 +65,7 @@ cancelSelectedOrder(): void {
 }
 
 cancel():void{
-  this.router.navigate(['/homepage'])
+  this.router.navigate(['/displayorder'])
 }
 
 // 在 AdminorderComponent 中

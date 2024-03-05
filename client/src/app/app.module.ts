@@ -55,6 +55,8 @@ import { CompleteorderComponent } from './completeorder/completeorder.component'
 import { CreateorderComponent } from './createorder/createorder.component';
 import { DisplayorderComponent } from './displayorder/displayorder.component';
 import { UpdateorderComponent } from './updateorder/updateorder.component';
+import { SortByStatusPipe } from './pipe/sort-by-status.pipe';
+
 
 @NgModule({
   declarations: [
@@ -92,7 +94,9 @@ import { UpdateorderComponent } from './updateorder/updateorder.component';
     CompleteorderComponent,
     CreateorderComponent,
     DisplayorderComponent,
-    UpdateorderComponent
+    UpdateorderComponent,
+    SortByStatusPipe,
+
   ],
   imports: [
     BrowserModule,

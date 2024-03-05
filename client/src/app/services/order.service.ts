@@ -24,14 +24,27 @@ export class OrderService {
     );
   }
 
-  partialDeliver(orderId: string): Observable<void> {
-    let url = `${this.baseUrl}/Orders/PartialDeliver/${orderId}`;
-    return this.http.put<void>(url, {}).pipe(
+  partialDeliver(orderId: string, deliveredPieces: number): Observable<void> {
+    // 确保 URL 匹配后端的路由
+    let url = `${this.baseUrl}/Orders/PartialDeliver/${orderId}/Pieces/${deliveredPieces}`;
+    
+    // 发送 PUT 请求，但不需要发送请求体，因为所有必需的数据都在URL中传递了
+    return this.http.put<void>(url, null, { // 这里发送一个null作为请求体，因为我们不需要它
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json'
+      })
+    }).pipe(
       catchError(error => {
-        throw new Error(`Error in partial delivery of order: ${error.message}`);
+        // 如果有错误，转换错误信息
+        let errorMessage = `Error in partial delivery of order: ${error.status} ${error.statusText}`;
+        if (error.error) {
+          errorMessage += `: ${error.error}`;
+        }
+        return throwError(() => new Error(errorMessage));
       })
     );
   }
+  
 
   deliver(orderId: string): Observable<void> {
     let url = `${this.baseUrl}/Orders/Deliver/${orderId}`;

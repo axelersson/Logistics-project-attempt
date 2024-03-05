@@ -1676,8 +1676,8 @@ export class Client {
   /**
    * @return No Content
    */
-  partialDeliver(orderId: string): Observable<void> {
-    let url_ = this.baseUrl + '/Orders/PartialDeliver/{orderId}';
+  partialDeliver(orderId: string, deliveredPieces: number): Observable<void> {
+    let url_ = this.baseUrl + '/Orders/PartialDeliver/{orderId}/Pieces/${deliveredPieces}';
     if (orderId === undefined || orderId === null)
       throw new Error("The parameter 'orderId' must be defined.");
     url_ = url_.replace('{orderId}', encodeURIComponent('' + orderId));

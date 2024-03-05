@@ -16,7 +16,7 @@ html {
       height: 100px; /* 给容器一个高度 */
     }
     
-    .fixed-bottom-button {
+    .fixed-bottom-button1 {
       position: fixed;
       width: 80vw; /* The button will take up 80% of the viewport width */
       padding: 2vh 1vw; /* Padding based on viewport size */
@@ -25,5 +25,27 @@ html {
       z-index: 1000; /* Ensure the button is above other content */
     }
     
+    .fixed-bottom-button2 {
+      position: fixed;
+      width: 80vw; /* The button will take up 80% of the viewport width */
+      padding: 2vh 1vw; /* Padding based on viewport size */
+      font-size: 2vw; /* Font size based on viewport width */
+      bottom: 65px; /* Adjust the bottom position to lift the button above the bottom of the screen */
+      z-index: 1000; /* Ensure the button is above other content */
+      background-color: brown;
+    }
     
+    .pending-order {
+      background-color: green;
+    }
+    
+    .partially-delivered-order {
+      background-color: lightgreen;
+    }
+    
+    .delivered-order {
+      background-color: yellow;
+    }
+    
+
     

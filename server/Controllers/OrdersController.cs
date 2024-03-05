@@ -178,7 +178,7 @@ public class OrdersController : ControllerBase
 
         // Logic to completely deliver order if deliveredPieces > pieces
         Console.WriteLine("Delivered pieces", order.DeliveredPieces);
-        order.DeliveredPieces += deliveredPieces;
+        order.DeliveredPieces = deliveredPieces;
         Console.WriteLine(order.DeliveredPieces);
         if(order.DeliveredPieces >= order.Pieces){
             Console.WriteLine("Order Delivered!");

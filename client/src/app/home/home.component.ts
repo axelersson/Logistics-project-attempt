@@ -29,14 +29,8 @@ export class HomeComponent implements OnInit {
   }
 
   location():void{
-    if(this.authService.getUserRole() === 'Admin')
-    {
-      this.route.navigate(['/adminlocation'])
-    }
-    else
-    {
-      this.route.navigate(['/userlocation'])
-    }
+
+      this.route.navigate(['/locationlist'])
 
   }
 }
