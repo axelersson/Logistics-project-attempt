@@ -2432,6 +2432,7 @@ export class Client {
    */
   assignUser(truckId: string, userId: string): Observable<void> {
     let url_ = this.baseUrl + '/api/Trucks/{truckId}/AssignUser/{userId}';
+
     if (truckId === undefined || truckId === null)
       throw new Error("The parameter 'truckId' must be defined.");
     url_ = url_.replace('{truckId}', encodeURIComponent('' + truckId));
@@ -2439,10 +2440,11 @@ export class Client {
       throw new Error("The parameter 'userId' must be defined.");
     url_ = url_.replace('{userId}', encodeURIComponent('' + userId));
     url_ = url_.replace(/[?&]$/, '');
+    console.log(url_);
 
     let options_: any = {
       observe: 'response',
-      responseType: 'blob',
+      responseType: 'blob',   
       headers: new HttpHeaders({}),
     };
 

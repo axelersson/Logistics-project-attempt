@@ -26,7 +26,7 @@ import { CreateTruckComponent } from './Trucks/create-truck/create-truck.compone
 
 import { AdminorderComponent } from './adminorder/adminorder.component';
 import { CompleteorderComponent } from './completeorder/completeorder.component';
-
+import { TrucklistComponent } from './Trucks/trucklist/trucklist.component';
 const routes: Routes = [
   { path: '', redirectTo: '/homepage', pathMatch: 'full' }, // default route
   { path: 'login', component: LoginComponent }, // Default route
@@ -63,7 +63,8 @@ const routes: Routes = [
   { path: 'areacrud', component:AreaCrudpageComponent},
   {path: 'createarea', component:CreateareaComponent}, 
   {path: 'adminorder', component:AdminorderComponent}, 
-  {path: 'completeorder', component:CompleteorderComponent}, 
+  {path: 'completeorder', component:CompleteorderComponent},
+  {path: 'trucklist', component: TrucklistComponent},
 
   { path: 'homepage', component: HomeComponent, canActivate: [AuthGuard] },
   { path: 'arealist', component: AreaComponent },
