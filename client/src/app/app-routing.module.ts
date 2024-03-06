@@ -61,7 +61,6 @@ const routes: Routes = [
     data: { role: 'Admin' },
   },
   { path: 'userlocation', component: UserlocationComponent },
-  // { path: 'feature', loadChildren: () => import('./feature/feature.module').then(m => m.FeatureModule), canActivate: [AuthGuard] },
 ];
 
 @NgModule({
