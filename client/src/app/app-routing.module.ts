@@ -2,17 +2,14 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 //import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
-import { AuthGuard } from './security/auth.guard'; // Import the guard
+import { authGuard } from './Guard/auth.guard'; // Import the guard
 import { LoginComponent } from './login/login.component';
 import { OrderdetailComponent } from './orderdetail/orderdetail.component';
 import { LogoutComponent } from './logout/logout.component';
 import { LocationListComponent } from './location-list/location-list.component';
-
 import { AdminlocationComponent } from './adminlocation/adminlocation.component';
 import { UserlocationComponent } from './userlocation/userlocation.component';
 import { AdmineditComponent } from './adminedit/adminedit.component';
-
-
 import { UserdetailComponent } from './users/userdetail/userdetail.component';
 import { UsercreateComponent } from './users/usercreate/usercreate.component';
 import { Area } from './services/api';
@@ -22,54 +19,54 @@ import { CreateareaComponent } from './area/createarea/createarea.component';
 import { AreaDetailsComponent } from './area/area-detail/area-detail.component';
 import { TruckPageComponent } from './Trucks/truck-page/truck-page.component';
 import { CreateTruckComponent } from './Trucks/create-truck/create-truck.component';
-
-
 import { AdminorderComponent } from './adminorder/adminorder.component';
 import { CompleteorderComponent } from './completeorder/completeorder.component';
 import { CreateorderComponent } from './createorder/createorder.component';
-import { DisplayorderComponent } from './displayorder/displayorder.component'
+import { DisplayorderComponent } from './displayorder/displayorder.component';
 import { UpdateorderComponent } from './updateorder/updateorder.component';
 
-
 const routes: Routes = [
-  { path: '', redirectTo: '/homepage', pathMatch: 'full' }, // default route
+  {
+    path: '',
+    redirectTo: '/homepage',
+    pathMatch: 'full',
+  }, // default route
   { path: 'login', component: LoginComponent }, // Default route
   { path: 'logout', component: LogoutComponent },
   { path: 'locationlist', component: LocationListComponent },
-  { path: 'adminlocation', component: AdminlocationComponent},
-  { path: 'userlocation' , component: UserlocationComponent},
-  { path: 'adminedit', component: AdmineditComponent},
-  //{ path: 'feature', loadChildren: () => import('./feature/feature.module').then(m => m.FeatureModule), canActivate: [AuthGuard] }, Add canActivate: [AuthGuard] to all other routes except 'home'
-  //{ path: 'feature', loadChildren: () => import('./feature/feature.module').then(m => m.FeatureModule), canActivate: [AuthGuard] }, Add canActivate: [AuthGuard] to all other routes except 'home',
+  { path: 'adminlocation', component: AdminlocationComponent },
+  { path: 'userlocation', component: UserlocationComponent },
+  { path: 'adminedit', component: AdmineditComponent },
   { path: 'userdetail', component: UserdetailComponent },
   { path: 'usercreate', component: UsercreateComponent },
-  { path: 'createtruck', component: CreateTruckComponent }, 
+  { path: 'createtruck', component: CreateTruckComponent },
   { path: 'adminlocation', component: AdminlocationComponent },
   { path: 'userlocation', component: UserlocationComponent },
   { path: 'adminedit', component: AdmineditComponent },
   {
     path: 'userdetail',
     component: UserdetailComponent,
-    canActivate: [AuthGuard],
-    data: { role: 'Admin' },
+    canActivate: [authGuard],
   },
   {
     path: 'usercreate',
     component: UsercreateComponent,
-    canActivate: [AuthGuard],
-    data: { role: 'Admin' },
+    canActivate: [authGuard],
   },
   { path: 'area/:areaId', component: AreaDetailsComponent },
-  { path: 'homepage', component:HomeComponent},
-  { path: 'arealist', component:AreaComponent},
-  { path: 'orderlist', component:OrderdetailComponent},
-  { path: 'truckpage', component:TruckPageComponent},
-  { path: 'areacrud', component:AreaCrudpageComponent},
-  {path: 'createarea', component:CreateareaComponent}, 
-  {path: 'adminorder', component:AdminorderComponent}, 
-  {path: 'completeorder', component:CompleteorderComponent}, 
-
-  { path: 'homepage', component: HomeComponent, canActivate: [AuthGuard] },
+  { path: 'homepage', component: HomeComponent },
+  { path: 'arealist', component: AreaComponent },
+  { path: 'orderlist', component: OrderdetailComponent },
+  { path: 'truckpage', component: TruckPageComponent },
+  { path: 'areacrud', component: AreaCrudpageComponent },
+  { path: 'createarea', component: CreateareaComponent },
+  { path: 'adminorder', component: AdminorderComponent },
+  { path: 'completeorder', component: CompleteorderComponent },
+  {
+    path: 'homepage',
+    component: HomeComponent,
+    canActivate: [authGuard],
+  },
   { path: 'arealist', component: AreaComponent },
   { path: 'orderlist', component: OrderdetailComponent },
   { path: 'areacrud', component: AreaCrudpageComponent },
@@ -78,7 +75,6 @@ const routes: Routes = [
   { path: 'createorder', component: CreateorderComponent },
   { path: 'displayorder', component: DisplayorderComponent },
   { path: 'updateorder', component: UpdateorderComponent },
-  //{ path: 'feature', loadChildren: () => import('./feature/feature.module').then(m => m.FeatureModule), canActivate: [AuthGuard] }, Add canActivate: [AuthGuard] to all other routes except 'home'
 ];
 
 @NgModule({
