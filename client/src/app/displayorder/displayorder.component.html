@@ -15,6 +15,12 @@
         <mat-card-content><strong>Type:</strong> {{ order.orderType }}</mat-card-content>
         <mat-card-content><strong>Created At:</strong> {{ order.createdAt | date:'medium' }}</mat-card-content>
         <mat-card-content><strong>Completed At:</strong> {{ order.completedAt | date:'medium' }}</mat-card-content>
+
+          <button [ngClass]="{'assigned-to-you': isOrderAssigned(order) && isAssignedToCurrentUser(order)}" mat-raised-button *ngIf="isOrderAssigned(order) && isAssignedToCurrentUser(order) && order.orderStatus !== 'Cancelled'" disabled>This order is assigned to you</button>
+          <button class="assignbutton" mat-raised-button *ngIf="isOrderAssigned(order) && !isAssignedToCurrentUser(order) && order.orderStatus !== 'Cancelled'" disabled>This order is assigned to other user</button>
+          <button class="assignbutton" mat-raised-button color="primary" *ngIf="!isOrderAssigned(order) && order.orderStatus !== 'Cancelled'" (click)="assignOrder(order.orderId)">Assign</button>
+
+        
       </mat-card>
     </div>
     <div class="button-container">

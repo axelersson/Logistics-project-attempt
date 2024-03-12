@@ -99,4 +99,18 @@ export class OrderService {
   );
 }
 
+assignOrder(truckId: string, orderId: string): Observable<void> {
+  return this.http.post<void>(`${this.baseUrl}/api/Trucks/${truckId}/AssignOrder/${orderId}`, {}).pipe(
+    catchError(error => throwError(() => new Error('Error assigning order: ' + error)))
+  );
+}
+
+getTruckOrderAssignments(): Observable<any> {
+  // 调用api.ts中的assignments()方法
+  return this.http.get<any>(`${this.baseUrl}/Orders/Assignments`).pipe(
+      map(response => response.truckOrderAssignments || []),
+      catchError(error => throwError(() => new Error('Failed to get truck order assignments')))
+  );
+}
+
 }

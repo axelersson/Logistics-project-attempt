@@ -1858,6 +1858,7 @@ export class Client {
   /**
    * @return Success
    */
+  // get all assignment
   assignments(): Observable<TruckOrderAssignmentsGetAllResponse> {
     let url_ = this.baseUrl + '/Orders/Assignments';
     url_ = url_.replace(/[?&]$/, '');
@@ -2714,6 +2715,7 @@ export class Client {
   /**
    * @return Success
    */
+  // get the user information of those who have been assinged trucks
   assignedTruckUsers(): Observable<TruckUsersGetAllResponse> {
     let url_ = this.baseUrl + '/api/Trucks/AssignedTruckUsers';
     url_ = url_.replace(/[?&]$/, '');
@@ -2816,6 +2818,7 @@ export class Client {
   /**
    * @return No Content
    */
+  // assign an order to a truck
   assignOrder(truckId: string, orderId: string): Observable<void> {
     let url_ = this.baseUrl + '/api/Trucks/{truckId}/AssignOrder/{orderId}';
     if (truckId === undefined || truckId === null)
@@ -2909,6 +2912,7 @@ export class Client {
   /**
    * @return Success
    */
+  // get orderAssignment according to id
   truckOrderAssignment(
     truckOrderAssignmentId: number,
   ): Observable<TruckOrderAssignment> {

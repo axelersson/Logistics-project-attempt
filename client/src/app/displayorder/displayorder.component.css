@@ -47,5 +47,32 @@ html {
       background-color: yellow;
     }
     
+    .assignbutton{
+      position: absolute; /* 绝对定位，使其相对于最近的相对定位祖先定位（这里是 .example-card） */
+      bottom: 10px; /* 按钮距离卡片底部的距离 */
+      left: 50%; /* 初始位置设置为卡片的中间 */
+      transform: translateX(-50%); /* 将按钮向左移动自身宽度的50%，以确保居中 */
+      width: calc(100% - 20px); /* 使按钮宽度略小于卡片宽度，留出一定间距，可根据实际情况调整 */
+    }
 
+    .assigned-to-you {
+      position: absolute; /* 绝对定位，使其相对于最近的相对定位祖先定位（这里是 .example-card） */
+      bottom: 10px; /* 按钮距离卡片底部的距离 */
+      left: 50%; /* 初始位置设置为卡片的中间 */
+      transform: translateX(-50%); /* 将按钮向左移动自身宽度的50%，以确保居中 */
+      width: calc(100% - 20px); /* 使按钮宽度略小于卡片宽度，留出一定间距，可根据实际情况调整 */
+      background-color: red !important; /* 设置按钮背景色为红色，!important 确保覆盖默认样式 */
+      color: white !important; /* 如果需要，改变文本颜色以确保可读性 */
+  }
+  
+
+    .example-card {
+      position: relative; /* 使内部的绝对定位元素相对于此卡片定位 */
+      padding-bottom: 60px; /* 为底部按钮留出空间，根据按钮大小调整 */
+      display: flex; /* 使用 Flex 布局 */
+      flex-direction: column; /* 子元素垂直排列 */
+      height: 100%; /* 如果需要，可根据内容调整卡片高度 */
+      justify-content: space-between; /* 将内容和按钮分开，内容置顶，按钮置底 */
+  }
+  
     

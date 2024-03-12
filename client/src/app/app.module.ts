@@ -89,7 +89,7 @@ import { SortByStatusPipe } from './pipe/sort-by-status.pipe';
     AdmineditComponent,
     CreateTruckComponent,
     
-    
+     
     AdminorderComponent,
     CompleteorderComponent,
     CreateorderComponent,
@@ -100,7 +100,7 @@ import { SortByStatusPipe } from './pipe/sort-by-status.pipe';
   ],
   imports: [
     BrowserModule,
-    BrowserAnimationsModule, // Include BrowserAnimationsModule
+    BrowserAnimationsModule, 
     FormsModule,
     AppRoutingModule,
     ReactiveFormsModule,
