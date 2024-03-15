@@ -211,6 +211,35 @@ public class OrdersController : ControllerBase
         return CreatedAtAction(nameof(GetOrderById), new { orderId = order.OrderId }, order);
     }
 
+    //UNASSIGN ORDER
+    [HttpPut("Unassign/{orderId}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> UnassignOrder(string orderId)
+    {
+        var order = await _context.Orders.FirstOrDefaultAsync(o => o.OrderId == orderId);
+
+        if (order == null)
+        {
+            return BadRequest("Order not found");
+        }
+
+        // Logic to completely deliver order if deliveredPieces > pieces
+        var truckOrderAssignment = await _context.TruckOrderAssignments.FirstOrDefaultAsync(toa => toa.OrderId == orderId);
+
+        if (truckOrderAssignment == null)
+        {
+            return BadRequest("Order not assigned to a truck");
+        }
+
+        truckOrderAssignment.IsAssigned = false;
+        truckOrderAssignment.UnassignedAt = DateTime.Now;
+        _context.Entry(order).State = EntityState.Modified;
+        await _context.SaveChangesAsync();
+
+        return CreatedAtAction(nameof(GetOrderById), new { orderId = order.OrderId }, order);
+    }
+
     // CANCEL ORDER
     [HttpPut("Cancel/{orderId}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]
@@ -246,6 +275,22 @@ public class OrdersController : ControllerBase
     public async Task<IActionResult> GetTruckOrderAssignments()
     {
         var truckOrderAssignments = await _context.TruckOrderAssignments.ToListAsync();
+        return Ok(new TruckOrderAssignmentsGetAllResponse { TruckOrderAssignments = truckOrderAssignments });
+    }
+
+    //Get all orders assigned to a truck
+    [HttpGet("TruckOrders/{truckId}")]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(OrdersGetAllResponse))]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> GetTruckOrders(string truckId)
+    {
+        var truckOrderAssignments = await _context.TruckOrderAssignments.Where(tu => tu.IsAssigned == true && tu.TruckId == truckId).ToListAsync();
+
+        if (truckOrderAssignments == null)
+        {
+            return NotFound();
+        }
+
         return Ok(new TruckOrderAssignmentsGetAllResponse { TruckOrderAssignments = truckOrderAssignments });
     }
 
