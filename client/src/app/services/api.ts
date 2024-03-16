@@ -11,11 +11,13 @@
 import {
   mergeMap as _observableMergeMap,
   catchError as _observableCatch,
+  catchError,
 } from 'rxjs/operators';
 import {
   Observable,
   throwError as _observableThrow,
   of as _observableOf,
+  throwError,
 } from 'rxjs';
 import { Injectable, Inject, Optional, InjectionToken } from '@angular/core';
 import {
@@ -45,6 +47,8 @@ export class Client {
   /**
    * @return Success
    */
+
+  
   areasGET(): Observable<AreasResponse> {
     let url_ = this.baseUrl + '/api/Areas';
     url_ = url_.replace(/[?&]$/, '');
@@ -2427,6 +2431,46 @@ export class Client {
     }
     return _observableOf(null as any);
   }
+
+
+
+
+
+  // 方法用于取消分配所有与订单关联的卡车
+unassignOrder(orderId: string): Observable<void> {
+  let url_ = `${this.baseUrl}/Orders/Unassign/${encodeURIComponent(orderId)}`;
+  return this.http.put<void>(url_, null).pipe(
+      catchError(error => {
+          return throwError(() => new Error('Error unassigning order: ' + error));
+      })
+  );
+}
+
+// 方法用于取消分配指定的卡车与订单的关联
+unassignTruckFromOrder(orderId: string, truckId: string): Observable<void> {
+  let url = `${this.baseUrl}/api/Orders/Unassign/${encodeURIComponent(orderId)}/Truck/${encodeURIComponent(truckId)}`;
+  return this.http.put<void>(url, {}).pipe(
+      catchError(error => {
+          return throwError(() => new Error('Error unassigning truck from order: ' + error));
+      })
+  );
+}
+
+// 方法用于获取指定卡车的所有订单
+getTruckOrders(truckId: string): Observable<TruckOrderAssignmentsGetAllResponse> {
+  let url_ = `${this.baseUrl}/Orders/TruckOrders/${encodeURIComponent(truckId)}`;
+  return this.http.get<TruckOrderAssignmentsGetAllResponse>(url_).pipe(
+      catchError(error => {
+          return throwError(() => new Error('Error getting truck orders: ' + error));
+      })
+  );
+}
+
+
+
+
+
+
 
   /**
    * @return No Content

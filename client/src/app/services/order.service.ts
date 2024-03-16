@@ -2,7 +2,7 @@ import { Injectable, Inject } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { API_BASE_URL } from './api'; // 确保路径匹配你的文件结构
+import { API_BASE_URL, TruckOrderAssignmentsGetAllResponse } from './api'; // 确保路径匹配你的文件结构
 import { throwError } from 'rxjs';
 
 
@@ -112,5 +112,24 @@ getTruckOrderAssignments(): Observable<any> {
       catchError(error => throwError(() => new Error('Failed to get truck order assignments')))
   );
 }
+
+getTruckOrdersAssignmentIfisAssignedEqualsTrue(truckId: string): Observable<TruckOrderAssignmentsGetAllResponse> {
+  let url = `${this.baseUrl}/Orders/TruckOrders/${encodeURIComponent(truckId)}`;
+  return this.http.get<TruckOrderAssignmentsGetAllResponse>(url).pipe(
+      catchError(error => {
+          return throwError(() => new Error(`Error getting truck orders: ${error.message}`));
+      })
+  );
+}
+
+unassignTruckFromOrder(orderId: string, truckId: string): Observable<void> {
+  let url = `${this.baseUrl}/Orders/Unassign/${encodeURIComponent(orderId)}/Truck/${encodeURIComponent(truckId)}`;
+  return this.http.put<void>(url, {}).pipe(
+      catchError(error => {
+          return throwError(() => new Error(`Error unassigning truck ${truckId} from order ${orderId}: ${error.message}`));
+      })
+  );
+}
+
 
 }

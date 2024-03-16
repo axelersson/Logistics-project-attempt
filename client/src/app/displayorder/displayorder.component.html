@@ -16,15 +16,25 @@
         <mat-card-content><strong>Created At:</strong> {{ order.createdAt | date:'medium' }}</mat-card-content>
         <mat-card-content><strong>Completed At:</strong> {{ order.completedAt | date:'medium' }}</mat-card-content>
 
-          <button [ngClass]="{'assigned-to-you': isOrderAssigned(order) && isAssignedToCurrentUser(order)}" mat-raised-button *ngIf="isOrderAssigned(order) && isAssignedToCurrentUser(order) && order.orderStatus !== 'Cancelled'" disabled>This order is assigned to you</button>
-          <button class="assignbutton" mat-raised-button *ngIf="isOrderAssigned(order) && !isAssignedToCurrentUser(order) && order.orderStatus !== 'Cancelled'" disabled>This order is assigned to other user</button>
-          <button class="assignbutton" mat-raised-button color="primary" *ngIf="!isOrderAssigned(order) && order.orderStatus !== 'Cancelled'" (click)="assignOrder(order.orderId)">Assign</button>
+    
 
+          <button [ngClass]="{'assigned-to-you': isOrderAssigned(order) && isAssignedToCurrentUser(order)}" mat-raised-button *ngIf="isOrderAssigned(order) && isAssignedToCurrentUser(order) && order.orderStatus !== 'Cancelled'" (click)="unassignOrder(order.orderId)">This order is assigned to you</button>
+          <!-- <button [ngClass]="{'assigned-to-you': isOrderAssigned(order) && isAssignedToCurrentUser(order)}" 
+          mat-raised-button 
+          *ngIf="isOrderAssigned(order) && isAssignedToCurrentUser(order) && order.orderStatus !== 'Cancelled'"
+          (click)="isReassignable(order) ? unassignOrder(order.orderId) : null">
+              {{ isReassignable(order) ? 'Reassign' : 'This order is assigned to you' }}
+          </button>
+           -->
+           <button [ngClass]="{'ressign': isReassignable(order) && isAssignedToCurrentUser(order)}" mat-raised-button *ngIf="isReassignable(order) && isAssignedToCurrentUser(order) && order.orderStatus !== 'Cancelled'" >Ressign</button>
+          <button class="assignbutton" mat-raised-button color="primary" *ngIf="!isOrderAssigned(order) && order.orderStatus !== 'Cancelled'" (click)="assignOrder(order.orderId)">Assign</button>
+          
         
       </mat-card>
     </div>
     <div class="button-container">
       <button mat-raised-button color="primary" class="fixed-bottom-button1" (click)="return()">Return</button>
       <button mat-raised-button color="primary" class="fixed-bottom-button2" (click)="next()">Next</button>
+    
       </div>
     
