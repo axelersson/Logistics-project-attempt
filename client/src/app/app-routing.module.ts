@@ -30,24 +30,51 @@ import { UpdateorderComponent } from './updateorder/updateorder.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/homepage', pathMatch: 'full' }, // default route
-  { path: 'adminedit', component: AdmineditComponent },
-  { path: 'adminlocation', component: AdminlocationComponent },
-  { path: 'adminorder', component: AdminorderComponent },
-  { path: 'area/:areaId', component: AreaDetailsComponent },
-  { path: 'areacrud', component: AreaCrudpageComponent },
-  { path: 'arealist', component: AreaComponent },
-  { path: 'createarea', component: CreateareaComponent },
-  { path: 'createorder', component: CreateorderComponent },
-  { path: 'createtruck', component: CreateTruckComponent },
-  { path: 'completeorder', component: CompleteorderComponent },
-  { path: 'displayorder', component: DisplayorderComponent },
+  {
+    path: 'adminedit', component: AdmineditComponent,
+    canActivate: [AuthGuard],
+    data: { role: 'Admin' },
+  },
+  {
+    path: 'adminlocation', component: AdminlocationComponent,
+    canActivate: [AuthGuard],
+    data: { role: 'Admin' },
+  },
+  {
+    path: 'adminorder', component: AdminorderComponent,
+    canActivate: [AuthGuard],
+    data: { role: 'Admin' },
+  },
+  { path: 'area/:areaId', component: AreaDetailsComponent, canActivate: [AuthGuard] },
+  {
+    path: 'areacrud', component: AreaCrudpageComponent,
+    canActivate: [AuthGuard],
+    data: { role: 'Admin' },
+  },
+  { path: 'arealist', component: AreaComponent, canActivate: [AuthGuard] },
+  {
+    path: 'createarea', component: CreateareaComponent,
+    canActivate: [AuthGuard],
+    data: { role: 'Admin' },
+  },
+  {
+    path: 'createorder', component: CreateorderComponent,
+    canActivate: [AuthGuard],
+    data: { role: 'Admin' },
+  },
+  {
+    path: 'createtruck', component: CreateTruckComponent, canActivate: [AuthGuard],
+    data: { role: 'Admin' },
+  },
+  { path: 'completeorder', component: CompleteorderComponent, canActivate: [AuthGuard] },
+  { path: 'displayorder', component: DisplayorderComponent, canActivate: [AuthGuard] },
   { path: 'homepage', component: HomeComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
   { path: 'logout', component: LogoutComponent },
-  { path: 'locationlist', component: LocationListComponent },
-  { path: 'orderlist', component: OrderdetailComponent },
-  { path: 'truckpage', component: TruckPageComponent },
-  { path: 'updateorder', component: UpdateorderComponent },
+  { path: 'locationlist', component: LocationListComponent, canActivate: [AuthGuard] },
+  { path: 'orderlist', component: OrderdetailComponent, canActivate: [AuthGuard] },
+  { path: 'truckpage', component: TruckPageComponent, canActivate: [AuthGuard] },
+  { path: 'updateorder', component: UpdateorderComponent, canActivate: [AuthGuard] },
   {
     path: 'usercreate',
     component: UsercreateComponent,
@@ -60,11 +87,14 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     data: { role: 'Admin' },
   },
-  { path: 'userlocation', component: UserlocationComponent },
+  {
+    path: 'userlocation', component: UserlocationComponent,
+    canActivate: [AuthGuard]
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }
