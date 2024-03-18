@@ -24,9 +24,6 @@ import { CreateTruckComponent } from './Trucks/create-truck/create-truck.compone
 
 import { AdminorderComponent } from './adminorder/adminorder.component';
 import { CompleteorderComponent } from './completeorder/completeorder.component';
-import { CreateorderComponent } from './createorder/createorder.component';
-import { DisplayorderComponent } from './displayorder/displayorder.component';
-import { UpdateorderComponent } from './updateorder/updateorder.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/homepage', pathMatch: 'full' }, // default route
@@ -88,9 +85,28 @@ const routes: Routes = [
     data: { role: 'Admin' },
   },
   {
-    path: 'userlocation', component: UserlocationComponent,
-    canActivate: [AuthGuard]
+    path: 'usercreate',
+    component: UsercreateComponent,
+    canActivate: [AuthGuard],
+    data: { role: 'Admin' },
   },
+  { path: 'area/:areaId', component: AreaDetailsComponent },
+  { path: 'homepage', component:HomeComponent},
+  { path: 'arealist', component:AreaComponent},
+  { path: 'orderlist', component:OrderdetailComponent},
+  { path: 'truckpage', component:TruckPageComponent},
+  { path: 'areacrud', component:AreaCrudpageComponent},
+  {path: 'createarea', component:CreateareaComponent}, 
+  {path: 'adminorder', component:AdminorderComponent}, 
+  {path: 'completeorder', component:CompleteorderComponent}, 
+
+  { path: 'homepage', component: HomeComponent, canActivate: [AuthGuard] },
+  { path: 'arealist', component: AreaComponent },
+  { path: 'orderlist', component: OrderdetailComponent },
+  { path: 'areacrud', component: AreaCrudpageComponent },
+  { path: 'createarea', component: CreateareaComponent },
+  { path: 'adminorder', component: AdminorderComponent },
+  //{ path: 'feature', loadChildren: () => import('./feature/feature.module').then(m => m.FeatureModule), canActivate: [AuthGuard] }, Add canActivate: [AuthGuard] to all other routes except 'home'
 ];
 
 @NgModule({
