@@ -18,7 +18,10 @@
 
     
 
-          <button [ngClass]="{'assigned-to-you': isOrderAssigned(order) && isAssignedToCurrentUser(order)}" mat-raised-button *ngIf="isOrderAssigned(order) && isAssignedToCurrentUser(order) && order.orderStatus !== 'Cancelled'" (click)="unassignOrder(order.orderId)">This order is assigned to you</button>
+          <button [ngClass]="{'assigned-to-you': isOrderAssignmentEstablished(order) && isAssignedToCurrentUser(order)}" 
+          mat-raised-button *ngIf="isOrderAssignmentEstablished(order) && isAssignedToCurrentUser(order) && 
+          isOrderAssigned(order) && order.orderStatus !== 'Cancelled' && order.orderStatus !== 'Deliverd'" 
+          (click)="unassignOrder(order.orderId)">This order is assigned to you</button>
           <!-- <button [ngClass]="{'assigned-to-you': isOrderAssigned(order) && isAssignedToCurrentUser(order)}" 
           mat-raised-button 
           *ngIf="isOrderAssigned(order) && isAssignedToCurrentUser(order) && order.orderStatus !== 'Cancelled'"
@@ -26,9 +29,21 @@
               {{ isReassignable(order) ? 'Reassign' : 'This order is assigned to you' }}
           </button>
            -->
-           <button [ngClass]="{'ressign': isReassignable(order) && isAssignedToCurrentUser(order)}" mat-raised-button *ngIf="isReassignable(order) && isAssignedToCurrentUser(order) && order.orderStatus !== 'Cancelled'" >Ressign</button>
-          <button class="assignbutton" mat-raised-button color="primary" *ngIf="!isOrderAssigned(order) && order.orderStatus !== 'Cancelled'" (click)="assignOrder(order.orderId)">Assign</button>
+           <button [ngClass]="{'ressign': isReassignable(order) && isAssignedToCurrentUser(order) }"
+            mat-raised-button *ngIf="isReassignable(order) && isAssignedToCurrentUser(order) && 
+             order.orderStatus !== 'Cancelled' && isOrderDeliverd" (click) = "assignTruckToOrder(order.orderId)" >
+             Reassign this order to you</button>
+          <button class="assignbutton" mat-raised-button color="primary" 
+
+          *ngIf="!isOrderAssignmentEstablished(order) && order.orderStatus !== 'Cancelled' 
+          && order.orderStatus !== 'Deliverd'" (click)="assignOrder(order.orderId)">Assign</button>
+
+          <button class="assigned-to-other" mat-raised-button color="primary" 
+          *ngIf="isOrderAssignmentEstablished(order) && !isAssignedToCurrentUser(order) 
+          && order.orderStatus !== 'Cancelled'  && order.orderStatus !== 'Deliverd'" >This order is assigned to other user</button>
           
+          <button class="is-delivered" mat-raised-button color="primary" 
+          *ngIf="order.orderStatus === 'Delivered'" >This order is delivered</button>
         
       </mat-card>
     </div>

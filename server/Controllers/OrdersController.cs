@@ -323,6 +323,45 @@ public class OrdersController : ControllerBase
         return Ok(new TruckOrderAssignmentsGetAllResponse { TruckOrderAssignments = truckOrderAssignments });
     }
 
+//Change the IsAssigned property into True
+[HttpPut("AssignTruckOrder/{orderId}")]
+[ProducesResponseType(StatusCodes.Status200OK)] // 添加成功响应的类型
+[ProducesResponseType(StatusCodes.Status400BadRequest)] // 添加请求错误响应的类型
+[ProducesResponseType(StatusCodes.Status404NotFound)] // 添加未找到资源响应的类型
+public async Task<IActionResult> AssignTruckOrder(string orderId)
+{
+    // 检查传入的 orderId 是否为空
+    if (string.IsNullOrWhiteSpace(orderId))
+    {
+        return BadRequest("OrderId must be provided.");
+    }
+
+    // 查找与 orderId 相关联的 TruckOrderAssignment 实体
+    var truckOrderAssignment = await _context.TruckOrderAssignments
+                                             .FirstOrDefaultAsync(t => t.OrderId == orderId);
+    
+    // 检查是否找到相应的 TruckOrderAssignment 实体
+    if (truckOrderAssignment == null)
+    {
+        return NotFound($"TruckOrderAssignment with OrderId {orderId} not found.");
+    }
+
+    // 将 IsAssigned 属性设置为 true
+    truckOrderAssignment.IsAssigned = true;
+
+    // 更新分配时间
+    truckOrderAssignment.AssignedAt = DateTime.Now;
+
+    // 提交到数据库
+    _context.TruckOrderAssignments.Update(truckOrderAssignment);
+    await _context.SaveChangesAsync();
+
+    // 返回成功响应
+    return Ok(truckOrderAssignment);
+}
+
+
+
     private bool OrderExists(string orderId)
     {
         return _context.Orders.Any(o => o.OrderId == orderId);

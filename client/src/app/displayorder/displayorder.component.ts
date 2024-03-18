@@ -44,8 +44,8 @@ export class DisplayorderComponent implements OnInit {
       next: () => {
         this.snackBar.open(`Order ${orderId} assigned successfully`, 'Close', {duration: 3000});
         this.assignedOrders.add(orderId); // 标记订单已分配
-        this.loadOrders(); // 可选：重新加载订单列表
-        window.location.reload();
+        this.loadTruckOrderAssignments(); // 重新加载分配情况
+          this.loadOrders(); // 可选：重新加载订单列表
       },
       error: (error) => {
         this.snackBar.open('Error assigning order: ' + error.message, 'Close', {duration: 3000});
@@ -68,8 +68,8 @@ export class DisplayorderComponent implements OnInit {
     
 }
 
-isOrderAssigned(order: any): boolean {
-  return this.truckOrderAssignments.some(assignment => assignment.orderId === order.orderId);
+isOrderAssignmentEstablished(order: any): boolean {
+  return this.truckOrderAssignments.some(assignment => assignment.orderId === order.orderId );
 }
 
 isAssignedToCurrentUser(order: any): boolean {
@@ -80,6 +80,15 @@ isReassignable(order: any): boolean {
   return this.truckOrderAssignments.some(assignment => 
     assignment.orderId === order.orderId && assignment.isAssigned === false);
 }
+
+isOrderAssigned(order: any): boolean {
+  return this.truckOrderAssignments.some(assignment => assignment.isAssigned === true )
+}
+
+isOrderDeliverd(order: any): boolean {
+  return this.truckOrderAssignments.some(assignment => assignment.orderStatus === "Delivered" )
+}
+
 
 unassignOrder(orderId: string): void {
   const truckId = 'T1-00c40822-2fb0-4449-bd67-31472efc8816'; // 你指定的卡车ID
@@ -108,6 +117,23 @@ getTruckOrdersAssignmentsIfAssigned(): void {
           // 发生错误时也应初始化为一个空数组以防止其他错误
           this.truckOrderAssignments = [];
       }
+  });
+}
+
+//find the truckOrderAssignmentAccording to the orderId and change its "IsAssignment" property into true
+assignTruckToOrder(orderId: string): void {
+
+  // 调用OrderService中的assignTruckOrder方法
+  this.orderService.assignTruckOrder(orderId).subscribe({
+    next: (response) => {
+      this.snackBar.open(`Order ${orderId} assigned to truck successfully`, 'Close', {duration: 3000});
+      // 这里可以根据你的需要刷新列表或做其他更新
+      this.loadTruckOrderAssignments(); // 重新加载分配情况
+      this.loadOrders();
+    },
+    error: (error) => {
+      this.snackBar.open(`Error assigning truck to order: ${error.message}`, 'Close', {duration: 3000});
+    }
   });
 }
 

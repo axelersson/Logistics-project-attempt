@@ -62,11 +62,12 @@ export class UpdateorderComponent {
       this.snackBar.open('DeliveredPieces can not be more than pieces', 'Close', { duration: 3000 });
       return
     }
-    if((this.order.deliveredPieces === this.order.pieces) && (this.order.orderStatuses != "Delivered"))
-    {
-      this.snackBar.open('If the pieces are all delieverd, the order should be delieverd', 'Close', { duration: 3000 });
-      return
-    }
+    // if((this.order.deliveredPieces === this.order.pieces) && (this.order.orderStatuses != "Delivered"))
+    // {
+      
+    //   this.snackBar.open('If the pieces are all delieverd, the order should be delieverd', 'Close', { duration: 3000 });
+    //   return
+    // }
     
 
     if (this.orderId && this.order ) {

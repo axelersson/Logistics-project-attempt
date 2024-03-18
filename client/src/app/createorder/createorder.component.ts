@@ -22,6 +22,7 @@ export class CreateorderComponent implements OnInit {
   ngOnInit(): void {}
 
   createOrder(): void {
+    this.order.userId = "U3-a6ca836b-7e73-4aeb-b9b3-8a7965c5dda0"
     if(this.order.pieces === 0)
     {
       this.snackBar.open('Pieces can not be 0', 'Close', { duration: 3000 });
@@ -37,7 +38,7 @@ export class CreateorderComponent implements OnInit {
       this.snackBar.open('DeliveredPieces can not be more than pieces', 'Close', { duration: 3000 });
       return
     }
-    if((this.order.deliveredPieces === this.order.pieces) && (this.order.orderStatuses != "Delivered"))
+    if((this.order.deliveredPieces === this.order.pieces) && (this.order.orderStatuses != "delivered"))
     {
       this.snackBar.open('If the pieces are all delieverd, the order should be delieverd', 'Close', { duration: 3000 });
       return
@@ -46,7 +47,6 @@ export class CreateorderComponent implements OnInit {
       this.snackBar.open('Delivered pieces cannot be greater than total pieces', 'Close', { duration: 3000 });
       return;
     }
-
     if (this.order.toLocId === this.order.fromLocId) {
       this.snackBar.open('To Location ID and From Location ID cannot be the same', 'Close', { duration: 3000 });
       return;
