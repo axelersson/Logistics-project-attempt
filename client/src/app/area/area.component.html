@@ -1,8 +1,9 @@
-<div class="next_page-component">
+<div *ngIf="authService.isAdmin()" class="next_page-component">
   <button mat-raised-button color="primary" class="next-button" routerLink="/areacrud" routerLinkActive="active">
     <mat-icon>NEXT</mat-icon>
   </button>
 </div>
+
 
 <div class="area-list">
   <mat-card *ngFor="let area of areas" class="example-card">

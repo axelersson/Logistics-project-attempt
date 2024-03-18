@@ -14,10 +14,13 @@ public class TrucksController : ControllerBase
     private readonly LogisticsDBContext _context;
     private readonly ILogger<TrucksController> _logger;
 
-    public TrucksController(LogisticsDBContext context, ILogger<TrucksController> logger)
+    private readonly ILoggerService _loggingService;
+
+    public TrucksController(LogisticsDBContext context, ILogger<TrucksController> logger, ILoggerService loggingService)
     {
         _context = context;
         _logger = logger;
+        _loggingService = loggingService;
     }
 
     [HttpGet]
@@ -26,7 +29,7 @@ public class TrucksController : ControllerBase
     {
         var trucks = await _context.Trucks.Include(tu => tu.TruckUsers).ToListAsync();
         return Ok(new TrucksGetAllResponse { Trucks = trucks });
-        
+
     }
 
 
@@ -75,32 +78,32 @@ public class TrucksController : ControllerBase
         _context.Entry(updatedTruck).State = EntityState.Modified;
 
         try
-    {
-        // Save changes to the database
-        await _context.SaveChangesAsync();
-
-        // Retrieve the updated truck from the database
-        var updatedEntity = await _context.Trucks.FindAsync(truckId);
-
-        if (updatedEntity == null)
         {
-            return NotFound();
-        }
+            // Save changes to the database
+            await _context.SaveChangesAsync();
 
-        // Return the updated truck in the response
-        return Ok(updatedEntity);
-    }
-    catch (DbUpdateConcurrencyException)
-    {
-        if (!TruckExists(truckId))
-        {
-            return NotFound();
+            // Retrieve the updated truck from the database
+            var updatedEntity = await _context.Trucks.FindAsync(truckId);
+
+            if (updatedEntity == null)
+            {
+                return NotFound();
+            }
+
+            // Return the updated truck in the response
+            return Ok(updatedEntity);
         }
-        else
+        catch (DbUpdateConcurrencyException)
         {
-            throw;
+            if (!TruckExists(truckId))
+            {
+                return NotFound();
+            }
+            else
+            {
+                throw;
+            }
         }
-    }
     }
 
     [HttpDelete("{truckId}")]
@@ -159,7 +162,7 @@ public class TrucksController : ControllerBase
         }
         var truck = await _context.Trucks.FirstOrDefaultAsync(t => t.TruckId == truckId);
 
-        if (truck== null)
+        if (truck == null)
         {
             return BadRequest("Truck not found");
         }

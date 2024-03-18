@@ -5,6 +5,7 @@ import { Area } from '../services/api';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialogComponent } from '../confirmation-dialog/confirmation-dialog.component';
 import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.service'
 
 @Component({
   selector: 'app-area',
@@ -16,7 +17,7 @@ export class AreaComponent implements OnInit {
   areaIdToDelete: string = '';
   selectedArea: Area | undefined;
 
-  constructor(private client: Client, private router: Router, public dialog: MatDialog) {}
+  constructor(private client: Client, private router: Router, public dialog: MatDialog, public authService: AuthService) { }
 
   viewDetails(area: Area): void {
     this.selectedArea = area;

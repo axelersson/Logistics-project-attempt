@@ -1,13 +1,16 @@
 <div class="truck-list">
+  <ng-container *ngIf="authService.isAdmin()">
     <button mat-raised-button color="primary" class="next-button" routerLink="/truckpage" routerLinkActive="active">
-        <p>NEXT</p></button>
-        <mat-card *ngFor="let truck of trucks" class="example-card" (click)="assignUser(truck)">
-          <mat-card-content><strong>TruckId:</strong> {{ truck.truckId }}</mat-card-content>
-          <mat-card-content><strong>Area ID:</strong> {{ truck.currentAreaId }}</mat-card-content>
-          <mat-card-content><strong>Reg nmr:</strong> {{ truck.registrationnumber }}</mat-card-content>
-        </mat-card>
-        
-  
+      <p>NEXT</p>
+    </button>
+  </ng-container>
+  <mat-card *ngFor="let truck of trucks" class="example-card" (click)="assignUser(truck)">
+    <mat-card-content><strong>TruckId:</strong> {{ truck.truckId }}</mat-card-content>
+    <mat-card-content><strong>Area ID:</strong> {{ truck.currentAreaId }}</mat-card-content>
+    <mat-card-content><strong>Reg nmr:</strong> {{ truck.registrationnumber }}</mat-card-content>
+  </mat-card>
+
+
   <div class="button-container">
-<!-- <button mat-raised-button color="primary" class="fixed-bottom-button" (click)="return()">Return</button> -->
-</div>
+    <!-- <button mat-raised-button color="primary" class="fixed-bottom-button" (click)="return()">Return</button> -->
+  </div>

@@ -27,7 +27,7 @@ export class UserService {
     //private clientService: ClientService,
     private client: Client,
     private authService: AuthService,
-  ) {}
+  ) { }
 
   fetchAllUsernames() {
     this.client.getAllUsernames().subscribe({
@@ -52,38 +52,6 @@ export class UserService {
     });
   }
 
-  /* fetchAllUsernames() {
-    // Retrieve the JWT token from AuthService
-    const token = this.authService.getToken();
-    console.log(token);
-    // Check if token exists
-    if (!token) {
-      console.error('No token found.');
-      return;
-    }
-
-    // Call getAllUsernames with the token
-    this.client.getAllUsernames().subscribe({
-      next: (response: any) => {
-        if (Array.isArray(response)) {
-          // If the response is an array, update the BehaviorSubject
-          this.usernamesSource.next(response);
-        } else if (
-          response &&
-          response.usernames &&
-          Array.isArray(response.usernames)
-        ) {
-          // Adjust based on actual structure; this is if the response has a 'usernames' property that is an array
-          this.usernamesSource.next(response.usernames);
-        } else {
-          console.error('The response format is not supported:', response);
-        }
-      },
-      error: (error) => {
-        console.error('Error fetching usernames:', error);
-      },
-    });
-  } */
 
   // Method to fetch user details by username
   fetchUserDetailsByUsername(username: string) {

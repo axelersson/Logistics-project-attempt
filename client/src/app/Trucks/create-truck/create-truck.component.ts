@@ -46,8 +46,8 @@ export class CreateTruckComponent {
       const snackBarRef = this.snackBar.open('Please complete all fields', 'Close', { duration: 1500 });
     setTimeout(() => {
       snackBarRef.dismiss();
-    }, 500);
-    this.client.trucksPUT(this.truck.truckId ?? '', this.truck).subscribe(
+    }, 500);} else {this.client.trucksPUT(this.truck.truckId ?? '', this.truck).subscribe(
+      
       (response) => {
         console.log('Truck updated successfully', response);
         this.snackBar.open('Truck updated successfully', 'Close', { duration: 1500 });
@@ -56,8 +56,9 @@ export class CreateTruckComponent {
         console.error('Error updating Truck:', error);
         this.snackBar.open('Could not update Truck, check that the truck ID is correct.', 'Close', { duration: 1500 });
       }
-    );
-  }
+    );}
+    
+  
 }
 
   // Any additional methods for CreateTruckComponent

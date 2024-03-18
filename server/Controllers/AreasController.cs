@@ -11,13 +11,16 @@ using Microsoft.Extensions.Logging; // Import for logging
 [Route("api/[controller]")]
 public class AreasController : ControllerBase
 {
-    private readonly LogisticsDBContext _context; 
+    private readonly LogisticsDBContext _context;
     private readonly ILogger<AreasController> _logger;
 
-    public AreasController(LogisticsDBContext context, ILogger<AreasController> logger)
+    private readonly ILoggerService _loggingService;
+
+    public AreasController(LogisticsDBContext context, ILogger<AreasController> logger, ILoggerService loggingService)
     {
         _context = context;
         _logger = logger;
+        _loggingService = loggingService;
     }
 
 
