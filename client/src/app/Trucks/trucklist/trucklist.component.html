@@ -3,7 +3,7 @@
         <p>NEXT</p></button>
         <mat-card *ngFor="let truck of trucks" class="example-card" (click)="assignUser(truck)">
           <mat-card-content><strong>TruckId:</strong> {{ truck.truckId }}</mat-card-content>
-          <mat-card-content><strong>Area ID:</strong> {{ truck.areaId }}</mat-card-content>
+          <mat-card-content><strong>Area ID:</strong> {{ truck.currentAreaId }}</mat-card-content>
           <mat-card-content><strong>Reg nmr:</strong> {{ truck.registrationnumber }}</mat-card-content>
         </mat-card>
         
