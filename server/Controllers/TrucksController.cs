@@ -24,7 +24,7 @@ public class TrucksController : ControllerBase
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(TrucksGetAllResponse))]
     public async Task<IActionResult> GetTrucks()
     {
-        var trucks = await _context.Trucks.Include(tu => tu.TruckUsers).ToListAsync();
+        var trucks = await _context.Trucks.Include(t => t.TruckUsers.Where(t => t.IsAssigned == true)).ToListAsync();
         return Ok(new TrucksGetAllResponse { Trucks = trucks });
         
     }

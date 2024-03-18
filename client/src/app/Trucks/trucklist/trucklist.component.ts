@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Client, TruckUser } from '../../services/api'
 import { Truck } from '../../services/api';
 import { MatDialog } from '@angular/material/dialog';
+import {MatButtonModule} from '@angular/material/button';
 import { ConfirmationDialogComponent } from '../../confirmation-dialog/confirmation-dialog.component';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
@@ -18,7 +19,7 @@ export class TrucklistComponent implements OnInit {
   CurrentUserisAdmin = false;
   truckIdToDelete: string = '';
   selectedTruck: Truck | undefined;
-  
+  yourTruckId: string | null = null;
 
   constructor(private authService: AuthService, private client: Client, private router: Router, public dialog: MatDialog) {}
 
@@ -31,7 +32,19 @@ export class TrucklistComponent implements OnInit {
       console.log(data)
       this.trucks = data.trucks ?? [];
       console.log(this.trucks)
+      this.trucks.forEach(truck => {
+        console.log("truck Users", truck.truckUsers)
+        console.log("truck Users", truck.truckUsers.length)
+        truck.truckUsers.forEach((truckUser: { userId: string | null; truckId: string | null; }) => {
+          if (truckUser.userId === this.userId){
+            this.yourTruckId = truckUser.truckId;
+          }
+          
+        })
+      })
+      console.log("YOUR TRUCK", this.yourTruckId)
     })
+
     this.userId = this.authService.getUserId();
     console.log(this.userId)
     this.userRole = this.authService.getUserRole();
@@ -44,6 +57,7 @@ export class TrucklistComponent implements OnInit {
       console.log(decodedToken); // Log decoded token details, if necessary
     }
   }
+
 
   assignUser(truck: Truck): void {
     let truckId = ''; 
@@ -72,6 +86,28 @@ export class TrucklistComponent implements OnInit {
     }else {
       console.log("Något gick fel")
     }
+    window.location.reload()
+  }
+
+  unassignTruck(truck: Truck): void {
+    let truckId = ''; 
+    if (truck.truckId != null){
+      truckId = truck.truckId;
+    } 
+    console.log("Unnasign", truckId)
+    if(truckId !== ''){
+    this.client.unassign(truckId).subscribe(
+      () => {
+        // const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+        //   data: { message: 'Do you want to assign this truck to yourself?' },
+        // });
+        console.log('truck unassigned');
+      }, (error) => {
+        console.log(error)
+      }
+    );
+    }
+    window.location.reload()
   }
 
   deleteArea(): void {
