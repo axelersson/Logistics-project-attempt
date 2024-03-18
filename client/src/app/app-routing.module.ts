@@ -27,8 +27,8 @@ import { CompleteorderComponent } from './completeorder/completeorder.component'
 import { CreateorderComponent } from './createorder/createorder.component';
 import { DisplayorderComponent } from './displayorder/displayorder.component';
 import { UpdateorderComponent } from './updateorder/updateorder.component';
-
 import { TrucklistComponent } from './Trucks/trucklist/trucklist.component';
+
 const routes: Routes = [
   { path: '', redirectTo: '/homepage', pathMatch: 'full' }, // default route
   {
@@ -75,6 +75,7 @@ const routes: Routes = [
   { path: 'locationlist', component: LocationListComponent, canActivate: [AuthGuard] },
   { path: 'orderlist', component: OrderdetailComponent, canActivate: [AuthGuard] },
   { path: 'truckpage', component: TruckPageComponent, canActivate: [AuthGuard] },
+  { path: 'trucklist', component:TrucklistComponent, canActivate: [AuthGuard]},
   { path: 'updateorder', component: UpdateorderComponent, canActivate: [AuthGuard] },
   {
     path: 'usercreate',

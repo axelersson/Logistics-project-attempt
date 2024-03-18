@@ -41,6 +41,7 @@ export class CreateTruckComponent {
   }
   updateTruck(): void {
     console.log(this.truck);
+    console.log("functioncall");
     if (this.truck.truckId == '' || this.truck.currentAreaId == '' || this.truck.registrationnumber == ''){
       const snackBarRef = this.snackBar.open('Please complete all fields', 'Close', { duration: 1500 });
     setTimeout(() => {
