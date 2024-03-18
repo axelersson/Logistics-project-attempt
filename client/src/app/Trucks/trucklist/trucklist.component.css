@@ -1,0 +1,26 @@
+.truck-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    padding-top: 10px;
+  }
+.next-button p {
+    font-size: 1.5em; 
+    width: 4rem;
+    justify-content: center;
+    align-content: center;
+    display: flex;
+    padding-top: 0.5rem;
+  }
+.next-button {
+    position: absolute;
+    width: 100vw; /* The button will take up 80% of the viewport width */
+    /* padding: 2vh 1vw; Padding based on viewport size */
+    height: 5rem;
+    font-size: 2vw; /* Font size based on viewport width */
+    bottom: 20px; /* Adjust the bottom position to lift the button above the bottom of the screen */
+    z-index: 1; /* Ensure the button is above other content */
+    
+  }
+  
+  

@@ -28,6 +28,7 @@ import { CreateorderComponent } from './createorder/createorder.component';
 import { DisplayorderComponent } from './displayorder/displayorder.component';
 import { UpdateorderComponent } from './updateorder/updateorder.component';
 
+import { TrucklistComponent } from './Trucks/trucklist/trucklist.component';
 const routes: Routes = [
   { path: '', redirectTo: '/homepage', pathMatch: 'full' }, // default route
   {
