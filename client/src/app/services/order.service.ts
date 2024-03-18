@@ -131,5 +131,15 @@ unassignTruckFromOrder(orderId: string, truckId: string): Observable<void> {
   );
 }
 
+assignTruckOrder(orderId: string): Observable<any> {
+  let url = `${this.baseUrl}/Orders/AssignTruckOrder/${encodeURIComponent(orderId)}`;
+  return this.http.put(url, {}) // 我们发送空对象作为PUT请求的数据体，因为后端可能不需要请求体。
+    .pipe(
+      catchError(error => {
+        return throwError(() => new Error(`Error assigning truck to order ${orderId}: ${error.message}`));
+      })
+    );
+}
+
 
 }

@@ -2466,6 +2466,16 @@ getTruckOrders(truckId: string): Observable<TruckOrderAssignmentsGetAllResponse>
   );
 }
 
+//根据传入的orderId找到对应的订truckOrderAssignment再把其IsAssignment属性改成"True"
+assignTruckToOrder(orderId: string): Observable<TruckOrderAssignment> {
+  let url_ = `${this.baseUrl}/AssignTruckOrder/${encodeURIComponent(orderId)}`;
+  return this.http.put<TruckOrderAssignment>(url_, {}).pipe(
+      catchError(error => {
+          return throwError(() => new Error('Error assigning truck to order: ' + error));
+      })
+  );
+}
+
 
 
 
