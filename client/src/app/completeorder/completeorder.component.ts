@@ -11,6 +11,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class CompleteorderComponent implements OnInit{
   orderId: string | null = null;
+  order: any = {}; // 根据你的需求定义更准确的类型
+  delieverdPieces = 0;
 
   constructor(
     private route: ActivatedRoute,
@@ -23,11 +25,38 @@ export class CompleteorderComponent implements OnInit{
     this.route.queryParams.subscribe(params => {
       this.orderId = params['orderId'];
     });
+
+    if (this.orderId) {
+      this.orderService.getOrderById(this.orderId).subscribe({
+        next: (data) => {
+          this.order = data; // 填充表单数据
+          console.log(data);
+          this.delieverdPieces = this.order.deliveredPieces;
+        },
+        error: (error) => {
+          this.snackBar.open(`Error retrieving order: ${error}`, 'Close', { duration: 3000 });
+          this.router.navigate(['/adminorder']); // 如果出错，返回订单列表页面
+        }
+      });
+    }
+
   }
 
   partiallyDeliverOrder(): void {
+    if(this.delieverdPieces === 0)
+    {
+      this.snackBar.open('Delieverd pieces can not be zero!', 'Close', { duration: 3000 });
+      return
+    }
+
+    if(this.delieverdPieces>= this.order.pieces)
+    {
+      this.snackBar.open('Delieverd pieces can not be greater than pieces or equal to pieces!', 'Close', { duration: 3000 });
+      return
+    }
+
     if (this.orderId) {
-      this.orderService.partialDeliver(this.orderId).subscribe({
+      this.orderService.partialDeliver(this.orderId,this.delieverdPieces).subscribe({
         next: () => {
           this.snackBar.open('Order partially delivered', 'Close', { duration: 3000 });
           this.router.navigate(['/adminorder']);

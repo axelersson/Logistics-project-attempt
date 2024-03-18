@@ -1,0 +1,65 @@
+<mat-card class="create-order-card">
+      <form class="create-order-form">
+        <!-- OrderID -->
+        <mat-form-field appearance="fill">
+          <mat-label>Order ID</mat-label>
+          <input matInput placeholder="Enter Order ID" [(ngModel)]="order.orderId" name="orderId">
+        </mat-form-field>
+    
+        <!-- UserID -->
+        <!-- <mat-form-field appearance="fill">
+          <mat-label>User ID</mat-label>
+          <input matInput placeholder="Enter User ID" [(ngModel)]="order.userId" name="userId">
+        </mat-form-field> -->
+    
+        <!-- Order Status -->
+        <!-- <mat-form-field appearance="fill">
+          <mat-label>Order Status</mat-label>
+          <mat-select [(value)]="order.orderStatus" name="orderStatus">
+            <mat-option *ngFor="let status of orderStatuses" [value]="status">
+              {{ status }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field> -->
+    
+        <!-- ToLocId -->
+        <mat-form-field appearance="fill">
+          <mat-label>To Location ID</mat-label>
+          <input matInput placeholder="Enter To Location ID" [(ngModel)]="order.toLocId" name="toLocId">
+        </mat-form-field>
+    
+        <!-- FromLocId -->
+        <mat-form-field appearance="fill">
+          <mat-label>From Location ID</mat-label>
+          <input matInput placeholder="Enter From Location ID" [(ngModel)]="order.fromLocId" name="fromLocId">
+        </mat-form-field>
+    
+        <!-- Pieces -->
+        <mat-form-field appearance="fill">
+          <mat-label>Pieces</mat-label>
+          <input matInput type="number" placeholder="Enter Pieces" [(ngModel)]="order.pieces" name="pieces">
+        </mat-form-field>
+    
+        <!-- <mat-form-field appearance="fill">
+            <mat-label>Delivered Pieces</mat-label>
+            <input matInput type="number" placeholder="Enter Delivered Pieces" [(ngModel)]="order.deliveredPieces" name="deliveredPieces">
+          </mat-form-field> -->
+
+        <!-- Order Type -->
+        <mat-form-field appearance="fill">
+          <mat-label>Order Type</mat-label>
+          <mat-select [(value)]="order.orderType" name="orderType">
+
+            <mat-option value="Recieving">Recieving</mat-option>
+            <mat-option value="Sending">Sending</mat-option>
+          </mat-select>
+        </mat-form-field>
+    
+        <!-- Buttons -->
+        <div class="buttons-container">
+          <button mat-raised-button color="primary" (click)="createOrder()">Create Order</button>
+          <button mat-raised-button color="warn" (click)="cancel()">Cancel</button>
+        </div>
+      </form>
+    </mat-card>
+    

@@ -65,7 +65,7 @@ public class OrdersController : ControllerBase
         order.ToLocation = toLoc;
         order.FromLocation = fromLoc;
 
-        order.OrderId = Guid.NewGuid().ToString();
+        // order.OrderId = Guid.NewGuid().ToString();
         order.OrderStatus = OrderStatus.Pending;
         order.User = user;
 
@@ -178,7 +178,7 @@ public class OrdersController : ControllerBase
 
         // Logic to completely deliver order if deliveredPieces > pieces
         Console.WriteLine("Delivered pieces", order.DeliveredPieces);
-        order.DeliveredPieces += deliveredPieces;
+        order.DeliveredPieces = deliveredPieces;
         Console.WriteLine(order.DeliveredPieces);
         if(order.DeliveredPieces >= order.Pieces){
             Console.WriteLine("Order Delivered!");
@@ -205,6 +205,64 @@ public class OrdersController : ControllerBase
             order.OrderStatus = OrderStatus.PartiallyDelivered;
         }
 
+        _context.Entry(order).State = EntityState.Modified;
+        await _context.SaveChangesAsync();
+
+        return CreatedAtAction(nameof(GetOrderById), new { orderId = order.OrderId }, order);
+    }
+
+    //UNASSIGN ALL TRUCKS FROM ORDER
+    [HttpPut("Unassign/{orderId}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> UnassignOrder(string orderId)
+    {
+        var order = await _context.Orders.FirstOrDefaultAsync(o => o.OrderId == orderId);
+
+        if (order == null)
+        {
+            return BadRequest("Order not found");
+        }
+
+        // Logic to completely deliver order if deliveredPieces > pieces
+        var truckOrderAssignment = await _context.TruckOrderAssignments.FirstOrDefaultAsync(toa => toa.OrderId == orderId);
+
+        if (truckOrderAssignment == null)
+        {
+            return BadRequest("Order not assigned to a truck");
+        }
+
+        truckOrderAssignment.IsAssigned = false;
+        truckOrderAssignment.UnassignedAt = DateTime.Now;
+        _context.Entry(order).State = EntityState.Modified;
+        await _context.SaveChangesAsync();
+
+        return CreatedAtAction(nameof(GetOrderById), new { orderId = order.OrderId }, order);
+    }
+
+    //UNASSIGN ONE TRUCKS FROM ORDER
+    [HttpPut("Unassign/{orderId}/Truck/{truckId}")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> UnassignAllTrucks(string orderId, string truckId)
+    {
+        var order = await _context.Orders.FirstOrDefaultAsync(o => o.OrderId == orderId);
+
+        if (order == null)
+        {
+            return BadRequest("Order not found");
+        }
+
+        // Logic to completely deliver order if deliveredPieces > pieces
+        var truckOrderAssignment = await _context.TruckOrderAssignments.FirstOrDefaultAsync(toa => toa.OrderId == orderId && toa.TruckId == truckId);
+
+        if (truckOrderAssignment == null)
+        {
+            return BadRequest("Order not assigned to a truck");
+        }
+
+        truckOrderAssignment.IsAssigned = false;
+        truckOrderAssignment.UnassignedAt = DateTime.Now;
         _context.Entry(order).State = EntityState.Modified;
         await _context.SaveChangesAsync();
 
@@ -248,6 +306,61 @@ public class OrdersController : ControllerBase
         var truckOrderAssignments = await _context.TruckOrderAssignments.ToListAsync();
         return Ok(new TruckOrderAssignmentsGetAllResponse { TruckOrderAssignments = truckOrderAssignments });
     }
+
+    //Get all orders assigned to a truck
+    [HttpGet("TruckOrders/{truckId}")]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(OrdersGetAllResponse))]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> GetTruckOrders(string truckId)
+    {
+        var truckOrderAssignments = await _context.TruckOrderAssignments.Where(tu => tu.IsAssigned == true && tu.TruckId == truckId).ToListAsync();
+
+        if (truckOrderAssignments == null)
+        {
+            return NotFound();
+        }
+
+        return Ok(new TruckOrderAssignmentsGetAllResponse { TruckOrderAssignments = truckOrderAssignments });
+    }
+
+//Change the IsAssigned property into True
+[HttpPut("AssignTruckOrder/{orderId}")]
+[ProducesResponseType(StatusCodes.Status200OK)] // 添加成功响应的类型
+[ProducesResponseType(StatusCodes.Status400BadRequest)] // 添加请求错误响应的类型
+[ProducesResponseType(StatusCodes.Status404NotFound)] // 添加未找到资源响应的类型
+public async Task<IActionResult> AssignTruckOrder(string orderId)
+{
+    // 检查传入的 orderId 是否为空
+    if (string.IsNullOrWhiteSpace(orderId))
+    {
+        return BadRequest("OrderId must be provided.");
+    }
+
+    // 查找与 orderId 相关联的 TruckOrderAssignment 实体
+    var truckOrderAssignment = await _context.TruckOrderAssignments
+                                             .FirstOrDefaultAsync(t => t.OrderId == orderId);
+    
+    // 检查是否找到相应的 TruckOrderAssignment 实体
+    if (truckOrderAssignment == null)
+    {
+        return NotFound($"TruckOrderAssignment with OrderId {orderId} not found.");
+    }
+
+    // 将 IsAssigned 属性设置为 true
+    truckOrderAssignment.IsAssigned = true;
+
+    // 更新分配时间
+    truckOrderAssignment.AssignedAt = DateTime.Now;
+
+    // 提交到数据库
+    _context.TruckOrderAssignments.Update(truckOrderAssignment);
+    await _context.SaveChangesAsync();
+
+    // 返回成功响应
+    return Ok(truckOrderAssignment);
+}
+
+
 
     private bool OrderExists(string orderId)
     {

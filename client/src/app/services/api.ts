@@ -11,11 +11,13 @@
 import {
   mergeMap as _observableMergeMap,
   catchError as _observableCatch,
+  catchError,
 } from 'rxjs/operators';
 import {
   Observable,
   throwError as _observableThrow,
   of as _observableOf,
+  throwError,
 } from 'rxjs';
 import { Injectable, Inject, Optional, InjectionToken } from '@angular/core';
 import {
@@ -45,6 +47,8 @@ export class Client {
   /**
    * @return Success
    */
+
+  
   areasGET(): Observable<AreasResponse> {
     let url_ = this.baseUrl + '/api/Areas';
     url_ = url_.replace(/[?&]$/, '');
@@ -1676,8 +1680,8 @@ export class Client {
   /**
    * @return No Content
    */
-  partialDeliver(orderId: string): Observable<void> {
-    let url_ = this.baseUrl + '/Orders/PartialDeliver/{orderId}';
+  partialDeliver(orderId: string, deliveredPieces: number): Observable<void> {
+    let url_ = this.baseUrl + '/Orders/PartialDeliver/{orderId}/Pieces/${deliveredPieces}';
     if (orderId === undefined || orderId === null)
       throw new Error("The parameter 'orderId' must be defined.");
     url_ = url_.replace('{orderId}', encodeURIComponent('' + orderId));
@@ -1858,6 +1862,7 @@ export class Client {
   /**
    * @return Success
    */
+  // get all assignment
   assignments(): Observable<TruckOrderAssignmentsGetAllResponse> {
     let url_ = this.baseUrl + '/Orders/Assignments';
     url_ = url_.replace(/[?&]$/, '');
@@ -2427,11 +2432,62 @@ export class Client {
     return _observableOf(null as any);
   }
 
+
+
+
+
+  // 方法用于取消分配所有与订单关联的卡车
+unassignOrder(orderId: string): Observable<void> {
+  let url_ = `${this.baseUrl}/Orders/Unassign/${encodeURIComponent(orderId)}`;
+  return this.http.put<void>(url_, null).pipe(
+      catchError(error => {
+          return throwError(() => new Error('Error unassigning order: ' + error));
+      })
+  );
+}
+
+// 方法用于取消分配指定的卡车与订单的关联
+unassignTruckFromOrder(orderId: string, truckId: string): Observable<void> {
+  let url = `${this.baseUrl}/api/Orders/Unassign/${encodeURIComponent(orderId)}/Truck/${encodeURIComponent(truckId)}`;
+  return this.http.put<void>(url, {}).pipe(
+      catchError(error => {
+          return throwError(() => new Error('Error unassigning truck from order: ' + error));
+      })
+  );
+}
+
+// 方法用于获取指定卡车的所有订单
+getTruckOrders(truckId: string): Observable<TruckOrderAssignmentsGetAllResponse> {
+  let url_ = `${this.baseUrl}/Orders/TruckOrders/${encodeURIComponent(truckId)}`;
+  return this.http.get<TruckOrderAssignmentsGetAllResponse>(url_).pipe(
+      catchError(error => {
+          return throwError(() => new Error('Error getting truck orders: ' + error));
+      })
+  );
+}
+
+//根据传入的orderId找到对应的订truckOrderAssignment再把其IsAssignment属性改成"True"
+assignTruckToOrder(orderId: string): Observable<TruckOrderAssignment> {
+  let url_ = `${this.baseUrl}/AssignTruckOrder/${encodeURIComponent(orderId)}`;
+  return this.http.put<TruckOrderAssignment>(url_, {}).pipe(
+      catchError(error => {
+          return throwError(() => new Error('Error assigning truck to order: ' + error));
+      })
+  );
+}
+
+
+
+
+
+
+
   /**
    * @return No Content
    */
   assignUser(truckId: string, userId: string): Observable<void> {
     let url_ = this.baseUrl + '/api/Trucks/{truckId}/AssignUser/{userId}';
+
     if (truckId === undefined || truckId === null)
       throw new Error("The parameter 'truckId' must be defined.");
     url_ = url_.replace('{truckId}', encodeURIComponent('' + truckId));
@@ -2439,10 +2495,11 @@ export class Client {
       throw new Error("The parameter 'userId' must be defined.");
     url_ = url_.replace('{userId}', encodeURIComponent('' + userId));
     url_ = url_.replace(/[?&]$/, '');
+    console.log(url_);
 
     let options_: any = {
       observe: 'response',
-      responseType: 'blob',
+      responseType: 'blob',   
       headers: new HttpHeaders({}),
     };
 
@@ -2714,6 +2771,7 @@ export class Client {
   /**
    * @return Success
    */
+  // get the user information of those who have been assinged trucks
   assignedTruckUsers(): Observable<TruckUsersGetAllResponse> {
     let url_ = this.baseUrl + '/api/Trucks/AssignedTruckUsers';
     url_ = url_.replace(/[?&]$/, '');
@@ -2816,6 +2874,7 @@ export class Client {
   /**
    * @return No Content
    */
+  // assign an order to a truck
   assignOrder(truckId: string, orderId: string): Observable<void> {
     let url_ = this.baseUrl + '/api/Trucks/{truckId}/AssignOrder/{orderId}';
     if (truckId === undefined || truckId === null)
@@ -2909,6 +2968,7 @@ export class Client {
   /**
    * @return Success
    */
+  // get orderAssignment according to id
   truckOrderAssignment(
     truckOrderAssignmentId: number,
   ): Observable<TruckOrderAssignment> {

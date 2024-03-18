@@ -8,18 +8,18 @@
           <mat-label>Orders</mat-label>
           <mat-select [(value)]="selectedOrderId">
             <mat-option *ngFor="let order of orders" [value]="order.orderId">
-              {{ order.orderId }} - {{ order.orderStatus }} - {{ order.pieces }} pieces - {{ order.orderType }}
+              {{ order.orderId }} - {{ order.orderStatus }} - {{ order.userID }}  - {{ order.pieces }} pieces - {{ order.deliveredPieces }} deliveredPieces -{{ order.orderType }}
               - {{ order.createdAt | date:'short'}} - {{ order.completedAt | date:'short'}}
             </mat-option>
           </mat-select>
         </mat-form-field>
         <div class="buttons-container">
           <button mat-raised-button color="primary" (click) = 'completeTheOrder()'>Complete the Order</button>
-          <button mat-raised-button color="warn" >Create Order</button>
-          <button mat-raised-button color="accent" >Update Order</button>
-          <button mat-raised-button color="warn" >Cancel Order</button>
-          <button mat-raised-button color="basic" >Display Order</button>
-          <button mat-raised-button color="secondary" >Cancel</button>
+          <button mat-raised-button color="warn" (click) = 'createOrder()'>Create Order</button>
+          <button mat-raised-button color="accent" (click) = 'updateSelectedOrder()'>Update Order</button>
+          <button mat-raised-button color="warn" (click)="cancelSelectedOrder()">Cancel Order</button>
+          <button mat-raised-button color="basic"  (click) = 'displayOrder()'>Display Order</button>
+          <button mat-raised-button color="secondary" (click) = 'cancel()'>Cancel</button>
         </div>
       </mat-card-content>
     </mat-card>

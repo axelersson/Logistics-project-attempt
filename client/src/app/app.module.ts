@@ -52,6 +52,13 @@ import { CreateTruckComponent } from './Trucks/create-truck/create-truck.compone
 import { JwtInterceptor } from './services/jwt-interceptor';
 import { AdminorderComponent } from './adminorder/adminorder.component';
 import { CompleteorderComponent } from './completeorder/completeorder.component';
+import { CreateorderComponent } from './createorder/createorder.component';
+import { DisplayorderComponent } from './displayorder/displayorder.component';
+import { UpdateorderComponent } from './updateorder/updateorder.component';
+import { SortByStatusPipe } from './pipe/sort-by-status.pipe';
+
+import { TrucklistComponent } from './Trucks/trucklist/trucklist.component';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 @NgModule({
   declarations: [
@@ -84,13 +91,19 @@ import { CompleteorderComponent } from './completeorder/completeorder.component'
     AdmineditComponent,
     CreateTruckComponent,
     
-    
+     
     AdminorderComponent,
-    CompleteorderComponent
+    CompleteorderComponent,
+    CreateorderComponent,
+    DisplayorderComponent,
+    UpdateorderComponent,
+    SortByStatusPipe,
+
+    TrucklistComponent,
   ],
   imports: [
     BrowserModule,
-    BrowserAnimationsModule, // Include BrowserAnimationsModule
+    BrowserAnimationsModule, 
     FormsModule,
     AppRoutingModule,
     ReactiveFormsModule,
@@ -122,6 +135,7 @@ import { CompleteorderComponent } from './completeorder/completeorder.component'
     DummyDataService,
     { provide: API_BASE_URL, useValue: 'http://localhost:5000' },
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    provideAnimationsAsync(),
   ], // Provide your services here
   bootstrap: [AppComponent], // Bootstrap the AppComponent
 })

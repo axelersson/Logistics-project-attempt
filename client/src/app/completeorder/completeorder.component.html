@@ -5,6 +5,11 @@
       </mat-card-header>
       <mat-card-content>
 
+        <mat-form-field appearance="fill">
+          <mat-label>Delivered Pieces</mat-label>
+          <input matInput type="number" placeholder="Enter Delivered Pieces" [(ngModel)]="delieverdPieces" name="deliveredPieces">
+        </mat-form-field>
+
         <div class="buttons-container">
           <button mat-raised-button color="primary" (click) = 'partiallyDeliverOrder()'>Partly Deliverd</button>
           <button mat-raised-button color="warn" (click)='completelyDeliverOrder()'>Completely Deliverd</button>

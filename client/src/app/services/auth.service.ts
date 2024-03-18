@@ -65,8 +65,10 @@ export class AuthService {
 
   // Check if the logged in user is an admin
   isAdmin(): boolean {
+    
     const role = this.getUserRole();
-    return role === 'admin';
+    console.log(role)
+    return role === 'Admin';
   }
 
   // Clear user token and role from localStorage and update login status
@@ -75,5 +77,17 @@ export class AuthService {
     localStorage.removeItem('role');
     this.loggedInStatus.next(false); // Notify subscribers of the change
     this.router.navigate(['/login']);
+  }
+  // Get user ID from token
+  getUserId(): string | null {
+    const token = this.getToken();
+
+    if (token) {
+      const payload = this.decodeJwtToken(token);
+      if (payload && payload.nameid) {
+        return payload.nameid;
+      }
+    }
+    return null;
   }
 }
