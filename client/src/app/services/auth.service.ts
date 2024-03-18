@@ -65,8 +65,10 @@ export class AuthService {
 
   // Check if the logged in user is an admin
   isAdmin(): boolean {
+    
     const role = this.getUserRole();
-    return role === 'admin';
+    console.log(role)
+    return role === 'Admin';
   }
 
   // Clear user token and role from localStorage and update login status

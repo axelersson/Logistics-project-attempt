@@ -40,6 +40,7 @@ export class LocationListComponent {
   }
   
   next(){
+    console.log(this.authservice.isAdmin())
     if(this.authservice.isAdmin())
       {
         this.router.navigate(['/adminlocation'])
@@ -48,6 +49,7 @@ export class LocationListComponent {
      {
       this.matSnackBar.open('This operation does not support regular users ', 'Close', { duration: 3000 });
      }  
+     
   }
 
   assignColors(): void {
