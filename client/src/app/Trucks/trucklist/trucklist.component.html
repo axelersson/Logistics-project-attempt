@@ -1,4 +1,5 @@
 <div class="truck-list">
+  <ng-container *ngIf="authService.isAdmin()">
     <button mat-raised-button color="primary" class="next-button" routerLink="/truckpage" routerLinkActive="active">
         <p>NEXT</p></button>
         <mat-card [ngClass]="{'example-card': true, 'assigned-to-you': yourTruckId == truck.truckId, 'has-truck-users': truck.truckUsers.length > 0, 'has-no-truck-user': truck.truckUsers.length == 0}" *ngFor="let truck of trucks" class="example-card">
@@ -15,5 +16,5 @@
         
   
   <div class="button-container">
-<!-- <button mat-raised-button color="primary" class="fixed-bottom-button" (click)="return()">Return</button> -->
-</div>
+    <!-- <button mat-raised-button color="primary" class="fixed-bottom-button" (click)="return()">Return</button> -->
+  </div>

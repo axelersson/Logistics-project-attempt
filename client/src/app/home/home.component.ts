@@ -13,7 +13,7 @@ export class HomeComponent implements OnInit {
   // You can declare a class property if you need to use it in your template
   userRole: string | null = null;
   CurrentUserisAdmin = false
-  constructor(private authService: AuthService, private route: Router) {} // Correctly inject AuthService
+  constructor(public authService: AuthService, private route: Router) { } // Correctly inject AuthService
 
   ngOnInit(): void {
     // Directly use authService to access getUserRole
@@ -28,9 +28,9 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  location():void{
+  location(): void {
 
-      this.route.navigate(['/locationlist'])
+    this.route.navigate(['/locationlist'])
 
   }
 }

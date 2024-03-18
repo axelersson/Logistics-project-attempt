@@ -1,13 +1,13 @@
-
-
 <div class="location-list">
   <mat-card *ngFor="let location of locations" class="example-card" [style.background]="location.color">
-    <mat-card-content><strong>LocationId:</strong>  {{ location.locationId }}</mat-card-content>
-    <mat-card-content><strong>Area ID:</strong>  {{ location.areaId }}</mat-card-content>
-    <mat-card-content><strong>Type:</strong>  {{ location.locationType }}</mat-card-content>
+    <mat-card-content><strong>LocationId:</strong> {{ location.locationId }}</mat-card-content>
+    <mat-card-content><strong>Area ID:</strong> {{ location.areaId }}</mat-card-content>
+    <mat-card-content><strong>Type:</strong> {{ location.locationType }}</mat-card-content>
   </mat-card>
 </div>
 <div class="button-container">
-<button mat-raised-button color="primary" class="fixed-bottom-button1" (click)="return()">Return</button>
-<button mat-raised-button color="primary" class="fixed-bottom-button2" (click)="next()">Next</button>
+  <button mat-raised-button color="primary" class="fixed-bottom-button1" (click)="return()">Return</button>
+  <ng-container *ngIf="authservice.isAdmin()">
+    <button mat-raised-button color="primary" class="fixed-bottom-button2" (click)="next()">Next</button>
+  </ng-container>
 </div>

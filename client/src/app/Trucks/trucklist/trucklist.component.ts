@@ -21,7 +21,8 @@ export class TrucklistComponent implements OnInit {
   selectedTruck: Truck | undefined;
   yourTruckId: string | null = null;
 
-  constructor(private authService: AuthService, private client: Client, private router: Router, public dialog: MatDialog) {}
+
+  constructor(public authService: AuthService, private client: Client, private router: Router, public dialog: MatDialog) { }
 
   viewDetails(truck: Truck): void {
     this.selectedTruck = truck;
@@ -60,30 +61,30 @@ export class TrucklistComponent implements OnInit {
 
 
   assignUser(truck: Truck): void {
-    let truckId = ''; 
-    if (truck.truckId != null){
+    let truckId = '';
+    if (truck.truckId != null) {
       truckId = truck.truckId;
-    } 
-    let userId = ''; 
-    if(this.userId != null){
+    }
+    let userId = '';
+    if (this.userId != null) {
       userId = this.userId;
     }
     console.log(userId)
     console.log(truckId)
-    if(truckId !== '' && userId !== ''){
-    this.client.assignUser(truckId, userId).subscribe(
-      () => {
-        // const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
-        //   data: { message: 'Do you want to assign this truck to yourself?' },
-        // });
-        console.log('truck assigned to user');
-      }, (error) => {
-        console.log(error)
-      }
-    );
+    if (truckId !== '' && userId !== '') {
+      this.client.assignUser(truckId, userId).subscribe(
+        () => {
+          // const dialogRef = this.dialog.open(ConfirmationDialogComponent, {
+          //   data: { message: 'Do you want to assign this truck to yourself?' },
+          // });
+          console.log('truck assigned to user');
+        }, (error) => {
+          console.log(error)
+        }
+      );
 
-    console.log(truck.truckId); // Print the truck ID
-    }else {
+      console.log(truck.truckId); // Print the truck ID
+    } else {
       console.log("Något gick fel")
     }
     window.location.reload()
