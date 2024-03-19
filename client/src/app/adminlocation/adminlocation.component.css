@@ -1,6 +1,7 @@
 .location-card {
   max-width: 100%;
   margin: 10px;
+  filter: saturate(70%);
 }
 
 mat-form-field {
