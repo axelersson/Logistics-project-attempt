@@ -1,6 +1,6 @@
 <div class="truck-list">
-  <ng-container *ngIf="authService.isAdmin()">
-    <button mat-raised-button color="primary" class="next-button" routerLink="/truckpage" routerLinkActive="active">
+  <ng-container>
+    <button mat-raised-button color="primary" class="next-button" routerLink="/truckpage" routerLinkActive="active" *ngIf="authService.isAdmin()">
         <p>NEXT</p></button>
         <mat-card [ngClass]="{'example-card': true, 'assigned-to-you': yourTruckId == truck.truckId, 'has-truck-users': truck.truckUsers.length > 0, 'has-no-truck-user': truck.truckUsers.length == 0}" *ngFor="let truck of trucks" class="example-card">
           <mat-card-content><strong>TruckId:</strong> {{ truck.truckId }}</mat-card-content>
@@ -9,8 +9,9 @@
           
           <div fxLayout="row" fxLayoutAlign="space-between center"class="button-container">
           <button mat-button *ngIf="truck.truckUsers.length === 0 && yourTruckId == null" (click)="assignUser(truck)" fxFlex="100%" class="assign action-button">ASSIGN</button>
-          <button mat-button *ngIf="truck.truckUsers.length > 0"(click)="unassignTruck(truck)" fxFlex="100%" class="unassign action-button">UNASSIGN</button>
+          <button mat-button *ngIf="truck.truckUsers.length > 0 && yourTruckId === truck.truckId"(click)="unassignTruck(truck)" fxFlex="100%" class="unassign action-button">UNASSIGN</button>
           <p *ngIf="yourTruckId != null && truck.truckUsers.length === 0">You are already assigned to a truck</p>
+          <p *ngIf="yourTruckId != truck.truckId && truck.truckUsers.length > 0">Truck occupied</p>
           </div>
         </mat-card>
         
