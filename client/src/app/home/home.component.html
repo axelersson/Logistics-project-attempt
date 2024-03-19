@@ -7,7 +7,7 @@
   </button>
 </div>
 <div fxLayout="row" fxLayoutAlign="space-between center">
-  <button mat-button routerLink="/displayorder" color="primary" fxFlex="50%" routerLinkActive="active">
+  <button mat-button (click) = "order()" color="primary" fxFlex="50%" routerLinkActive="active">
     ORDER
   </button>
   <button mat-button routerLink="/trucklist" color="primary" fxFlex="50%" routerLinkActive="active"

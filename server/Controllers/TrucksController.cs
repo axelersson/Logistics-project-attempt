@@ -283,6 +283,29 @@ public class TrucksController : ControllerBase
         return Ok(truckOrderAssignment);
     }
 
+    
+
+    [HttpGet("GetTruckIdByUserId/{userId}")]
+[ProducesResponseType(StatusCodes.Status200OK)]
+[ProducesResponseType(StatusCodes.Status404NotFound)]
+public async Task<IActionResult> GetTruckIdByUserId(string userId)
+{
+    // 查找与给定 UserId 相关联的 TruckUser
+    var truckUser = await _context.TruckUsers.FirstOrDefaultAsync(tu => tu.UserId == userId && tu.IsAssigned);
+
+    if (truckUser == null)
+    {
+        // 如果找不到匹配的 TruckUser，返回 NotFound 响应
+        return NotFound($"No truck assigned to user with ID {userId}.");
+    }
+
+    // 如果找到了，返回 TruckId
+    return Ok(new { truckUser.TruckId });
+}
+
+
+
+
     private bool TruckExists(string truckId)
     {
         return _context.Trucks.Any(t => t.TruckId == truckId);

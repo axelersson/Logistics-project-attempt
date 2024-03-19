@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { BehaviorSubject } from 'rxjs';
 
+
 @Injectable({
   providedIn: 'root',
 })
@@ -67,7 +68,7 @@ export class AuthService {
   isAdmin(): boolean {
     
     const role = this.getUserRole();
-    console.log(role)
+    // console.log(role)
     return role === 'Admin';
   }
 

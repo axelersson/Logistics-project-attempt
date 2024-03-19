@@ -21,22 +21,15 @@
     <button [ngClass]="{'assigned-to-you': isOrderAssignmentEstablished(order) && isAssignedToCurrentUser(order)}"
       mat-raised-button *ngIf="isOrderAssignmentEstablished(order) && isAssignedToCurrentUser(order) && 
           isOrderAssigned(order) && order.orderStatus !== 'Cancelled' && order.orderStatus !== 'Deliverd'"
-      (click)="unassignOrder(order.orderId)">Assigned</button>
-    <!-- <button [ngClass]="{'assigned-to-you': isOrderAssigned(order) && isAssignedToCurrentUser(order)}" 
-          mat-raised-button 
-          *ngIf="isOrderAssigned(order) && isAssignedToCurrentUser(order) && order.orderStatus !== 'Cancelled'"
-          (click)="isReassignable(order) ? unassignOrder(order.orderId) : null">
-              {{ isReassignable(order) ? 'Reassign' : 'This order is assigned to you' }}
-          </button>
-           -->
+      (click)="unassignOrder(order.orderId)">This order is assigned to you</button>
     <button [ngClass]="{'ressign': isReassignable(order) && isAssignedToCurrentUser(order) }" mat-raised-button *ngIf="isReassignable(order) && isAssignedToCurrentUser(order) && 
              order.orderStatus !== 'Cancelled' && isOrderDeliverd" (click)="assignTruckToOrder(order.orderId)">
-      Reassign</button>
+      Click to reassign</button>
     <button class="assignbutton" mat-raised-button color="primary" *ngIf="!isOrderAssignmentEstablished(order) && order.orderStatus !== 'Cancelled' 
           && order.orderStatus !== 'Deliverd'" (click)="assignOrder(order.orderId)">Assign</button>
 
     <button class="assigned-to-other" mat-raised-button color="primary" *ngIf="isOrderAssignmentEstablished(order) && !isAssignedToCurrentUser(order) 
-          && order.orderStatus !== 'Cancelled'  && order.orderStatus !== 'Deliverd'">This order is assigned to other
+          && order.orderStatus !== 'Cancelled'  && order.orderStatus !== 'Deliverd'">This order is assigned to another
       user</button>
 
     <button class="is-delivered" mat-raised-button color="primary" *ngIf="order.orderStatus === 'Delivered'">This order

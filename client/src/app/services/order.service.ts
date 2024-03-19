@@ -152,6 +152,18 @@ assignedTruckUsers(): Observable<TruckUsersGetAllResponse> {
     );
 }
 
+getTruckIdByUserId(userId: string): Observable<any> {
+  // 构造请求的URL，确保与后端定义的路由匹配
+  let url = `${this.baseUrl}/api/Trucks/GetTruckIdByUserId/${encodeURIComponent(userId)}`;
+  
+  // 发起GET请求
+  return this.http.get<any>(url).pipe(
+    catchError(error => {
+      // 错误处理
+      return throwError(() => new Error('Error getting truck ID for user: ' + error));
+    })
+  );
+}
 
 
 }

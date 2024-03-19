@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { TruckUser, TruckUsersGetAllResponse } from '../services/api';
 import { AuthGuard } from '../security/auth.guard';
 import { AuthService } from '../services/auth.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-displayorder',
@@ -16,7 +17,7 @@ export class DisplayorderComponent implements OnInit {
   assignedOrders = new Set<string>(); // 记录已分配订单的 ID
   truckOrderAssignments: any[] = [];
   assignedTruckUsers: TruckUser[] = [];
-  currentUserID = this.authService.getUserId;
+  currentUserID : string | null = null;
   currentUserTruckId: string | null = null;
 
   
@@ -25,48 +26,32 @@ export class DisplayorderComponent implements OnInit {
     private orderService: OrderService,
     private snackBar: MatSnackBar,
     private router: Router,
-    public authService: AuthService
+    public authService: AuthService,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit(): void {
+
+    const truckId = this.route.snapshot.paramMap.get('currentTruckId'); // 从路由中获取locationId
+    if (truckId !== null) {
+      this.currentUserTruckId = truckId;
+    }
+
+    const myString = JSON.stringify(this.currentUserTruckId);
+
+    console.log(myString)
+
+    console.log(this.currentUserTruckId)
+    
+    console.log(truckId)
+
     this.loadOrders();
     this.loadTruckOrderAssignments();
     this.loadAssignedTruckUsers();
-    // 获取当前登录用户的 ID
-    const currentUserId = this.authService.getUserId();
-    // 检查 currentUserId 是否为 null 或 undefined
-    if (currentUserId) {
-      this.loadAssignedTruckUsersCallback(currentUserId);
-    } else {
-      // 可能需要处理未登录状态
-      console.log('User ID is null, user might not be logged in.');
-    }
-    console.log("current truck Id:"+this.currentUserTruckId)
-    console.log(currentUserId)
+
+
   }
   
-  loadAssignedTruckUsersCallback(currentUserId: string): void {
-    this.orderService.assignedTruckUsers().subscribe({
-      next: (data) => {
-        this.assignedTruckUsers = data.truckUsers || [];
-        // 使用当前用户 ID 查找匹配的 TruckUser
-        const userTruckAssignment = this.assignedTruckUsers.find(tu => tu.userId === currentUserId);
-        // 检查 userTruckAssignment 是否存在，以及 truckId 是否为 undefined
-        if (userTruckAssignment && userTruckAssignment.truckId) {
-          this.currentUserTruckId = userTruckAssignment.truckId;
-          console.log("Current truck id is"+this.currentUserTruckId)
-        } else {
-          // 如果找不到匹配的用户或者 truckId 不存在，则设置为 null
-          this.currentUserTruckId = null;
-        }
-      },
-      error: (error) => {
-        this.snackBar.open('Error getting assigned truck users: ' + error.message, 'Close', {
-          duration: 3000,
-        });
-      }
-    });
-  }
   
   
 
@@ -127,7 +112,8 @@ export class DisplayorderComponent implements OnInit {
   }
 
   isAssignedToCurrentUser(order: any): boolean {
-    return this.truckOrderAssignments.some(assignment => assignment.orderId === order.orderId && assignment.truckId === 'T1-00c40822-2fb0-4449-bd67-31472efc8816');
+    return this.truckOrderAssignments.some(assignment => assignment.orderId === order.orderId 
+      && assignment.truckId === this.currentUserTruckId);
   }
 
   isReassignable(order: any): boolean {
@@ -145,7 +131,13 @@ export class DisplayorderComponent implements OnInit {
 
 
   unassignOrder(orderId: string): void {
-    const truckId = 'T1-00c40822-2fb0-4449-bd67-31472efc8816'; // 你指定的卡车ID
+
+    if (this.currentUserTruckId === null) {
+      this.snackBar.open('Error: No truck ID found for current user', 'Close', { duration: 3000 });
+      return; // 中断执行
+    }
+
+    const truckId = this.currentUserTruckId; // 你指定的卡车ID
     this.orderService.unassignTruckFromOrder(orderId, truckId).subscribe({
       next: () => {
         this.snackBar.open(`Order ${orderId} unassigned successfully`, 'Close', { duration: 3000 });
@@ -159,20 +151,20 @@ export class DisplayorderComponent implements OnInit {
   }
 
   // 新方法：获取当前卡车用户的所有订单分配情况
-  getTruckOrdersAssignmentsIfAssigned(): void {
-    const truckId = 'T1-00c40822-2fb0-4449-bd67-31472efc8816'; // 替换为实际的卡车ID
-    this.orderService.getTruckOrdersAssignmentIfisAssignedEqualsTrue(truckId).subscribe({
-      next: (assignments) => {
-        // 检查 assignments.truckOrderAssignments 是否为 undefined
-        this.truckOrderAssignments = assignments.truckOrderAssignments ? assignments.truckOrderAssignments : [];
-      },
-      error: (error) => {
-        this.snackBar.open(`Error getting truck orders: ${error.message}`, 'Close', { duration: 3000 });
-        // 发生错误时也应初始化为一个空数组以防止其他错误
-        this.truckOrderAssignments = [];
-      }
-    });
-  }
+  // getTruckOrdersAssignmentsIfAssigned(): void {
+  //   const truckId = 'T1-00c40822-2fb0-4449-bd67-31472efc8816'; // 替换为实际的卡车ID
+  //   this.orderService.getTruckOrdersAssignmentIfisAssignedEqualsTrue(truckId).subscribe({
+  //     next: (assignments) => {
+  //       // 检查 assignments.truckOrderAssignments 是否为 undefined
+  //       this.truckOrderAssignments = assignments.truckOrderAssignments ? assignments.truckOrderAssignments : [];
+  //     },
+  //     error: (error) => {
+  //       this.snackBar.open(`Error getting truck orders: ${error.message}`, 'Close', { duration: 3000 });
+  //       // 发生错误时也应初始化为一个空数组以防止其他错误
+  //       this.truckOrderAssignments = [];
+  //     }
+  //   });
+  // }
 
   //find the truckOrderAssignmentAccording to the orderId and change its "IsAssignment" property into true
   assignTruckToOrder(orderId: string): void {
