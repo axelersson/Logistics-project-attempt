@@ -60,6 +60,7 @@ import { SortByStatusPipe } from './pipe/sort-by-status.pipe';
 import { TrucklistComponent } from './Trucks/trucklist/trucklist.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
+
 @NgModule({
   declarations: [
     AppComponent,

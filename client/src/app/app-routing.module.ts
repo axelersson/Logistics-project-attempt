@@ -26,6 +26,7 @@ import { DisplayorderComponent } from './displayorder/displayorder.component';
 import { UpdateorderComponent } from './updateorder/updateorder.component';
 import { TrucklistComponent } from './Trucks/trucklist/trucklist.component';
 
+
 const routes: Routes = [
   { path: '', redirectTo: '/homepage', pathMatch: 'full' },
   { path: 'adminedit', component: AdmineditComponent, canActivate: [AuthGuard], data: { role: 'Admin' } },
