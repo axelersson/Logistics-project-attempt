@@ -1,8 +1,10 @@
+
 .truck-list {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 20px;
-    padding-top: 10px;
+    padding: 10px;
+    padding-top: 20px;
   }
 .next-button p {
     font-size: 1.5em; 
@@ -11,6 +13,7 @@
     align-content: center;
     display: flex;
     padding-top: 0.5rem;
+    color: white;
   }
 .next-button {
     position: absolute;
@@ -20,22 +23,39 @@
     font-size: 2vw; /* Font size based on viewport width */
     bottom: 20px; /* Adjust the bottom position to lift the button above the bottom of the screen */
     z-index: 1; /* Ensure the button is above other content */
-    
+    background-color: rgba(76, 76, 76, 0.314); 
   }
 
   .example-card {
-    min-height: 175px;
+    min-height: 130px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2); /* 添加阴影效果 */
+    transition: 0.3s; /* 平滑过渡效果 */
+    border-radius: 10px;
+  }
+  .example-card:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.518);
   }
   
   .has-truck-users{
-    background-color: red;
+    background-color: rgba(226, 226, 86, 0.166);
   }
   .has-no-truck-user{
-    background-color: green;
+    background-color: #c9ffcb;
+  }
+  .has-no-truck-user button {
+    background-color: rgba(89, 135, 95, 0.38);
   }
 
   .assigned-to-you {
-    background-color: rgb(255, 255, 83);
+    background-color: rgba(255, 255, 83, 0.27);
+  }
+
+  .already-assigned {
+    color: gray;
+    background-color: rgba(128, 128, 128, 0.084);
+  }
+  .already-assigned p {
+    color: gray;
   }
 
   .button-container {
@@ -44,10 +64,18 @@
     width: 100%;
     padding: 0 1rem;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    
-
+  }
+  .truck-info {
+    /* background-color: rgb(184, 205, 205); */
+    display: grid;
+    grid-template-columns: 1fr 3fr; /* Two columns with equal width */
+    grid-gap: 10px; /* Adjust the gap between items as needed */
   }
 
+  .truck-id {
+    padding: 15px;
+    font-size: 50px;
+  }
   .action-button {
     width: 100%;
     margin-bottom: 1rem;
@@ -58,9 +86,9 @@
   }
   
   .unassign {
-    background-color: rgb(209, 209, 209);
+    background-color: rgba(239, 232, 110, 0.496);
   }
 
   p {
-    color: white;
+    color: rgb(0, 0, 0);
   }

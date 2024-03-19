@@ -6,8 +6,18 @@ html {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 20px;
-  padding: 20px;
-  filter: saturate(70%);
+  padding: 10px;
+  padding-top: 20px;
+}
+
+.location-info {
+  display: grid;
+  grid-template-columns: 1fr 3fr; /* Two columns with equal width */
+  grid-gap: 10px;
+  height: 7em;
+}
+.location-id {
+  font-size: 50px;
 }
 
 .button-container {
@@ -15,28 +25,17 @@ html {
   justify-content: center; 
   align-items: center; 
   height: 100px; 
-  
-}
-
-.fixed-bottom-button1 {
-  filter: saturate(70%);
-  position: fixed;
-  width: 80vw; 
-  padding: 2vh 1vw; 
-  font-size: 2vw; 
-  bottom: 20px; 
-  z-index: 1000; 
 }
 
 .fixed-bottom-button2 {
-  filter: saturate(70%);
-  position: fixed;
-  width: 80vw; /* The button will take up 80% of the viewport width */
-  padding: 2vh 1vw; /* Padding based on viewport size */
+  position: absolute;
+  width: 100vw; /* The button will take up 80% of the viewport width */
+  /* padding: 2vh 1vw; Padding based on viewport size */
+  height: 5rem;
   font-size: 2vw; /* Font size based on viewport width */
-  bottom: 65px; /* Adjust the bottom position to lift the button above the bottom of the screen */
-  z-index: 1000; /* Ensure the button is above other content */
-  background-color: brown;
+  bottom: 20px; /* Adjust the bottom position to lift the button above the bottom of the screen */
+  z-index: 1; /* Ensure the button is above other content */
+  background-color: rgba(76, 76, 76, 0.314);
 }
 
 .next-button {
@@ -66,5 +65,5 @@ html {
 }
 
 .mat-card:hover {
-  box-shadow: 0 8px 16px rgba(0,0,0,0.8); /* 鼠标悬浮时增强阴影 */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.493); /* 鼠标悬浮时增强阴影 */
 }

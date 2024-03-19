@@ -32,7 +32,7 @@
     <button [ngClass]="{'ressign': isReassignable(order) && isAssignedToCurrentUser(order) }" mat-raised-button *ngIf="isReassignable(order) && isAssignedToCurrentUser(order) && 
              order.orderStatus !== 'Cancelled' && isOrderDeliverd" (click)="assignTruckToOrder(order.orderId)">
       Reassign</button>
-    <button class="assignbutton" mat-raised-button color="primary" *ngIf="!isOrderAssignmentEstablished(order) && order.orderStatus !== 'Cancelled' 
+    <button class="assignbutton" mat-raised-button *ngIf="!isOrderAssignmentEstablished(order) && order.orderStatus !== 'Cancelled' 
           && order.orderStatus !== 'Deliverd'" (click)="assignOrder(order.orderId)">Assign</button>
 
     <button class="assigned-to-other" mat-raised-button color="primary" *ngIf="isOrderAssignmentEstablished(order) && !isAssignedToCurrentUser(order) 
@@ -45,7 +45,6 @@
   </mat-card>
 </div>
 <div class="button-container">
-  <button mat-raised-button color="primary" class="fixed-bottom-button1" (click)="return()">Return</button>
   <ng-container *ngIf="authService.isAdmin()">
     <button mat-raised-button color="primary" class="fixed-bottom-button2" (click)="next()">Next</button>
   </ng-container>

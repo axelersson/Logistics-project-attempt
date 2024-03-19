@@ -34,6 +34,7 @@ export class DisplayorderComponent implements OnInit {
     this.loadAssignedTruckUsers();
     // 获取当前登录用户的 ID
     const currentUserId = this.authService.getUserId();
+    console.log("ORDER USER ID", currentUserId);
     // 检查 currentUserId 是否为 null 或 undefined
     if (currentUserId) {
       this.loadAssignedTruckUsersCallback(currentUserId);
@@ -142,7 +143,6 @@ export class DisplayorderComponent implements OnInit {
   isOrderDeliverd(order: any): boolean {
     return this.truckOrderAssignments.some(assignment => assignment.orderStatus === "Delivered")
   }
-
 
   unassignOrder(orderId: string): void {
     const truckId = 'T1-00c40822-2fb0-4449-bd67-31472efc8816'; // 你指定的卡车ID

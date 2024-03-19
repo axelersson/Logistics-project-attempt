@@ -66,7 +66,7 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
     LoginComponent,
     NavigationComponent,
     HomeComponent,
-    OrderdetailComponent,
+    //OrderdetailComponent,
     LogoutComponent,
     LocationListComponent,
     TruckPageComponent,

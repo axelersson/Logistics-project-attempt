@@ -72,8 +72,8 @@ namespace LogisticsApp.Data // Change to your actual namespace
             );
 
             // Truck
-            var truck1Id = "T1-" + Guid.NewGuid().ToString();
-            var truck2Id = "T2-" + Guid.NewGuid().ToString();
+            var truck1Id = "T1";
+            var truck2Id = "T2";
             var truckregnr1 = "abc123";
             var truckregnr2 = "bcd234";
 
