@@ -24,3 +24,18 @@ mat-button {
 .mat-button:active {
   background-color: #3949ab; /* Adjust as needed */
 }
+.assigned-to-truck{
+  display: flex;
+  flex-direction: row;
+}
+.assigned-to-truck div {
+  padding: 0;
+  margin: 0;
+}
+
+.truck-p {
+  width: 100%;
+  text-align: center;
+  font-size: 1.2rem;
+  color: rgb(37, 74, 255);
+}

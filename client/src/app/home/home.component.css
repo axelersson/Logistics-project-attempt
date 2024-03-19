@@ -2,6 +2,11 @@ button {
     font-size: 40px;
     margin: 10px;
     padding: 7.2rem;
-    background: linear-gradient(0deg, rgb(126, 126, 126) 0%, rgb(200, 199, 199) 100%);
-    box-shadow: 0 2px 4px 0 rgba(0,0,0,.2);
+    background: linear-gradient(0deg, rgba(126, 126, 126, 0.773) 0%, rgb(231, 230, 230) 100%);
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.126);
+    transition: 0.3s;
+  }
+
+  button:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.493);
   }

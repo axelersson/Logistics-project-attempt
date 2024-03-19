@@ -17,7 +17,7 @@ export class LocationListComponent {
   backpage = ''
   colorMap = new Map();
 
-  colors = ['#00EE76', '#6495ED']; // 示例颜色
+  colors = ['#c9ffcb']; // 示例颜色
   areaColorMap = new Map();
   constructor(private locationService: LocationService, private router: Router, private route: ActivatedRoute,
     public authservice: AuthService, private matSnackBar: MatSnackBar) { }

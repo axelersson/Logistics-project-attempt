@@ -32,10 +32,10 @@ export class TrucklistComponent implements OnInit {
     this.client.trucksGET().subscribe(data => {
       console.log(data)
       this.trucks = data.trucks ?? [];
-      console.log(this.trucks)
+      //console.log(this.trucks)
       this.trucks.forEach(truck => {
-        console.log("truck Users", truck.truckUsers)
-        console.log("truck Users", truck.truckUsers.length)
+        //console.log("truck Users", truck.truckUsers)
+        //console.log("truck Users", truck.truckUsers.length)
         truck.truckUsers.forEach((truckUser: { userId: string | null; truckId: string | null; }) => {
           if (truckUser.userId === this.userId){
             this.yourTruckId = truckUser.truckId;

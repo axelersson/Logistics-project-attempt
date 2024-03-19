@@ -8,7 +8,6 @@ html {
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
       gap: 20px;
       padding: 20px;
-      filter: saturate(70%);
     }
     
     .button-container {
@@ -18,28 +17,20 @@ html {
       height: 100px; /* 给容器一个高度 */
     }
     
-    .fixed-bottom-button1 {
-      position: fixed;
-      width: 80vw; /* The button will take up 80% of the viewport width */
-      padding: 2vh 1vw; /* Padding based on viewport size */
+    .fixed-bottom-button2 {
+      position: absolute;
+      width: 100vw; /* The button will take up 80% of the viewport width */
+      /* padding: 2vh 1vw; Padding based on viewport size */
+      height: 5rem;
       font-size: 2vw; /* Font size based on viewport width */
       bottom: 20px; /* Adjust the bottom position to lift the button above the bottom of the screen */
-      z-index: 1000; /* Ensure the button is above other content */
-    }
-    
-    .fixed-bottom-button2 {
-      position: fixed;
-      width: 80vw; /* The button will take up 80% of the viewport width */
-      padding: 2vh 1vw; /* Padding based on viewport size */
-      font-size: 2vw; /* Font size based on viewport width */
-      bottom: 65px; /* Adjust the bottom position to lift the button above the bottom of the screen */
-      z-index: 1000; /* Ensure the button is above other content */
-      background-color: brown;
+      z-index: 1; /* Ensure the button is above other content */
+      background-color: rgba(76, 76, 76, 0.314);
     }
 
     
     .pending-order {
-      background-color: greenyellow;
+      background-color: #c9ffcb;
     }
     
     .partially-delivered-order {
@@ -57,6 +48,7 @@ html {
       left: 50%; /* 初始位置设置为卡片的中间 */
       transform: translateX(-50%); /* 将按钮向左移动自身宽度的50%，以确保居中 */
       width: calc(100% - 20px); /* 使按钮宽度略小于卡片宽度，留出一定间距，可根据实际情况调整 */
+      background-color: rgba(76, 76, 76, 0.314);
     }
 
     .assigned-to-you {
@@ -100,8 +92,6 @@ html {
     background-color: blue !important; /* 设置按钮背景色为红色，!important 确保覆盖默认样式 */
     color: white !important; /* 如果需要，改变文本颜色以确保可读性 */
 }
-
-  
 
     .example-card {
       position: relative; /* 使内部的绝对定位元素相对于此卡片定位 */

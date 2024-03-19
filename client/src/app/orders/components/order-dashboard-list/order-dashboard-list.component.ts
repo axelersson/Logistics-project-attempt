@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+/* import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-order-dashboard-list',
@@ -6,3 +6,4 @@ import { Component } from '@angular/core';
   styleUrl: './order-dashboard-list.component.css',
 })
 export class OrderDashboardListComponent {}
+ */

@@ -129,7 +129,6 @@ export class DisplayorderComponent implements OnInit {
     return this.truckOrderAssignments.some(assignment => assignment.orderStatus === "Delivered")
   }
 
-
   unassignOrder(orderId: string): void {
 
     if (this.currentUserTruckId === null) {
