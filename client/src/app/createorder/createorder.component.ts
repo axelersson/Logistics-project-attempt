@@ -14,6 +14,7 @@ export class CreateorderComponent implements OnInit {
   order: any = {}; // 初始化订单对象
   orderStatuses = ['Pending', 'PartiallyDelivered', 'Delivered', 'Cancelled']; // 订单状态数组
   orderTypes = ['Recieving', 'Sending']; // 订单类型数组
+  currentUserId: string | null = null;
 
   constructor(
     private orderService: OrderService,
@@ -23,11 +24,14 @@ export class CreateorderComponent implements OnInit {
     private authService: AuthService
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.currentUserId = this.authService.getUserId()
+    console.log(this.currentUserId)
+  }
 
   createOrder(): void {
 
-    this.order.userId = this.authService.getUserId
+    this.order.userId = this.currentUserId
     if(this.order.pieces === 0)
     {
       this.snackBar.open('Pieces can not be 0', 'Close', { duration: 3000 });
