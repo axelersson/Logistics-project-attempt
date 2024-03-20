@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { OrderService } from '../services/order.service';
 import { Router } from '@angular/router';
+import { AuthGuard } from '../security/auth.guard';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-createorder',
@@ -16,13 +18,16 @@ export class CreateorderComponent implements OnInit {
   constructor(
     private orderService: OrderService,
     private snackBar: MatSnackBar,
-    private router: Router
+    private router: Router,
+    private authGuard: AuthGuard,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {}
 
   createOrder(): void {
-    this.order.userId = "U3-a6ca836b-7e73-4aeb-b9b3-8a7965c5dda0"
+
+    this.order.userId = this.authService.getUserId
     if(this.order.pieces === 0)
     {
       this.snackBar.open('Pieces can not be 0', 'Close', { duration: 3000 });
