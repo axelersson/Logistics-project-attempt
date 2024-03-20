@@ -5,6 +5,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Threading.Tasks;
 using LogisticsApp.Data;
+using System.Xml.Serialization;
 
 [ApiController]
 [Route("/[controller]")]
@@ -372,4 +373,56 @@ public class OrdersController : ControllerBase
     {
         return _context.Orders.Any(o => o.OrderId == orderId);
     }
+
+    [HttpPost("CreateOrderFromXml")]
+    [Consumes("application/xml")]
+    public async Task<IActionResult> CreateOrderFromXml()
+    {
+        DeliveryRequestMessage request;
+
+        using (var streamReader = new StreamReader(Request.Body))
+        {
+            var serializer = new XmlSerializer(typeof(DeliveryRequestMessage));
+            request = (DeliveryRequestMessage)serializer.Deserialize(streamReader);
+        }
+
+        var deliveryRequest = request.MessageBody.DeliveryRequest;
+
+        // Assuming FromLoc and ToLoc are LocationId in your system
+        var fromLoc = await _context.Locations.FirstOrDefaultAsync(l => l.LocationId == deliveryRequest.FromLoc);
+        var toLoc = await _context.Locations.FirstOrDefaultAsync(l => l.LocationId == deliveryRequest.ToLoc);
+        if (fromLoc == null || toLoc == null)
+        {
+            return BadRequest("Location not found");
+        }
+
+        // Handle the user for the order. Adjust this logic based on your application's requirements.
+        // Example: Fetch a default system user or by some other means if the XML doesn't include a UserId.
+        var user = await _context.Users.FirstOrDefaultAsync(u => u.UserId == "defaultUserId"); // Example: Replace "defaultUserId" with actual logic.
+        if (user == null)
+        {
+            return BadRequest("User not found");
+        }
+
+        var order = new Order
+        {
+            FromLocId = deliveryRequest.FromLoc,
+            ToLocId = deliveryRequest.ToLoc,
+            Pieces = deliveryRequest.Pieces,
+            // Assuming the order type needs to be set based on the XML or some default
+            OrderType = OrderType.Recieving, // Example: Set this based on your application logic or XML input.
+            OrderStatus = OrderStatus.Pending,
+            User = user,
+            ToLocation = toLoc,
+            FromLocation = fromLoc,
+            CreatedAt = DateTime.Now
+            // Set additional fields as necessary
+        };
+
+        _context.Orders.Add(order);
+        await _context.SaveChangesAsync();
+
+        return CreatedAtAction(nameof(GetOrderById), new { orderId = order.OrderId }, order);
+    }
+
 }
