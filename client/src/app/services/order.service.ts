@@ -56,6 +56,7 @@ export class OrderService {
   }
 
   newOrder(userId: string, order: any): Observable<any> {
+    console.log("userId: ", userId);
     const url = `${this.baseUrl}/Orders/NewOrder/${userId}`;
     return this.http.post<any>(url, order, {
       headers: new HttpHeaders({

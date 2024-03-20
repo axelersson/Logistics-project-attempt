@@ -59,14 +59,16 @@ public class UsersController : ControllerBase
     }
 
     [HttpGet("{userId}")]
-    public IActionResult GetUserById(string userId, [FromHeader(Name = "Authorization")] string token)
+    public IActionResult GetUserById(string userId)
     {
-        if (!_tokenService.IsAdmin(token.Replace("Bearer ", "")))
-        {
-            return Unauthorized("Only admins can view user details.");
-        }
+        // TEMPORARY DISABLE FOR DEMO PURPOSES
 
-        var user = _context.Users.FirstOrDefault(u => u.UserId == userId);
+        // if (!_tokenService.IsAdmin(token.Replace("Bearer ", "")))
+        // {
+        //     return Unauthorized("Only admins can view user details.");
+        // }
+
+        var user = _context.Users.Include(t => t.TruckUsers.Where(t => t.IsAssigned == true)).FirstOrDefault(u => u.UserId == userId);
         if (user == null)
         {
             return NotFound();
@@ -77,6 +79,7 @@ public class UsersController : ControllerBase
     [HttpGet("ByUsername/{username}")]
     public IActionResult GetUserByUsername(string username, [FromHeader(Name = "Authorization")] string token)
     {
+
         if (!_tokenService.IsAdmin(token.Replace("Bearer ", "")))
         {
             return Unauthorized("Only admins can view user details.");

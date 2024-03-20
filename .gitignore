@@ -30,3 +30,4 @@ appsettings.Development.json
 # MAC bloat file
 .DS_Store
 server/Migrations/LogisticsDBContextModelSnapshot.cs
+server/appsettings.json

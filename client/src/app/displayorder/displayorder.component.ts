@@ -6,6 +6,7 @@ import { TruckUser, TruckUsersGetAllResponse } from '../services/api';
 import { AuthGuard } from '../security/auth.guard';
 import { AuthService } from '../services/auth.service';
 import { ActivatedRoute } from '@angular/router';
+import { Client, User } from '../services/api';
 
 @Component({
   selector: 'app-displayorder',
@@ -20,6 +21,12 @@ export class DisplayorderComponent implements OnInit {
   currentUserID : string | null = null;
   currentUserTruckId: string | null = null;
 
+  // Added
+  user: User | undefined;
+  userId: string | null = null;
+  truckUsers: TruckUser[] = [];
+  currentlyAssignedTruckId: string | undefined;
+
   
 
   constructor(
@@ -27,15 +34,32 @@ export class DisplayorderComponent implements OnInit {
     private snackBar: MatSnackBar,
     private router: Router,
     public authService: AuthService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private client: Client
   ) { }
 
   ngOnInit(): void {
+    this.userId = this.authService.getUserId();
+    console.log(this.userId)
+
+    if (this.userId) {
+      this.client.usersGET2(this.userId).subscribe(data => {
+        this.user = data; // Assign the response data to an array
+        console.log("THIS IS MY USER", this.user)
+        this.truckUsers = this.user.truckUsers || [];
+        if (this.truckUsers.length > 0) {
+          this.currentlyAssignedTruckId = this.truckUsers[0].truckId;
+          console.log("CURRENTLY ASSIGNED TRUCK ID", this.currentlyAssignedTruckId)
+        }
+      });
+    }
+
 
     const truckId = this.route.snapshot.paramMap.get('currentTruckId'); // 从路由中获取locationId
     if (truckId !== null) {
       this.currentUserTruckId = truckId;
     }
+
 
     const myString = JSON.stringify(this.currentUserTruckId);
 
@@ -72,14 +96,14 @@ export class DisplayorderComponent implements OnInit {
   
   assignOrder(orderId: string): void {
 
-    if (!this.currentUserTruckId) { // 检查当前用户是否有分配的卡车ID
+    if (!this.currentlyAssignedTruckId) { // 检查当前用户是否有分配的卡车ID
       this.snackBar.open('No truck assigned to the current user', 'Close', {duration: 3000});
       return;
   }
 
     const truckId = this.currentUserTruckId; // 这里假定你要分配给的卡车 ID
 
-    this.orderService.assignOrder(truckId, orderId).subscribe({
+    this.orderService.assignOrder(this.currentlyAssignedTruckId, orderId).subscribe({
       next: () => {
         this.snackBar.open(`Order ${orderId} assigned successfully`, 'Close', { duration: 3000 });
         this.assignedOrders.add(orderId); // 标记订单已分配
@@ -113,7 +137,7 @@ export class DisplayorderComponent implements OnInit {
 
   isAssignedToCurrentUser(order: any): boolean {
     return this.truckOrderAssignments.some(assignment => assignment.orderId === order.orderId 
-      && assignment.truckId === this.currentUserTruckId);
+      && assignment.truckId === this.currentlyAssignedTruckId);
   }
 
   isReassignable(order: any): boolean {
@@ -131,12 +155,12 @@ export class DisplayorderComponent implements OnInit {
 
   unassignOrder(orderId: string): void {
 
-    if (this.currentUserTruckId === null) {
+    if (this.currentlyAssignedTruckId === null) {
       this.snackBar.open('Error: No truck ID found for current user', 'Close', { duration: 3000 });
       return; // 中断执行
     }
 
-    const truckId = this.currentUserTruckId; // 你指定的卡车ID
+    const truckId = this.currentlyAssignedTruckId || ''; // Ensure truckId is always a string)
     this.orderService.unassignTruckFromOrder(orderId, truckId).subscribe({
       next: () => {
         this.snackBar.open(`Order ${orderId} unassigned successfully`, 'Close', { duration: 3000 });
