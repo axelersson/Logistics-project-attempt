@@ -3,6 +3,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { OrderService } from '../services/order.service';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
+import { ActivatedRoute } from '@angular/router';
+
 
 @Component({
   selector: 'app-adminorder',
@@ -12,11 +14,29 @@ import { AuthService } from '../services/auth.service';
 export class AdminorderComponent implements OnInit{
   orders: any[] = [];
   selectedOrderId: string | null = null;
+  currentUserTruckId: string | null = null;
+  truckOrderAssignments: any[] = [];
+  currentUserRole: string | null = null;
 
-  constructor(private orderService: OrderService,private router: Router,private snackBar: MatSnackBar,public authservice: AuthService) {}
+
+  constructor(private orderService: OrderService,private router: Router,
+    private snackBar: MatSnackBar,public authservice: AuthService,private route: ActivatedRoute) {}
 
   ngOnInit(): void {
+
+    const truckId = this.route.snapshot.paramMap.get('currentTruckId');
+    this.currentUserTruckId = truckId;
+    // console.log(truckId);
+    // console.log(this.currentUserTruckId);
+
+    this.getCurrentUserRole();
+    this.loadTruckOrderAssignments();
     this.loadOrders();
+  }
+
+  getCurrentUserRole(): void {
+    // 假设 AuthService 有一个方法返回当前用户的角色
+    this.currentUserRole = this.authservice.getUserRole();
   }
 
   loadOrders(): void {
@@ -24,6 +44,28 @@ export class AdminorderComponent implements OnInit{
       next: (data) => {
         
         this.orders = data; // 假设后端直接返回订单数组
+      },
+      error: (err) => {
+        console.error(err);
+      }
+    });
+  }
+
+  displayOrderFilter(): any[] {
+    // Filter orders based on the conditions given
+    return this.orders.filter(order => 
+      this.truckOrderAssignments.some(assignment => 
+        assignment.orderId === order.orderId && 
+        assignment.truckId === this.currentUserTruckId && 
+        assignment.isAssigned === true
+      )
+    );
+  }
+
+  loadTruckOrderAssignments(): void {
+    this.orderService.getTruckOrderAssignments().subscribe({
+      next: (data) => {
+        this.truckOrderAssignments = data; // Assuming the backend directly returns an array of truck order assignments
       },
       error: (err) => {
         console.error(err);

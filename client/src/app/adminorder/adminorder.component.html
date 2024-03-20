@@ -7,7 +7,7 @@
         <mat-form-field appearance="fill">
           <mat-label>Orders</mat-label>
           <mat-select [(value)]="selectedOrderId">
-            <mat-option *ngFor="let order of orders" [value]="order.orderId">
+            <mat-option *ngFor="let order of (currentUserRole === 'Admin' ? orders : displayOrderFilter())" [value]="order.orderId">
               {{ order.orderId }} - {{ order.orderStatus }} - {{ order.userID }}  - {{ order.pieces }} pieces - {{ order.deliveredPieces }} deliveredPieces -{{ order.orderType }}
               - {{ order.createdAt | date:'short'}} - {{ order.completedAt | date:'short'}}
             </mat-option>

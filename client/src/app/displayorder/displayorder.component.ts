@@ -212,6 +212,6 @@ loadAssignedTruckUsers(): void {
     this.router.navigate(['/homepage']); // Adjust this if you have a specific path to return to
   }
   next(): void {
-    this.router.navigate(['/adminorder']); // Adjust this if you have a specific path to return to
+    this.router.navigate(['/adminorder',{currentTruckId: this.currentUserTruckId}]); // Adjust this if you have a specific path to return to
   }
 }
