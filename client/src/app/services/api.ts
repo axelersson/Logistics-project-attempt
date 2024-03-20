@@ -49,6 +49,20 @@ export class Client {
    */
 
   
+  getTruckIdByUserId(userId: string): Observable<any> {
+    // 构造请求URL，确保它与后端定义的路由匹配
+    let url = `${this.baseUrl}/api/Trucks/GetTruckIdByUserId/${encodeURIComponent(userId)}`;
+    
+    // 发起GET请求
+    return this.http.get<any>(url).pipe(
+      catchError(error => {
+        // 错误处理
+        return throwError(() => new Error('Error getting truck ID for user: ' + error));
+      })
+    );
+  }
+  
+
   areasGET(): Observable<AreasResponse> {
     let url_ = this.baseUrl + '/api/Areas';
     url_ = url_.replace(/[?&]$/, '');
@@ -2487,6 +2501,7 @@ assignTruckToOrder(orderId: string): Observable<TruckOrderAssignment> {
    */
   assignUser(truckId: string, userId: string): Observable<void> {
     let url_ = this.baseUrl + '/api/Trucks/{truckId}/AssignUser/{userId}';
+
     if (truckId === undefined || truckId === null)
       throw new Error("The parameter 'truckId' must be defined.");
     url_ = url_.replace('{truckId}', encodeURIComponent('' + truckId));
@@ -2494,10 +2509,11 @@ assignTruckToOrder(orderId: string): Observable<TruckOrderAssignment> {
       throw new Error("The parameter 'userId' must be defined.");
     url_ = url_.replace('{userId}', encodeURIComponent('' + userId));
     url_ = url_.replace(/[?&]$/, '');
+    console.log(url_);
 
     let options_: any = {
       observe: 'response',
-      responseType: 'blob',
+      responseType: 'blob',   
       headers: new HttpHeaders({}),
     };
 

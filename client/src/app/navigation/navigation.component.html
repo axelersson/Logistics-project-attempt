@@ -8,11 +8,28 @@
     >
     <a
       mat-button
-      routerLink="/orderdetail"
+      routerLink="/displayorder"
       fxFlex="25%"
       routerLinkActive="active"
       >ORDER</a
     >
+    <a 
+    mat-button
+    *ngIf="yourTruckId != null"
+    routerLink="/trucklist"
+    fxFlex="25%"
+    routerLinkActive="active"
+    class = "assigned-to-truck"
+    ><div>TRUCK:</div><div class="truck-p">{{yourTruckId}}</div></a
+  >
+  <a 
+  mat-button
+  *ngIf="yourTruckId == null"
+  routerLink="/trucklist"
+  fxFlex="25%"
+  routerLinkActive="active"
+  >ASSIGN TRUCK</a
+>
     <button
       mat-button
       (click)="logout()"

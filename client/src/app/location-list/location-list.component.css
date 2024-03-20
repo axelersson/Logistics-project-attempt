@@ -6,36 +6,40 @@ html {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 20px;
-  padding: 20px;
+  padding: 10px;
+  padding-top: 20px;
+}
+
+.location-info {
+  display: grid;
+  grid-template-columns: 1fr 3fr; /* Two columns with equal width */
+  grid-gap: 10px;
+  height: 7em;
+}
+.location-id {
+  font-size: 50px;
 }
 
 .button-container {
-  display: flex; /* 将容器设置为 Flexbox 容器 */
-  justify-content: center; /* 水平居中 */
-  align-items: center; /* 垂直居中 */
-  height: 100px; /* 给容器一个高度 */
-}
-
-.fixed-bottom-button1 {
-  position: fixed;
-  width: 80vw; /* The button will take up 80% of the viewport width */
-  padding: 2vh 1vw; /* Padding based on viewport size */
-  font-size: 2vw; /* Font size based on viewport width */
-  bottom: 20px; /* Adjust the bottom position to lift the button above the bottom of the screen */
-  z-index: 1000; /* Ensure the button is above other content */
+  display: flex; 
+  justify-content: center; 
+  align-items: center; 
+  height: 100px; 
 }
 
 .fixed-bottom-button2 {
-  position: fixed;
-  width: 80vw; /* The button will take up 80% of the viewport width */
-  padding: 2vh 1vw; /* Padding based on viewport size */
+  position: absolute;
+  width: 100vw; /* The button will take up 80% of the viewport width */
+  /* padding: 2vh 1vw; Padding based on viewport size */
+  height: 5rem;
   font-size: 2vw; /* Font size based on viewport width */
-  bottom: 65px; /* Adjust the bottom position to lift the button above the bottom of the screen */
-  z-index: 1000; /* Ensure the button is above other content */
-  background-color: brown;
+  bottom: 20px; /* Adjust the bottom position to lift the button above the bottom of the screen */
+  z-index: 1; /* Ensure the button is above other content */
+  background-color: rgba(76, 76, 76, 0.314);
 }
 
 .next-button {
+  filter: saturate(70%);
   position: fixed;
   top: 4rem;
   right: 1.5rem;
@@ -52,4 +56,14 @@ html {
   font-size: 1.5em; 
   width: 4rem;
   height: 3rem;
+}
+
+.mat-card {
+  box-shadow: 0 4px 8px rgba(0,0,0,0.2); /* 添加阴影效果 */
+  transition: 0.3s; /* 平滑过渡效果 */
+  border-radius: 10px; /* 圆角边框 */
+}
+
+.mat-card:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.493); /* 鼠标悬浮时增强阴影 */
 }

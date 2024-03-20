@@ -1,43 +1,39 @@
 
 html {
       font-size: 2vw; 
+      
     }
     .order-list {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
       gap: 20px;
       padding: 20px;
+
     }
     
     .button-container {
-      display: flex; /* 将容器设置为 Flexbox 容器 */
+      display: flex; 
       justify-content: center; /* 水平居中 */
       align-items: center; /* 垂直居中 */
       height: 100px; /* 给容器一个高度 */
     }
     
-    .fixed-bottom-button1 {
-      position: fixed;
-      width: 80vw; /* The button will take up 80% of the viewport width */
-      padding: 2vh 1vw; /* Padding based on viewport size */
-      font-size: 2vw; /* Font size based on viewport width */
-      bottom: 20px; /* Adjust the bottom position to lift the button above the bottom of the screen */
-      z-index: 1000; /* Ensure the button is above other content */
-    }
-    
     .fixed-bottom-button2 {
-      position: fixed;
-      width: 80vw; /* The button will take up 80% of the viewport width */
-      padding: 2vh 1vw; /* Padding based on viewport size */
-      font-size: 2vw; /* Font size based on viewport width */
-      bottom: 65px; /* Adjust the bottom position to lift the button above the bottom of the screen */
-      z-index: 1000; /* Ensure the button is above other content */
-      background-color: brown;
-    }
+      position: fixed; /* 改为 fixed，以便按钮固定在视口的特定位置 */
+      bottom: 20px; /* 将按钮固定在视口底部的20px处 */
+      left: 50%; /* 初始位置设置为视口的中间 */
+      transform: translateX(-50%); /* 将按钮向左移动自身宽度的50%，以确保居中 */
+      width: 80vw; /* 按钮宽度取决于视口宽度的80% */
+      height: 5rem; /* 按钮的高度 */
+      font-size: 2vw; /* 字体大小基于视口宽度 */
+      z-index: 1000; /* 确保按钮位于其他内容之上 */
+      background-color: rgba(76, 76, 76, 0.314); /* 按钮的背景颜色 */
+  }
+  
 
     
     .pending-order {
-      background-color: green;
+      background-color: #c9ffcb;
     }
     
     .partially-delivered-order {
@@ -45,15 +41,17 @@ html {
     }
     
     .delivered-order {
-      background-color: yellow;
+      background-color: lightblue;
     }
     
     .assignbutton{
+      filter: saturate(70%);
       position: absolute; /* 绝对定位，使其相对于最近的相对定位祖先定位（这里是 .example-card） */
       bottom: 10px; /* 按钮距离卡片底部的距离 */
       left: 50%; /* 初始位置设置为卡片的中间 */
       transform: translateX(-50%); /* 将按钮向左移动自身宽度的50%，以确保居中 */
       width: calc(100% - 20px); /* 使按钮宽度略小于卡片宽度，留出一定间距，可根据实际情况调整 */
+      background-color: rgba(11, 179, 221, 0.895);
     }
 
     .assigned-to-you {
@@ -67,12 +65,13 @@ html {
   }
 
   .assigned-to-other {
+    filter: saturate(70%);
     position: absolute; /* 绝对定位，使其相对于最近的相对定位祖先定位（这里是 .example-card） */
     bottom: 10px; /* 按钮距离卡片底部的距离 */
     left: 50%; /* 初始位置设置为卡片的中间 */
     transform: translateX(-50%); /* 将按钮向左移动自身宽度的50%，以确保居中 */
     width: calc(100% - 20px); /* 使按钮宽度略小于卡片宽度，留出一定间距，可根据实际情况调整 */
-    background-color: purple !important; /* 设置按钮背景色为红色，!important 确保覆盖默认样式 */
+    background-color: burlywood !important; /* 设置按钮背景色为红色，!important 确保覆盖默认样式 */
     color: white !important; /* 如果需要，改变文本颜色以确保可读性 */ 
 }
 
@@ -87,16 +86,15 @@ html {
 }
 
   .ressign {
+    filter: saturate(70%);
     position: absolute; /* 绝对定位，使其相对于最近的相对定位祖先定位（这里是 .example-card） */
     bottom: 10px; /* 按钮距离卡片底部的距离 */
     left: 50%; /* 初始位置设置为卡片的中间 */
     transform: translateX(-50%); /* 将按钮向左移动自身宽度的50%，以确保居中 */
     width: calc(100% - 20px); /* 使按钮宽度略小于卡片宽度，留出一定间距，可根据实际情况调整 */
-    background-color: brown !important; /* 设置按钮背景色为红色，!important 确保覆盖默认样式 */
+    background-color: blue !important; /* 设置按钮背景色为红色，!important 确保覆盖默认样式 */
     color: white !important; /* 如果需要，改变文本颜色以确保可读性 */
 }
-
-  
 
     .example-card {
       position: relative; /* 使内部的绝对定位元素相对于此卡片定位 */
@@ -105,6 +103,13 @@ html {
       flex-direction: column; /* 子元素垂直排列 */
       height: 100%; /* 如果需要，可根据内容调整卡片高度 */
       justify-content: space-between; /* 将内容和按钮分开，内容置顶，按钮置底 */
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2); /* 添加阴影效果 */
+      transition: 0.3s; /* 平滑过渡效果 */
+      border-radius: 20px; /* 圆角边框 */
+  }
+
+  .example-card:hover {
+    box-shadow: 0 8px 16px rgba(0,0,0,0.8); /* 鼠标悬浮时增强阴影 */
   }
   
     

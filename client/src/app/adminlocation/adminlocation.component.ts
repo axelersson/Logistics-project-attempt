@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { LocationService } from '../services/location.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
+
 @Component({
   selector: 'app-adminlocation',
   templateUrl: './adminlocation.component.html',

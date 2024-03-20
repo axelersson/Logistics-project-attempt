@@ -2,7 +2,7 @@ import { Injectable, Inject } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { API_BASE_URL, TruckOrderAssignmentsGetAllResponse } from './api'; // 确保路径匹配你的文件结构
+import { API_BASE_URL, TruckOrderAssignmentsGetAllResponse, TruckUsersGetAllResponse } from './api'; // 确保路径匹配你的文件结构
 import { throwError } from 'rxjs';
 
 
@@ -139,6 +139,30 @@ assignTruckOrder(orderId: string): Observable<any> {
         return throwError(() => new Error(`Error assigning truck to order ${orderId}: ${error.message}`));
       })
     );
+}
+
+//get the users who have been assign a truck
+assignedTruckUsers(): Observable<TruckUsersGetAllResponse> {
+  let url = `${this.baseUrl}/api/Trucks/AssignedTruckUsers`;
+  return this.http.get<TruckUsersGetAllResponse>(url)
+    .pipe(
+      catchError(error => {
+        return throwError(() => new Error(`Error getting assigned truck users: ${error.message}`));
+      })
+    );
+}
+
+getTruckIdByUserId(userId: string): Observable<any> {
+  // 构造请求的URL，确保与后端定义的路由匹配
+  let url = `${this.baseUrl}/api/Trucks/GetTruckIdByUserId/${encodeURIComponent(userId)}`;
+  
+  // 发起GET请求
+  return this.http.get<any>(url).pipe(
+    catchError(error => {
+      // 错误处理
+      return throwError(() => new Error('Error getting truck ID for user: ' + error));
+    })
+  );
 }
 
 

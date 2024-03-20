@@ -1,0 +1,26 @@
+.edit-card {
+      max-width: 600px;
+      margin: 20px auto;
+      filter: saturate(70%);
+      
+    }
+    
+    .edit-form {
+      display: flex;
+      flex-direction: column;
+    }
+    
+    .mat-form-field {
+      width: 100%; /* Full width */
+      margin-bottom: 16px;
+      
+    }
+    
+    .buttons-container {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+    }
+    .html{
+      filter: saturate(55%);
+    }

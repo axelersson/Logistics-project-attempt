@@ -6,6 +6,7 @@ import { ActivatedRoute } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
+
 @Component({
   selector: 'app-location-list',
   templateUrl: './location-list.component.html',
@@ -16,11 +17,10 @@ export class LocationListComponent {
   backpage = ''
   colorMap = new Map();
 
-  colors = ['#00EE76', '#6495ED']; // 示例颜色
+  colors = ['#c9ffcb']; // 示例颜色
   areaColorMap = new Map();
-
-  constructor(private locationService: LocationService,private router: Router, private route: ActivatedRoute, 
-    private authservice: AuthService, private matSnackBar: MatSnackBar) {}
+  constructor(private locationService: LocationService, private router: Router, private route: ActivatedRoute,
+    public authservice: AuthService, private matSnackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.route.queryParams.subscribe(params => {
@@ -36,18 +36,18 @@ export class LocationListComponent {
   }
 
   return() {
-      this.router.navigate(['/homepage'])
+    this.router.navigate(['/homepage'])
   }
-  
-  next(){
-    if(this.authservice.isAdmin())
-      {
-        this.router.navigate(['/adminlocation'])
-      }
-    else
-     {
+
+  next() {
+    console.log(this.authservice.isAdmin())
+    if (this.authservice.isAdmin()) {
+      this.router.navigate(['/adminlocation'])
+    }
+    else {
       this.matSnackBar.open('This operation does not support regular users ', 'Close', { duration: 3000 });
-     }  
+    }
+
   }
 
   assignColors(): void {

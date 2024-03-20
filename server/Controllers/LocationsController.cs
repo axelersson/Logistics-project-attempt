@@ -11,13 +11,16 @@ using Microsoft.Extensions.Logging; // Import for logging
 [Route("api/[controller]")]
 public class LocationsController : ControllerBase
 {
-    private readonly LogisticsDBContext _context; 
+    private readonly LogisticsDBContext _context;
     private readonly ILogger<LocationsController> _logger;
 
-    public LocationsController(LogisticsDBContext context, ILogger<LocationsController> logger)
+    private readonly ILoggerService _loggingService;
+
+    public LocationsController(LogisticsDBContext context, ILogger<LocationsController> logger, ILoggerService loggingService)
     {
         _context = context;
         _logger = logger;
+        _loggingService = loggingService;
     }
 
     [HttpGet]
@@ -27,7 +30,7 @@ public class LocationsController : ControllerBase
         var locations = await _context.Locations.ToListAsync();
         return Ok(new LocationsGetAllResponse { Locations = locations });
     }
-    
+
     [HttpGet("{locationId}")]
     [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(Location))]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -49,28 +52,28 @@ public class LocationsController : ControllerBase
     public async Task<IActionResult> CreateLocation([FromBody] Location location)
     {
         if (location == null)
-    {
-        return BadRequest();
-    }
+        {
+            return BadRequest();
+        }
 
-    if (await _context.Locations.AnyAsync(l => l.LocationId == location.LocationId))
-    {
-        // 如果 locationId 已存在，则返回一个具体的错误消息
-        return BadRequest("Location ID already exists.");
-    }
+        if (await _context.Locations.AnyAsync(l => l.LocationId == location.LocationId))
+        {
+            // 如果 locationId 已存在，则返回一个具体的错误消息
+            return BadRequest("Location ID already exists.");
+        }
 
-    var area = await _context.Areas.FindAsync(location.AreaId);
-    if (area == null)
-    {
-        // 如果找不到对应的 areaId，则返回一个具体的错误消息
-        return BadRequest("Area ID does not exist.");
-    }
+        var area = await _context.Areas.FindAsync(location.AreaId);
+        if (area == null)
+        {
+            // 如果找不到对应的 areaId，则返回一个具体的错误消息
+            return BadRequest("Area ID does not exist.");
+        }
 
-    location.Area = area; // 确保 location 与区域关联
-    _context.Locations.Add(location);
-    await _context.SaveChangesAsync();
+        location.Area = area; // 确保 location 与区域关联
+        _context.Locations.Add(location);
+        await _context.SaveChangesAsync();
 
-    return CreatedAtAction(nameof(GetLocationById), new { locationId = location.LocationId }, location);
+        return CreatedAtAction(nameof(GetLocationById), new { locationId = location.LocationId }, location);
     }
 
     [HttpPost("Area/{areaId}")]

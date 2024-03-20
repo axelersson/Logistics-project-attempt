@@ -57,6 +57,9 @@ import { DisplayorderComponent } from './displayorder/displayorder.component';
 import { UpdateorderComponent } from './updateorder/updateorder.component';
 import { SortByStatusPipe } from './pipe/sort-by-status.pipe';
 
+import { TrucklistComponent } from './Trucks/trucklist/trucklist.component';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+
 
 @NgModule({
   declarations: [
@@ -64,7 +67,7 @@ import { SortByStatusPipe } from './pipe/sort-by-status.pipe';
     LoginComponent,
     NavigationComponent,
     HomeComponent,
-    OrderdetailComponent,
+    //OrderdetailComponent,
     LogoutComponent,
     LocationListComponent,
     TruckPageComponent,
@@ -97,6 +100,7 @@ import { SortByStatusPipe } from './pipe/sort-by-status.pipe';
     UpdateorderComponent,
     SortByStatusPipe,
 
+    TrucklistComponent,
   ],
   imports: [
     BrowserModule,
@@ -132,6 +136,7 @@ import { SortByStatusPipe } from './pipe/sort-by-status.pipe';
     DummyDataService,
     { provide: API_BASE_URL, useValue: 'http://localhost:5000' },
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    provideAnimationsAsync(),
   ], // Provide your services here
   bootstrap: [AppComponent], // Bootstrap the AppComponent
 })
