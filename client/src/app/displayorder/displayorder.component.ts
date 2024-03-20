@@ -113,8 +113,15 @@ export class DisplayorderComponent implements OnInit {
 
   isAssignedToCurrentUser(order: any): boolean {
     return this.truckOrderAssignments.some(assignment => assignment.orderId === order.orderId 
-      && assignment.truckId === this.currentUserTruckId);
+      && assignment.truckId === this.currentUserTruckId 
+      // && this.currentUserTruckId === 'T1'
+      );
   }
+
+  // isAssignedToCurrentTruck(order: any): boolean {
+  //   return this.truckOrderAssignments.some( assignment =>
+  //     assignment.truckId === this.currentUserTruckId);
+  // }
 
   isReassignable(order: any): boolean {
     return this.truckOrderAssignments.some(assignment =>
