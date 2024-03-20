@@ -27,7 +27,8 @@ export class CreateareaComponent {
     } else {
       this.client.areasPOST(this.area).subscribe(
         (response:Area) => {
-          console.log('area posted', response)
+          console.log('Area created successfully', response)
+          this.snackBar.open('Area created successfully', 'Close', { duration: 5000 });
         }, 
         (error) => {
           console.log(error)
@@ -35,22 +36,28 @@ export class CreateareaComponent {
       );
     }
   }
+
   updateArea(): void {
-    if ( this.area.areaId == "" || this.area.name == ""){
-      const snackBarRef = this.snackBar.open('Please complete all fields', 'Close', { duration: 1500 });
-    setTimeout(() => {
-      snackBarRef.dismiss();
-    }, 500);
-    this.client.areasPUT(this.area.areaId ?? '', this.area).subscribe(
-      (response) => {
-        console.log('Area updated successfully', response);
-        this.snackBar.open('Area updated successfully', 'Close', { duration: 1500 });
-      },
-      (error: any) => {
-        console.error('Error updating area:', error);
-        this.snackBar.open('Could not update area, check that the area ID is correct.', 'Close', { duration: 1500 });
-      }
-    );
-  }
+    if (this.area.areaId == "" || this.area.name == ""){
+        const snackBarRef = this.snackBar.open('Please complete all fields', 'Close', { duration: 1500 });
+        setTimeout(() => {
+            snackBarRef.dismiss();
+        }, 500);
+    } else {
+        // Only attempt to update the area if all fields are filled
+        this.client.areasPUT(this.area.areaId ?? '', this.area).subscribe(
+            (response) => {
+                console.log('Area updated successfully', response);
+                this.snackBar.open('Area updated successfully', 'Close', { duration: 1500 });
+                // You might want to navigate the user to another page after successful update
+            },
+            (error: any) => {
+                console.error('Error updating area:', error);
+                this.snackBar.open('Could not update area, check that the area ID is correct.', 'Close', { duration: 1500 });
+            }
+        );
+    }
 }
+
+
 }

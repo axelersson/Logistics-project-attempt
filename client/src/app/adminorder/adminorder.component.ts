@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { OrderService } from '../services/order.service';
 import { Router } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-adminorder',
@@ -12,7 +13,7 @@ export class AdminorderComponent implements OnInit{
   orders: any[] = [];
   selectedOrderId: string | null = null;
 
-  constructor(private orderService: OrderService,private router: Router,private snackBar: MatSnackBar) {}
+  constructor(private orderService: OrderService,private router: Router,private snackBar: MatSnackBar,public authservice: AuthService) {}
 
   ngOnInit(): void {
     this.loadOrders();

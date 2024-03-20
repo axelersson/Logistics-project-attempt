@@ -15,9 +15,9 @@
         </mat-form-field>
         <div class="buttons-container">
           <button mat-raised-button color="primary" (click) = 'completeTheOrder()'>Complete the Order</button>
-          <button mat-raised-button color="warn" (click) = 'createOrder()'>Create Order</button>
-          <button mat-raised-button color="accent" (click) = 'updateSelectedOrder()'>Update Order</button>
-          <button mat-raised-button color="warn" (click)="cancelSelectedOrder()">Cancel Order</button>
+          <button mat-raised-button color="warn" (click) = 'createOrder()' *ngIf="authservice.isAdmin()" >Create Order</button>
+          <button mat-raised-button color="accent" (click) = 'updateSelectedOrder()' *ngIf="authservice.isAdmin()">Update Order</button>
+          <button mat-raised-button color="warn" (click)="cancelSelectedOrder()" *ngIf="authservice.isAdmin()" >Cancel Order</button>
           <button mat-raised-button color="basic" (click) = 'displayOrder()'>Display Order</button>
         </div>
       </mat-card-content>

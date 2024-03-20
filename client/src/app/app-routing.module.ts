@@ -31,7 +31,7 @@ const routes: Routes = [
   { path: '', redirectTo: '/homepage', pathMatch: 'full' },
   { path: 'adminedit', component: AdmineditComponent, canActivate: [AuthGuard], data: { role: 'Admin' } },
   { path: 'adminlocation', component: AdminlocationComponent, canActivate: [AuthGuard], data: { role: 'Admin' } },
-  { path: 'adminorder', component: AdminorderComponent, canActivate: [AuthGuard], data: { role: 'Admin' } },
+  { path: 'adminorder', component: AdminorderComponent},
   { path: 'area/:areaId', component: AreaDetailsComponent, canActivate: [AuthGuard] },
   { path: 'areacrud', component: AreaCrudpageComponent, canActivate: [AuthGuard], data: { role: 'Admin' } },
   { path: 'arealist', component: AreaComponent, canActivate: [AuthGuard] },
